@@ -4,4 +4,6 @@
 
 [Praca inżynierska](https://docs.google.com/document/d/152ciI7MKFu_sy3RFR4vye-7bya57rnhDH_31ukkLVow/edit#)
 
+[Plan](https://github.com/wojtekwanczyk/easy-manage/images/schedule.jpg)
+
 
