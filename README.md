@@ -6,8 +6,8 @@
 
 
 ## Schedule
+![Plan](https://github.com/wojtekwanczyk/easy-manage/blob/master/easy_manage/resources/schedule.jpg)
 
-![Plan](https://github.com/wojtekwanczyk/easy-manage/blob/master/images/schedule.jpg)
 
 
 ## Less important links
