@@ -46,3 +46,9 @@ class RedfishController(Controller):
     @staticmethod
     def safe_get(key, dictionary):
         return dictionary.get(key, '')
+
+
+class IpmiController(Controller):
+    def __init__(self, name, address, port):
+        super(IpmiController, self).__init__(name, address, port)
+        raise NotImplemented

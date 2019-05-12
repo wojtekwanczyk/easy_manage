@@ -5,7 +5,8 @@ with open("README.md", "r") as f:
 
 
 requirement_list = [
-    'numpy'
+    'argparse',
+    'redfish'
 ]
 
 setuptools.setup(
@@ -24,7 +25,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     entry_points={
-            'console_scripts': ['easy_manage=easy_manage.easy_manage:main']
+        'console_scripts': [
+            'easy_manage = easy_manage.easy_manage:main']
     },
     install_requires=requirement_list
 )

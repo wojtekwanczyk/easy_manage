@@ -1,5 +1,5 @@
 import argparse
-import utils
+import easy_manage.utils as utils
 
 
 def parse_args():
