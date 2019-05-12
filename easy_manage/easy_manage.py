@@ -19,8 +19,7 @@ def main():
     args = parse_args()
 
     testfish = utils.RedfishController('testfish', args.address, args.port)
-
-    print(testfish.links)
+    print(testfish.systems)
 
 
 if __name__ == '__main__':
