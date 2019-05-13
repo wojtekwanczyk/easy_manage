@@ -3,10 +3,11 @@ import setuptools
 with open("README.md", "r") as f:
     long_description = f.read()
 
-
 requirement_list = [
     'argparse',
-    'redfish'
+    'redfish',
+    'pymongo',
+    'pymongo[srv]'
 ]
 
 setuptools.setup(
