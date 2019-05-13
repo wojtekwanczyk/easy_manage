@@ -1,5 +1,5 @@
 import argparse
-import easy_manage.utils as utils
+import utils
 
 
 def parse_args():
@@ -19,7 +19,11 @@ def main():
     args = parse_args()
 
     testfish = utils.RedfishController('testfish', args.address, args.port)
-    print(testfish.systems)
+    test_sys = testfish.systems[0]
+    print(test_sys)
+    testfish.update_data()
+    print('end')
+    print(testfish.data)
 
 
 if __name__ == '__main__':
