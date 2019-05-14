@@ -1,54 +1,46 @@
-import redfish
+"""
+Module containing helpers for easy_manage package
+"""
+from datetime import datetime
 
 
-class Controller:
+class BadHealthState(Exception):  # pylint: disable=missing-docstring
+    pass
+
+
+class Controller:  # pylint: disable=too-few-public-methods
+    """
+    Base Controller class.
+    """
     def __init__(self, name, address, port):
         self.name = name
         self.address = address
         self.port = port
         self.socket = ':'.join([address, port])
         self.url = 'http://' + self.socket
-
-
-class RedfishController(Controller):
-    def __init__(self, name, address, port):
-        super(RedfishController, self).__init__(name, address, port)
-
-        self.client = redfish.redfish_client(base_url=self.url)
-        self.root = self.get_endpoint('/redfish/v1')
-
-        root_resources = self.root.get('Links')
-        self.root_resources = self.parse_odata(root_resources)
-
-        systems = self.get_endpoint(self.root_resources.get('Systems'))\
-            .get('Links')\
-            .get('Members')
-        self.systems = self.parse_odata(systems)
-
-    @staticmethod
-    def parse_odata(odata_iterable):
-        if not odata_iterable:
-            return None
-
-        parsed_dict = {}
-        if isinstance(odata_iterable, list):
-            for index, elem in enumerate(odata_iterable):
-                parsed_dict[index] = elem['@odata.id']
-        else:
-            for key, value in odata_iterable.items():
-                parsed_dict[key] = value['@odata.id']
-        return parsed_dict
-
-    def get_endpoint(self, endpoint):
-        resp = self.client.get(endpoint)
-        return resp.dict
-
-    @staticmethod
-    def safe_get(key, dictionary):
-        return dictionary.get(key, '')
+        self.last_update = datetime.now()
 
 
 class IpmiController(Controller):
+    """
+    Class for data retrieved from controller through
+    IPMI standard.
+    """
     def __init__(self, name, address, port):
         super(IpmiController, self).__init__(name, address, port)
         raise NotImplemented
+
+
+def prefix_tuples(string, tuples):
+    """
+    Appends given string to beginning of first element of every tuple
+    :param string: String to append to first element of every tuple
+    :param tuples: List of tuples to format
+    :return: Formatted list of tuples
+    """
+    return [('.'.join([string, tup[0]]),) + tup[1:] for tup in tuples]
+
+
+def is_iterable(structure):
+    """Check if given structure is either dictionary or list"""
+    return type(structure) in (dict, list)  # pylint: disable=unidiomatic-typecheck

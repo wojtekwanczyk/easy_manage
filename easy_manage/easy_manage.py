@@ -1,5 +1,7 @@
 import argparse
-import easy_manage.utils as utils
+import pprint
+import utils
+import redfish_controller
 
 
 def parse_args():
@@ -18,8 +20,15 @@ def parse_args():
 def main():
     args = parse_args()
 
-    testfish = utils.RedfishController('testfish', args.address, args.port)
-    print(testfish.systems)
+    testfish = redfish_controller.RedfishController('testfish', args.address, args.port)
+    test_sys = testfish.systems[0]
+    print(test_sys)
+    testfish.data = testfish.update_recurse('/redfish/v1/Systems/System-1')
+    # print('end')
+    # pprint.pprint(testfish.data)
+    print('Search')
+    found = testfish.find('Health')
+    pprint.pprint(found)
 
 
 if __name__ == '__main__':
