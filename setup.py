@@ -1,22 +1,23 @@
 import setuptools
 
 with open("README.md", "r") as f:
-    long_description = f.read()
+    LONG_DESCRIPTION = f.read()
 
-requirement_list = [
+REQUIREMENTS_LIST = [
     'argparse',
     'redfish',
     'pymongo',
-    'pymongo[srv]'
+    'pymongo[srv]',
+    'python-ipmi'
 ]
 
 setuptools.setup(
     name="easy_manage",
     version="0.0.1",
-    author="Borkowski Szymek, Rejowski Tomek, Wanczyk Wojtek",
-    author_email="boro@email.com, tomek@email.com, wojtekwanczyk@gmail.com",
+    author="Borkowski Szymuś, Rejowski Tomuś, Wanczyk Wojtuś",
+    author_email="borkowskiszymon28@gmail.com, tomekgsd@gmail.com, wojtekwanczyk@gmail.com",
     description="Managing server infrastructure easily",
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     url="https://github.com/wojtekwanczyk/easy_manage",
     packages=setuptools.find_packages(),
@@ -29,5 +30,5 @@ setuptools.setup(
         'console_scripts': [
             'easy_manage = easy_manage.easy_manage:main']
     },
-    install_requires=requirement_list
+    install_requires=REQUIREMENTS_LIST
 )

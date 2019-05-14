@@ -1,5 +1,6 @@
 import argparse
-import easy_manage.utils as utils
+from ipmi_controller import IPMIController
+from redfish_controller import RedfishController
 
 
 def parse_args():
@@ -18,8 +19,12 @@ def parse_args():
 def main():
     args = parse_args()
 
-    testfish = utils.RedfishController('testfish', args.address, args.port)
-    print(testfish.systems)
+    # testfish = RedfishController('testfish', args.address, args.port)
+    test_ipmi = IPMIController('test_ipmi', '127.0.0.1', '9001')
+    test_ipmi.show_device_id()
+    test_ipmi.show_functions()
+    test_ipmi.show_firmware_version()
+    # print(testfish.systems)
 
 
 if __name__ == '__main__':
