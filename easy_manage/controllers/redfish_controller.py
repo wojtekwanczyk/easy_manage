@@ -3,14 +3,15 @@ Module containing RedfishController class
 """
 from datetime import datetime
 import redfish  # pylint: disable=import-error
-import utils
+from controller import Controller
 
 
-class RedfishController(utils.Controller):
+class RedfishController(Controller):
     """
     Class for data retrieved from controller through
     Redfish standard.
     """
+
     def __init__(self, name, address, port):
         super(RedfishController, self).__init__(name, address, port)
 
@@ -22,8 +23,8 @@ class RedfishController(utils.Controller):
         root_resources = self.root.get('Links')
         self.root_resources = self.parse_odata(root_resources)
 
-        systems = self.get_data(self.root_resources.get('Systems'))\
-            .get('Links')\
+        systems = self.get_data(self.root_resources.get('Systems')) \
+            .get('Links') \
             .get('Members')
         self.systems = self.parse_odata(systems)
 
@@ -54,7 +55,7 @@ class RedfishController(utils.Controller):
         if isinstance(structure, dict):
             for key, value in structure.items():
                 if utils.is_iterable(value):
-                    tuples = self.search_recurse(name, value, i+1)
+                    tuples = self.search_recurse(name, value, i + 1)
                     if tuples:
                         prefixed_tuples = utils.prefix_tuples(key, tuples)
                         tuple_list += prefixed_tuples
@@ -62,7 +63,7 @@ class RedfishController(utils.Controller):
                     tuple_list.append((key, value))
         elif isinstance(structure, list):
             for elem in structure:
-                tuple_list += self.search_recurse(name, elem, i+1)
+                tuple_list += self.search_recurse(name, elem, i + 1)
         return tuple_list
 
     def find(self, name):
