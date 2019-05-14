@@ -1,5 +1,6 @@
 import argparse
 import utils
+import pprint
 
 
 def parse_args():
@@ -21,9 +22,12 @@ def main():
     testfish = utils.RedfishController('testfish', args.address, args.port)
     test_sys = testfish.systems[0]
     print(test_sys)
-    testfish.update_data()
-    print('end')
-    print(testfish.data)
+    testfish.data = testfish.update_recurse('/redfish/v1/Systems/System-1')
+    # print('end')
+    # pprint.pprint(testfish.data)
+    print('Search')
+    found = testfish.find('Health')
+    pprint.pprint(found)
 
 
 if __name__ == '__main__':

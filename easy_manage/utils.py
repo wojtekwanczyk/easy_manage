@@ -2,15 +2,14 @@
 Module containing helpers for easy_manage package
 """
 from datetime import datetime
-from collections import Iterable
-import redfish
+import redfish  # pylint: disable=import-error
 
 
 class BadHealthState(Exception):  # pylint: disable=missing-docstring
     pass
 
 
-class Controller:
+class Controller:  # pylint: disable=too-few-public-methods
     """
     Base Controller class.
     """
@@ -53,8 +52,12 @@ class RedfishController(Controller):
         if not odata_iterable:
             return None
         parsed_dict = {}
-        for key, value in odata_iterable.items():
-            parsed_dict[key] = value['@odata.id']
+        if isinstance(odata_iterable, list):
+            for index, elem in enumerate(odata_iterable):
+                parsed_dict[index] = elem['@odata.id']
+        else:
+            for key, value in odata_iterable.items():
+                parsed_dict[key] = value['@odata.id']
         return parsed_dict
 
     def get_data(self, endpoint):
@@ -68,27 +71,61 @@ class RedfishController(Controller):
             return None
         return self.get_data(self.systems[index])
 
-    # FIXME: transform to search locally in
-    # FIXME: self.data updated by recursive_update
-    def recursive_search(self, structure, name, max_depth=3, endpoint=None):
-        if max_depth == 0:
-            return None
+    def search_recurse(self, name, structure=None, i=0):
+        """
+        Searches for `name` iterable object
+        :param name: Name to search
+        :param structure: Iterable structure to search in
+        :param all_data: Common list with all collected pairs
+        (key, value) passed through all levels of recursion
+        :param i: just for debugging
+        :return: List with all collected pairs
+        (key, value) containing `name`
+        """
+        tuple_list = []
+
         if isinstance(structure, dict):
             for key, value in structure.items():
-                if key == '@odata.id':
-                    if value == endpoint:
-                        continue
-                    resp = self.get_data(value)
-                    self.recursive_search(resp, name, max_depth-1, value)
-                else:
-                    self.recursive_search(value, name, max_depth-1)
-                    if endpoint and name in (key, value):
-                        print(f'From {endpoint}\n\t{key}: {value}')
+                if RedfishController.is_iterable(value):
+                    tuples = self.search_recurse(name, value, i+1)
+                    if tuples:
+                        prefixed_tuples = RedfishController.prefix_tuples(key, tuples)
+                        tuple_list += prefixed_tuples
+                elif name in (key, value):
+                    tuple_list.append((key, value))
         elif isinstance(structure, list):
             for elem in structure:
-                self.recursive_search(elem, name, max_depth-1)
+                tuple_list += self.search_recurse(name, elem, i+1)
+        return tuple_list
 
-    def recursive_update(self, endpoint=None, max_depth=3, data=None):
+    def find(self, name):
+        """
+        Find `name` in data stored locally retrieved
+        earlier from Redfish controller
+        :param name: Name to search
+        :return: List of tuples containing info about found
+        value and its parent
+        """
+        found = []
+        for endpoint, data in self.data.items():
+            # print(endpoint)  # print searched endpoints
+            element_list = self.search_recurse(name, data)
+            if element_list:
+                prefixed_tuples = RedfishController.prefix_tuples(endpoint, element_list)
+                found += prefixed_tuples
+        return found
+
+    @staticmethod
+    def prefix_tuples(string, tuples):
+        """
+        Appends given string to beginning of first element of every tuple
+        :param string: String to append to first element of every tuple
+        :param tuples: List of tuples to format
+        :return: Formatted list of tuples
+        """
+        return [('.'.join([string, tup[0]]),) + tup[1:] for tup in tuples]
+
+    def update_recurse(self, endpoint=None, max_depth=3, data=None):
         """
         Update data about remote system
         :param endpoint: Endpoint from which recursive update starts
@@ -113,11 +150,11 @@ class RedfishController(Controller):
                 if key == '@odata.id':
                     if value == endpoint:
                         continue
-                    data = self.recursive_update(value, max_depth-1, data)
+                    data = self.update_recurse(value, max_depth - 1, data)
                 if isinstance(value, dict):
                     endpoints = RedfishController.endpoint_inception(value)
                     for endp in endpoints:
-                        data = self.recursive_update(endp, max_depth-1, data)
+                        data = self.update_recurse(endp, max_depth - 1, data)
         return data
 
     def update_data(self):
@@ -125,7 +162,7 @@ class RedfishController(Controller):
         Basically `recursive_update()` wrapper to retrieve
         whole data from Redfish controller
         """
-        self.data = self.recursive_update(self.api)
+        self.data = self.update_recurse(self.api)
         self.last_update = datetime.now()
 
     @staticmethod
@@ -142,7 +179,7 @@ class RedfishController(Controller):
                 endpoints = RedfishController.endpoint_inception(elem, max_depth - 1, endpoints)
         if isinstance(iterable, dict):
             for key, value in iterable.items():
-                if isinstance(value, Iterable):
+                if RedfishController.is_iterable(value):
                     endpoints = RedfishController.endpoint_inception(value,
                                                                      max_depth - 1,
                                                                      endpoints)
@@ -150,6 +187,10 @@ class RedfishController(Controller):
                     endpoints.append(value)
         return endpoints
 
+    @staticmethod
+    def is_iterable(structure):
+        "Check if given structure is either dictionary or list"
+        return type(structure) in (dict, list)  # pylint: disable=unidiomatic-typecheck
 
 class IpmiController(Controller):
     """
