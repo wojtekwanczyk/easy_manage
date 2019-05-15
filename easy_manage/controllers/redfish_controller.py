@@ -3,7 +3,7 @@ Module containing RedfishController class
 """
 from datetime import datetime
 import redfish  # pylint: disable=import-error
-from controller import Controller
+from .controller import Controller
 
 
 class RedfishController(Controller):

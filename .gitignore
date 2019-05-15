@@ -3,4 +3,4 @@ venv
 dist
 build
 *egg-info
-__*
+__pycache__
