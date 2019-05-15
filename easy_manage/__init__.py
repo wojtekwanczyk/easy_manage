@@ -1,8 +1,8 @@
 import argparse
 import pprint
 
-from ipmi_controller import IPMIController
-from redfish_controller import RedfishController
+from easy_manage.controllers.ipmi_controller import IpmiController
+from easy_manage.controllers.redfish_controller import RedfishController
 
 
 def parse_args():
@@ -31,10 +31,11 @@ def main():
     found = testfish.find('Health')
     pprint.pprint(found)
 
-    test_ipmi = IPMIController('test_ipmi', '127.0.0.1', '9001')
+    test_ipmi = IpmiController('test_ipmi', '127.0.0.1', '9001')
     test_ipmi.show_device_id()
     test_ipmi.show_functions()
     test_ipmi.show_firmware_version()
+
 
 if __name__ == '__main__':
     main()

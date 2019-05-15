@@ -7,7 +7,7 @@
 [IPMI pdf doc](http://openipmi.sourceforge.net/IPMI.pdf)
 
 ## Schedule
-![Plan](https://github.com/wojtekwanczyk/easy-manage/blob/master/easy_manage/resources/schedule.jpg)
+![Plan](https://github.com/wojtekwanczyk/easy-manage/blob/master/resources/schedule.jpg)
 
 
 
