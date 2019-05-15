@@ -28,7 +28,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'easy_manage = easy_manage.easy_manage:main']
+            'easy_manage = easy_manage.__init__:main']
     },
     install_requires=REQUIREMENTS_LIST
 )

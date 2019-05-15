@@ -2,6 +2,7 @@
 Module containing helpers for easy_manage package
 """
 
+
 def prefix_tuples(string, tuples):
     """
     Appends given string to beginning of first element of every tuple
