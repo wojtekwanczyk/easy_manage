@@ -1,6 +1,7 @@
 import argparse
 import pprint
 
+
 from easy_manage.controllers.ipmi_controller import IpmiController
 from easy_manage.controllers.redfish_controller import RedfishController
 
