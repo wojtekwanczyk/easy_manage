@@ -2,8 +2,8 @@
 Module containing RedfishController class
 """
 from datetime import datetime
+import redfish
 from easy_manage import utils
-import redfish  # pylint: disable=import-error
 from .controller import Controller
 
 

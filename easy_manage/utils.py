@@ -15,4 +15,4 @@ def prefix_tuples(string, tuples):
 
 def is_iterable(structure):
     """Check if given structure is either dictionary or list"""
-    return type(structure) in (dict, list)  # pylint: disable=unidiomatic-typecheck
+    return isinstance(structure, (list, dict))
