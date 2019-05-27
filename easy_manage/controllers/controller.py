@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Controller:
     def __init__(self, name, address, port):
         self.name = name
@@ -6,3 +9,4 @@ class Controller:
         # TODO: Do we need below for both controllers?
         self.socket = ':'.join([address, port])
         self.url = 'http://' + self.socket
+        self.last_update = datetime.now()
