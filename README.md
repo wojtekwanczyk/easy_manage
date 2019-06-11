@@ -6,6 +6,8 @@
 
 [IPMI pdf doc](http://openipmi.sourceforge.net/IPMI.pdf)
 
+[IPMI intel doc](https://www.intel.com/content/dam/www/public/us/en/documents/product-briefs/ipmi-second-gen-interface-spec-v2-rev1-1.pdf)
+
 ## Schedule 	:anger:
 ![Plan](https://github.com/wojtekwanczyk/easy-manage/blob/master/resources/schedule.jpg)
 
