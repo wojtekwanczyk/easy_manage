@@ -8,5 +8,5 @@ class Controller:
         self.port = port
         # TODO: Do we need below for both controllers?
         self.socket = ':'.join([address, port])
-        self.url = 'http://' + self.socket
+        self.url = 'https://' + self.address
         self.last_update = datetime.now()

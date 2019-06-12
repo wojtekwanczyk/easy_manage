@@ -13,13 +13,15 @@ def parse_args():
     args = parser.parse_args()
 
     # FIXME - only for testing
-    args.address = 'localhost'
+    if not args.address:
+        args.address = '172.16.67.120'
     args.port = '5000'
 
     return args
 
 
 def main():
+    print('ok')
     args = parse_args()
 
     testfish = RedfishController('testfish', args.address, args.port)

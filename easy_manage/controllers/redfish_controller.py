@@ -20,6 +20,7 @@ class RedfishController(Controller):
         self.api = '/redfish/v1'
         self.client = redfish.redfish_client(base_url=self.url)
         self.root = self.get_data(self.api)
+        print(self.root)
 
         root_resources = self.root.get('Links')
         self.root_resources = self.parse_odata(root_resources)
