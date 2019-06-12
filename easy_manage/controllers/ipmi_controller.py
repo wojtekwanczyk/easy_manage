@@ -36,7 +36,8 @@ class IpmiController(Controller):
         if refresh:
             self.device_id = self.ipmi.get_device_id()
         elif self.device_id is None and refresh is False:
-            raise NotInitializedError('Object has not been initialized with anything, set refresh to true')
+            raise NotInitializedError(
+                'Object has not been initialized with anything, set refresh to true')
 
         # Below code used only to print out the device ID information
         print('''
@@ -63,7 +64,8 @@ class IpmiController(Controller):
         if refresh:
             self.device_id = self.ipmi.get_device_id()
         elif self.device_id is None and refresh is False:
-            raise NotInitializedError('Object has not been initialized with anything, set refresh to tru')
+            raise NotInitializedError(
+                'Object has not been initialized with anything, set refresh to tru')
 
         functions = (
             ('SENSOR', 'Sensor Device'),
@@ -84,7 +86,8 @@ class IpmiController(Controller):
         if refresh:
             self.device_id = self.ipmi.get_device_id()
         elif self.device_id is None:
-            raise NotInitializedError('Object has not been initialized with anything, set refresh to true')
+            raise NotInitializedError(
+                'Object has not been initialized with anything, set refresh to true')
 
         if self.device_id.aux is not None:
 
