@@ -1,14 +1,15 @@
 import pyipmi
 import pyipmi.interfaces
-
+import logging
 from .controller import Controller
 from .exceptions import NotInitializedError
 
 
 class IpmiController(Controller):
 
-    def __init__(self, name, address, port):
-        super(IpmiController, self).__init__(name, address, port)
+    def __init__(self, name, address, port, tunnel=None):
+        super(IpmiController, self).__init__(name, address, port, tunnel)
+        logging.basicConfig(filename='ipmi_debug.log', filemode='w', level=logging.DEBUG)
         # set initial parameters of object to none
         self.device_id = None
         # set session type to rmcp (ipmitool or other possible), and addresses

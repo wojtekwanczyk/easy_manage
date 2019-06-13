@@ -13,9 +13,10 @@ class RedfishController(Controller):
     Redfish standard.
     """
 
-    def __init__(self, name, address, port):
-        super(RedfishController, self).__init__(name, address, port)
-
+    def __init__(self, name, address, port, tunnel=None):
+        super(RedfishController, self).__init__(name, address, port, tunnel)
+        self.url = ':'.join([self.address, str(self.port)])
+        self.url = 'https://' + self.url
         self.data = {}
         self.api = '/redfish/v1'
         self.client = redfish.redfish_client(base_url=self.url)

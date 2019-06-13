@@ -13,7 +13,7 @@ def parse_args():
     args = parser.parse_args()
 
     # FIXME - only for testing
-    args.address = 'localhost'
+    args.address = '172.16.67.120'
     args.port = '5000'
 
     return args
@@ -21,8 +21,9 @@ def parse_args():
 
 def main():
     args = parse_args()
+    tunnel = {'address': 'jagular.iisg.agh.edu.pl', 'username': 'penis', 'password': 'penis'}
 
-    testfish = RedfishController('testfish', args.address, args.port)
+    testfish = RedfishController('testfish', args.address, '443', tunnel)
     test_sys = testfish.systems[0]
     print(test_sys)
     testfish.data = testfish.update_recurse('/redfish/v1/Systems/System-1')
@@ -32,7 +33,7 @@ def main():
     found = testfish.find('Health')
     pprint.pprint(found)
 
-    test_ipmi = IpmiController('test_ipmi', '127.0.0.1', '9001')
+    test_ipmi = IpmiController('test_ipmi', args.address, '80', tunnel)
     test_ipmi.show_device_id()
     test_ipmi.show_functions()
     test_ipmi.show_firmware_version()
