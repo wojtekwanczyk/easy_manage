@@ -2,6 +2,8 @@
 
 ## Important links 	:star:
 
+[Praca inżynierska](https://www.overleaf.com/7868136442hhzxfsqkxmtw)
+
 [Documents](https://drive.google.com/open?id=1EreYxAh-ETU-srL9644vSiHSea4uAuf4)
 
 [IPMI pdf doc](http://openipmi.sourceforge.net/IPMI.pdf)
