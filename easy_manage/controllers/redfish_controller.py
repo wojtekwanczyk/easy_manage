@@ -5,6 +5,7 @@ from datetime import datetime
 import redfish
 from easy_manage import utils
 from .controller import Controller
+import pprint as pp
 
 
 class RedfishController(Controller):
@@ -18,17 +19,29 @@ class RedfishController(Controller):
 
         self.data = {}
         self.api = '/redfish/v1'
-        self.client = redfish.redfish_client(base_url=self.url)
+        try:
+            self.client = redfish.redfish_client(
+                base_url=self.url,
+                username='student',
+                password='VaSIkFFzIyU76csoa8JM')
+            self.client.login(auth='session')
+        except:
+            print("Error while logging in")
+        
         self.root = self.get_data(self.api)
-        print(self.root)
+        pp.pprint(self.root)
 
-        root_resources = self.root.get('Links')
-        self.root_resources = self.parse_odata(root_resources)
+        # root_resources = self.root.get('Links')
+        # self.root_resources = self.parse_odata(root_resources)
 
-        systems = self.get_data(self.root_resources.get('Systems')) \
-            .get('Links') \
-            .get('Members')
-        self.systems = self.parse_odata(systems)
+        redfish_leaf = 'Systems'
+        print(f"===== {redfish_leaf} =====")
+        endp = self.root.get(redfish_leaf)['@odata.id']
+        self.systems = self.get_data(endp) \
+            # .get('Links') \
+            # .get('Members')
+        res = self.get_data('/redfish/v1/Systems')
+        pp.pprint(res)
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""
@@ -155,7 +168,7 @@ class RedfishController(Controller):
         """
         if not odata_iterable:
             return None
-        parsed_dict = {}
+        parsed_dict = dict()
         if isinstance(odata_iterable, list):
             for index, elem in enumerate(odata_iterable):
                 parsed_dict[index] = elem['@odata.id']

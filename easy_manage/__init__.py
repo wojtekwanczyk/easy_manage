@@ -24,17 +24,17 @@ def main():
     print('ok')
     args = parse_args()
 
-    testfish = RedfishController('testfish', args.address, args.port)
-    test_sys = testfish.systems[0]
-    print(test_sys)
-    testfish.data = testfish.update_recurse('/redfish/v1/Systems/System-1')
-    # print('end')
-    # pprint.pprint(testfish.data)
-    print('Search')
-    found = testfish.find('Health')
-    pprint.pprint(found)
+    # testfish = RedfishController('testfish', args.address, args.port)
+    # test_sys = testfish.systems
+    # print(test_sys)
+    # testfish.data = testfish.update_recurse('/redfish/v1/Systems/System-1')
+    # # print('end')
+    # # pprint.pprint(testfish.data)
+    # print('Search')
+    # found = testfish.find('Health')
+    # pprint.pprint(found)
 
-    test_ipmi = IpmiController('test_ipmi', '127.0.0.1', '9001')
+    test_ipmi = IpmiController('test_ipmi', '172.16.67.120', '623')
     test_ipmi.show_device_id()
     test_ipmi.show_functions()
     test_ipmi.show_firmware_version()
