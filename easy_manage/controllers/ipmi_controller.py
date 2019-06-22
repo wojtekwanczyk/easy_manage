@@ -5,20 +5,25 @@ from .controller import Controller
 from .exceptions import NotInitializedError
 
 
+
 class IpmiController(Controller):
 
-    def __init__(self, name, address, port):
+    def __init__(self, name, address, port=623):
         super(IpmiController, self).__init__(name, address, port)
         # set initial parameters of object to none
         self.device_id = None
         # set session type to rmcp (ipmitool or other possible), and addresses
-        interface = pyipmi.interfaces.create_interface(interface='rmcp')
+        try:
+            interface = pyipmi.interfaces.create_interface(interface='ipmitool', interface_type='lanplus')
+        except Exception as e:
+            print(e)
+            sys.exit(1)
 
         # create connection on that interface
         self.ipmi = pyipmi.create_connection(interface)
         self.ipmi.session.set_session_type_rmcp(host=self.address, port=int(self.port))
-        # FIXME: username and passowrd prompt to establish session
-        self.ipmi.session.set_auth_type_user(username='ipmiusr', password='test')
+        # FIXME: username and passowrd prompt to establish session, send hashed password
+        self.ipmi.session.set_auth_type_user(username='student', password='VaSIkFFzIyU76csoa8JM')
 
         # Set target of IPMB to 0x20 MC
         # TODO: Setting the address of the mc to different values

@@ -5,7 +5,11 @@ from datetime import datetime
 import redfish
 from easy_manage import utils
 from .controller import Controller
+import pprint as pp
+import logging
 
+LOGGER = logging.getLogger('redfish_controller')
+LOGGER.setLevel(logging.DEBUG)
 
 class RedfishController(Controller):
     """
@@ -13,21 +17,27 @@ class RedfishController(Controller):
     Redfish standard.
     """
 
-    def __init__(self, name, address, port):
+    def __init__(self, name, address, port=None):
         super(RedfishController, self).__init__(name, address, port)
 
         self.data = {}
         self.api = '/redfish/v1'
-        self.client = redfish.redfish_client(base_url=self.url)
+        try:
+            self.client = redfish.redfish_client(
+                base_url=self.url,
+                username='student',
+                password='VaSIkFFzIyU76csoa8JM')
+            self.client.login(auth='session')
+        except:
+            LOG.critical("Error while logging in")
+        
         self.root = self.get_data(self.api)
+        LOGGER.debug("System root")
+        pp.pprint(self.root)
 
-        root_resources = self.root.get('Links')
-        self.root_resources = self.parse_odata(root_resources)
-
-        systems = self.get_data(self.root_resources.get('Systems')) \
-            .get('Links') \
-            .get('Members')
-        self.systems = self.parse_odata(systems)
+        # FIXME this is not list of systems, we need to extract `Members` key
+        # FIXME it must be done during RedfishSystem class implementation
+        self.systems = self.parse_odata(self.root['Systems'])
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""
@@ -146,19 +156,21 @@ class RedfishController(Controller):
                     endpoints.append(value)
         return endpoints
 
-    @staticmethod
-    def parse_odata(odata_iterable):
+    def parse_odata(self, odata_iterable):
         """
         Exchange useless @odata keys in a dictionary
         for more readable keys
         """
         if not odata_iterable:
             return None
-        parsed_dict = {}
+        parsed_dict = dict()
         if isinstance(odata_iterable, list):
             for index, elem in enumerate(odata_iterable):
                 parsed_dict[index] = elem['@odata.id']
         else:
             for key, value in odata_iterable.items():
-                parsed_dict[key] = value['@odata.id']
+                if key == '@odata.id':
+                    parsed_dict[value] = self.get_data(value)
+                else:
+                    parsed_dict[key] = value['@odata.id']
         return parsed_dict
