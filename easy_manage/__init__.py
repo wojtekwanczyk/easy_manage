@@ -1,10 +1,13 @@
 import argparse
-import pprint
-
+import pprint as pp
+import logging
 
 from easy_manage.controllers.ipmi_controller import IpmiController
 from easy_manage.controllers.redfish_controller import RedfishController
 
+logging.basicConfig(format='%(message)s')
+LOGGER = logging.getLogger('easy_manage')
+LOGGER.setLevel(logging.DEBUG)
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Placeholder for description')
@@ -15,26 +18,28 @@ def parse_args():
     # FIXME - only for testing
     if not args.address:
         args.address = '172.16.67.120'
-    args.port = '5000'
+        LOGGER.debug(f'Default server addres {args.address} has been set')
 
     return args
 
 
 def main():
-    print('ok')
+
+    LOGGER.info('Welcome to easy_manage!')
     args = parse_args()
 
-    # testfish = RedfishController('testfish', args.address, args.port)
-    # test_sys = testfish.systems
-    # print(test_sys)
-    # testfish.data = testfish.update_recurse('/redfish/v1/Systems/System-1')
-    # # print('end')
-    # # pprint.pprint(testfish.data)
-    # print('Search')
-    # found = testfish.find('Health')
-    # pprint.pprint(found)
+    testfish = RedfishController('testfish', args.address)
+    LOGGER.info('Systems')
+    pp.pprint(testfish.systems)
+    testfish.data = testfish.update_recurse(list(testfish.systems.keys())[0])
+    LOGGER.info('=== Data ===')
+    pp.pprint(testfish.data)
+    LOGGER.info('=== Search ===')
+    found = testfish.find('Name')
+    pp.pprint(found)
 
-    test_ipmi = IpmiController('test_ipmi', '172.16.67.120', '623')
+    LOGGER.info('IPMI TEST')
+    test_ipmi = IpmiController('test_ipmi', args.address)
     test_ipmi.show_device_id()
     test_ipmi.show_functions()
     test_ipmi.show_firmware_version()

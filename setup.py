@@ -8,13 +8,14 @@ REQUIREMENTS_LIST = [
     'redfish',
     'pymongo',
     'pymongo[srv]',
-    'python-ipmi'
+    'python-ipmi',
+    'logging'
 ]
 
 setuptools.setup(
     name="easy_manage",
     version="0.0.1",
-    author="Borkowski Szymus, Rejowski Tomus, Wanczyk Wojtus",
+    author="Borkowski Szymus, Rejowski Tomus, Wanczyk Wojtek",
     author_email="borkowskiszymon28@gmail.com, tomekgsd@gmail.com, wojtekwanczyk@gmail.com",
     description="Managing server infrastructure easily",
     long_description=LONG_DESCRIPTION,

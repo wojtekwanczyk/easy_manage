@@ -6,7 +6,10 @@ import redfish
 from easy_manage import utils
 from .controller import Controller
 import pprint as pp
+import logging
 
+LOGGER = logging.getLogger('redfish_controller')
+LOGGER.setLevel(logging.DEBUG)
 
 class RedfishController(Controller):
     """
@@ -14,7 +17,7 @@ class RedfishController(Controller):
     Redfish standard.
     """
 
-    def __init__(self, name, address, port):
+    def __init__(self, name, address, port=None):
         super(RedfishController, self).__init__(name, address, port)
 
         self.data = {}
@@ -26,22 +29,15 @@ class RedfishController(Controller):
                 password='VaSIkFFzIyU76csoa8JM')
             self.client.login(auth='session')
         except:
-            print("Error while logging in")
+            LOG.critical("Error while logging in")
         
         self.root = self.get_data(self.api)
+        LOGGER.debug("System root")
         pp.pprint(self.root)
 
-        # root_resources = self.root.get('Links')
-        # self.root_resources = self.parse_odata(root_resources)
-
-        redfish_leaf = 'Systems'
-        print(f"===== {redfish_leaf} =====")
-        endp = self.root.get(redfish_leaf)['@odata.id']
-        self.systems = self.get_data(endp) \
-            # .get('Links') \
-            # .get('Members')
-        res = self.get_data('/redfish/v1/Systems')
-        pp.pprint(res)
+        # FIXME this is not list of systems, we need to extract `Members` key
+        # FIXME it must be done during RedfishSystem class implementation
+        self.systems = self.parse_odata(self.root['Systems'])
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""
@@ -160,8 +156,7 @@ class RedfishController(Controller):
                     endpoints.append(value)
         return endpoints
 
-    @staticmethod
-    def parse_odata(odata_iterable):
+    def parse_odata(self, odata_iterable):
         """
         Exchange useless @odata keys in a dictionary
         for more readable keys
@@ -174,5 +169,8 @@ class RedfishController(Controller):
                 parsed_dict[index] = elem['@odata.id']
         else:
             for key, value in odata_iterable.items():
-                parsed_dict[key] = value['@odata.id']
+                if key == '@odata.id':
+                    parsed_dict[value] = self.get_data(value)
+                else:
+                    parsed_dict[key] = value['@odata.id']
         return parsed_dict

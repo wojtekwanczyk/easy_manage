@@ -5,9 +5,10 @@ from .controller import Controller
 from .exceptions import NotInitializedError
 
 
+
 class IpmiController(Controller):
 
-    def __init__(self, name, address, port):
+    def __init__(self, name, address, port=623):
         super(IpmiController, self).__init__(name, address, port)
         # set initial parameters of object to none
         self.device_id = None
@@ -21,9 +22,8 @@ class IpmiController(Controller):
         # create connection on that interface
         self.ipmi = pyipmi.create_connection(interface)
         self.ipmi.session.set_session_type_rmcp(host=self.address, port=int(self.port))
-        # FIXME: username and passowrd prompt to establish session
+        # FIXME: username and passowrd prompt to establish session, send hashed password
         self.ipmi.session.set_auth_type_user(username='student', password='VaSIkFFzIyU76csoa8JM')
-        print('ok')
 
         # Set target of IPMB to 0x20 MC
         # TODO: Setting the address of the mc to different values
