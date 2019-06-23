@@ -1,7 +1,4 @@
-from datetime import datetime
-
-
-class Controller:
+class Controller():
     def __init__(self, name, address, db, port):
         self.name = name
         self.address = address
@@ -9,4 +6,4 @@ class Controller:
         self.port = port
         self.url = 'https://' + self.address
         self.data = {}
-        self.last_update = datetime.now()
+        self.last_update = None

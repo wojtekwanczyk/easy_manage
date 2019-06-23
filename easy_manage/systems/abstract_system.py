@@ -1,7 +1,3 @@
-from datetime import datetime
-from easy_manage.controllers.RedfishController import RedfishController
-
-
 class AbstractSystem:
     "Class that represents the system and defines its methods"
 
@@ -10,7 +6,8 @@ class AbstractSystem:
         self.controller = controller
         self.db = controller.db
         self.data = {}
-    
+        self.last_update = None
+
     def get_power_state(self):
         pass
 

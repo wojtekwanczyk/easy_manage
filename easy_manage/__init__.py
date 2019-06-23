@@ -5,8 +5,8 @@ import json
 
 from pymongo import MongoClient
 from easy_manage.controllers.ipmi_controller import IpmiController
-from easy_manage.controllers.RedfishController import RedfishController
-from easy_manage.systems.RedfishSystem import RedfishSystem
+from easy_manage.controllers.redfish_controller import RedfishController
+from easy_manage.systems.redfish_system import RedfishSystem
 
 logging.basicConfig(format='%(message)s')
 LOGGER = logging.getLogger('easy_manage')
@@ -21,7 +21,7 @@ def parse_args():
     # FIXME - only for testing
     if not args.address:
         args.address = '172.16.67.120'
-        LOGGER.debug(f'Default server address {args.address} has been set')
+        LOGGER.debug(f"Default server address {args.address} has been set")
 
     return args
 
@@ -39,7 +39,7 @@ def main():
 
     mongo_client = MongoClient(config['database uri'])
     db = mongo_client.get_database(config['database name'])
-    
+
     rc = RedfishController('controller_test', args.address, db)
     rc.fetch()
     print('== controller ==')

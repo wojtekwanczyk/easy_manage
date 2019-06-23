@@ -2,11 +2,10 @@
 RedfishController class
 """
 from datetime import datetime
+import logging
 import redfish
 from easy_manage import utils
-from easy_manage.controllers.Controller import Controller
-import pprint as pp
-import logging
+from easy_manage.controllers.controller import Controller
 
 LOGGER = logging.getLogger('RedfishController')
 LOGGER.setLevel(logging.DEBUG)
@@ -21,33 +20,33 @@ class RedfishController(Controller):
         super().__init__(name, address, db, port)
 
         self.endpoint = '/redfish/v1'
-        self.db_filter = { '_controller': self.name }
+        self.db_filter = {'_controller': self.name}
         self.client = redfish.redfish_client(
-                base_url=self.url,
-                username='student',
-                password='VaSIkFFzIyU76csoa8JM')
+            base_url=self.url,
+            username='student',
+            password='VaSIkFFzIyU76csoa8JM')
         self.connected = False
-    
 
     def connect(self):
         try:
             self.client.login(auth='session')
             self.connected = True
-        except Exception as e:
-            LOG.critical(f"Error while logging in\n{e}")
+        except Exception as ex:
+            LOGGER.error(f"Error while logging in\n{ex}")
             return 1
+        return 0
 
     def fetch(self, level=1):
         """Fetches data from device through Redfish interface and passes it to database.
         If the session has not been established, then data is fetched from database"""
         if self.connected:
             # fetch through redfish
-            self.data = self.update_recurse(self.endpoint, 1)
-            # pass data to db
+            self.data = self.update_recurse(self.endpoint, level)
+            self.last_update = datetime.now()
             self.__save_to_db()
         elif not self.data:
             self.__fetch_from_db()
-    
+
     def __save_to_db(self):
         self.data['_controller'] = self.name
         self.db.controllers.update(
@@ -63,6 +62,7 @@ class RedfishController(Controller):
         resp = self.client.get(endpoint)
         return resp.dict
 
+    # TODO append systems
     def get_system(self, index):
         """Get system information by index"""
         if not self.systems:
