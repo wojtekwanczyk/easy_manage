@@ -7,7 +7,6 @@ REQUIREMENTS_LIST = [
     'argparse',
     'redfish',
     'pymongo',
-    'pymongo[srv]',
     'python-ipmi',
     'logging'
 ]
