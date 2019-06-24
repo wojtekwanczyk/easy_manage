@@ -1,10 +1,12 @@
+import logging
 import pyipmi
 import pyipmi.interfaces
 
 from .controller import Controller
 from .exceptions import NotInitializedError
 
-
+LOGGER = logging.getLogger('easy_manage')
+LOGGER.setLevel(logging.DEBUG)
 
 class IpmiController(Controller):
 
@@ -13,11 +15,13 @@ class IpmiController(Controller):
         # set initial parameters of object to none
         self.device_id = None
         # set session type to rmcp (ipmitool or other possible), and addresses
+        # TODO move it to separate function
         try:
-            interface = pyipmi.interfaces.create_interface(interface='ipmitool', interface_type='lanplus')
-        except Exception as e:
-            print(e)
-            sys.exit(1)
+            interface = pyipmi.interfaces.create_interface(
+                interface='ipmitool',
+                interface_type='lanplus')
+        except Exception as ex:
+            LOGGER.error(f"Error while logging in\n{ex}")
 
         # create connection on that interface
         self.ipmi = pyipmi.create_connection(interface)

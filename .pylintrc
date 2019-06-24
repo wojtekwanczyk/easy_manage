@@ -139,7 +139,8 @@ disable=parameter-unpacking,
         xreadlines-attribute,
         deprecated-sys-function,
         exception-escape,
-        comprehension-escape
+        comprehension-escape,
+        logging-fstring-interpolation
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -370,7 +371,7 @@ good-names=i,
            j,
            k,
            ex,
-           Run,
+           db,
            _
 
 # Include a hint for the correct naming format with invalid-name.
@@ -430,7 +431,7 @@ check-str-concat-over-line-jumps=no
 
 # Format style used to check logging format string. `old` means using %
 # formatting, while `new` is for `{}` formatting.
-logging-format-style=old
+logging-format-style=new
 
 # Logging modules to check that the string format arguments are in logging
 # function parameter format.

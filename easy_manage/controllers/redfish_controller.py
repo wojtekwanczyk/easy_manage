@@ -1,14 +1,13 @@
 """
-Module containing RedfishController class
+RedfishController class
 """
 from datetime import datetime
+import logging
 import redfish
 from easy_manage import utils
-from .controller import Controller
-import pprint as pp
-import logging
+from easy_manage.controllers.controller import Controller
 
-LOGGER = logging.getLogger('redfish_controller')
+LOGGER = logging.getLogger('RedfishController')
 LOGGER.setLevel(logging.DEBUG)
 
 class RedfishController(Controller):
@@ -17,33 +16,53 @@ class RedfishController(Controller):
     Redfish standard.
     """
 
-    def __init__(self, name, address, port=None):
-        super(RedfishController, self).__init__(name, address, port)
+    def __init__(self, name, address, db, port=None):
+        super().__init__(name, address, db, port)
 
-        self.data = {}
-        self.api = '/redfish/v1'
+        self.endpoint = '/redfish/v1'
+        self.db_filter = {'_controller': self.name}
+        self.client = redfish.redfish_client(
+            base_url=self.url,
+            username='student',
+            password='VaSIkFFzIyU76csoa8JM')
+        self.connected = False
+
+    def connect(self):
         try:
-            self.client = redfish.redfish_client(
-                base_url=self.url,
-                username='student',
-                password='VaSIkFFzIyU76csoa8JM')
             self.client.login(auth='session')
-        except:
-            LOG.critical("Error while logging in")
-        
-        self.root = self.get_data(self.api)
-        LOGGER.debug("System root")
-        pp.pprint(self.root)
+            self.connected = True
+        except Exception as ex:
+            LOGGER.error(f"Error while logging in\n{ex}")
+            return 1
+        return 0
 
-        # FIXME this is not list of systems, we need to extract `Members` key
-        # FIXME it must be done during RedfishSystem class implementation
-        self.systems = self.parse_odata(self.root['Systems'])
+    def fetch(self, level=1):
+        """Fetches data from device through Redfish interface and passes it to database.
+        If the session has not been established, then data is fetched from database"""
+        if self.connected:
+            # fetch through redfish
+            self.data = self.update_recurse(self.endpoint, level)
+            self.last_update = datetime.now()
+            self.__save_to_db()
+        elif not self.data:
+            self.__fetch_from_db()
+
+    def __save_to_db(self):
+        self.data['_controller'] = self.name
+        self.db.controllers.update(
+            self.db_filter,
+            self.data,
+            upsert=True)
+
+    def __fetch_from_db(self):
+        self.data = self.db.controllers.find_one(self.db_filter)
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""
         resp = self.client.get(endpoint)
         return resp.dict
 
+    # TODO append systems
     def get_system(self, index):
         """Get system information by index"""
         if not self.systems:
@@ -70,7 +89,7 @@ class RedfishController(Controller):
                     if tuples:
                         prefixed_tuples = utils.prefix_tuples(key, tuples)
                         tuple_list += prefixed_tuples
-                elif name in (key, value):
+                if name in (key, value):
                     tuple_list.append((key, value))
         elif isinstance(structure, list):
             for elem in structure:
@@ -131,7 +150,7 @@ class RedfishController(Controller):
         Basically `recursive_update()` wrapper to retrieve
         whole data from Redfish controller
         """
-        self.data = self.update_recurse(self.api)
+        self.data = self.update_recurse(self.endpoint)
         self.last_update = datetime.now()
 
     @staticmethod
