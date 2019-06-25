@@ -21,20 +21,20 @@ class RedfishConnector(Connector):
 
         self.endpoint = '/redfish/v1'
         self.db_filter = {'_connector': self.name}
-        self.client = redfish.redfish_client(
-            base_url=self.url,
-            username='student',
-            password='VaSIkFFzIyU76csoa8JM')
         self.connected = False
 
     def connect(self):
         try:
+            self.client = redfish.redfish_client(
+                base_url=self.url,
+                username='student',
+                password='VaSIkFFzIyU76csoa8JM')
             self.client.login(auth='session')
             self.connected = True
         except Exception as ex:
             LOGGER.error(f"Error while logging in\n{ex}")
-            return 1
-        return 0
+            return False
+        return True
 
     def fetch(self, level=1):
         """Fetches data from device through Redfish interface and passes it to database.

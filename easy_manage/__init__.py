@@ -9,6 +9,7 @@ from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.systems.ipmi_system import IpmiSystem
+from easy_manage.controller.controller_factory import ControllerFactory
 
 #imp.reload(ipmi_connector)
 
@@ -37,7 +38,7 @@ def parse_conf(filename):
 def redfish_demo(args, db):
     LOGGER.info('Redfish demo')
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db)
-    rf_conn.connect() # without this data is taken from db
+    print(rf_conn.connect()) # without this data is taken from db
     rf_conn.fetch()
     
     # print('== connector ==')
@@ -57,10 +58,11 @@ def redfish_demo(args, db):
 def ipmi_demo(args, db):
     LOGGER.info('IPMI demo')
     ipmi_conn = IpmiConnector('test_connector_ipmi', args.address, db)
-    ipmi_conn.connect()
+    print(ipmi_conn.connect())
     # ipmi_conn.show_device_id()
     # ipmi_conn.show_functions()
     # ipmi_conn.show_firmware_version()
+    #print('========= ' + ipmi_conn.ipmi.connected)
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
     power = ipmi_sys.get_power_state()
     print(f"Power state: {power}")
@@ -74,8 +76,12 @@ def main():
     mongo_client = MongoClient(config['database uri'])
     db = mongo_client.get_database(config['database name'])
 
-    redfish_demo(args, db)
-    ipmi_demo(args, db)
+    #redfish_demo(args, db)
+    #ipmi_demo(args, db)
+
+    controller_factory = ControllerFactory()
+    controller = controller_factory.create_controller('name', 'description', args.address, 'student', 'password', db)
+    print(f"POWER STATE: {controller.get_power_state()}")
 
 if __name__ == '__main__':
     main()

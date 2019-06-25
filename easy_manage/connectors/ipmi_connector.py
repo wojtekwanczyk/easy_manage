@@ -36,6 +36,13 @@ class IpmiConnector(Connector):
         self.ipmi.target = pyipmi.Target(ipmb_address=0x20)
         self.ipmi.session.establish()
 
+        try:
+            self.device_id = self.ipmi.get_device_id()
+        except Exception as ex:
+            return False
+        
+        return True
+
     def show_device_id(self, refresh=True):
         """
         Method for printing device primary options to console
