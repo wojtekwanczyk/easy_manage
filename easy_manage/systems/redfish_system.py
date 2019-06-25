@@ -38,7 +38,8 @@ class RedfishSystem(AbstractSystem):
         self.data = self.db.systems.find_one(self.db_filter)
 
     def get_power_state(self):
-        return self.controller.search_recurse('PowerState', self.data)
+        state_list = self.controller.search_recurse('PowerState', self.data)
+        return True if state_list[0][1] == 'On' else False
 
     def get_status(self):
         return self.controller.search_recurse('Status', self.data)

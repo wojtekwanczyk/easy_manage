@@ -14,17 +14,19 @@ class IpmiController(Controller):
         super().__init__(name, address, db, port)
         # set initial parameters of object to none
         self.device_id = None
+        self.interface = None
         # set session type to rmcp (ipmitool or other possible), and addresses
         # TODO move it to separate function
         try:
-            interface = pyipmi.interfaces.create_interface(
+            self.interface = pyipmi.interfaces.create_interface(
                 interface='ipmitool',
                 interface_type='lanplus')
         except Exception as ex:
             LOGGER.error(f"Error while logging in\n{ex}")
 
+    def connect(self):
         # create connection on that interface
-        self.ipmi = pyipmi.create_connection(interface)
+        self.ipmi = pyipmi.create_connection(self.interface)
         self.ipmi.session.set_session_type_rmcp(host=self.address, port=int(self.port))
         # FIXME: username and passowrd prompt to establish session, send hashed password
         self.ipmi.session.set_auth_type_user(username='student', password='VaSIkFFzIyU76csoa8JM')
