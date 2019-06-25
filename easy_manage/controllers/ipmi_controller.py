@@ -10,8 +10,8 @@ LOGGER.setLevel(logging.DEBUG)
 
 class IpmiController(Controller):
 
-    def __init__(self, name, address, port=623):
-        super(IpmiController, self).__init__(name, address, port)
+    def __init__(self, name, address, db, port=623):
+        super().__init__(name, address, db, port)
         # set initial parameters of object to none
         self.device_id = None
         # set session type to rmcp (ipmitool or other possible), and addresses

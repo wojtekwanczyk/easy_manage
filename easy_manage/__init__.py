@@ -30,17 +30,10 @@ def parse_conf(filename):
         data = json.load(config_file)
     return data
 
-
-def main():
-    config = parse_conf('config.json')
-
-    LOGGER.info('Welcome to easy_manage!')
-    args = parse_args()
-
-    mongo_client = MongoClient(config['database uri'])
-    db = mongo_client.get_database(config['database name'])
-
+def redfish_demo(args, db):
+    LOGGER.info('Redfish demo')
     rc = RedfishController('controller_test', args.address, db)
+    #rc.connect() # without this data is taken from db
     rc.fetch()
     print('== controller ==')
     pp.pprint(rc.data)
@@ -56,12 +49,24 @@ def main():
     status = rs.get_status()
     print(f"Status: {status}")
 
-    # LOGGER.info('IPMI TEST')
-    # test_ipmi = IpmiController('test_ipmi', args.address)
-    # test_ipmi.show_device_id()
-    # test_ipmi.show_functions()
-    # test_ipmi.show_firmware_version()
+def ipmi_demo(args, db):
+    LOGGER.info('IPMI demo')
+    test_ipmi = IpmiController('test_ipmi', args.address, db)
+    test_ipmi.show_device_id()
+    test_ipmi.show_functions()
+    test_ipmi.show_firmware_version()
 
+def main():
+    config = parse_conf('config.json')
+
+    LOGGER.info("Welcome to easy_manage!")
+    args = parse_args()
+
+    mongo_client = MongoClient(config['database uri'])
+    db = mongo_client.get_database(config['database name'])
+
+    #redfish_demo(args, db)
+    ipmi_demo(args, db)
 
 if __name__ == '__main__':
     main()
