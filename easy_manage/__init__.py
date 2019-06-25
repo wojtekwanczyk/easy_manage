@@ -5,12 +5,12 @@ import json
 import imp # just for testing
 
 from pymongo import MongoClient
-from easy_manage.controllers.ipmi_controller import IpmiController
-from easy_manage.controllers.redfish_controller import RedfishController
+from easy_manage.connectors.ipmi_connector import IpmiConnector
+from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.systems.ipmi_system import IpmiSystem
 
-#imp.reload(ipmi_controller)
+#imp.reload(ipmi_connector)
 
 logging.basicConfig(format='%(message)s')
 LOGGER = logging.getLogger('easy_manage')
@@ -36,14 +36,14 @@ def parse_conf(filename):
 
 def redfish_demo(args, db):
     LOGGER.info('Redfish demo')
-    rf_cont = RedfishController('test_controller_redfish', args.address, db)
-    rf_cont.connect() # without this data is taken from db
-    rf_cont.fetch()
+    rf_conn = RedfishConnector('test_connector_redfish', args.address, db)
+    rf_conn.connect() # without this data is taken from db
+    rf_conn.fetch()
     
-    # print('== controller ==')
-    # pp.pprint(rf_cont.data)
+    # print('== connector ==')
+    # pp.pprint(rf_conn.data)
 
-    rf_sys = RedfishSystem('test_system_redfish', rf_cont, '/redfish/v1/Systems/1')
+    rf_sys = RedfishSystem('test_system_redfish', rf_conn, '/redfish/v1/Systems/1')
     rf_sys.fetch()
     # print('== system ==')
     # pp.pprint(rf_sys.data)
@@ -56,12 +56,12 @@ def redfish_demo(args, db):
 
 def ipmi_demo(args, db):
     LOGGER.info('IPMI demo')
-    ipmi_cont = IpmiController('test_controller_ipmi', args.address, db)
-    ipmi_cont.connect()
-    # ipmi_cont.show_device_id()
-    # ipmi_cont.show_functions()
-    # ipmi_cont.show_firmware_version()
-    ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_cont)
+    ipmi_conn = IpmiConnector('test_connector_ipmi', args.address, db)
+    ipmi_conn.connect()
+    # ipmi_conn.show_device_id()
+    # ipmi_conn.show_functions()
+    # ipmi_conn.show_firmware_version()
+    ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
     power = ipmi_sys.get_power_state()
     print(f"Power state: {power}")
 

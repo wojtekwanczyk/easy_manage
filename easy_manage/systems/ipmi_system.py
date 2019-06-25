@@ -8,15 +8,15 @@ LOGGER.setLevel(logging.DEBUG)
 
 class IpmiSystem(AbstractSystem):
 
-    def __init__(self, name, controller):
-        super().__init__(name, controller)
+    def __init__(self, name, connector):
+        super().__init__(name, connector)
 
-        self.ipmi = controller.ipmi
-        self.db_filter = {'_controller': self.controller.name, '_system': self.name}
+        self.ipmi = connector.ipmi
+        self.db_filter = {'_connector': self.connector.name, '_system': self.name}
 
     def __save_to_db(self):
         self.data['_system'] = self.name
-        self.data['_controller'] = self.controller.name
+        self.data['_connector'] = self.connector.name
         self.db.systems.update(
             self.db_filter,
             self.data,
@@ -29,4 +29,4 @@ class IpmiSystem(AbstractSystem):
         return self.ipmi.get_chassis_status().power_on
 
     def get_status(self):
-        return self.controller.search_recurse('Status', self.data)
+        return self.connector.search_recurse('Status', self.data)

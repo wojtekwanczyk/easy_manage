@@ -1,18 +1,18 @@
 """
-RedfishController class
+RedfishConnector class
 """
 from datetime import datetime
 import logging
 import redfish
 from easy_manage import utils
-from easy_manage.controllers.controller import Controller
+from easy_manage.connectors.connector import Connector
 
-LOGGER = logging.getLogger('RedfishController')
+LOGGER = logging.getLogger('RedfishConnector')
 LOGGER.setLevel(logging.DEBUG)
 
-class RedfishController(Controller):
+class RedfishConnector(Connector):
     """
-    Class for data retrieved from controller through
+    Class for data retrieved from connector through
     Redfish standard.
     """
 
@@ -20,7 +20,7 @@ class RedfishController(Controller):
         super().__init__(name, address, db, port)
 
         self.endpoint = '/redfish/v1'
-        self.db_filter = {'_controller': self.name}
+        self.db_filter = {'_connector': self.name}
         self.client = redfish.redfish_client(
             base_url=self.url,
             username='student',
@@ -48,14 +48,14 @@ class RedfishController(Controller):
             self.__fetch_from_db()
 
     def __save_to_db(self):
-        self.data['_controller'] = self.name
-        self.db.controllers.update(
+        self.data['_connector'] = self.name
+        self.db.connectors.update(
             self.db_filter,
             self.data,
             upsert=True)
 
     def __fetch_from_db(self):
-        self.data = self.db.controllers.find_one(self.db_filter)
+        self.data = self.db.connectors.find_one(self.db_filter)
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""
@@ -99,7 +99,7 @@ class RedfishController(Controller):
     def find(self, name):
         """
         Find `name` in data stored locally retrieved
-        earlier from Redfish controller
+        earlier from Redfish connector
         :param name: Name to search
         :return: List of tuples containing info about found
         value and its parent
@@ -140,7 +140,7 @@ class RedfishController(Controller):
                         continue
                     data = self.update_recurse(value, max_depth - 1, data)
                 if isinstance(value, dict):
-                    endpoints = RedfishController.endpoint_inception(value)
+                    endpoints = RedfishConnector.endpoint_inception(value)
                     for endp in endpoints:
                         data = self.update_recurse(endp, max_depth - 1, data)
         return data
@@ -148,7 +148,7 @@ class RedfishController(Controller):
     def update_data(self):
         """
         Basically `recursive_update()` wrapper to retrieve
-        whole data from Redfish controller
+        whole data from Redfish connector
         """
         self.data = self.update_recurse(self.endpoint)
         self.last_update = datetime.now()
@@ -164,11 +164,11 @@ class RedfishController(Controller):
             endpoints = []
         if isinstance(iterable, list):
             for elem in iterable:
-                endpoints = RedfishController.endpoint_inception(elem, max_depth - 1, endpoints)
+                endpoints = RedfishConnector.endpoint_inception(elem, max_depth - 1, endpoints)
         if isinstance(iterable, dict):
             for key, value in iterable.items():
                 if utils.is_iterable(value):
-                    endpoints = RedfishController.endpoint_inception(value,
+                    endpoints = RedfishConnector.endpoint_inception(value,
                                                                      max_depth - 1,
                                                                      endpoints)
                 if key == '@odata.id' and value not in endpoints:

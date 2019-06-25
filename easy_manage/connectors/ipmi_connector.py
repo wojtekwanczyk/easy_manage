@@ -2,13 +2,13 @@ import logging
 import pyipmi
 import pyipmi.interfaces
 
-from .controller import Controller
+from .connector import Connector
 from .exceptions import NotInitializedError
 
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
-class IpmiController(Controller):
+class IpmiConnector(Connector):
 
     def __init__(self, name, address, db, port=623):
         super().__init__(name, address, db, port)

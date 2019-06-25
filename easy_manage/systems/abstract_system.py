@@ -1,10 +1,10 @@
 class AbstractSystem:
     "Class that represents the system and defines its methods"
 
-    def __init__(self, name, controller):
+    def __init__(self, name, connector):
         self.name = name
-        self.controller = controller
-        self.db = controller.db
+        self.connector = connector
+        self.db = connector.db
         self.data = {}
         self.last_update = None
 
