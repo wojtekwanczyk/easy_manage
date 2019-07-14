@@ -8,7 +8,9 @@ REQUIREMENTS_LIST = [
     'redfish',
     'pymongo',
     'python-ipmi',
-    'logging'
+    'logging',
+    'cryptography',
+    'dnspython'
 ]
 
 setuptools.setup(

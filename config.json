@@ -1,4 +1,7 @@
 {
     "database uri": "mongodb+srv://easy-manage:admin@easy-manage-t2mek.mongodb.net/test?retryWrites=true",
-    "database name": "easy_manage_db"
+    "database name": "easy_manage_db",
+    "username": "student",
+    "encrypted system password": "gAAAAABdK21lama6ZNjnkuZy2_Ktda0mf7xVER7U6TFnfictJt0DN9SXqOF6c8v4pa0_oLLYeXD5czUvLYn9VddaUPIbaaVHYH4f6aEgwZEzqxAOcbal3Mc=",
+    "hashed_password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
 }
