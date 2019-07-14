@@ -61,13 +61,9 @@ def redfish_demo(args, db, credentials):
     LOGGER.info('Redfish demo')
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
     print(rf_conn.connect()) # without this data is taken from db
-    rf_conn.fetch()
-
-    # print('== connector ==')
-    # pp.pprint(rf_conn.data)
 
     rf_sys = RedfishSystem('test_system_redfish', rf_conn, '/redfish/v1/Systems/1')
-    rf_sys.fetch()
+    # rf_sys.fetch()
     # print('== system ==')
     # pp.pprint(rf_sys.data)
 
@@ -100,8 +96,8 @@ def main():
     credentials = get_credentials(config, 'pass')
 
 
-    #redfish_demo(args, db, credentials)
-    ipmi_demo(args, db, credentials)
+    redfish_demo(args, db, credentials)
+    #ipmi_demo(args, db, credentials)
 
     # controller_factory = ControllerFactory()
     # controller = controller_factory.create_controller(
