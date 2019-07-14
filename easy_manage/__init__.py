@@ -2,6 +2,9 @@ import argparse
 import pprint as pp
 import logging
 import json
+import hashlib
+import base64
+from cryptography.fernet import Fernet
 import imp # just for testing
 
 from pymongo import MongoClient
@@ -10,6 +13,7 @@ from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.controller.controller_factory import ControllerFactory
+from easy_manage.utils import Credentials
 
 #imp.reload(ipmi_connector)
 
@@ -35,9 +39,27 @@ def parse_conf(filename):
         data = json.load(config_file)
     return data
 
-def redfish_demo(args, db):
+def get_credentials(config, user_password):
+    hashed_password = config['hashed_password']
+    if hashlib.sha256(user_password.encode()).hexdigest() != hashed_password:
+        LOGGER.critical("Invalid credetials")
+        return 1
+
+    password_encrypted = config['encrypted system password']
+    user_password_with_padding = user_password + '='*(32-len(user_password))
+    key = base64.urlsafe_b64encode(user_password_with_padding.encode())
+    fernet = Fernet(key)
+    password = fernet.decrypt(password_encrypted.encode()).decode()
+
+    credentials = Credentials(
+        config['username'],
+        password)
+
+    return credentials
+
+def redfish_demo(args, db, credentials):
     LOGGER.info('Redfish demo')
-    rf_conn = RedfishConnector('test_connector_redfish', args.address, db)
+    rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
     print(rf_conn.connect()) # without this data is taken from db
     rf_conn.fetch()
 
@@ -55,9 +77,9 @@ def redfish_demo(args, db):
     # status = rs.get_status()
     # print(f"Status: {status}")
 
-def ipmi_demo(args, db):
+def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')
-    ipmi_conn = IpmiConnector('test_connector_ipmi', args.address, db)
+    ipmi_conn = IpmiConnector('test_connector_ipmi', args.address, db, credentials)
     print(ipmi_conn.connect())
     # ipmi_conn.show_device_id()
     # ipmi_conn.show_functions()
@@ -75,19 +97,21 @@ def main():
 
     mongo_client = MongoClient(config['database uri'])
     db = mongo_client.get_database(config['database name'])
+    credentials = get_credentials(config, 'pass')
 
-    #redfish_demo(args, db)
-    #ipmi_demo(args, db)
 
-    controller_factory = ControllerFactory()
-    controller = controller_factory.create_controller(
-        'name',
-        'description',
-        args.address,
-        'student',
-        'password',
-        db)
-    print(f"POWER STATE: {controller.get_power_state()}")
+    #redfish_demo(args, db, credentials)
+    ipmi_demo(args, db, credentials)
+
+    # controller_factory = ControllerFactory()
+    # controller = controller_factory.create_controller(
+    #     'name',
+    #     'description',
+    #     args.address,
+    #     credentials,
+    #     db)
+    # print(f"POWER STATE: {controller.get_power_state()}")
+
 
 if __name__ == '__main__':
     main()

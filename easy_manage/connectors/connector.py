@@ -1,5 +1,5 @@
 class Connector():
-    def __init__(self, name, address, db, port):
+    def __init__(self, name, address, db, credentials, port):
         self.name = name
         self.address = address
         self.db = db
@@ -7,3 +7,4 @@ class Connector():
         self.url = 'https://' + self.address
         self.data = {}
         self.last_update = None
+        self.credentials = credentials

@@ -2,6 +2,8 @@
 Module containing helpers for easy_manage package
 """
 
+from collections import namedtuple
+
 
 def prefix_tuples(string, tuples):
     """
@@ -16,3 +18,8 @@ def prefix_tuples(string, tuples):
 def is_iterable(structure):
     """Check if given structure is either dictionary or list"""
     return isinstance(structure, (list, dict))
+
+Credentials = namedtuple(
+    'Credentials', [
+        'username',
+        'password'])

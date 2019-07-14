@@ -16,8 +16,8 @@ class RedfishConnector(Connector):
     Redfish standard.
     """
 
-    def __init__(self, name, address, db, port=None):
-        super().__init__(name, address, db, port)
+    def __init__(self, name, address, db, credentials, port=None):
+        super().__init__(name, address, db, credentials, port)
 
         self.endpoint = '/redfish/v1'
         self.db_filter = {'_connector': self.name}
@@ -28,8 +28,8 @@ class RedfishConnector(Connector):
         try:
             self.client = redfish.redfish_client(
                 base_url=self.url,
-                username='student',
-                password='VaSIkFFzIyU76csoa8JM')
+                username=self.credentials.username,
+                password=self.credentials.password)
             self.client.login(auth='session')
             self.connected = True
         except Exception as ex:
