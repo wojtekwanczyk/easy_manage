@@ -1,11 +1,11 @@
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
-
+from easy_manage.tools.ipmi_tools import IpmiTools
 
 LOGGER = logging.getLogger('ipmi_system')
 LOGGER.setLevel(logging.DEBUG)
 
-class IpmiSystem(AbstractSystem):
+class IpmiSystem(AbstractSystem,IpmiTools):
 
     def __init__(self, name, connector):
         super().__init__(name, connector)
@@ -27,5 +27,3 @@ class IpmiSystem(AbstractSystem):
     def get_power_state(self):
         return self.ipmi.get_chassis_status().power_on
 
-    def get_status(self):
-        return self.connector.search_recurse('Status', self.data)

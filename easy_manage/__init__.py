@@ -76,14 +76,19 @@ def redfish_demo(args, db, credentials):
 def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')
     ipmi_conn = IpmiConnector('test_connector_ipmi', args.address, db, credentials)
-    print(ipmi_conn.connect())
+    if not ipmi_conn.connect():
+        print("Login to server failed")
+        exit(1)
+        
     # ipmi_conn.show_device_id()
     # ipmi_conn.show_functions()
     # ipmi_conn.show_firmware_version()
     #print('========= ' + ipmi_conn.ipmi.connected)
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
     power = ipmi_sys.get_power_state()
+    info = ipmi_sys.fetch_device_info()
     print(f"Power state: {power}")
+    print(f"Device info: {info}")
 
 def main():
     config = parse_conf('config.json')
@@ -96,8 +101,8 @@ def main():
     credentials = get_credentials(config, 'pass')
 
 
-    redfish_demo(args, db, credentials)
-    #ipmi_demo(args, db, credentials)
+    # redfish_demo(args, db, credentials)
+    ipmi_demo(args, db, credentials)
 
     # controller_factory = ControllerFactory()
     # controller = controller_factory.create_controller(
