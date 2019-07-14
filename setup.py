@@ -9,7 +9,8 @@ REQUIREMENTS_LIST = [
     'pymongo',
     'python-ipmi',
     'logging',
-    'cryptography'
+    'cryptography',
+    'dnspython'
 ]
 
 setuptools.setup(
