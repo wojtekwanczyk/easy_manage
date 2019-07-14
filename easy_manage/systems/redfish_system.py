@@ -2,7 +2,6 @@
 Module with class responsible for management with separate system through Redfish interface
 """
 
-from datetime import datetime
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.redfish_tools import RedfishTools
@@ -21,16 +20,18 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
         self.endpoint = endpoint
         self.db_filter_name = '_system'
+        self.db_collection = 'systems'
         self.db_filter = {
             self.connector.db_filter_name: self.connector.name,
             self.db_filter_name: self.name
         }
 
     def get_power_state(self):
-        self.fetch(self.db_filter_name)
-        state_list = self.connector.search_recurse('PowerState', self.data)
+        self.fetch()
+        state_list = self.search_recurse('PowerState', self.data)
         print(f"STATES: {state_list}")
         return state_list[0][1] == 'On'
 
     def get_status(self):
+        self.fetch()
         return self.connector.search_recurse('Status', self.data)

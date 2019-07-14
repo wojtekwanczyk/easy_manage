@@ -1,3 +1,5 @@
+"Project base module"
+
 import argparse
 import pprint as pp
 import logging
@@ -22,6 +24,7 @@ LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
 def parse_args():
+    "Method for patsing arguments from command line"
     parser = argparse.ArgumentParser(description='Placeholder for description')
     parser.add_argument('--address')
     parser.add_argument('--port')
@@ -60,7 +63,8 @@ def get_credentials(config, user_password):
 def redfish_demo(args, db, credentials):
     LOGGER.info('Redfish demo')
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
-    print(rf_conn.connect()) # without this data is taken from db
+    rf_conn.connect() # without this data is taken from db
+    rf_conn.fetch()
 
     rf_sys = RedfishSystem('test_system_redfish', rf_conn, '/redfish/v1/Systems/1')
     # rf_sys.fetch()
@@ -70,8 +74,18 @@ def redfish_demo(args, db, credentials):
     power = rf_sys.get_power_state()
     print(f"Power state: {power}")
 
-    # status = rs.get_status()
-    # print(f"Status: {status}")
+    status = rf_sys.get_status()
+    print(f"Status: {status}")
+
+    pp.pprint(rf_conn.get_systems())
+
+    cmd = None
+    while cmd != 'end':
+        cmd = input()
+        try:
+            pp.pprint(rf_conn.get_data('/redfish/v1/' + cmd))
+        except:
+            print('Wrong endpoint')
 
 def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')
@@ -86,6 +100,7 @@ def ipmi_demo(args, db, credentials):
     print(f"Power state: {power}")
 
 def main():
+    "Main program function"
     config = parse_conf('config.json')
 
     LOGGER.info("Welcome to easy_manage!")
@@ -94,7 +109,6 @@ def main():
     mongo_client = MongoClient(config['database uri'])
     db = mongo_client.get_database(config['database name'])
     credentials = get_credentials(config, 'pass')
-
 
     redfish_demo(args, db, credentials)
     #ipmi_demo(args, db, credentials)

@@ -1,8 +1,12 @@
 "Module containing useful methods to simplify communication with Devices using Redfish Standard"
 
+import logging
 from datetime import datetime
 from easy_manage import utils
 
+
+LOGGER = logging.getLogger('RedfishConnector')
+LOGGER.setLevel(logging.DEBUG)
 
 class RedfishTools:
     "Class with useful methods to simplify communication with Devices using Redfish Standard"
@@ -12,47 +16,41 @@ class RedfishTools:
         self.name = None
         self.data = None
         self.last_update = None
-        self.db = None
+        self.db = {}
         self.db_filter = None
+        self.db_collection = None
         self.connector = None
         self.client = None
-        # TODO systems not used yet - is it really needed?
-        self.systems = None
+        self.db_filter_name = None
 
-    def fetch(self, db_filet_name, level=1):
+    def fetch(self, level=1):
         """Fetches data from device through Redfish interface and passes it to database.
         If the session has not been established, then data is fetched from database"""
         if self.connector.connected:
             # fetch through redfish
-            self.data = self.connector.update_recurse(self.endpoint, level)
+            self.data = self.update_recurse(self.endpoint, level)
             self.last_update = datetime.now()
-            self.__save_to_db(db_filet_name)
+            self.__save_to_db()
         elif not self.data:
+            LOGGER.info('Not connected. Fetching from database.')
             self.__fetch_from_db()
 
-    def __save_to_db(self, db_filter_name):
+    def __save_to_db(self):
         "Save data to database"
-        self.data[db_filter_name] = self.name
-        self.db.connectors.update(
+        self.data[self.db_filter_name] = self.name
+        self.db[self.db_collection].update(
             self.db_filter,
             self.data,
             upsert=True)
 
     def __fetch_from_db(self):
         "Fetch data from database"
-        self.data = self.db.connectors.find_one(self.db_filter)
+        self.data = self.db[self.db_collection].find_one(self.db_filter)
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""
-        resp = self.client.get(endpoint)
+        resp = self.connector.client.get(endpoint)
         return resp.dict
-
-    # TODO append systems
-    def get_system(self, index):
-        """Get system information by index"""
-        if not self.systems:
-            return None
-        return self.get_data(self.systems[index])
 
     def search_recurse(self, name, structure=None, i=0):
         """
@@ -171,7 +169,10 @@ class RedfishTools:
         parsed_dict = dict()
         if isinstance(odata_iterable, list):
             for index, elem in enumerate(odata_iterable):
-                parsed_dict[index] = elem['@odata.id']
+                if isinstance(elem, tuple):
+                    parsed_dict[elem[0]] = elem[1]['@odata.id']
+                else:
+                    parsed_dict[index] = elem['@odata.id']
         else:
             for key, value in odata_iterable.items():
                 if key == '@odata.id':
