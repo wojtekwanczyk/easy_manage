@@ -1,4 +1,4 @@
-class Controller():
+class Connector():
     def __init__(self, name, address, db, port):
         self.name = name
         self.address = address

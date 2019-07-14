@@ -2,29 +2,32 @@ import logging
 import pyipmi
 import pyipmi.interfaces
 
-from .controller import Controller
+from .connector import Connector
 from .exceptions import NotInitializedError
 
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
-class IpmiController(Controller):
+class IpmiConnector(Connector):
 
-    def __init__(self, name, address, port=623):
-        super(IpmiController, self).__init__(name, address, port)
+    def __init__(self, name, address, db, port=623):
+        super().__init__(name, address, db, port)
         # set initial parameters of object to none
         self.device_id = None
+        self.interface = None
+        self.ipmi = None
         # set session type to rmcp (ipmitool or other possible), and addresses
         # TODO move it to separate function
         try:
-            interface = pyipmi.interfaces.create_interface(
+            self.interface = pyipmi.interfaces.create_interface(
                 interface='ipmitool',
                 interface_type='lanplus')
         except Exception as ex:
             LOGGER.error(f"Error while logging in\n{ex}")
 
+    def connect(self):
         # create connection on that interface
-        self.ipmi = pyipmi.create_connection(interface)
+        self.ipmi = pyipmi.create_connection(self.interface)
         self.ipmi.session.set_session_type_rmcp(host=self.address, port=int(self.port))
         # FIXME: username and passowrd prompt to establish session, send hashed password
         self.ipmi.session.set_auth_type_user(username='student', password='VaSIkFFzIyU76csoa8JM')
@@ -33,6 +36,13 @@ class IpmiController(Controller):
         # TODO: Setting the address of the mc to different values
         self.ipmi.target = pyipmi.Target(ipmb_address=0x20)
         self.ipmi.session.establish()
+
+        try:
+            self.device_id = self.ipmi.get_device_id()
+        except Exception as ex:
+            return False
+
+        return True
 
     def show_device_id(self, refresh=True):
         """
