@@ -15,6 +15,7 @@ class IpmiConnector(Connector):
         # set initial parameters of object to none
         self.device_id = None
         self.interface = None
+        self.ipmi = None
         # set session type to rmcp (ipmitool or other possible), and addresses
         # TODO move it to separate function
         try:
@@ -40,7 +41,7 @@ class IpmiConnector(Connector):
             self.device_id = self.ipmi.get_device_id()
         except Exception as ex:
             return False
-        
+
         return True
 
     def show_device_id(self, refresh=True):

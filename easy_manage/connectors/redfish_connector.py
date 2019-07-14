@@ -22,6 +22,7 @@ class RedfishConnector(Connector):
         self.endpoint = '/redfish/v1'
         self.db_filter = {'_connector': self.name}
         self.connected = False
+        self.client = None
 
     def connect(self):
         try:
@@ -169,8 +170,8 @@ class RedfishConnector(Connector):
             for key, value in iterable.items():
                 if utils.is_iterable(value):
                     endpoints = RedfishConnector.endpoint_inception(value,
-                                                                     max_depth - 1,
-                                                                     endpoints)
+                                                                    max_depth - 1,
+                                                                    endpoints)
                 if key == '@odata.id' and value not in endpoints:
                     endpoints.append(value)
         return endpoints

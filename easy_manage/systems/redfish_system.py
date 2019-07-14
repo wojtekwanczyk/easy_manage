@@ -41,7 +41,7 @@ class RedfishSystem(AbstractSystem):
         self.fetch()
         state_list = self.connector.search_recurse('PowerState', self.data)
         print(f"STATES: {state_list}")
-        return True if state_list[0][1] == 'On' else False
+        return state_list[0][1] == 'On'
 
     def get_status(self):
         return self.connector.search_recurse('Status', self.data)

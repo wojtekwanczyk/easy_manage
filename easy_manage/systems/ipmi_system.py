@@ -1,4 +1,3 @@
-from datetime import datetime
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
 

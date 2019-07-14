@@ -40,7 +40,7 @@ def redfish_demo(args, db):
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db)
     print(rf_conn.connect()) # without this data is taken from db
     rf_conn.fetch()
-    
+
     # print('== connector ==')
     # pp.pprint(rf_conn.data)
 
@@ -80,7 +80,13 @@ def main():
     #ipmi_demo(args, db)
 
     controller_factory = ControllerFactory()
-    controller = controller_factory.create_controller('name', 'description', args.address, 'student', 'password', db)
+    controller = controller_factory.create_controller(
+        'name',
+        'description',
+        args.address,
+        'student',
+        'password',
+        db)
     print(f"POWER STATE: {controller.get_power_state()}")
 
 if __name__ == '__main__':
