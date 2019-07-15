@@ -1,40 +1,53 @@
-"""
-Module containing RedfishController class
-"""
+"Module containing useful methods to simplify communication with Devices using Redfish Standard"
+
 from datetime import datetime
-import redfish
 from easy_manage import utils
-from .controller import Controller
 
 
-class RedfishController(Controller):
-    """
-    Class for data retrieved from controller through
-    Redfish standard.
-    """
+class RedfishTools:
+    "Class with useful methods to simplify communication with Devices using Redfish Standard"
 
-    def __init__(self, name, address, port, tunnel=None):
-        super(RedfishController, self).__init__(name, address, port, tunnel)
-        self.url = ':'.join([self.address, str(self.port)])
-        self.url = 'https://' + self.url
-        self.data = {}
-        self.api = '/redfish/v1'
-        self.client = redfish.redfish_client(base_url=self.url)
-        self.root = self.get_data(self.api)
+    def __init__(self):
+        self.endpoint = None
+        self.name = None
+        self.data = None
+        self.last_update = None
+        self.db = None
+        self.db_filter = None
+        self.connector = None
+        self.client = None
+        # TODO systems not used yet - is it really needed?
+        self.systems = None
 
-        root_resources = self.root.get('Links')
-        self.root_resources = self.parse_odata(root_resources)
+    def fetch(self, db_filet_name, level=1):
+        """Fetches data from device through Redfish interface and passes it to database.
+        If the session has not been established, then data is fetched from database"""
+        if self.connector.connected:
+            # fetch through redfish
+            self.data = self.connector.update_recurse(self.endpoint, level)
+            self.last_update = datetime.now()
+            self.__save_to_db(db_filet_name)
+        elif not self.data:
+            self.__fetch_from_db()
 
-        systems = self.get_data(self.root_resources.get('Systems')) \
-            .get('Links') \
-            .get('Members')
-        self.systems = self.parse_odata(systems)
+    def __save_to_db(self, db_filter_name):
+        "Save data to database"
+        self.data[db_filter_name] = self.name
+        self.db.connectors.update(
+            self.db_filter,
+            self.data,
+            upsert=True)
+
+    def __fetch_from_db(self):
+        "Fetch data from database"
+        self.data = self.db.connectors.find_one(self.db_filter)
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""
         resp = self.client.get(endpoint)
         return resp.dict
 
+    # TODO append systems
     def get_system(self, index):
         """Get system information by index"""
         if not self.systems:
@@ -61,7 +74,7 @@ class RedfishController(Controller):
                     if tuples:
                         prefixed_tuples = utils.prefix_tuples(key, tuples)
                         tuple_list += prefixed_tuples
-                elif name in (key, value):
+                if name in (key, value):
                     tuple_list.append((key, value))
         elif isinstance(structure, list):
             for elem in structure:
@@ -71,7 +84,7 @@ class RedfishController(Controller):
     def find(self, name):
         """
         Find `name` in data stored locally retrieved
-        earlier from Redfish controller
+        earlier from Redfish connector
         :param name: Name to search
         :return: List of tuples containing info about found
         value and its parent
@@ -112,7 +125,7 @@ class RedfishController(Controller):
                         continue
                     data = self.update_recurse(value, max_depth - 1, data)
                 if isinstance(value, dict):
-                    endpoints = RedfishController.endpoint_inception(value)
+                    endpoints = RedfishTools.endpoint_inception(value)
                     for endp in endpoints:
                         data = self.update_recurse(endp, max_depth - 1, data)
         return data
@@ -120,9 +133,9 @@ class RedfishController(Controller):
     def update_data(self):
         """
         Basically `recursive_update()` wrapper to retrieve
-        whole data from Redfish controller
+        whole data from Redfish connector
         """
-        self.data = self.update_recurse(self.api)
+        self.data = self.update_recurse(self.endpoint)
         self.last_update = datetime.now()
 
     @staticmethod
@@ -136,30 +149,33 @@ class RedfishController(Controller):
             endpoints = []
         if isinstance(iterable, list):
             for elem in iterable:
-                endpoints = RedfishController.endpoint_inception(elem, max_depth - 1, endpoints)
+                endpoints = RedfishTools.endpoint_inception(elem, max_depth - 1, endpoints)
         if isinstance(iterable, dict):
             for key, value in iterable.items():
                 if utils.is_iterable(value):
-                    endpoints = RedfishController.endpoint_inception(value,
-                                                                     max_depth - 1,
-                                                                     endpoints)
+                    endpoints = RedfishTools.endpoint_inception(
+                        value,
+                        max_depth - 1,
+                        endpoints)
                 if key == '@odata.id' and value not in endpoints:
                     endpoints.append(value)
         return endpoints
 
-    @staticmethod
-    def parse_odata(odata_iterable):
+    def parse_odata(self, odata_iterable):
         """
         Exchange useless @odata keys in a dictionary
         for more readable keys
         """
         if not odata_iterable:
             return None
-        parsed_dict = {}
+        parsed_dict = dict()
         if isinstance(odata_iterable, list):
             for index, elem in enumerate(odata_iterable):
                 parsed_dict[index] = elem['@odata.id']
         else:
             for key, value in odata_iterable.items():
-                parsed_dict[key] = value['@odata.id']
+                if key == '@odata.id':
+                    parsed_dict[value] = self.get_data(value)
+                else:
+                    parsed_dict[key] = value['@odata.id']
         return parsed_dict
