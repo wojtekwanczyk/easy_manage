@@ -39,3 +39,9 @@ class IpmiChassisTools:
         
     def power_on_hours(self):
         return self.ipmi.send_message_with_name('GetPohCounter')
+    
+    
+    #GetPowerLevel
+	#GetFanSpeedProperties
+	#SetFanLevel
+	#GetFanLevel

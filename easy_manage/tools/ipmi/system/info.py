@@ -40,14 +40,14 @@ class Info:
         Method for fetching available features of the device
 
         :param refresh : True <> Get fresh info from the server
-        :return: None
+        :return: [String]
         """
         # Check whether we want to get from server or want to use retained state
         if refresh:
             self.device_id = self.ipmi.get_device_id()
         elif self.device_id is None and refresh is False:
             raise NotInitializedError(
-                'Object has not been initialized with anything, set refresh to tru')
+                'Object has not been initialized with anything, set refresh to true')
 
         functions = (
             ('SENSOR', 'Sensor Device'),
@@ -68,6 +68,12 @@ class Info:
                 
 
     def firmware_version(self, refresh=False):
+        """
+        Method for fetching firmware version of the device
+
+        :param refresh : True <> Get fresh info from the server
+        :return: String | None
+        """
         if refresh:
             self.device_id = self.ipmi.get_device_id()
         elif self.device_id is None:
@@ -75,8 +81,7 @@ class Info:
                 'Object has not been initialized with anything, set refresh to true')
 
         if self.device_id.aux is not None:
-            print('# -----  FIRMWARE VERSION ----- #\n [%s]' % (
-                ' '.join('0x%02x' % d for d in self.device_id.aux)))
+            return ' '.join('0x%02x' % d for d in self.device_id.aux)
         else:
-            print('There is no info about this device\'s auxiliary functions')
+            return None
             
