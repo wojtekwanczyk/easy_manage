@@ -61,31 +61,24 @@ def get_credentials(config, user_password):
     return credentials
 
 def redfish_demo(args, db, credentials):
+    "Just some Redfish testing cases"
+
     LOGGER.info('Redfish demo')
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
-    rf_conn.connect() # without this data is taken from db
+    # rf_conn.connect() # without this data is taken from db
     rf_conn.fetch()
 
     rf_sys = RedfishSystem('test_system_redfish', rf_conn, '/redfish/v1/Systems/1')
-    # rf_sys.fetch()
-    # print('== system ==')
-    # pp.pprint(rf_sys.data)
+    rf_sys.fetch()
 
     power = rf_sys.get_power_state()
     print(f"Power state: {power}")
 
-    status = rf_sys.get_status()
+    status = rf_sys.get_system_health()
     print(f"Status: {status}")
 
-    pp.pprint(rf_conn.get_systems())
+    print(rf_sys.find(["Processor", "State"]))
 
-    cmd = None
-    while cmd != 'end':
-        cmd = input()
-        try:
-            pp.pprint(rf_conn.get_data('/redfish/v1/' + cmd))
-        except:
-            print('Wrong endpoint')
 
 def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')

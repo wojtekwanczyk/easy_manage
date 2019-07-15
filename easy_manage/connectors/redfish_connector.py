@@ -43,6 +43,6 @@ class RedfishConnector(Connector, RedfishTools):
 
     def get_systems(self):
         "Get systems"
-        systems = self.find('Systems')
+        systems = self.find_all('Systems')
         self.systems = self.parse_odata(systems)
         return self.systems

@@ -26,12 +26,17 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.db_filter_name: self.name
         }
 
-    def get_power_state(self):
-        self.fetch()
-        state_list = self.search_recurse('PowerState', self.data)
-        print(f"STATES: {state_list}")
-        return state_list[0][1] == 'On'
+    def get_power_state(self, fetch=True):
+        if fetch:
+            self.fetch()
+        return self.find(['PowerState'])
 
-    def get_status(self):
-        self.fetch()
-        return self.connector.search_recurse('Status', self.data)
+    def get_system_health(self, fetch=True):
+        if fetch:
+            self.fetch()
+        return self.find(['Status', 'HealthRollup'], strict=True)
+
+    def get_memory_size(self, fetch=False):
+        if fetch:
+            self.fetch()
+        return self.find(['Memory', 'Total'])

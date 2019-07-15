@@ -1,6 +1,7 @@
 "Module containing useful methods to simplify communication with Devices using Redfish Standard"
 
 import logging
+import operator
 from datetime import datetime
 from easy_manage import utils
 
@@ -37,7 +38,7 @@ class RedfishTools:
 
     def __save_to_db(self):
         "Save data to database"
-        self.data[self.db_filter_name] = self.name
+        self.data.update(self.db_filter)
         self.db[self.db_collection].update(
             self.db_filter,
             self.data,
@@ -79,7 +80,7 @@ class RedfishTools:
                 tuple_list += self.search_recurse(name, elem, i + 1)
         return tuple_list
 
-    def find(self, name):
+    def find_all(self, name):
         """
         Find `name` in data stored locally retrieved
         earlier from Redfish connector
@@ -95,6 +96,43 @@ class RedfishTools:
                 prefixed_tuples = utils.prefix_tuples(endpoint, element_list)
                 found += prefixed_tuples
         return found
+
+    def find(self, name_list, strict=False, data=None, misses=5):
+        """
+        Finds a field with a "dictionary path" which includes
+        all entries in `name_list` in data stored locally retrieved
+        earlier from Redfish connector
+        :param name_list: List of names in "dictionary path"
+        :return: Single object under last entry in name_list
+        """
+        if strict:
+            in_or_eq = operator.eq
+        else:
+            in_or_eq = operator.contains
+
+        # starting point - default argument
+        if data is None:
+            data = self.data
+
+        # all names in list have been found
+        if not name_list:
+            return data
+
+        # we went too deep or cannot iterate over data
+        if (not misses and name_list) or not isinstance(data, dict):
+            return None
+
+        to_find = name_list[0]
+        found = None
+        for key, value in data.items():
+            if in_or_eq(to_find, key):
+                found = self.find(name_list[1:], strict, value, misses)
+            else:
+                found = self.find(name_list, strict, value, misses-1)
+            if found:
+                return found
+
+        return None
 
     def update_recurse(self, endpoint=None, max_depth=3, data=None):
         """
