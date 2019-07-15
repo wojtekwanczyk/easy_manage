@@ -4,7 +4,6 @@ import pyipmi.interfaces
 
 from .connector import Connector
 from .exceptions import NotInitializedError
-from easy_manage.tools.ipmi_tools import IpmiTools
 
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)

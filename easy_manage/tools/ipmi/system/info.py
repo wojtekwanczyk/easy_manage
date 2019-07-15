@@ -1,9 +1,11 @@
+from easy_manage.connectors.exceptions import NotInitializedError
 
-class IpmiTools:
-    """
-        Class for fetching and parsing device_id (for now), and other, larger portions of data from IPMI device
-    """
-    def fetch_device_info(self, refresh=True):
+
+class Info:
+    def __init__(self, ipmi):
+        self.ipmi = ipmi
+    
+    def device_info(self, refresh=True):
         """
         Method for printing device primary options to console
 
@@ -31,9 +33,9 @@ class IpmiTools:
         Additional Device Support:
         '''[1:-1] % self.device_id.__dict__)
         # TODO: Parse the data to more human-readable format (it will be used for display)
-        return self.device_id
+        return self.device_id.__dict__
 
-    def fetch_functions(self, refresh=True):
+    def functions(self, refresh=True):
         """
         Method for fetching available features of the device
 
@@ -65,7 +67,7 @@ class IpmiTools:
         return supported_functions
                 
 
-    def fetch_firmware_version(self, refresh=False):
+    def firmware_version(self, refresh=False):
         if refresh:
             self.device_id = self.ipmi.get_device_id()
         elif self.device_id is None:
@@ -77,3 +79,4 @@ class IpmiTools:
                 ' '.join('0x%02x' % d for d in self.device_id.aux)))
         else:
             print('There is no info about this device\'s auxiliary functions')
+            

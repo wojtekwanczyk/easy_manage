@@ -5,7 +5,7 @@ Module with class responsible for management with separate system through Redfis
 from datetime import datetime
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
-from easy_manage.tools.redfish_tools import RedfishTools
+from easy_manage.tools.redfish.redfish_tools import RedfishTools
 
 
 LOGGER = logging.getLogger('redfish_system')
