@@ -1,11 +1,11 @@
-"Module containing useful methods to simplify communication with Devices using Redfish Standard"
+"""Module containing useful methods to simplify communication with Devices using Redfish Standard"""
 
 from datetime import datetime
 from easy_manage import utils
 
 
 class RedfishTools:
-    "Class with useful methods to simplify communication with Devices using Redfish Standard"
+    """Class with useful methods to simplify communication with Devices using Redfish Standard"""
 
     def __init__(self):
         self.endpoint = None
@@ -19,19 +19,19 @@ class RedfishTools:
         # TODO systems not used yet - is it really needed?
         self.systems = None
 
-    def fetch(self, db_filet_name, level=1):
+    def fetch(self, db_filter_name, level=1):
         """Fetches data from device through Redfish interface and passes it to database.
         If the session has not been established, then data is fetched from database"""
         if self.connector.connected:
             # fetch through redfish
             self.data = self.connector.update_recurse(self.endpoint, level)
             self.last_update = datetime.now()
-            self.__save_to_db(db_filet_name)
+            self.__save_to_db(db_filter_name)
         elif not self.data:
             self.__fetch_from_db()
 
     def __save_to_db(self, db_filter_name):
-        "Save data to database"
+        """Save data to database"""
         self.data[db_filter_name] = self.name
         self.db.connectors.update(
             self.db_filter,
@@ -39,7 +39,7 @@ class RedfishTools:
             upsert=True)
 
     def __fetch_from_db(self):
-        "Fetch data from database"
+        """Fetch data from database"""
         self.data = self.db.connectors.find_one(self.db_filter)
 
     def get_data(self, endpoint):

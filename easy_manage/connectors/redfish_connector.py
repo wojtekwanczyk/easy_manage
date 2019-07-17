@@ -9,6 +9,7 @@ from easy_manage.tools.redfish_tools import RedfishTools
 LOGGER = logging.getLogger('RedfishConnector')
 LOGGER.setLevel(logging.DEBUG)
 
+
 class RedfishConnector(Connector, RedfishTools):
     """
     Class for data retrieved from connector through
@@ -16,7 +17,7 @@ class RedfishConnector(Connector, RedfishTools):
     """
 
     def __init__(self, name, address, db, credentials, port=None):
-        super().__init__(name, address, db, credentials, port)
+        super().__init__(name, address, credentials, port)
 
         self.endpoint = '/redfish/v1'
         self.db_filter_name = '_connector'
@@ -24,9 +25,11 @@ class RedfishConnector(Connector, RedfishTools):
         self.connected = False
         self.client = None
         self.connector = self
+        #     for testing
+        self.db = db
 
     def connect(self):
-        "Connect to Redfish device(s)"
+        """Connect to Redfish device(s)"""
         try:
             self.client = redfish.redfish_client(
                 base_url=self.url,

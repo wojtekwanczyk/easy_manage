@@ -2,14 +2,14 @@
 Module with class responsible for management with separate system through Redfish interface
 """
 
-from datetime import datetime
 import logging
+
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.redfish_tools import RedfishTools
 
-
 LOGGER = logging.getLogger('redfish_system')
 LOGGER.setLevel(logging.DEBUG)
+
 
 class RedfishSystem(AbstractSystem, RedfishTools):
     """
@@ -25,6 +25,10 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.connector.db_filter_name: self.connector.name,
             self.db_filter_name: self.name
         }
+        self.db = connector.db
+
+    def __dir__(self):
+        return self.methods
 
     def get_power_state(self):
         self.fetch(self.db_filter_name)

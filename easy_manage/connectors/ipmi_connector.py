@@ -1,4 +1,5 @@
 import logging
+
 import pyipmi
 import pyipmi.interfaces
 
@@ -8,10 +9,11 @@ from .exceptions import NotInitializedError
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
+
 class IpmiConnector(Connector):
 
-    def __init__(self, name, address, db, credentials, port=623):
-        super().__init__(name, address, db, credentials, port)
+    def __init__(self, name, address, credentials, port=623):
+        super().__init__(name, address, credentials, port)
         # set initial parameters of object to none
         self.device_id = None
         self.interface = None

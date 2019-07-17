@@ -19,6 +19,7 @@ def is_iterable(structure):
     """Check if given structure is either dictionary or list"""
     return isinstance(structure, (list, dict))
 
+
 Credentials = namedtuple(
     'Credentials', [
         'username',
