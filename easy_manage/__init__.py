@@ -5,8 +5,8 @@ import json
 import hashlib
 import base64
 from cryptography.fernet import Fernet
-import imp # just for testing
-
+import imp  # just for testing
+from pyipmi.sdr import SdrFullSensorRecord,SdrEventOnlySensorRecord,SdrCompactSensorRecord ,SdrFruDeviceLocator,SdrManagementControllerDeviceLocator
 from pymongo import MongoClient
 from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
@@ -15,11 +15,12 @@ from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.controller.controller_factory import ControllerFactory
 from easy_manage.utils import Credentials
 
-#imp.reload(ipmi_connector)
+# imp.reload(ipmi_connector)
 
 logging.basicConfig(format='%(message)s')
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Placeholder for description')
@@ -34,10 +35,12 @@ def parse_args():
 
     return args
 
+
 def parse_conf(filename):
     with open(filename) as config_file:
         data = json.load(config_file)
     return data
+
 
 def get_credentials(config, user_password):
     hashed_password = config['hashed_password']
@@ -57,12 +60,15 @@ def get_credentials(config, user_password):
 
     return credentials
 
+
 def redfish_demo(args, db, credentials):
     LOGGER.info('Redfish demo')
-    rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
-    print(rf_conn.connect()) # without this data is taken from db
+    rf_conn = RedfishConnector(
+        'test_connector_redfish', args.address, db, credentials)
+    print(rf_conn.connect())  # without this data is taken from db
 
-    rf_sys = RedfishSystem('test_system_redfish', rf_conn, '/redfish/v1/Systems/1')
+    rf_sys = RedfishSystem('test_system_redfish',
+                           rf_conn, '/redfish/v1/Systems/1')
     # rf_sys.fetch()
     # print('== system ==')
     # pp.pprint(rf_sys.data)
@@ -73,22 +79,50 @@ def redfish_demo(args, db, credentials):
     # status = rs.get_status()
     # print(f"Status: {status}")
 
+
 def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')
-    ipmi_conn = IpmiConnector('test_connector_ipmi', args.address, db, credentials)
+    ipmi_conn = IpmiConnector('test_connector_ipmi',
+                              args.address, db, credentials)
     if not ipmi_conn.connect():
         print("Login to server failed")
         exit(1)
-        
+
     # ipmi_conn.show_device_id()
     # ipmi_conn.show_functions()
     # ipmi_conn.show_firmware_version()
     #print('========= ' + ipmi_conn.ipmi.connected)
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
-    power = ipmi_sys.get_power_state()
-    info = ipmi_sys.fetch_device_info()
-    print(f"Power state: {power}")
-    print(f"Device info: {info}")
+    #power = ipmi_sys.get_power_state()
+    sdrs = ipmi_sys.system_tools.sdr.fetch_sdrs()
+    full = 0
+    compact = 0
+    event_only = 0 
+    dev_loc = 0
+    smcdl= 0
+    for sdr in sdrs:
+        if isinstance(sdr,SdrFullSensorRecord):
+            full+=1
+        if isinstance(sdr,SdrEventOnlySensorRecord):
+            event_only+=1
+        if isinstance(sdr,SdrCompactSensorRecord):
+            compact+=1
+        if isinstance(sdr,SdrFruDeviceLocator):
+            dev_loc+=1
+        if isinstance(sdr,SdrManagementControllerDeviceLocator):
+            smcdl+=1
+    print(f"Full Records: {full}")
+    print(f"Compact Records: {compact}")    
+    print(f"FRU Device Locator Records: {dev_loc}")
+    print(f"Event only Records: {event_only}")
+    print(f"SDR MC Device locator records: {smcdl}")
+    print(f"All Records: {len(sdrs)}")
+    # for sdr in sdrs:
+        # try:
+            # print(sdr.device_id_string)
+        # except Exception as e:
+            # print("Exception!:" + str(e))
+
 
 def main():
     config = parse_conf('config.json')
@@ -99,7 +133,6 @@ def main():
     mongo_client = MongoClient(config['database uri'])
     db = mongo_client.get_database(config['database name'])
     credentials = get_credentials(config, 'pass')
-
 
     # redfish_demo(args, db, credentials)
     ipmi_demo(args, db, credentials)
