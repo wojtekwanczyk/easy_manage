@@ -125,7 +125,7 @@ class RedfishTools:
         to_find = name_list[0]
         found = None
         for key, value in data.items():
-            if in_or_eq(to_find, key):
+            if in_or_eq(key, to_find):
                 found = self.find(name_list[1:], strict, value, misses)
             else:
                 found = self.find(name_list, strict, value, misses-1)

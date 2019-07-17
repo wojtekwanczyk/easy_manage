@@ -10,6 +10,7 @@ from easy_manage.tools.redfish_tools import RedfishTools
 LOGGER = logging.getLogger('redfish_system')
 LOGGER.setLevel(logging.DEBUG)
 
+
 class RedfishSystem(AbstractSystem, RedfishTools):
     """
     Class responsible for management with separate system through Redfish interface
@@ -39,4 +40,39 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     def get_memory_size(self, fetch=False):
         if fetch:
             self.fetch()
-        return self.find(['Memory', 'Total'])
+        return self.find(['MemorySummary', 'Total'])
+
+    def restart(self):
+        body = {"ResetType": "GracefulRestart"}
+        response = self.connector.client.post(
+            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+
+    def shutdown(self):
+        body = {"ResetType": "GracefulShutdown"}
+        response = self.connector.client.post(
+            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+
+    def power_on(self):
+        body = {"ResetType": "On"}
+        response = self.connector.client.post(
+            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+
+    def force_on(self):
+        body = {"ResetType": "ForceOn"}
+        response = self.connector.client.post(
+            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+
+    def force_off(self):
+        body = {"ResetType": "ForceOff"}
+        response = self.connector.client.post(
+            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+
+    def force_restart(self):
+        body = {"ResetType": "ForceRestart"}
+        response = self.connector.client.post(
+            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+
+    def nmi(self):
+        body = {"ResetType": "Nmi"}
+        response = self.connector.client.post(
+            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)

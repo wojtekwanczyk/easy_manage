@@ -7,7 +7,7 @@ import json
 import hashlib
 import base64
 from cryptography.fernet import Fernet
-import imp # just for testing
+
 
 from pymongo import MongoClient
 from easy_manage.connectors.ipmi_connector import IpmiConnector
@@ -17,7 +17,6 @@ from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.controller.controller_factory import ControllerFactory
 from easy_manage.utils import Credentials
 
-#imp.reload(ipmi_connector)
 
 logging.basicConfig(format='%(message)s')
 LOGGER = logging.getLogger('easy_manage')
@@ -65,7 +64,7 @@ def redfish_demo(args, db, credentials):
 
     LOGGER.info('Redfish demo')
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
-    # rf_conn.connect() # without this data is taken from db
+    rf_conn.connect() # without this data is taken from db
     rf_conn.fetch()
 
     rf_sys = RedfishSystem('test_system_redfish', rf_conn, '/redfish/v1/Systems/1')
@@ -77,7 +76,8 @@ def redfish_demo(args, db, credentials):
     status = rf_sys.get_system_health()
     print(f"Status: {status}")
 
-    print(rf_sys.find(["Processor", "State"]))
+    print(rf_sys.get_memory_size())
+    return rf_sys
 
 
 def ipmi_demo(args, db, credentials):
@@ -103,7 +103,9 @@ def main():
     db = mongo_client.get_database(config['database name'])
     credentials = get_credentials(config, 'pass')
 
-    redfish_demo(args, db, credentials)
+    global rf 
+    rf = redfish_demo(args, db, credentials)
+    
     #ipmi_demo(args, db, credentials)
 
     # controller_factory = ControllerFactory()
@@ -114,6 +116,7 @@ def main():
     #     credentials,
     #     db)
     # print(f"POWER STATE: {controller.get_power_state()}")
+    return 0
 
 
 if __name__ == '__main__':

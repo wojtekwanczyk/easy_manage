@@ -6,11 +6,10 @@ with open("README.md", "r") as f:
 REQUIREMENTS_LIST = [
     'argparse',
     'redfish',
-    'pymongo',
+    'pymongo[tls, srv]',
     'python-ipmi',
     'logging',
-    'cryptography',
-    'dnspython'
+    'cryptography'
 ]
 
 setuptools.setup(
