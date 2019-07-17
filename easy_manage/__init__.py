@@ -6,7 +6,7 @@ import hashlib
 import base64
 from cryptography.fernet import Fernet
 import imp  # just for testing
-from pyipmi.sdr import SdrFullSensorRecord,SdrEventOnlySensorRecord,SdrCompactSensorRecord ,SdrFruDeviceLocator,SdrManagementControllerDeviceLocator
+from pyipmi.sdr import SdrFullSensorRecord, SdrEventOnlySensorRecord, SdrCompactSensorRecord, SdrFruDeviceLocator, SdrManagementControllerDeviceLocator
 from pymongo import MongoClient
 from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
@@ -96,32 +96,36 @@ def ipmi_demo(args, db, credentials):
     #power = ipmi_sys.get_power_state()
     sdrs = ipmi_sys.system_tools.sdr.fetch_sdrs()
     full = 0
+    full_sdr = []
     compact = 0
-    event_only = 0 
+    compact_sdr = []
+    event_only = 0
     dev_loc = 0
-    smcdl= 0
+    smcdl = 0
+
     for sdr in sdrs:
-        if isinstance(sdr,SdrFullSensorRecord):
-            full+=1
-        if isinstance(sdr,SdrEventOnlySensorRecord):
-            event_only+=1
-        if isinstance(sdr,SdrCompactSensorRecord):
-            compact+=1
-        if isinstance(sdr,SdrFruDeviceLocator):
-            dev_loc+=1
-        if isinstance(sdr,SdrManagementControllerDeviceLocator):
-            smcdl+=1
+        if isinstance(sdr, SdrFullSensorRecord):
+            full += 1
+            full_sdr.append(sdr)
+        if isinstance(sdr, SdrEventOnlySensorRecord):
+            event_only += 1
+        if isinstance(sdr, SdrCompactSensorRecord):
+            compact += 1
+            compact_sdr.append(sdr)
+        if isinstance(sdr, SdrFruDeviceLocator):
+            dev_loc += 1
+        if isinstance(sdr, SdrManagementControllerDeviceLocator):
+            smcdl += 1
     print(f"Full Records: {full}")
-    print(f"Compact Records: {compact}")    
+    print(f"Compact Records: {compact}")
     print(f"FRU Device Locator Records: {dev_loc}")
     print(f"Event only Records: {event_only}")
     print(f"SDR MC Device locator records: {smcdl}")
     print(f"All Records: {len(sdrs)}")
-    # for sdr in sdrs:
-        # try:
-            # print(sdr.device_id_string)
-        # except Exception as e:
-            # print("Exception!:" + str(e))
+    ipmi_sys.system_tools.sensor.mass_read(full_sdr)
+    for sdr in full_sdr:
+        name = sdr.device_id_string.decode('UTF-8')
+        print(f"{name} , reading: {sdr.reading}")
 
 
 def main():
