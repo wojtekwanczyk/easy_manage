@@ -1,6 +1,3 @@
-from easy_manage.systems.abstract_system import AbstractSystem
-
-
 class Controller:
 
     def __init__(self, name, description, db):
@@ -9,6 +6,14 @@ class Controller:
         self.db = db
         self.standards = {}
         self.connectors = []
-        self.system = AbstractSystem(None, None)  # TODO dir should be overridden that it returns nothing
+        self.system = AbstractInstance()
         self.systems_interfaces = {}
         self.chassis_interfaces = []
+
+
+class AbstractInstance:
+    def __init__(self):
+        self.methods = []
+
+    def __dir__(self):
+        return []

@@ -20,6 +20,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
         super().__init__(name, connector)
 
         self.endpoint = endpoint
+        self.methods = self.methods + []
         self.db_filter_name = '_system'
         self.db_filter = {
             self.connector.db_filter_name: self.connector.name,
@@ -27,13 +28,10 @@ class RedfishSystem(AbstractSystem, RedfishTools):
         }
         self.db = connector.db
 
-    def __dir__(self):
-        return self.methods
-
     def get_power_state(self):
         self.fetch(self.db_filter_name)
         state_list = self.connector.search_recurse('PowerState', self.data)
-        print(f"STATES: {state_list}")
+        print(f'STATES: {state_list}')
         return state_list[0][1] == 'On'
 
     def get_status(self):

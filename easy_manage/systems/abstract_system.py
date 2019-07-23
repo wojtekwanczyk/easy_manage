@@ -8,9 +8,6 @@ class AbstractSystem:
         self.last_update = None
         self.methods = ['get_power_state', 'get_status']
 
-    def __dir__(self):
-        return []
-
     def get_power_state(self):
         raise NotImplementedError
 

@@ -8,8 +8,7 @@ from easy_manage.systems.redfish_system import RedfishSystem
 # todo: enum for possible interfaces should be created
 
 class ControllerFactory:
-    """Class responsible for creating controller,
-     it detects available interfaces and adds components corresponding to them with pinch of abstraction"""
+    """Class responsible for creating controller,it detects available interfaces"""
 
     def __init__(self, db):
         self.db = db
@@ -40,17 +39,12 @@ class ControllerFactory:
                 system = RedfishSystem('test_system_redfish', connector, '/redfish/v1/Systems/1')
             elif key == 'ipmi':
                 system = IpmiSystem('test_system_ipmi', connector)
-            # todo: how to implement dir for these or should I abandon it?
             controller.systems_interfaces[key] = system
-            new_methods = self.method_difference(system, controller.system)
-            self.assign_methods(controller.system, system, new_methods)
-        print(dir(controller.system))
+            self.assign_missing_methods(controller.system, system)
 
     @staticmethod
-    def assign_methods(recipient, donor, methods):
-        for method in methods:
+    def assign_missing_methods(recipient, donor):
+        new_methods = list(set(donor.methods) - set(recipient.methods))
+        for method in new_methods:
             setattr(recipient, method, getattr(donor, method))
-
-    @staticmethod
-    def method_difference(first, second):
-        return set(dir(first)) - set(dir(second))
+        recipient.methods = recipient.methods + new_methods
