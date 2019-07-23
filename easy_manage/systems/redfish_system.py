@@ -43,8 +43,8 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.fetch()
         return self.find(['MemorySummary', 'Total'])
 
-    def reset_action(self, resetType):
-        body = {'ResetType': resetType}
+    def reset_action(self, reset_type):
+        body = {'ResetType': reset_type}
         res = self.connector.client.post(
             self.endpoint + '/Actions/ComputerSystem.Reset',
             body=body)
@@ -71,3 +71,23 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def nmi(self):
         self.reset_action('Nmi')
+
+
+    def set_boot_source(self, source):
+        "We are not allowed to do it from student account :("
+        body = {'Boot': {
+            'BootSourceOverrideEnabled': 'Once',
+            'BootSourceOverrideTarget': source
+        }}
+        res = self.connector.client.patch(
+            self.endpoint,
+            body=body)
+        if res.status >= 300:
+            print(res.status)
+            raise BadHttpResponse(str(res.status) + '\n' + res.request)
+
+    def get_allowable_boot_sources(self):
+        return self.find(['Boot', 'AllowableValues'])
+
+    def get_boot_source(self):
+        return self.find(['Boot', 'BootSourceOverrideTarget'], True)

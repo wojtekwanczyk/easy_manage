@@ -64,6 +64,7 @@ def redfish_demo(args, db, credentials):
     "Just some Redfish testing cases"
 
     LOGGER.info('Redfish demo')
+    global rf_conn
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
     rf_conn.connect() # without this data is taken from db
     rf_conn.fetch()

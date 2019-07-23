@@ -23,18 +23,26 @@ class RedfishTools:
         self.connector = None
         self.client = None
         self.db_filter_name = None
+        self.fetch_level = None
 
-    def fetch(self, level=1):
+    def fetch(self, sub_endpoint='', level=1):
         """Fetches data from device through Redfish interface and passes it to database.
         If the session has not been established, then data is fetched from database"""
+        endpoint = self.endpoint + sub_endpoint
+
         if self.connector.connected:
             # fetch through redfish
-            self.data = self.update_recurse(self.endpoint, level)
-            self.last_update = datetime.now()
-            self.__save_to_db()
+            data = self.update_recurse(endpoint, level)
         elif not self.data:
             LOGGER.info('Not connected. Fetching from database.')
             self.__fetch_from_db()
+
+        if not sub_endpoint:
+            self.data = data
+            self.last_update = datetime.now()
+            self.__save_to_db()
+
+        return data
 
     def __save_to_db(self):
         "Save data to database"
@@ -48,7 +56,7 @@ class RedfishTools:
         "Fetch data from database"
         self.data = self.db[self.db_collection].find_one(self.db_filter)
 
-    def get_data(self, endpoint):
+    def get_data(self, endpoint=None):
         """Get data from endpoint. Wrapper for redfish client"""
         resp = self.connector.client.get(endpoint)
         return resp.dict
@@ -90,7 +98,6 @@ class RedfishTools:
         """
         found = []
         for endpoint, data in self.data.items():
-            # print(endpoint)  # print searched endpoints
             element_list = self.search_recurse(name, data)
             if element_list:
                 prefixed_tuples = utils.prefix_tuples(endpoint, element_list)
@@ -134,6 +141,44 @@ class RedfishTools:
 
         return None
 
+    def get_dict_containing(self, name, data=None, misses=5):
+        """
+        finds a dictionary containing 'name' as key or value in data
+        stored locally retrieved earlier from Redfish connector
+        :param name: name to search in 'self.data'
+        :return: dictionary containing name as key or value
+        """
+
+        # starting point - default argument
+        if data is None:
+            data = self.data
+
+        # we went too deep or cannot iterate over data
+        if not misses or not utils.is_iterable(data):
+            return None
+
+        found = None
+
+        # iterate over list and check them
+        if isinstance(data, list):
+            for elem in data:
+                found = self.get_dict_containing(name, elem, misses)
+                if found:
+                    return found
+            return None
+
+        # such element is in this dictionary
+        if name in data or name in data.values():
+            return data
+
+        # if not found in current dictionary, we search through curent dict values
+        for value in data.values():
+            found = self.get_dict_containing(name, value, misses-1)
+            if found:
+                return found
+
+        return None
+
     def update_recurse(self, endpoint=None, max_depth=3, data=None):
         """
         Update data about remote system
@@ -151,7 +196,6 @@ class RedfishTools:
             endpoint = endpoint[:-1]
         if max_depth == 0 or endpoint in data.keys():
             return data
-        print(endpoint)
         resp = self.get_data(endpoint)
         data[endpoint] = resp
         if isinstance(resp, dict):
