@@ -3,7 +3,6 @@ class Sensor:
     def __init__(self, ipmi):
         self.ipmi = ipmi
 
-    # (Set/Get)SensorHysteresis
     def reading(self, sensor_number, lun=0):
         """Utility used to fetch reading from one specific sensor, with 0 LUN"""
         return self.ipmi.get_sensor_reading(sensor_number, lun)
@@ -17,11 +16,9 @@ class Sensor:
             :return: None
         """
         for sensor in sensors:
-            try:
-                sensor.reading = self.reading(sensor.number)
-            except Exception as ex:
-                print("EXCEPTION!!!!!1" + ex)
+            sensor.reading = self.reading(sensor.number)
 
+    # (Set/Get)SensorHysteresis
     # (Set/Get)SensorThresholds
     # (Set/Get)SensorEventEnable
     # GetDeviceSdrInfo
