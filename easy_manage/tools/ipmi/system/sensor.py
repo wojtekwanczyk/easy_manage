@@ -22,13 +22,9 @@ class Sensor:
             except Exception as ex:
                 print("EXCEPTION!!!!!1" + ex)
 
-        # (Set/Get)SensorThresholds
-
+    # (Set/Get)SensorThresholds
     # (Set/Get)SensorEventEnable
-        # GetDeviceSdrInfo
+    # GetDeviceSdrInfo
     # ReserveDeviceSdrRepository
     # GetDeviceSdr
-
-    # GetSensorReading
-
     # RearmSensorEvents

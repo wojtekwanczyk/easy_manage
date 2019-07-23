@@ -8,8 +8,8 @@ class AbstractSystem:
         self.data = {}
         self.last_update = None
 
-    def get_power_state(self):
+    def get_power_state(self, fetch):
         pass
 
-    def get_status(self):
+    def get_system_health(self, fetch):
         pass
