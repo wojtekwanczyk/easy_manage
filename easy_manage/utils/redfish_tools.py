@@ -3,7 +3,7 @@
 import logging
 import operator
 from datetime import datetime
-from easy_manage import utils
+from easy_manage.utils import utils
 
 
 LOGGER = logging.getLogger('RedfishConnector')
