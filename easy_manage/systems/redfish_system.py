@@ -1,10 +1,11 @@
-"""
+'''
 Module with class responsible for management with separate system through Redfish interface
-"""
+'''
 
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.redfish_tools import RedfishTools
+from easy_manage.systems.utils_system import BadHttpResponse
 
 
 LOGGER = logging.getLogger('redfish_system')
@@ -12,9 +13,9 @@ LOGGER.setLevel(logging.DEBUG)
 
 
 class RedfishSystem(AbstractSystem, RedfishTools):
-    """
+    '''
     Class responsible for management with separate system through Redfish interface
-    """
+    '''
 
     def __init__(self, name, connector, endpoint):
         super().__init__(name, connector)
@@ -42,37 +43,31 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.fetch()
         return self.find(['MemorySummary', 'Total'])
 
+    def reset(self, resetType):
+        body = {'ResetType': resetType}
+        res = self.connector.client.post(
+            self.endpoint + '/Actions/ComputerSystem.Reset',
+            body=body)
+        if res.status >= 300:
+            raise BadHttpResponse(res.request)
+
     def restart(self):
-        body = {"ResetType": "GracefulRestart"}
-        response = self.connector.client.post(
-            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+        self.reset('GracefulRestart')
 
     def shutdown(self):
-        body = {"ResetType": "GracefulShutdown"}
-        response = self.connector.client.post(
-            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+        self.reset('GracefulShutdown')
 
     def power_on(self):
-        body = {"ResetType": "On"}
-        response = self.connector.client.post(
-            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+        self.reset('On')
 
     def force_on(self):
-        body = {"ResetType": "ForceOn"}
-        response = self.connector.client.post(
-            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+        self.reset('ForceOn')
 
     def force_off(self):
-        body = {"ResetType": "ForceOff"}
-        response = self.connector.client.post(
-            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+        self.reset('ForceOff')
 
     def force_restart(self):
-        body = {"ResetType": "ForceRestart"}
-        response = self.connector.client.post(
-            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+        self.reset('ForceRestart')
 
     def nmi(self):
-        body = {"ResetType": "Nmi"}
-        response = self.connector.client.post(
-            self.endpoint + "/Actions/ComputerSystem.Reset", body=body)
+        self.reset('Nmi')

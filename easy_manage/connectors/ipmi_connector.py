@@ -2,8 +2,8 @@ import logging
 import pyipmi
 import pyipmi.interfaces
 
-from .connector import Connector
-from .exceptions import NotInitializedError
+from easy_manage.connectors.connector import Connector
+from easy_manage.connectors.exceptions_connector import NotInitializedError
 
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
