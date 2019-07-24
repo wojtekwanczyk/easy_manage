@@ -1,10 +1,13 @@
+"Module for fetching basic system info"
 from easy_manage.connectors.exceptions import NotInitializedError
 
 
 class Info:
+    "Class for fetching basic system info"
     def __init__(self, ipmi):
         self.ipmi = ipmi
-    
+        self.device_id = None
+
     def device_info(self, refresh=True):
         """
         Method for printing device primary options to console
@@ -59,13 +62,11 @@ class Info:
             ('BRIDGE', 'Bridge'),
             ('CHASSIS', 'Chassis Device')
         )
-        print('# ----- BASIC FUNCTION SUPPORT ----- #')
         supported_functions = []
-        for name, desc in functions:
+        for name, _ in functions:
             if self.device_id.supports_function(name):
                 supported_functions.append(name)
         return supported_functions
-                
 
     def firmware_version(self, refresh=False):
         """
@@ -82,6 +83,4 @@ class Info:
 
         if self.device_id.aux is not None:
             return ' '.join('0x%02x' % d for d in self.device_id.aux)
-        else:
-            return None
-            
+        return None
