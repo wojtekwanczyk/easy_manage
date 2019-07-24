@@ -1,5 +1,5 @@
-class AbstractSystem:
-    "Class that represents the system and defines its methods"
+class AbstractChassis:
+    "Class that represents the chassis and defines its methods"
 
     def __init__(self, name, connector):
         self.name = name
@@ -11,5 +11,5 @@ class AbstractSystem:
     def get_power_state(self, fetch):
         pass
 
-    def get_system_health(self, fetch):
+    def get_health(self, fetch):
         pass

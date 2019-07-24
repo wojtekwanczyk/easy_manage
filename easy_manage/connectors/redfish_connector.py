@@ -4,7 +4,7 @@ RedfishConnector class
 import logging
 import redfish
 from easy_manage.connectors.connector import Connector
-from easy_manage.tools.redfish_tools import RedfishTools
+from easy_manage.utils.redfish_tools import RedfishTools
 
 LOGGER = logging.getLogger('RedfishConnector')
 LOGGER.setLevel(logging.DEBUG)
@@ -20,10 +20,12 @@ class RedfishConnector(Connector, RedfishTools):
 
         self.endpoint = '/redfish/v1'
         self.db_filter_name = '_connector'
+        self.db_collection = 'connectors'
         self.db_filter = {self.db_filter_name: self.name}
         self.connected = False
         self.client = None
         self.connector = self
+        self.systems = None
 
     def connect(self):
         "Connect to Redfish device(s)"
@@ -34,7 +36,13 @@ class RedfishConnector(Connector, RedfishTools):
                 password=self.credentials.password)
             self.client.login(auth='session')
             self.connected = True
-        except Exception as ex:
+        except redfish.rest.v1.RetriesExhaustedError as ex:
             LOGGER.error(f"Error while logging in\n{ex}")
             return False
         return True
+
+    def get_systems(self):
+        "Get systems"
+        systems = self.get_data(self.endpoint + '/Systems')['Members']
+        self.systems = list(self.parse_odata(systems).values())
+        return self.systems
