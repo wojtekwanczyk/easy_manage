@@ -11,6 +11,7 @@ REQUIREMENTS_LIST = [
     'logging',
     'cryptography',
     'dnspython'
+
 ]
 
 setuptools.setup(
@@ -24,7 +25,7 @@ setuptools.setup(
     url="https://github.com/wojtekwanczyk/easy_manage",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.6",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

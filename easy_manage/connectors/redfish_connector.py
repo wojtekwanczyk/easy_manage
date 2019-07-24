@@ -21,7 +21,7 @@ class RedfishConnector(Connector, RedfishTools):
         super().__init__(name, address, credentials, port)
 
         self.url = 'https://' + self.address
-        self.endpoint = '/redfish/v1'
+        self.endpoint = '/redfish/urwav1'
         self.db_filter_name = '_connector'
         self.db_filter = {self.db_filter_name: self.name}
         self.connected = False
@@ -31,7 +31,7 @@ class RedfishConnector(Connector, RedfishTools):
         self.db = db
 
     def connect(self):
-        """Connect to Redfish device(s)"""
+        "Connect to Redfish device(s)"
 
         try:
             self.client = redfish.redfish_client(
