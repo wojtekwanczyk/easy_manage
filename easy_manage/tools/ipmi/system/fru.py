@@ -20,8 +20,7 @@ class FRU:
                 "product_name": self.fru_inventory.board_info_area.product_name,
                 "serial_number": self.fru_inventory.board_info_area.serial_number,
                 "part_number": self.fru_inventory.board_info_area.part_number,
-                "fru_file_id": self.fru_inventory.board_info_area.fru_file_id,
-                "custom_mfg_info": self.fru_inventory.board_info_area.custom_mfg_info}
+                "fru_file_id": self.fru_inventory.board_info_area.fru_file_id}
         return None
 
     def fru_product_info(self):

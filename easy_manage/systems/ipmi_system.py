@@ -1,7 +1,6 @@
+"Module which aggregates all IPMI system's submodules"
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
-from easy_manage.tools.ipmi.system.ipmi_system_tools import IpmiSystemTools
-from easy_manage.tools.ipmi.chassis.ipmi_chassis_tools import IpmiChassisTools
 from easy_manage.tools.ipmi.system.fru import FRU
 from easy_manage.tools.ipmi.system.sel import SEL
 from easy_manage.tools.ipmi.system.sdr import SDR
@@ -25,9 +24,6 @@ class IpmiSystem(AbstractSystem):
     def __init__(self, name, connector):
         super().__init__(name, connector)
         self.ipmi = connector.ipmi
-        self.db_filter = {
-            '_connector': self.connector.name, '_system': self.name}
-
         self.fru = FRU(self.ipmi)
         self.sel = SEL(self.ipmi)
         self.sdr = SDR(self.ipmi)

@@ -50,7 +50,7 @@ class IpmiChassisTools:
         "Returns power on hours on chassis"
         return self.ipmi.send_message_with_name('GetPohCounter')
 
-    # GetPowerLevel
+        # GetPowerLevel
         # GetFanSpeedProperties
         # SetFanLevel
         # GetFanLevel
