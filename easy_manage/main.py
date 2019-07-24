@@ -23,6 +23,7 @@ logging.basicConfig(format='%(message)s')
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
+
 def parse_args():
     "Method for parsing arguments from command line"
     parser = argparse.ArgumentParser(description='Placeholder for description')
@@ -37,10 +38,12 @@ def parse_args():
 
     return args
 
+
 def parse_conf(filename):
     with open(filename) as config_file:
         data = json.load(config_file)
     return data
+
 
 def get_credentials(config, user_password):
     hashed_password = config['hashed_password']
@@ -60,16 +63,19 @@ def get_credentials(config, user_password):
 
     return credentials
 
+
 def redfish_demo(args, db, credentials):
     "Just some Redfish testing cases"
 
     LOGGER.info('Redfish demo')
+
     global rf_conn
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
     rf_conn.connect() # without this data is taken from db
     rf_conn.fetch()
 
-    rf_sys = RedfishSystem('test_system_redfish', rf_conn, '/redfish/v1/Systems/1')
+    rf_sys = RedfishSystem('test_system_redfish',
+                           rf_conn, '/redfish/v1/Systems/1')
     rf_sys.fetch()
     rf_cha = RedfishChassis('test_chassis_redfish', rf_conn, '/redfish/v1/Chassis/1')
     rf_cha.fetch()
@@ -95,7 +101,8 @@ def redfish_demo(args, db, credentials):
 
 def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')
-    ipmi_conn = IpmiConnector('test_connector_ipmi', args.address, db, credentials)
+    ipmi_conn = IpmiConnector('test_connector_ipmi',
+                              args.address, db, credentials)
     print(ipmi_conn.connect())
     # ipmi_conn.show_device_id()
     # ipmi_conn.show_functions()
@@ -104,6 +111,7 @@ def ipmi_demo(args, db, credentials):
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
     power = ipmi_sys.get_power_state()
     print(f"Power state: {power}")
+
 
 def main():
     "Main program function"
