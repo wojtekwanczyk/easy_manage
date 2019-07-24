@@ -8,12 +8,14 @@ class FRU:
         self.ipmi = ipmi
         self.fru_inventory = None
 
-    def fetch_inventory(self):
+    def _fetch_inventory(self):
         "Method which fetches data from the fru inventory"
         self.fru_inventory = self.ipmi.get_fru_inventory()
 
     def board_info(self):
         "General board info"
+        if not self.fru_inventory:
+            self._fetch_inventory()
         if self.fru_inventory.board_info_area:
             return {
                 "manufacturer": self.fru_inventory.board_info_area.manufacturer,
@@ -25,6 +27,8 @@ class FRU:
 
     def product_info(self):
         "General product info"
+        if not self.fru_inventory:
+            self._fetch_inventory()
         if self.fru_inventory.product_info_area:
             return{
                 "manufacturer": self.fru_inventory.product_info_area.manufacturer,
@@ -37,6 +41,8 @@ class FRU:
 
     def chassis_info(self):
         "Chassis info. Type field meaning can be found in pyipmi/fru.py"
+        if not self.fru_inventory:
+            self._fetch_inventory()
         if self.fru_inventory.chassis_info_area:
             return{
                 "type": self.fru_inventory.chassis_info_area.type,
