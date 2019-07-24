@@ -4,8 +4,8 @@ Module with class responsible for management with separate system through Redfis
 
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
-from easy_manage.tools.redfish_tools import RedfishTools
-from easy_manage.systems.utils_system import BadHttpResponse
+from easy_manage.utils.redfish_tools import RedfishTools
+from easy_manage.utils.exceptions import BadHttpResponse
 
 
 LOGGER = logging.getLogger('redfish_system')
@@ -43,8 +43,8 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.fetch()
         return self.find(['MemorySummary', 'Total'])
 
-    def reset(self, resetType):
-        body = {'ResetType': resetType}
+    def reset_action(self, reset_type):
+        body = {'ResetType': reset_type}
         res = self.connector.client.post(
             self.endpoint + '/Actions/ComputerSystem.Reset',
             body=body)
@@ -52,22 +52,42 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             raise BadHttpResponse(res.request)
 
     def restart(self):
-        self.reset('GracefulRestart')
+        self.reset_action('GracefulRestart')
 
-    def shutdown(self):
-        self.reset('GracefulShutdown')
+    def power_off(self):
+        self.reset_action('GracefulShutdown')
 
     def power_on(self):
-        self.reset('On')
+        self.reset_action('On')
 
     def force_on(self):
-        self.reset('ForceOn')
+        self.reset_action('ForceOn')
 
     def force_off(self):
-        self.reset('ForceOff')
+        self.reset_action('ForceOff')
 
     def force_restart(self):
-        self.reset('ForceRestart')
+        self.reset_action('ForceRestart')
 
     def nmi(self):
-        self.reset('Nmi')
+        self.reset_action('Nmi')
+
+
+    def set_boot_source(self, source):
+        "We are not allowed to do it from student account :("
+        body = {'Boot': {
+            'BootSourceOverrideEnabled': 'Once',
+            'BootSourceOverrideTarget': source
+        }}
+        res = self.connector.client.patch(
+            self.endpoint,
+            body=body)
+        if res.status >= 300:
+            print(res.status)
+            raise BadHttpResponse(str(res.status) + '\n' + res.request)
+
+    def get_allowable_boot_sources(self):
+        return self.find(['Boot', 'AllowableValues'])
+
+    def get_boot_source(self):
+        return self.find(['Boot', 'BootSourceOverrideTarget'], True)

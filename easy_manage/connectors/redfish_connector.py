@@ -4,7 +4,7 @@ RedfishConnector class
 import logging
 import redfish
 from easy_manage.connectors.connector import Connector
-from easy_manage.tools.redfish_tools import RedfishTools
+from easy_manage.utils.redfish_tools import RedfishTools
 
 LOGGER = logging.getLogger('RedfishConnector')
 LOGGER.setLevel(logging.DEBUG)
@@ -43,6 +43,6 @@ class RedfishConnector(Connector, RedfishTools):
 
     def get_systems(self):
         "Get systems"
-        systems = self.find_all('Systems')
-        self.systems = self.parse_odata(systems)
+        systems = self.get_data(self.endpoint + '/Systems')['Members']
+        self.systems = list(self.parse_odata(systems).values())
         return self.systems
