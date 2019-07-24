@@ -1,7 +1,5 @@
 class Connector:
-    """
-    Abstract class that all interfaces connectors inheritance from
-    """
+    "Abstract class that all interfaces connectors inheritance from"
     def __init__(self, name, address, credentials, port):
         self.name = name
         self.address = address

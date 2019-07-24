@@ -1,5 +1,5 @@
 class AbstractSystem:
-    """Class that represents the system and defines its methods"""
+    "Class that represents the system and defines its methods"
 
     def __init__(self, name, connector):
         self.name = name

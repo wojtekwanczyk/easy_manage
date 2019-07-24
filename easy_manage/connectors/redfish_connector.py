@@ -13,9 +13,7 @@ LOGGER.setLevel(logging.DEBUG)
 
 
 class RedfishConnector(Connector, RedfishTools):
-    """
-    Class for connection through Redfish standard.
-    """
+    " Class for connection through Redfish standard."
 
     def __init__(self, name, address, db, credentials, port=None):
         super().__init__(name, address, credentials, port)
