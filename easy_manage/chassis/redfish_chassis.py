@@ -66,3 +66,8 @@ class RedfishChassis(AbstractChassis, RedfishTools):
 
     def get_fan_names(self, fetch=True):
         return self.get_thermal_names('Fans', fetch)
+
+    def get_oem_info(self):
+        "Manufacturer and administrative information"
+        self.fetch()
+        return self.find(['Oem'])
