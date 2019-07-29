@@ -225,3 +225,41 @@ class RedfishTools:
                 else:
                     parsed_dict[key] = value['@odata.id']
         return parsed_dict
+
+    def get_dict_containing(self, name, data=None, misses=5):
+        """
+        finds a dictionary containing 'name' as key or value in data
+        stored locally retrieved earlier from Redfish connector
+        :param name: name to search in 'self.data'
+        :return: dictionary containing name as key or value
+        """
+
+        # starting point - default argument
+        if data is None:
+            data = self.data
+
+        # we went too deep or cannot iterate over data
+        if not misses or not utils.is_iterable(data):
+            return None
+
+        found = None
+
+        # iterate over list and check them
+        if isinstance(data, list):
+            for elem in data:
+                found = self.get_dict_containing(name, elem, misses)
+                if found:
+                    return found
+            return None
+
+        # such element is in this dictionary
+        if name in data or name in data.values():
+            return data
+
+        # if not found in current dictionary, we search through curent dict values
+        for value in data.values():
+            found = self.get_dict_containing(name, value, misses-1)
+            if found:
+                return found
+
+        return None
