@@ -84,7 +84,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             body=body)
         if res.status >= 300:
             print(res.status)
-            raise BadHttpResponse(str(res.status) + '\n' + res.request)
+            raise BadHttpResponse(str(res.status) + '\n' + str(res.request))
 
     def get_allowable_boot_sources(self):
         return self.find(['Boot', 'AllowableValues'])
