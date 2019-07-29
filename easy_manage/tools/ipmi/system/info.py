@@ -1,5 +1,5 @@
 "Module for fetching basic system info"
-from easy_manage.connectors.exceptions import NotInitializedError
+from easy_manage.connectors.exceptions_connector import NotInitializedError
 
 
 class Info:

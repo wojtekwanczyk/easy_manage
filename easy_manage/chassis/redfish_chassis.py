@@ -3,7 +3,7 @@
 import logging
 import pprint as pp
 from easy_manage.chassis.abstract_chassis import AbstractChassis
-from easy_manage.utils.redfish_tools import RedfishTools
+from easy_manage.tools.redfish.redfish_tools import RedfishTools
 
 LOGGER = logging.getLogger('redfish_chassis')
 LOGGER.setLevel(logging.DEBUG)
@@ -14,7 +14,6 @@ class RedfishChassis(AbstractChassis, RedfishTools):
 
     def __init__(self, name, connector, endpoint):
         super().__init__(name, connector)
-
         self.endpoint = endpoint
         self.thermal = None
         self.db_filter_name = '_chassis'

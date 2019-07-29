@@ -4,7 +4,7 @@ Module with class responsible for management with separate system through Redfis
 
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
-from easy_manage.utils.redfish_tools import RedfishTools
+from easy_manage.tools.redfish.redfish_tools import RedfishTools
 from easy_manage.utils.exceptions import BadHttpResponse
 
 

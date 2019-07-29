@@ -3,11 +3,11 @@
 import logging
 import operator
 from datetime import datetime
-from easy_manage import utils
+from easy_manage.utils import utils
 
 
 LOGGER = logging.getLogger('RedfishConnector')
-LOGGER.setLevel(logging.DEBUG)
+LOGGER.setLevel(logging.INFO)
 
 class RedfishTools:
     "Class with useful methods to simplify communication with Devices using Redfish Standard"
@@ -24,16 +24,20 @@ class RedfishTools:
         self.client = None
         self.db_filter_name = None
 
-    def fetch(self, level=1):
+    def fetch(self, level=1, interval=60):
         """Fetches data from device through Redfish interface and passes it to database.
-        If the session has not been established, then data is fetched from database"""
-        if self.connector.connected:
+        If the session has not been established, then data is fetched from database. When
+        data has been fetched from Redfish Connector in less than `interval` seconds, it won't
+        be fetched once again"""
+        if self.connector.connected and (not self.last_update or
+                (self.last_update and (datetime.now() - self.last_update).seconds > interval)):
             # fetch through redfish
+            LOGGER.info("Fetching data from BMC")
             self.data = self.update_recurse(self.endpoint, level)
             self.last_update = datetime.now()
             self.__save_to_db()
-        elif not self.data:
-            LOGGER.info('Not connected. Fetching from database.')
+        else:
+            LOGGER.info("Fetching data from DB")
             self.__fetch_from_db()
 
     def __save_to_db(self):
@@ -145,10 +149,13 @@ class RedfishTools:
         :return: Dictionary with endpoints as keys and fresh data stored
         beneath such endpoint as dictionary value
         """
-        if not data:
-            data = {}
+        if not endpoint:
+            endpoint = self.endpoint
         if endpoint[-1] == '/':
             endpoint = endpoint[:-1]
+        if not data:
+            data = {}
+        # LOGGER.info(f"Updating data from {endpoint} with depth {max_depth}")
         if max_depth == 0 or endpoint in data.keys():
             return data
         print(endpoint)
