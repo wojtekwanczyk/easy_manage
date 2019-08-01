@@ -1,3 +1,8 @@
+"""
+Module with class responsible for correct creation of controllers that can be used
+without knowledge of which interfaces they use
+"""
+
 from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.controller.controller import Controller
@@ -13,8 +18,8 @@ class ControllerFactory:
     def __init__(self, db):
         self.db = db
 
-
     def create_controller(self, name, description, address, credentials):
+        "Create controller detecting with interfaces it can support"
         controller = Controller(name, description, self.db)
         self.discover_standards(controller, address, credentials)
         self.assign_system(controller)
@@ -23,6 +28,7 @@ class ControllerFactory:
 
     #  TODO: should be static but redfish connector needs db
     def discover_standards(self, controller, address, credentials):
+        "Detects which standards can be used on given server"
         rf_conn = RedfishConnector('test_connector_redfish', address, self.db, credentials)
         if rf_conn.connect():
             controller.standards['redfish'] = rf_conn
@@ -45,7 +51,11 @@ class ControllerFactory:
 
     @staticmethod
     def assign_missing_methods(recipient, donor):
-        new_methods = list(set(donor.methods) - set(recipient.methods))
+        "Reassigns available methods call from donor to recipient"
+        if recipient.abstract:
+            new_methods = donor.get_methods()
+            recipient.abstract = False
+        else:
+            new_methods = list(set(donor.methods) - set(recipient.methods))
         for method in new_methods:
             setattr(recipient, method, getattr(donor, method))
-        recipient.methods = recipient.methods + new_methods
