@@ -4,22 +4,25 @@ from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.systems.ipmi_system import IpmiSystem
 
+
 class ControllerFactory:
 
     def create_controller(self, name, description, address, credentials, db):
         controller = Controller(name, description)
 
-        rf_conn = RedfishConnector('test_connector_redfish', address, db, credentials)
+        rf_conn = RedfishConnector(
+            'test_connector_redfish', address, db, credentials)
         if rf_conn.connect():
             controller.standards.append('redfish')
-            rf_sys = RedfishSystem('test_system_redfish', rf_conn, '/redfish/v1/Systems/1')
+            rf_sys = RedfishSystem('test_system_redfish',
+                                   rf_conn, '/redfish/v1/Systems/1')
             controller.systems.append(rf_sys)
 
-        ipmi_conn = IpmiConnector('test_connector_ipmi', address, db, credentials)
+        ipmi_conn = IpmiConnector(
+            'test_connector_ipmi', address, db, credentials)
         if ipmi_conn.connect():
             controller.standards.append('ipmi')
             ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
             controller.systems.append(ipmi_sys)
 
-        print(f"SYSTEMS: {controller.systems}")
         return controller

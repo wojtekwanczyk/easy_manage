@@ -1,8 +1,9 @@
 "IPMI chassis module"
 from easy_manage.tools.ipmi.chassis.chassis_messages import ChassisControl
+from easy_manage.tools.ipmi.system.fru import FRUChassis
 
 
-class IpmiChassisTools:
+class IpmiChassis(FRUChassis):
     "IPMI chassis class, for fetching basic info"
 
     def __init__(self, ipmi):
@@ -50,7 +51,6 @@ class IpmiChassisTools:
         "Returns power on hours on chassis"
         return self.ipmi.send_message_with_name('GetPohCounter')
 
-        # GetPowerLevel
-        # GetFanSpeedProperties
-        # SetFanLevel
-        # GetFanLevel
+    def chassis_info(self):
+        "Returns FRU chassis info - "
+        return self.chassis_info()

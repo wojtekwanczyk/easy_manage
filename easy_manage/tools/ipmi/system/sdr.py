@@ -16,7 +16,7 @@ class SDR:
 
     def fetch_repository(self):
         """ Returns current SDR repository data"""
-        self.repo_info = self.msg('GetSdrRepositoryInfo')
+        self.repo_info = self._msg('GetSdrRepositoryInfo')
         if self.is_stale(self.repo_info):
             return self.fetch_sdrs()
         return self.sdrs
@@ -63,6 +63,6 @@ class SDR:
             return True
         return False
 
-    def msg(self, name):
+    def _msg(self, name):
         """ Utility shorthand"""
         return self.ipmi.send_message_with_name(name)

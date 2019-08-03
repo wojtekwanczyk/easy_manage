@@ -14,7 +14,7 @@ from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.systems.ipmi_system import IpmiSystem
-from easy_manage.controller.controller_factory import ControllerFactory
+from easy_manage.chassis.ipmi_chassis import IpmiChassis
 from easy_manage.utils import Credentials
 
 
@@ -97,6 +97,7 @@ def ipmi_demo(args, db, credentials):
     # ipmi_conn.show_firmware_version()
     #print('========= ' + ipmi_conn.ipmi.connected)
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
+    ipmi_chass = IpmiChassis('test_chassis_ipmi', ipmi_conn)
     power = ipmi_sys.get_power_state()
     print(f"Power state: {power}")
 
