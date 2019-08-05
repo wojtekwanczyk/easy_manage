@@ -1,4 +1,4 @@
-"TODO: implement module"
+"TODO: Implement Event type and content parsing"
 from pyipmi.sel import SelEntry
 from pyipmi.event import EVENT_ASSERTION, EVENT_DEASSERTION
 
@@ -7,8 +7,9 @@ class SEL:
 
     def __init__(self, ipmi):
         self.ipmi = ipmi
-        self.threshold_events = None
-        self.discrete_events = None
+        self.threshold_events_list = None
+        self.discrete_events_list = None
+        self.all_events = None
 
     def _fetch_system_event_list(self):
         "Fetches all SEL SYSTEM events entries"
@@ -24,10 +25,20 @@ class SEL:
         "Parses all events and divides them into 2 categories: Threshold and Discrete"
         if not self.all_events:
             self._fetch_system_event_list()
-        self.threshold_events = list(
+        self.threshold_events_list = list(
             filter(ThresholdEvent.is_threshold, self.all_events))
-        self.discrete_events = list(
+        self.discrete_events_list = list(
             filter(DiscreteEvent.is_discrete, self.all_events))
+
+    def threshold_events(self):
+        "Returns list of filtered threshold events"
+        self._parse_all_events()
+        return self.threshold_events_list
+
+    def discrete_events(self):
+        "Returns list of filtered discrete events"
+        self._parse_all_events()
+        return self.discrete_events_list
 
 
 class AbstractEvent:
@@ -37,6 +48,7 @@ class AbstractEvent:
 
     def __init__(self, event):
         self.timestamp = event.timestamp
+        self.description = str(event)
         self.sensor_type = event.sensor_type
         self.sensor_number = event.sensor_number
         # Direction is described by assertion/deassertion flags respectievly
@@ -52,6 +64,7 @@ class ThresholdEvent(AbstractEvent):
 
     @staticmethod
     def is_threshold(event):
+        "Returns boolean based on SelEvent object"
         return event.type == ThresholdEvent.THRESHOLD_EVENT_TYPE
 
 
@@ -61,4 +74,5 @@ class DiscreteEvent(AbstractEvent):
 
     @staticmethod
     def is_discrete(event):
+        "Returns boolean based on SelEvent object"
         return event.type in DiscreteEvent.DISCRETE_EVENT_TYPE_RANGE

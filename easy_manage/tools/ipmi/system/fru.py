@@ -47,7 +47,7 @@ class FRU(FRUInventoryOwner):
 class FRUChassis(FRUInventoryOwner):
     "Class for accessing fru chassis data "
 
-    def chassis_info(self):
+    def fru_chassis_info(self):
         "Chassis info. Type field meaning can be found in pyipmi/fru.py"
         if not self.fru_inventory:
             self._fetch_inventory()
