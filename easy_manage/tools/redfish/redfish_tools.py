@@ -187,7 +187,7 @@ class RedfishTools:
         self.last_update = datetime.now()
 
     @staticmethod
-    def _endpoint_inception(iterable, max_depth=5, endpoints=None):
+    def _endpoint_inception(iterable, max_depth=3, endpoints=None):
         """
         We need to go deeper. Aka extract_endpoints().
         Search for every endpoint reference stored in iterable
@@ -205,8 +205,10 @@ class RedfishTools:
                         value,
                         max_depth - 1,
                         endpoints)
-                if key == '@odata.id' and value not in endpoints:
-                    endpoints.append(value)
+                elif key == '@odata.id':
+                    endp = value.split('#')[0]
+                    if endp not in endpoints:
+                        endpoints.append(endp)
         return endpoints
 
     def _parse_odata(self, odata_iterable):
@@ -281,7 +283,7 @@ class RedfishTools:
 
     def _get_device_info(self, name):
         "Get device info from Redfish Links"
-        endpoints = self._endpoint_inception(self._find([name]))
+        endpoints = self._endpoint_inception(self._find([name]), 2)
         data = {}
         for endpoint in endpoints:
             data[endpoint] = self.get_data(endpoint)
