@@ -91,3 +91,6 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def get_boot_source(self):
         return self.find(['Boot', 'BootSourceOverrideTarget'], True)
+
+    def get_info(self):
+        return self.get_main_info()

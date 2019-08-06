@@ -71,3 +71,6 @@ class RedfishChassis(AbstractChassis, RedfishTools):
         "Manufacturer and administrative information"
         self.fetch()
         return self.find(['Oem'])
+
+    def get_info(self):
+        return self.get_main_info()

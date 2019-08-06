@@ -34,8 +34,12 @@ class RedfishTools:
             # fetch through redfish
             LOGGER.info("Fetching data from BMC")
             self.data = self.update_recurse(self.endpoint, level)
+            for key, value in self.data.items():
+                if key.startswith('/redfish'):
+                    self.data = value
+                    break
             self.last_update = datetime.now()
-            self.__save_to_db()
+            # self.__save_to_db()
         else:
             LOGGER.info("Fetching data from DB")
             self.__fetch_from_db()
@@ -263,3 +267,13 @@ class RedfishTools:
                 return found
 
         return None
+
+    def get_main_info(self):
+        self.fetch()
+        data = {}
+        for entry in self.data.values():
+            if utils.is_iterable(entry):
+                for key, value in entry.items():
+                    if not utils.is_iterable(value):
+                        data[key] = value
+        return data
