@@ -2,6 +2,7 @@
 
 import logging
 import operator
+import pprint as pp
 from datetime import datetime
 from easy_manage.utils import utils
 
@@ -39,7 +40,7 @@ class RedfishTools:
                     self.data = value
                     break
             self.last_update = datetime.now()
-            # self.__save_to_db()
+            self.__save_to_db()
         else:
             LOGGER.info("Fetching data from DB")
             self.__fetch_from_db()

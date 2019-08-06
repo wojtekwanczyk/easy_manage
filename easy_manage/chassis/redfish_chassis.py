@@ -23,6 +23,16 @@ class RedfishChassis(AbstractChassis, RedfishTools):
             self.db_filter_name: self.name
         }
 
+    # Basic info
+
+    def get_oem_info(self):
+        "Manufacturer and administrative information"
+        self.fetch()
+        return self.find(['Oem'])
+
+    def get_info(self):
+        return self.get_main_info()
+
     def get_power_state(self, fetch=True):
         if fetch:
             self.fetch()
@@ -33,44 +43,63 @@ class RedfishChassis(AbstractChassis, RedfishTools):
             self.fetch()
         return self.find(['Status', 'Health'], strict=True)
 
-    def get_thermal_health(self, fetch=True):
-        if fetch:
-            self.thermal = next(iter(self.fetch('/Thermal').values()))
-        return self.find(['Status', 'Health'], data=self.thermal)
+    # Thermal management (fans & temperatures)
 
-    def get_temperature(self, name, fetch=True):
-        "In Celsius"
-        if fetch:
-            self.thermal = next(iter(self.fetch('/Thermal').values()))
-        pp.pprint(self.thermal)
-        sensor_dict = self.get_dict_containing(name, self.thermal)
-        return self.find(['ReadingCelsius'], data=sensor_dict)
+    def get_thermal_health(self):
+        thermal = self.get_data(self.endpoint + '/Thermal')
+        return self.find(['Status', 'Health'], data=thermal)
 
-    def get_fan_speed(self, name, fetch=True):
-        "Percentage speed"
-        if fetch:
-            self.thermal = next(iter(self.fetch('/Thermal').values()))
-        sensor_dict = self.get_dict_containing(name, self.thermal)
-        return self.find(['Reading'], data=sensor_dict, strict=True)
-
-    def get_thermal_names(self, thermal_type, fetch=True):
-        if fetch:
-            self.thermal = next(iter(self.fetch('/Thermal').values()))
+    def _get_thermal_names(self, thermal_type):
+        thermal = self.get_data(self.endpoint + '/Thermal')
         names = []
-        for structure in self.thermal[thermal_type]:
+        for structure in thermal[thermal_type]:
             names.append(structure['Name'])
         return names
 
-    def get_temperature_names(self, fetch=True):
-        return self.get_thermal_names('Temperatures', fetch)
+    def get_temperature_names(self):
+        return self._get_thermal_names('Temperatures')
 
-    def get_fan_names(self, fetch=True):
-        return self.get_thermal_names('Fans', fetch)
+    def get_fan_names(self):
+        return self._get_thermal_names('Fans')
 
-    def get_oem_info(self):
-        "Manufacturer and administrative information"
-        self.fetch()
-        return self.find(['Oem'])
+    def get_temperature(self, name):
+        "In Celsius"
+        thermal = self.get_data(self.endpoint + '/Thermal')
+        sensor_dict = self.get_dict_containing(name, thermal)
+        return self.find(['ReadingCelsius'], data=sensor_dict)
 
-    def get_info(self):
-        return self.get_main_info()
+    def get_fan_speed(self, name):
+        "Percentage speed"
+        thermal = self.get_data(self.endpoint + '/Thermal')
+        sensor_dict = self.get_dict_containing(name, thermal)
+        return self.find(['Reading'], data=sensor_dict, strict=True)
+
+    # Power supply management
+    def _power_search(self, name):
+        power_data = self.get_data(self.endpoint + '/Power')
+        return self.find([name], strict=True, data=power_data)
+
+    def get_power_info(self):
+        return self._power_search('Oem')
+
+    def get_power_control(self):
+        return self._power_search('PowerControl')
+
+    def get_power_supplies(self):
+        return self._power_search('PowerSupplies')
+
+    def get_power_supply(self, index):
+        odata_id = self.endpoint + '/Power#/PowerSupplies/' + str(index)
+        power_data = self.get_data(self.endpoint + '/Power')
+        return self.get_dict_containing(odata_id, power_data['PowerSupplies'])
+
+    def get_power_voltages(self):
+        return self._power_search('Voltages')
+
+    def get_power_voltage(self, index):
+        odata_id = self.endpoint + '/Power#/Voltages/' + str(index)
+        power_data = self.get_data(self.endpoint + '/Power')
+        return self.get_dict_containing(odata_id, power_data['Voltages'])
+
+    def get_power_redundancy(self):
+        return self._power_search('Redundancy')
