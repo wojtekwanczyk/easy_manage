@@ -102,3 +102,14 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     # Other devices
 
+    def get_coolers(self):
+        return self._get_device_info('CooledBy')
+
+    def get_chassis(self):
+        return self._get_device_info('Chassis')
+
+    def get_power_supplies(self):
+        return self._get_device_info('PoweredBy')
+
+    def get_managers(self):
+        return self._get_device_info('ManagedBy')
