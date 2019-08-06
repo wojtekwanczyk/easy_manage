@@ -172,7 +172,7 @@ class RedfishTools:
                     if value == endpoint:
                         continue
                     data = self.update_recurse(value, max_depth - 1, data)
-                if isinstance(value, dict):
+                if utils.is_iterable(value):
                     endpoints = RedfishTools.endpoint_inception(value)
                     for endp in endpoints:
                         data = self.update_recurse(endp, max_depth - 1, data)

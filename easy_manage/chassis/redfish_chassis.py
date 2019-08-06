@@ -103,3 +103,33 @@ class RedfishChassis(AbstractChassis, RedfishTools):
 
     def get_power_redundancy(self):
         return self._power_search('Redundancy')
+
+    # Network Adapters
+
+    def get_network_adapters(self):
+        return self.update_recurse(self.endpoint + '/NetworkAdapters')
+
+    # Other devices
+
+    def _get_device_info(self, name):
+        "Get device info from Redfish Links"
+        endpoints = self.endpoint_inception(self.find([name]))
+        data = {}
+        for endpoint in endpoints:
+            data[endpoint] = self.get_data(endpoint)
+        return data
+
+    def get_pcie_devices(self):
+        return self._get_device_info('PCIeDevices')
+
+    def get_storage(self):
+        return self._get_device_info('Storage')
+
+    def get_drives(self):
+        return self._get_device_info('Drives')
+
+    def get_computer_systems(self):
+        return self._get_device_info('ComputerSystems')
+
+    def get_managers(self):
+        return self._get_device_info('ManagersInChassis')

@@ -90,11 +90,11 @@ def redfish_demo(args, db, credentials):
     print(rf_sys.get_memory_size())
 
 
-    # cmd = None
-    # while cmd != 'end':
-    #     cmd = input()
-    #     d = rf_sys.get_data("/redfish/v1/" + cmd)
-    #     pp.pprint(d)
+    cmd = None
+    while cmd != 'end':
+        cmd = input()
+        d = rf_sys.get_data("/redfish/v1/" + cmd)
+        pp.pprint(d)
 
     return rf_sys, rf_cha
 
