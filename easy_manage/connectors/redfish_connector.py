@@ -44,5 +44,5 @@ class RedfishConnector(Connector, RedfishTools):
     def get_systems(self):
         "Get systems"
         systems = self.get_data(self.endpoint + '/Systems')['Members']
-        self.systems = list(self.parse_odata(systems).values())
+        self.systems = list(self._parse_odata(systems).values())
         return self.systems

@@ -28,20 +28,27 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.db_filter_name: self.name
         }
 
+    # Basic info
+
+    def get_info(self):
+        return self._get_main_info()
+
     def get_power_state(self, fetch=True):
         if fetch:
-            self.fetch()
-        return self.find(['PowerState'])
+            self._fetch()
+        return self._find(['PowerState'])
 
     def get_system_health(self, fetch=True):
         if fetch:
-            self.fetch()
-        return self.find(['Status', 'HealthRollup'], strict=True)
+            self._fetch()
+        return self._find(['Status', 'HealthRollup'], strict=True)
 
     def get_memory_size(self, fetch=False):
         if fetch:
-            self.fetch()
-        return self.find(['MemorySummary', 'Total'])
+            self._fetch()
+        return self._find(['MemorySummary', 'Total'])
+
+    # Power actions
 
     def reset_action(self, reset_type):
         body = {'ResetType': reset_type}
@@ -72,6 +79,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     def nmi(self):
         self.reset_action('Nmi')
 
+    # Boot options
 
     def set_boot_source(self, source):
         "We are not allowed to do it from student account :("
@@ -87,10 +95,10 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             raise BadHttpResponse(str(res.status) + '\n' + str(res.request))
 
     def get_allowable_boot_sources(self):
-        return self.find(['Boot', 'AllowableValues'])
+        return self._find(['Boot', 'AllowableValues'])
 
     def get_boot_source(self):
-        return self.find(['Boot', 'BootSourceOverrideTarget'], True)
+        return self._find(['Boot', 'BootSourceOverrideTarget'], True)
 
-    def get_info(self):
-        return self.get_main_info()
+    # Other devices
+

@@ -27,27 +27,27 @@ class RedfishChassis(AbstractChassis, RedfishTools):
 
     def get_oem_info(self):
         "Manufacturer and administrative information"
-        self.fetch()
-        return self.find(['Oem'])
+        self._fetch()
+        return self._find(['Oem'])
 
     def get_info(self):
-        return self.get_main_info()
+        return self._get_main_info()
 
     def get_power_state(self, fetch=True):
         if fetch:
-            self.fetch()
-        return self.find(['PowerState'])
+            self._fetch()
+        return self._find(['PowerState'])
 
     def get_health(self, fetch=True):
         if fetch:
-            self.fetch()
-        return self.find(['Status', 'Health'], strict=True)
+            self._fetch()
+        return self._find(['Status', 'Health'], strict=True)
 
     # Thermal management (fans & temperatures)
 
     def get_thermal_health(self):
         thermal = self.get_data(self.endpoint + '/Thermal')
-        return self.find(['Status', 'Health'], data=thermal)
+        return self._find(['Status', 'Health'], data=thermal)
 
     def _get_thermal_names(self, thermal_type):
         thermal = self.get_data(self.endpoint + '/Thermal')
@@ -65,19 +65,19 @@ class RedfishChassis(AbstractChassis, RedfishTools):
     def get_temperature(self, name):
         "In Celsius"
         thermal = self.get_data(self.endpoint + '/Thermal')
-        sensor_dict = self.get_dict_containing(name, thermal)
-        return self.find(['ReadingCelsius'], data=sensor_dict)
+        sensor_dict = self._get_dict_containing(name, thermal)
+        return self._find(['ReadingCelsius'], data=sensor_dict)
 
     def get_fan_speed(self, name):
         "Percentage speed"
         thermal = self.get_data(self.endpoint + '/Thermal')
-        sensor_dict = self.get_dict_containing(name, thermal)
-        return self.find(['Reading'], data=sensor_dict, strict=True)
+        sensor_dict = self._get_dict_containing(name, thermal)
+        return self._find(['Reading'], data=sensor_dict, strict=True)
 
     # Power supply management
     def _power_search(self, name):
         power_data = self.get_data(self.endpoint + '/Power')
-        return self.find([name], strict=True, data=power_data)
+        return self._find([name], strict=True, data=power_data)
 
     def get_power_info(self):
         return self._power_search('Oem')
@@ -91,7 +91,7 @@ class RedfishChassis(AbstractChassis, RedfishTools):
     def get_power_supply(self, index):
         odata_id = self.endpoint + '/Power#/PowerSupplies/' + str(index)
         power_data = self.get_data(self.endpoint + '/Power')
-        return self.get_dict_containing(odata_id, power_data['PowerSupplies'])
+        return self._get_dict_containing(odata_id, power_data['PowerSupplies'])
 
     def get_power_voltages(self):
         return self._power_search('Voltages')
@@ -99,7 +99,7 @@ class RedfishChassis(AbstractChassis, RedfishTools):
     def get_power_voltage(self, index):
         odata_id = self.endpoint + '/Power#/Voltages/' + str(index)
         power_data = self.get_data(self.endpoint + '/Power')
-        return self.get_dict_containing(odata_id, power_data['Voltages'])
+        return self._get_dict_containing(odata_id, power_data['Voltages'])
 
     def get_power_redundancy(self):
         return self._power_search('Redundancy')
@@ -107,17 +107,9 @@ class RedfishChassis(AbstractChassis, RedfishTools):
     # Network Adapters
 
     def get_network_adapters(self):
-        return self.update_recurse(self.endpoint + '/NetworkAdapters')
+        return self._update_recurse(self.endpoint + '/NetworkAdapters')
 
     # Other devices
-
-    def _get_device_info(self, name):
-        "Get device info from Redfish Links"
-        endpoints = self.endpoint_inception(self.find([name]))
-        data = {}
-        for endpoint in endpoints:
-            data[endpoint] = self.get_data(endpoint)
-        return data
 
     def get_pcie_devices(self):
         return self._get_device_info('PCIeDevices')
