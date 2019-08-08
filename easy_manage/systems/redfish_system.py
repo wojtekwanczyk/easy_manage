@@ -105,6 +105,29 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     def get_boot_source(self):
         return self._find(['Boot', 'BootSourceOverrideTarget'], True)
 
+    # Secure boot keys management
+
+    def _secure_boot_key_reset(self, reset_type):
+        ""
+        body = {'ResetKeysType': reset_type}
+        res = self.connector.client.post(
+            self.endpoint + '/SecureBoot/Actions/SecureBoot.ResetKeys',
+            body=body)
+        if res.status >= 300:
+            raise BadHttpResponse(res.request)
+
+    def secure_boot_default_keys(self):
+        self._secure_boot_key_reset('ResetAllKeysToDefault')
+
+    def secure_boot_delete_pk(self):
+        "Delete Platform Key"
+        self._secure_boot_key_reset('DeletePK')
+
+    def secure_boot_delete_keys(self):
+        """Delete the content of all UEFI Secure Boot key databases (PK, KEK, DB, DBX).
+        This puts the system in Setup Mode"""
+        self._secure_boot_key_reset('DeleteAllKeys')
+
     # Other devices
 
     def get_coolers(self):
@@ -157,6 +180,14 @@ class RedfishSystem(AbstractSystem, RedfishTools):
         Adapters/Ports. We must rethink how do we want to store it."""
         return self.get_data(self.endpoint + '/NetworkInterfaces/' + str(index))
 
+    def get_ethernet_interfaces(self):
+        interfaces = self.get_data(self.endpoint + '/EthernetInterfaces')
+        endpoints = self._endpoint_inception(self._find(['Members'], False, interfaces))
+        data = {}
+        for endpoint in endpoints:
+            data[endpoint] = self.get_data(endpoint)
+        return data
+
     # Other
 
     def get_storage(self):
@@ -165,3 +196,14 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     def get_memory(self):
         return self._get_device_info('Memory')
 
+    def get_pcie_devices(self):
+        return self._get_device_info('PCIeDevices')
+
+    def get_pcie_functions(self):
+        return self._get_device_info('PCIeFunctions')
+
+    def get_standard_logs(self):
+        return self.get_data(self.endpoint + '/LogServices/StandardLog/Entries')
+
+    def get_active_logs(self):
+        return self.get_data(self.endpoint + '/LogServices/ActiveLog/Entries')
