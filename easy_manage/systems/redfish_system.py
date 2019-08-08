@@ -33,6 +33,11 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     def get_info(self):
         return self._get_main_info()
 
+    def get_oem_info(self):
+        "Manufacturer and administrative information"
+        self._fetch()
+        return self._find(['Oem'])
+
     def get_power_state(self, fetch=True):
         if fetch:
             self._fetch()
@@ -144,3 +149,19 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def get_cpu_history_power(self):
         return self._get_cpu_history('Power')
+
+    # Network Interfaces
+
+    def get_network_interface(self, index):
+        """Right now it returns structure with links to Chassis' 
+        Adapters/Ports. We must rethink how do we want to store it."""
+        return self.get_data(self.endpoint + '/NetworkInterfaces/' + str(index))
+
+    # Other
+
+    def get_storage(self):
+        return self._get_device_info('Storage')
+
+    def get_memory(self):
+        return self._get_device_info('Memory')
+
