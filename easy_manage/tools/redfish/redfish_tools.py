@@ -126,6 +126,13 @@ class RedfishTools:
         # all names in list have been found
         if not name_list:
             return data
+        
+        # data is a list - CAUTION!!! - not sure if works
+        if data is list:
+            for entry in data:
+                found = self._find(name_list, strict, entry, misses)
+                if found:
+                    return found
 
         # we went too deep or cannot iterate over data
         if (not misses and name_list) or not isinstance(data, dict):
@@ -233,6 +240,14 @@ class RedfishTools:
                     parsed_dict[key] = value['@odata.id']
         return parsed_dict
 
+    def remove_odata(self, data):
+        "Removes all odata entries"
+        new_data = {}
+        for key, value in data.items():
+            if 'odata' not in key:
+                new_data[key] = value
+        return new_data
+
     def _get_dict_containing(self, name, data=None, misses=5):
         """
         finds a dictionary containing 'name' as key or value in data
@@ -260,8 +275,9 @@ class RedfishTools:
             return None
 
         # such element is in this dictionary
-        if name in data or name in data.values():
-            return data
+        for key, value in data.items():
+            if name in key or name in value:
+                return data
 
         # if not found in current dictionary, we search through curent dict values
         for value in data.values():
@@ -271,13 +287,15 @@ class RedfishTools:
 
         return None
 
-    def _get_main_info(self):
+    def _get_main_info(self, data=None):
         self._fetch()
-        data = {}
-        for key, value in self.data.items():
+        return_data = {}
+        if not data:
+            data = self.data 
+        for key, value in data.items():
             if not utils.is_iterable(value):
-                data[key] = value
-        return data
+                return_data[key] = value
+        return self.remove_odata(return_data)
 
     def _get_device_info(self, name):
         "Get device info from Redfish Links"

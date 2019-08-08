@@ -113,3 +113,34 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def get_managers(self):
         return self._get_device_info('ManagedBy')
+
+    # Processor management
+
+    def get_processor_summary(self):
+        "Very short summary for all processors"
+        return self._find(['ProcessorSummary'])
+
+    def get_processor_info(self, index):
+        "Basic info for specific processor"
+        processor_endpoint = self.endpoint + '/Processors/' + str(index)
+        processor_data = self.get_data(processor_endpoint)
+        return self._get_main_info(processor_data)
+
+    def get_processor_data(self, index):
+        "Full specific processor data"
+        processor_endpoint = self.endpoint + '/Processors/' + str(index)
+        return self.get_data(processor_endpoint)
+
+    def _get_cpu_history(self, metric):
+        processors_endpoint = self.endpoint + '/Processors'
+        processors_data = self.get_data(processors_endpoint)
+        history_endpoint = self._find(['History', 'odata'], False, processors_data)
+        history_data = self.get_data(history_endpoint)
+        final_endpoint = self._get_dict_containing(metric, history_data)
+        return self.get_data(final_endpoint['@odata.id'])
+
+    def get_cpu_history_performance(self):
+        return self._get_cpu_history('Performance')
+
+    def get_cpu_history_power(self):
+        return self._get_cpu_history('Power')
