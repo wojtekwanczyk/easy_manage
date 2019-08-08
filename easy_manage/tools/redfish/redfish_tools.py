@@ -126,7 +126,7 @@ class RedfishTools:
         # all names in list have been found
         if not name_list:
             return data
-        
+
         # data is a list - CAUTION!!! - not sure if works
         if data is list:
             for entry in data:
@@ -291,15 +291,15 @@ class RedfishTools:
         self._fetch()
         return_data = {}
         if not data:
-            data = self.data 
+            data = self.data
         for key, value in data.items():
             if not utils.is_iterable(value):
                 return_data[key] = value
         return self.remove_odata(return_data)
 
-    def _get_device_info(self, name):
+    def _get_device_info(self, name, level=2):
         "Get device info from Redfish Links"
-        endpoints = self._endpoint_inception(self._find([name]), 2)
+        endpoints = self._endpoint_inception(self._find([name]), level)
         data = {}
         for endpoint in endpoints:
             data[endpoint] = self.get_data(endpoint)
