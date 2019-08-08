@@ -274,11 +274,9 @@ class RedfishTools:
     def _get_main_info(self):
         self._fetch()
         data = {}
-        for entry in self.data.values():
-            if utils.is_iterable(entry):
-                for key, value in entry.items():
-                    if not utils.is_iterable(value):
-                        data[key] = value
+        for key, value in self.data.items():
+            if not utils.is_iterable(value):
+                data[key] = value
         return data
 
     def _get_device_info(self, name):
