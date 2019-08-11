@@ -71,23 +71,19 @@ def redfish_demo(args, db, credentials):
 
     global rf_conn
     rf_conn = RedfishConnector('test_connector_redfish', args.address, db, credentials)
+    LOGGER.debug("Connecting to Redfish...")
     rf_conn.connect() # without this data is taken from db
-    rf_conn._fetch()
+    LOGGER.debug("Connected")
 
     rf_sys = RedfishSystem('test_system_redfish',
                            rf_conn, '/redfish/v1/Systems/1')
-    rf_sys._fetch()
     rf_cha = RedfishChassis('test_chassis_redfish', rf_conn, '/redfish/v1/Chassis/1')
-    rf_cha._fetch()
 
-    power = rf_sys.get_power_state()
-    print(f"Power state: {power}")
-    rf_sys.power_on()
-
-    status = rf_sys.get_system_health()
-    print(f"Status: {status}")
-
-    print(rf_sys.get_memory_size())
+    # power = rf_sys.get_power_state()
+    # print(f"Power state: {power}")
+    # rf_sys.power_on()
+    # status = rf_sys.get_system_health()
+    # print(f"Status: {status}")
 
 
     # cmd = None
