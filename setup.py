@@ -4,14 +4,10 @@ with open("README.md", "r") as f:
     LONG_DESCRIPTION = f.read()
 
 REQUIREMENTS_LIST = [
-    'argparse',
-    'redfish',
-    'pymongo',
-    'python-ipmi',
-    'logging',
-    'cryptography',
-    'dnspython'
-
+    'redfish >= 2.1.0',
+    'pymongo[srv] >= 3.8.0',
+    'python-ipmi >= 0.4.1',
+    'cryptography >= 2.7'
 ]
 
 setuptools.setup(

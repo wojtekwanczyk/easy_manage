@@ -1,58 +1,61 @@
-"""Module containing useful methods to simplify communication with Devices using Redfish Standard"""
+"Module containing useful methods to simplify communication with Devices using Redfish Standard"
 
+import logging
+import operator
 from datetime import datetime
-from easy_manage import utils
+from easy_manage.utils import utils
 
+
+LOGGER = logging.getLogger('RedfishConnector')
+LOGGER.setLevel(logging.INFO)
 
 class RedfishTools:
-    """Class with useful methods to simplify communication with Devices using Redfish Standard"""
+    "Class with useful methods to simplify communication with Devices using Redfish Standard"
 
     def __init__(self):
         self.endpoint = None
         self.name = None
         self.data = None
         self.last_update = None
-        self.db = None
+        self.db = {}
         self.db_filter = None
+        self.db_collection = None
         self.connector = None
         self.client = None
-        # TODO systems not used yet - is it really needed?
-        self.systems = None
+        self.db_filter_name = None
 
-    def fetch(self, db_filter_name, level=1):
+    def fetch(self, level=1, interval=60):
         """Fetches data from device through Redfish interface and passes it to database.
-        If the session has not been established, then data is fetched from database"""
-        if self.connector.connected:
+        If the session has not been established, then data is fetched from database. When
+        data has been fetched from Redfish Connector in less than `interval` seconds, it won't
+        be fetched once again"""
+        if self.connector.connected and (not self.last_update or
+                (self.last_update and (datetime.now() - self.last_update).seconds > interval)):
             # fetch through redfish
-            self.data = self.connector.update_recurse(self.endpoint, level)
+            LOGGER.info("Fetching data from BMC")
+            self.data = self.update_recurse(self.endpoint, level)
             self.last_update = datetime.now()
-            self.__save_to_db(db_filter_name)
-        elif not self.data:
+            self.__save_to_db()
+        else:
+            LOGGER.info("Fetching data from DB")
             self.__fetch_from_db()
 
-    def __save_to_db(self, db_filter_name):
-        """Save data to database"""
-        self.data[db_filter_name] = self.name
-        self.db.connectors.update(
+    def __save_to_db(self):
+        "Save data to database"
+        self.data.update(self.db_filter)
+        self.db[self.db_collection].update(
             self.db_filter,
             self.data,
             upsert=True)
 
     def __fetch_from_db(self):
-        """Fetch data from database"""
-        self.data = self.db.connectors.find_one(self.db_filter)
+        "Fetch data from database"
+        self.data = self.db[self.db_collection].find_one(self.db_filter)
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""
-        resp = self.client.get(endpoint)
+        resp = self.connector.client.get(endpoint)
         return resp.dict
-
-    # TODO append systems
-    def get_system(self, index):
-        """Get system information by index"""
-        if not self.systems:
-            return None
-        return self.get_data(self.systems[index])
 
     def search_recurse(self, name, structure=None, i=0):
         """
@@ -81,7 +84,7 @@ class RedfishTools:
                 tuple_list += self.search_recurse(name, elem, i + 1)
         return tuple_list
 
-    def find(self, name):
+    def find_all(self, name):
         """
         Find `name` in data stored locally retrieved
         earlier from Redfish connector
@@ -98,6 +101,43 @@ class RedfishTools:
                 found += prefixed_tuples
         return found
 
+    def find(self, name_list, strict=False, data=None, misses=5):
+        """
+        Finds a field with a "dictionary path" which includes
+        all entries in `name_list` in data stored locally retrieved
+        earlier from Redfish connector
+        :param name_list: List of names in "dictionary path"
+        :return: Single object under last entry in name_list
+        """
+        if strict:
+            in_or_eq = operator.eq
+        else:
+            in_or_eq = operator.contains
+
+        # starting point - default argument
+        if data is None:
+            data = self.data
+
+        # all names in list have been found
+        if not name_list:
+            return data
+
+        # we went too deep or cannot iterate over data
+        if (not misses and name_list) or not isinstance(data, dict):
+            return None
+
+        to_find = name_list[0]
+        found = None
+        for key, value in data.items():
+            if in_or_eq(key, to_find):
+                found = self.find(name_list[1:], strict, value, misses)
+            else:
+                found = self.find(name_list, strict, value, misses-1)
+            if found:
+                return found
+
+        return None
+
     def update_recurse(self, endpoint=None, max_depth=3, data=None):
         """
         Update data about remote system
@@ -109,10 +149,13 @@ class RedfishTools:
         :return: Dictionary with endpoints as keys and fresh data stored
         beneath such endpoint as dictionary value
         """
-        if not data:
-            data = {}
+        if not endpoint:
+            endpoint = self.endpoint
         if endpoint[-1] == '/':
             endpoint = endpoint[:-1]
+        if not data:
+            data = {}
+        # LOGGER.info(f"Updating data from {endpoint} with depth {max_depth}")
         if max_depth == 0 or endpoint in data.keys():
             return data
         print(endpoint)
@@ -171,7 +214,10 @@ class RedfishTools:
         parsed_dict = dict()
         if isinstance(odata_iterable, list):
             for index, elem in enumerate(odata_iterable):
-                parsed_dict[index] = elem['@odata.id']
+                if isinstance(elem, tuple):
+                    parsed_dict[elem[0]] = elem[1]['@odata.id']
+                else:
+                    parsed_dict[index] = elem['@odata.id']
         else:
             for key, value in odata_iterable.items():
                 if key == '@odata.id':
@@ -179,3 +225,41 @@ class RedfishTools:
                 else:
                     parsed_dict[key] = value['@odata.id']
         return parsed_dict
+
+    def get_dict_containing(self, name, data=None, misses=5):
+        """
+        finds a dictionary containing 'name' as key or value in data
+        stored locally retrieved earlier from Redfish connector
+        :param name: name to search in 'self.data'
+        :return: dictionary containing name as key or value
+        """
+
+        # starting point - default argument
+        if data is None:
+            data = self.data
+
+        # we went too deep or cannot iterate over data
+        if not misses or not utils.is_iterable(data):
+            return None
+
+        found = None
+
+        # iterate over list and check them
+        if isinstance(data, list):
+            for elem in data:
+                found = self.get_dict_containing(name, elem, misses)
+                if found:
+                    return found
+            return None
+
+        # such element is in this dictionary
+        if name in data or name in data.values():
+            return data
+
+        # if not found in current dictionary, we search through curent dict values
+        for value in data.values():
+            found = self.get_dict_containing(name, value, misses-1)
+            if found:
+                return found
+
+        return None
