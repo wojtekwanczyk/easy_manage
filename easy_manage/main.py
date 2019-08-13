@@ -13,6 +13,7 @@ from pymongo import MongoClient
 from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.systems.redfish_system import RedfishSystem
+from easy_manage.chassis.redfish_chassis import RedfishChassis
 from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.chassis.ipmi_chassis import IpmiChassis
 from easy_manage.utils import Credentials
@@ -67,6 +68,8 @@ def redfish_demo(args, db, credentials):
     "Just some Redfish testing cases"
 
     LOGGER.info('Redfish demo')
+
+    global rf_conn
     rf_conn = RedfishConnector(
         'test_connector_redfish', args.address, db, credentials)
     rf_conn.connect()  # without this data is taken from db
@@ -75,6 +78,9 @@ def redfish_demo(args, db, credentials):
     rf_sys = RedfishSystem('test_system_redfish',
                            rf_conn, '/redfish/v1/Systems/1')
     rf_sys.fetch()
+    rf_cha = RedfishChassis('test_chassis_redfish',
+                            rf_conn, '/redfish/v1/Chassis/1')
+    rf_cha.fetch()
 
     power = rf_sys.get_power_state()
     print(f"Power state: {power}")
@@ -84,7 +90,14 @@ def redfish_demo(args, db, credentials):
     print(f"Status: {status}")
 
     print(rf_sys.get_memory_size())
-    return rf_sys
+
+    cmd = None
+    while cmd != 'end':
+        cmd = input()
+        d = rf_sys.get_data("/redfish/v1/" + cmd)
+        pp.pprint(d)
+
+    return rf_sys, rf_cha
 
 
 def ipmi_demo(args, db, credentials):
@@ -113,8 +126,8 @@ def main():
     db = mongo_client.get_database(config['database name'])
     credentials = get_credentials(config, 'pass')
 
-    global rf
-    rf = redfish_demo(args, db, credentials)
+    global rf, c
+    rf, c = redfish_demo(args, db, credentials)
 
     #ipmi_demo(args, db, credentials)
 
