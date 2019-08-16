@@ -24,14 +24,25 @@ class RedfishTools:
         self.connector = None
         self.client = None
         self.db_filter_name = None
+        self.force_fetch = None
 
-    def _fetch(self, level=1, interval=60):
+    def set_force_fetch(self, value):
+        """When value is set, _fetch() method always get latest data from Redfish.
+        Such approach is not advisable and could overload Redfish Controller"""
+        self.force_fetch = value
+
+    def _fetch(self, level=1, interval=60, force=False):
         """Fetches data from device through Redfish interface and passes it to database.
         If the session has not been established, then data is fetched from database. When
         data has been fetched from Redfish Connector in less than `interval` seconds, it won't
-        be fetched once again"""
-        if self.connector.connected and (not self.last_update or
-                (self.last_update and (datetime.now() - self.last_update).seconds > interval)):
+        be fetched once again
+        :param level: How recursively deep data should be fetched from Redfish
+        :param interval: Minimal time in seconds between two Redfish fetch requests
+        :param force: If set, method ignores interval parameter and forces fetch from Redfish
+        :return: Dictionary with fetched data (copy of self.data)"""
+        force = self.force_fetch if self.force_fetch else force
+        interval_bool = self.last_update and (datetime.now() - self.last_update).seconds > interval
+        if self.connector.connected and (force or (not self.last_update or interval_bool)):
             # fetch through redfish
             LOGGER.info("Fetching data from BMC")
             self.data = self._update_recurse(self.endpoint, level)
@@ -40,13 +51,12 @@ class RedfishTools:
                     self.data = value
                     break
             self.last_update = datetime.now()
-            self._save_to_db()
         else:
-            LOGGER.info("Fetching data from DB")
-            self._fetch_from_db()
+            LOGGER.info("Fetching data from memory")
+        return self.data
 
     def _save_to_db(self):
-        "Save data to database"
+        "DEPRECATED - Save data to database"
         self.data.update(self.db_filter)
         self.db[self.db_collection].update(
             self.db_filter,
@@ -54,7 +64,7 @@ class RedfishTools:
             upsert=True)
 
     def _fetch_from_db(self):
-        "Fetch data from database"
+        "DEPRECATED - Fetch data from database"
         self.data = self.db[self.db_collection].find_one(self.db_filter)
 
     def get_data(self, endpoint):
@@ -106,7 +116,7 @@ class RedfishTools:
                 found += prefixed_tuples
         return found
 
-    def _find(self, name_list, strict=False, data=None, misses=5):
+    def _find(self, name_list, strict=False, data=None, misses=5, force_fetch=False):
         """
         finds a field with a "dictionary path" which includes
         all entries in `name_list` in data stored locally retrieved
@@ -120,8 +130,8 @@ class RedfishTools:
             in_or_eq = operator.contains
 
         # starting point - default argument
-        if data is None:
-            data = self.data
+        if data is None or force_fetch:
+            data = self._fetch(force=force_fetch)
 
         # all names in list have been found
         if not name_list:

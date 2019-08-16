@@ -18,6 +18,7 @@ class RedfishChassis(AbstractChassis, RedfishTools):
         self.thermal = None
         self.db_filter_name = '_chassis'
         self.db_collection = 'chassis'
+        self.force_fetch = False
         self.db_filter = {
             self.connector.db_filter_name: self.connector.name,
             self.db_filter_name: self.name
@@ -27,21 +28,16 @@ class RedfishChassis(AbstractChassis, RedfishTools):
 
     def get_oem_info(self):
         "Manufacturer and administrative information"
-        self._fetch()
         return self._find(['Oem'])
 
     def get_info(self):
         return self._get_main_info()
 
-    def get_power_state(self, fetch=True):
-        if fetch:
-            self._fetch()
-        return self._find(['PowerState'])
+    def get_power_state(self):
+        return self._find(['PowerState'], force_fetch=True)
 
-    def get_health(self, fetch=True):
-        if fetch:
-            self._fetch()
-        return self._find(['Status', 'Health'], strict=True)
+    def get_health(self):
+        return self._find(['Status', 'Health'], strict=True, force_fetch=True)
 
     # Thermal management (fans & temperatures)
 

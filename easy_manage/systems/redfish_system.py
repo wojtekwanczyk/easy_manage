@@ -23,6 +23,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
         self.endpoint = endpoint
         self.db_filter_name = '_system'
         self.db_collection = 'systems'
+        self.force_fetch = False
         self.db_filter = {
             self.connector.db_filter_name: self.connector.name,
             self.db_filter_name: self.name
@@ -35,22 +36,15 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def get_oem_info(self):
         "Manufacturer and administrative information"
-        self._fetch()
         return self._find(['Oem'])
 
-    def get_power_state(self, fetch=True):
-        if fetch:
-            self._fetch()
-        return self._find(['PowerState'])
+    def get_power_state(self):
+        return self._find(['PowerState'], force_fetch=True)
 
-    def get_system_health(self, fetch=True):
-        if fetch:
-            self._fetch()
-        return self._find(['Status', 'HealthRollup'], strict=True)
+    def get_system_health(self):
+        return self._find(['Status', 'HealthRollup'], strict=True, force_fetch=True)
 
-    def get_memory_size(self, fetch=False):
-        if fetch:
-            self._fetch()
+    def get_memory_size(self):
         return self._find(['MemorySummary', 'Total'])
 
     # Power actions
@@ -86,7 +80,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     # Boot options
 
-    def set_boot_source(self, source):
+    def set_boot_source(self, source, force_fetch=True):
         "We are not allowed to do it from student account :("
         body = {'Boot': {
             'BootSourceOverrideEnabled': 'Once',
