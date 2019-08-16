@@ -21,7 +21,7 @@ setuptools.setup(
     url="https://github.com/wojtekwanczyk/easy_manage",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.6.8",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
@@ -31,6 +31,6 @@ setuptools.setup(
     },
     install_requires=REQUIREMENTS_LIST,
     dependency_links=[
-        'http://github.com/Arcticae/python-ipmi/tarball/master#egg=python-ipmi-1.0.0'
+        'http://github.com/Arcticae/python-ipmi/tarball/master#egg=python-ipmi-0'
     ]
 )
