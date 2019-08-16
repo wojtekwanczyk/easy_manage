@@ -101,7 +101,7 @@ class RedfishTools:
 
     def _find_all(self, name):
         """
-        find `name` in data stored locally retrieved
+        Finds `name` in data stored locally retrieved
         earlier from Redfish connector
         :param name: Name to search
         :return: List of tuples containing info about found
@@ -118,9 +118,9 @@ class RedfishTools:
 
     def _find(self, name_list, strict=False, data=None, misses=5, force_fetch=False):
         """
-        finds a field with a "dictionary path" which includes
-        all entries in `name_list` in data stored locally retrieved
-        earlier from Redfish connector
+        Finds a field with a "dictionary path" which includes
+        all entries in `name_list` in provided data dictionary or
+        data fetched from Redfish controller.
         :param name_list: List of names in "dictionary path"
         :return: Single object under last entry in name_list
         """
@@ -297,7 +297,7 @@ class RedfishTools:
 
         return None
 
-    def _get_main_info(self, data=None):
+    def _get_basic_info(self, data=None):
         self._fetch()
         return_data = {}
         if not data:

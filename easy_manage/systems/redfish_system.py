@@ -32,7 +32,8 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     # Basic info
 
     def get_info(self):
-        return self._get_main_info()
+        "Get basic system info"
+        return self._get_basic_info()
 
     def get_oem_info(self):
         "Manufacturer and administrative information"
@@ -144,9 +145,8 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def get_processor_info(self, index):
         "Basic info for specific processor"
-        processor_endpoint = self.endpoint + '/Processors/' + str(index)
-        processor_data = self.get_data(processor_endpoint)
-        return self._get_main_info(processor_data)
+        processor_data = self.get_processor_data(index)
+        return self._get_basic_info(processor_data)
 
     def get_processor_data(self, index):
         "Full specific processor data"

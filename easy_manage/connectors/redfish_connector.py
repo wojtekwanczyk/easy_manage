@@ -50,7 +50,8 @@ class RedfishConnector(Connector, RedfishTools):
         return self.systems
 
     def get_info(self):
-        return self._get_main_info()
+        "Get basic connector info"
+        return self._get_basic_info()
 
     def event_subscription(self, destination):
         "Subscribe for events"
@@ -66,8 +67,10 @@ class RedfishConnector(Connector, RedfishTools):
             LOGGER.debug(res.text)
             raise BadHttpResponse(res.request)
 
+    # TODO test evenets when webapp api is ready
     def _test_event(self):
-        "Sending test event. Probably not working..."
+        """Triggering Redfish test event.
+        Probably not working because of faulty Redfish implementation"""
         endpoint = self.endpoint + "/EventService/Actions/EventService.SubmitTestEvent"
         body = {
             'EventType': 'Alert',

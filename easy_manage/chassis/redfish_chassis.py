@@ -31,7 +31,8 @@ class RedfishChassis(AbstractChassis, RedfishTools):
         return self._find(['Oem'])
 
     def get_info(self):
-        return self._get_main_info()
+        "Get basic chassis info"
+        return self._get_basic_info()
 
     def get_power_state(self):
         return self._find(['PowerState'], force_fetch=True)
