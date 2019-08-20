@@ -4,10 +4,11 @@ RedfishConnector class
 import logging
 import redfish
 from easy_manage.connectors.connector import Connector
-from easy_manage.tools.redfish_tools import RedfishTools
+from easy_manage.utils.redfish_tools import RedfishTools
 
 LOGGER = logging.getLogger('RedfishConnector')
 LOGGER.setLevel(logging.DEBUG)
+
 
 class RedfishConnector(Connector, RedfishTools):
     """

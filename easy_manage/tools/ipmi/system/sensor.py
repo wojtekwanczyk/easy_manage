@@ -5,11 +5,11 @@ class Sensor:
     "Class which is for reading sensor's values and converting it to proper formats"
 
     def __init__(self, ipmi):
-        self.ipmi = ipmi
+        self._ipmi = ipmi
 
     def sensor_reading(self, sdr):
         """Utility used to fetch reading from one specific sensor, based on it's SDR"""
-        raw_reading = self.ipmi.get_sensor_reading(sdr.number, sdr.lun)
+        raw_reading = self._ipmi.get_sensor_reading(sdr.number, sdr.lun)
         return sdr.parse_reading(raw_reading)
 
     def mass_read_sensor(self, sdr_list):

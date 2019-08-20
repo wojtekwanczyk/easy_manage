@@ -5,12 +5,12 @@ class FRUInventoryOwner:
     "Base class for FRU inventory utilization"
 
     def __init__(self, ipmi):
-        self.ipmi = ipmi
+        self._ipmi = ipmi
         self.fru_inventory = None
 
     def _fetch_inventory(self):
         "Method which fetches data from the fru inventory"
-        self.fru_inventory = self.ipmi.get_fru_inventory()
+        self.fru_inventory = self._ipmi.get_fru_inventory()
 
 
 class FRU(FRUInventoryOwner):

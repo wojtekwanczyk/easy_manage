@@ -1,11 +1,12 @@
 "Module for fetching basic system info"
-from easy_manage.connectors.exceptions import NotInitializedError
+from easy_manage.utils.exceptions import NotInitializedError
 
 
 class Info:
     "Class for fetching basic system info"
+
     def __init__(self, ipmi):
-        self.ipmi = ipmi
+        self._ipmi = ipmi
         self.device_id = None
 
     def device_info(self, refresh=True):
@@ -17,7 +18,7 @@ class Info:
         """
         # Check whether we want to get from server or want to use retained state
         if refresh:
-            self.device_id = self.ipmi.get_device_id()
+            self.device_id = self._ipmi.get_device_id()
         elif self.device_id is None and refresh is False:
             raise NotInitializedError(
                 'Object has not been initialized with anything, set refresh to true')
@@ -47,7 +48,7 @@ class Info:
         """
         # Check whether we want to get from server or want to use retained state
         if refresh:
-            self.device_id = self.ipmi.get_device_id()
+            self.device_id = self._ipmi.get_device_id()
         elif self.device_id is None and refresh is False:
             raise NotInitializedError(
                 'Object has not been initialized with anything, set refresh to true')
@@ -76,7 +77,7 @@ class Info:
         :return: String | None
         """
         if refresh:
-            self.device_id = self.ipmi.get_device_id()
+            self.device_id = self._ipmi.get_device_id()
         elif self.device_id is None:
             raise NotInitializedError(
                 'Object has not been initialized with anything, set refresh to true')

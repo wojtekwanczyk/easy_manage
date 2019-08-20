@@ -16,7 +16,7 @@ from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.chassis.redfish_chassis import RedfishChassis
 from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.chassis.ipmi_chassis import IpmiChassis
-from easy_manage.utils import Credentials
+from easy_manage.utils.general_tools import Credentials
 
 
 logging.basicConfig(format='%(message)s')
@@ -103,16 +103,18 @@ def redfish_demo(args, db, credentials):
 def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')
     ipmi_conn = IpmiConnector('test_connector_ipmi',
-                              args.address, db, credentials)
+                              args.address, credentials)
     print(ipmi_conn.connect())
     # ipmi_conn.show_device_id()
     # ipmi_conn.show_functions()
     # ipmi_conn.show_firmware_version()
     #print('========= ' + ipmi_conn.ipmi.connected)
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
-    ipmi_chass = IpmiChassis('test_chassis_ipmi', ipmi_conn)
-    power = ipmi_sys.get_power_state()
-    print(f"Power state: {power}")
+    ipmi_chass = IpmiChassis(ipmi_conn)
+    sdrs = ipmi_sys.SDRRepository.fetch_sdr_object_list()
+
+    for sdr in sdrs:
+        print(sdr.name)
 
 
 def main():
@@ -127,9 +129,9 @@ def main():
     credentials = get_credentials(config, 'pass')
 
     global rf, c
-    rf, c = redfish_demo(args, db, credentials)
+    # rf, c = redfish_demo(args, db, credentials)
 
-    #ipmi_demo(args, db, credentials)
+    ipmi_demo(args, db, credentials)
 
     # controller_factory = ControllerFactory()
     # controller = controller_factory.create_controller(

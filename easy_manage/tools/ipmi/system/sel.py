@@ -6,14 +6,14 @@ from pyipmi.event import EVENT_ASSERTION, EVENT_DEASSERTION
 class SEL:
 
     def __init__(self, ipmi):
-        self.ipmi = ipmi
+        self._ipmi = ipmi
         self.threshold_events_list = None
         self.discrete_events_list = None
         self.all_events = None
 
     def _fetch_system_event_list(self):
         "Fetches all SEL SYSTEM events entries"
-        entries = self.ipmi.get_sel_entries()
+        entries = self._ipmi.get_sel_entries()
         def is_system_event(
             event): return event.type == SelEntry.TYPE_SYSTEM_EVENT
         sys_events = list(filter(is_system_event, entries))

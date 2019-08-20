@@ -11,7 +11,7 @@ LOGGER = logging.getLogger('ipmi_system')
 LOGGER.setLevel(logging.DEBUG)
 
 
-class IpmiSystem(AbstractSystem, FRU, SEL, SDRRepository, Info, Sensor):
+class IpmiSystem(AbstractSystem):
     """
         Class meant for aggregating all of the sub-functionalities listed:
         FRU - Field Replaceable Unit
@@ -23,4 +23,9 @@ class IpmiSystem(AbstractSystem, FRU, SEL, SDRRepository, Info, Sensor):
 
     def __init__(self, name, connector):
         super().__init__(name, connector)
-        self.ipmi = connector.ipmi
+        ipmi = connector.ipmi
+        self.FRU = FRU(ipmi)
+        self.SEL = SEL(ipmi)
+        self.SDRRepository = SDRRepository(ipmi)
+        self.Info = Info(ipmi)
+        self.Sensor = Sensor(ipmi)
