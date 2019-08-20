@@ -3,7 +3,7 @@ from pyipmi.helper import get_sdr_data_helper
 from pyipmi.sdr import SdrCommon
 from pyipmi.errors import DecodingError
 from .sdr_maps import SENSOR_TYPE_MAP, RATE_UNIT_MAP, UNIT_MAP, map_code_to_value
-
+from easy_manage.tools.ipmi.system.typecodes import TYPECODES
 SDR_TYPE_FULL_SENSOR_RECORD = 0x01
 SDR_TYPE_COMPACT_SENSOR_RECORD = 0x02
 THRESHOLD_SENSOR_CODE = 0x01
@@ -30,8 +30,20 @@ class AbstractSDR:
         self.name = sdr_object.device_id_string
         # Only full and compact SDR are supported
         self.type = sdr_object.type
+        self._value_map = None
         self.number = sdr_object.number
         self.lun = sdr_object.owner_lun
+
+        self.sensor_type = map_code_to_value(
+            sdr_object.sensor_type_code, SENSOR_TYPE_MAP)
+
+        evt_reading_typecode = sdr_object.event_reading_type_code
+        # Return fields
+        kind = AbstractSDR.get_sensor_kind(evt_reading_typecode)
+        self.sensor_kind = kind
+        if kind in ('discrete', 'threshold'):
+            # Value map is specified only for threshold and discrete sensors
+            self._value_map = TYPECODES[evt_reading_typecode]
 
     @staticmethod
     def create_sdr_object(sdr):
@@ -50,7 +62,7 @@ class AbstractSDR:
             return 'threshold'
         if reading_code in DISCRETE_SENSOR_RANGE:
             return 'discrete'
-        return 'unsupported'
+        return 'other'
 
 
 class FullSDR(AbstractSDR):
@@ -58,14 +70,8 @@ class FullSDR(AbstractSDR):
 
     def __init__(self, sdr_object):
         super().__init__(sdr_object)
+        # Return fields
         self.capabilities = sdr_object.capabilities
-
-        self.sensor_type = map_code_to_value(
-            sdr_object.sensor_type_code, SENSOR_TYPE_MAP)
-
-        reading_code = sdr_object.event_reading_type_code
-        self.sensor_kind = AbstractSDR.get_sensor_kind(reading_code)
-
         self.thresholds = sdr_object.threshold
         self.unit = {
             'base_unit': map_code_to_value(sdr_object.units_2, UNIT_MAP),
@@ -82,20 +88,25 @@ class FullSDR(AbstractSDR):
 
     def parse_reading(self, raw_value):
         "Parses full SDR sensor reading, provided raw value"
-        return self._sdr_object.convert_sensor_raw_to_value(raw_value)
+        if self.sensor_kind not in ('discrete', 'threshold'):
+            return self._sdr_object.convert_sensor_raw_to_value(raw_value)
+        try:
+            return self._value_map[raw_value]
+        except KeyError:
+            print(
+                "Key error encountered, raw value cannot be parsed by this SDR object")
+            return None
 
 
 class CompactSDR(AbstractSDR):
     "Class which represents compact sensor data record"
-
-    def __init__(self, sdr_object):
-        super().__init__(sdr_object)
-        # TODO: Implement
-
     def parse_reading(self, raw_value):
         "Parses compact SDR sensor reading, provided raw value"
-        pass
-        # TODO: Implement - provide concatenated reading with value ? sth like dis
+        try:
+            return self._value_map[raw_value]
+        except KeyError:
+            print("Key error encountered, raw value cannot be parsed by this SDR object")
+            return None
 
 
 class SDRRepository:
