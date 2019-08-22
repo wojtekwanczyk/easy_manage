@@ -27,31 +27,28 @@ class AbstractSDR:
 
     def __init__(self, sdr_object):
         self._sdr_object = sdr_object
-        self.name = sdr_object.device_id_string
+        self._name = sdr_object.device_id_string
         # Only full and compact SDR are supported
-        self.type = sdr_object.type
         self._value_map = None
-        self.number = sdr_object.number
-        self.lun = sdr_object.owner_lun
-
-        self.sensor_type = map_code_to_value(
-            sdr_object.sensor_type_code, SENSOR_TYPE_MAP)
-
+        self._record_key = {
+            "owner_id": sdr_object.owner_id,
+            "fru_owner_lun":  sdr_object.owner_lun,
+            "uid": sdr_object.number
+        }
         evt_reading_typecode = sdr_object.event_reading_type_code
-        # Return fields
         kind = AbstractSDR.get_sensor_kind(evt_reading_typecode)
-        self.sensor_kind = kind
         if kind in ('discrete', 'threshold'):
             # Value map is specified only for threshold and discrete sensors
             self._value_map = TYPECODES[evt_reading_typecode]
 
     @staticmethod
-    def create_sdr_object(sdr):
+    def get_sdr_object(sdr):
         "Creates SDR object of proper type based on library SDR object"
         ret_sdr = None
-        if sdr.type == FULL_RECORD_TYPE:
+        sdr_type = sdr.get_type()
+        if sdr_type == FULL_RECORD_TYPE:
             ret_sdr = FullSDR(sdr)
-        elif sdr.type == COMPACT_RECORD_TYPE:
+        elif sdr_type == COMPACT_RECORD_TYPE:
             ret_sdr = CompactSDR(sdr)
         return ret_sdr
 
@@ -64,31 +61,42 @@ class AbstractSDR:
             return 'discrete'
         return 'other'
 
+    def get_sensor_reading(self, raw_value):
+        "Abstract method for parsing raw reading into a value"
+        raise NotImplementedError
+
+    # public API
+    def sdr_sensor_kind(self):
+        "Returns sensor class based on stored sdr object's instance"
+        reading_code = self._sdr_object.event_reading_type_code
+        return AbstractSDR.get_sensor_kind(reading_code)
+
+    def sdr_type(self):
+        "Returns SDR type in hex"
+        return self._sdr_object.type
+
+    def sdr_sensor_type(self):
+        "Returns string with sensor type"
+        return map_code_to_value(
+            self._sdr_object.sensor_type_code, SENSOR_TYPE_MAP)
+
+    def sdr_name(self):
+        "Returns SDR string, parsed from record"
+        return self._name
+
+    def sdr_record_key(self):
+        "Returns record key for unique identificaiton of monitored sensor"
+        return self._record_key
+
 
 class FullSDR(AbstractSDR):
     "Class which represents 8 bit sensor with thresholds data record"
+    # public API
 
-    def __init__(self, sdr_object):
-        super().__init__(sdr_object)
-        # Return fields
-        self.capabilities = sdr_object.capabilities
-        self.thresholds = sdr_object.threshold
-        self.unit = {
-            'base_unit': map_code_to_value(sdr_object.units_2, UNIT_MAP),
-            'rate_unit': map_code_to_value(
-                sdr_object.rate_unit, RATE_UNIT_MAP),
-            'percentage': (False, True)[sdr_object.percentage]
-        }
-        self.bounds = {
-            "normal_maximum":  sdr_object.normal_maximum,
-            "normal_minimum":  sdr_object.normal_minimum,
-            "sensor_maximum_reading":  sdr_object.sensor_maximum_reading,
-            "sensor_minimum_reading":  sdr_object.sensor_minimum_reading
-        }
-
-    def parse_reading(self, raw_value):
+    def get_sensor_reading(self, raw_value):
         "Parses full SDR sensor reading, provided raw value"
-        if self.sensor_kind not in ('discrete', 'threshold'):
+        # TODO: Check if thresholds are being used in analog (normal) sensors
+        if self.sdr_sensor_kind() not in ('discrete', 'threshold'):
             return self._sdr_object.convert_sensor_raw_to_value(raw_value)
         try:
             return self._value_map[raw_value]
@@ -97,10 +105,37 @@ class FullSDR(AbstractSDR):
                 "Key error encountered, raw value cannot be parsed by this SDR object")
             return None
 
+    def sdr_sensor_capabilities(self):
+        "Returns sensor's capabilities"
+        return self._sdr_object.capabilities
+
+    def sdr_sensor_bounds(self):
+        "Returns sensor readings max/mins with their respective values"
+        return {
+            "normal_maximum":  self._sdr_object.normal_maximum,
+            "normal_minimum":  self._sdr_object.normal_minimum,
+            "sensor_maximum_reading":  self._sdr_object.sensor_maximum_reading,
+            "sensor_minimum_reading":  self._sdr_object.sensor_minimum_reading
+        }
+
+    def sdr_sensor_thresholds(self):
+        "Returns sensor thresolds dictionary"
+        return self._sdr_object.threshold
+
+    def sdr_sensor_unit(self):
+        "Returns unit information of the sensor"
+        return {
+            'base_unit': map_code_to_value(self._sdr_object.units_2, UNIT_MAP),
+            'rate_unit': map_code_to_value(
+                self._sdr_object.rate_unit, RATE_UNIT_MAP),
+            'percentage': (False, True)[self._sdr_object.percentage]
+        }
+
 
 class CompactSDR(AbstractSDR):
     "Class which represents compact sensor data record"
-    def parse_reading(self, raw_value):
+
+    def get_sensor_reading(self, raw_value):
         "Parses compact SDR sensor reading, provided raw value"
         try:
             return self._value_map[raw_value]
@@ -126,7 +161,7 @@ class SDRRepository:
             sdrs = self._fetch_sdrs()
         else:
             sdrs = self._sdrs
-        unfiltered = list(map(AbstractSDR.create_sdr_object, sdrs))
+        unfiltered = list(map(AbstractSDR.get_sdr_object, sdrs))
         def isNone(x): return x is not None
         filtered = list(filter(isNone, unfiltered))
         self._sdrs = filtered
