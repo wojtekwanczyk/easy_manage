@@ -40,7 +40,7 @@ class AbstractSDR:
         if kind in ('discrete', 'threshold'):
             # Value map is specified only for threshold and discrete sensors
             self._value_map = TYPECODES[evt_reading_typecode]
-
+    ## Static methods
     @staticmethod
     def get_sdr_object(sdr):
         "Creates SDR object of proper type based on library SDR object"
@@ -60,12 +60,21 @@ class AbstractSDR:
         if reading_code in DISCRETE_SENSOR_RANGE:
             return 'discrete'
         return 'other'
-
+    ## Public API
+    # Abstract methods to override in child classes
+    def sdr_sensor_capabilities(self):
+        "Returns sensor's capabilities dict"
+        raise NotImplementedError
+   
     def get_sensor_reading(self, raw_value):
         "Abstract method for parsing raw reading into a value"
         raise NotImplementedError
-
-    # public API
+   
+    def sdr_sensor_unit(self):
+        "Returns dict with unit info"
+        raise NotImplementedError
+    
+    # Common getters
     def sdr_sensor_kind(self):
         "Returns sensor class based on stored sdr object's instance"
         reading_code = self._sdr_object.event_reading_type_code
@@ -88,6 +97,7 @@ class AbstractSDR:
         "Returns record key for unique identificaiton of monitored sensor"
         return self._record_key
 
+    #TODO: Implement Monitored entity type and ID, if we have the time to do so
 
 class FullSDR(AbstractSDR):
     "Class which represents 8 bit sensor with thresholds data record"
@@ -109,6 +119,16 @@ class FullSDR(AbstractSDR):
         "Returns sensor's capabilities"
         return self._sdr_object.capabilities
 
+    def sdr_sensor_unit(self):
+        "Returns unit information of the sensor"
+        return {
+            'base_unit': map_code_to_value(self._sdr_object.units_2, UNIT_MAP),
+            'rate_unit': map_code_to_value(
+                self._sdr_object.rate_unit, RATE_UNIT_MAP),
+            'percentage': (False, True)[self._sdr_object.percentage]
+        }
+
+    # Public API 
     def sdr_sensor_bounds(self):
         "Returns sensor readings max/mins with their respective values"
         return {
@@ -122,14 +142,7 @@ class FullSDR(AbstractSDR):
         "Returns sensor thresolds dictionary"
         return self._sdr_object.threshold
 
-    def sdr_sensor_unit(self):
-        "Returns unit information of the sensor"
-        return {
-            'base_unit': map_code_to_value(self._sdr_object.units_2, UNIT_MAP),
-            'rate_unit': map_code_to_value(
-                self._sdr_object.rate_unit, RATE_UNIT_MAP),
-            'percentage': (False, True)[self._sdr_object.percentage]
-        }
+    
 
 
 class CompactSDR(AbstractSDR):
@@ -142,7 +155,57 @@ class CompactSDR(AbstractSDR):
         except KeyError:
             print("Key error encountered, raw value cannot be parsed by this SDR object")
             return None
+        
+    def sdr_sensor_capabilities(self):
+        "Method which decodes sensor's capabilities based on given info byte"
+        capabilities_byte = self._sdr_object.capabilities
+        capabilities = []
 
+        # ignore sensor
+        if capabilities_byte & 0x80:
+            capabilities.append('ignore_sensor')
+        # sensor auto re-arm support
+        if capabilities_byte & 0x40:
+            capabilities.append('auto_rearm')
+        # sensor hysteresis support
+        HYSTERESIS_MASK = 0x30
+        HYSTERESIS_IS_NOT_SUPPORTED = 0x00
+        HYSTERESIS_IS_READABLE = 0x10
+        HYSTERESIS_IS_READ_AND_SETTABLE = 0x20
+        HYSTERESIS_IS_FIXED = 0x30
+        if capabilities_byte & HYSTERESIS_MASK == HYSTERESIS_IS_NOT_SUPPORTED:
+            capabilities.append('hysteresis_not_supported')
+        elif capabilities_byte & HYSTERESIS_MASK == HYSTERESIS_IS_READABLE:
+            capabilities.append('hysteresis_readable')
+        elif capabilities_byte & HYSTERESIS_MASK == HYSTERESIS_IS_READ_AND_SETTABLE:
+            capabilities.append('hysteresis_read_and_setable')
+        elif capabilities_byte & HYSTERESIS_MASK == HYSTERESIS_IS_FIXED:
+            capabilities.append('hysteresis_fixed')
+        # sensor threshold support
+        THRESHOLD_MASK = 0x0C
+        THRESHOLD_IS_NOT_SUPPORTED = 0x00
+        THRESHOLD_IS_READABLE = 0x08
+        THRESHOLD_IS_READ_AND_SETTABLE = 0x04
+        THRESHOLD_IS_FIXED = 0x0C
+        if capabilities_byte & THRESHOLD_MASK == THRESHOLD_IS_NOT_SUPPORTED:
+            capabilities.append('threshold_not_supported')
+        elif capabilities_byte & THRESHOLD_MASK == THRESHOLD_IS_READABLE:
+            capabilities.append('threshold_readable')
+        elif capabilities_byte & THRESHOLD_MASK == THRESHOLD_IS_READ_AND_SETTABLE:
+            capabilities.append('threshold_read_and_setable')
+        elif capabilities_byte & THRESHOLD_MASK == THRESHOLD_IS_FIXED:
+            capabilities.append('threshold_fixed')
+        return capabilities
+    
+    def sdr_sensor_unit(self):
+        "Returns unit information of the sensor"
+        rate_unit = (self._sdr_object.units_1 >> 3) >> 0x7
+        percentage = self._sdr_object.units_1 & 0x1
+        return {
+            'base_unit': map_code_to_value(self._sdr_object.units_2, UNIT_MAP),
+            'rate_unit': map_code_to_value(rate_unit, RATE_UNIT_MAP),
+            'percentage': (False, True)[percentage]
+        }
 
 class SDRRepository:
     """ Class for dealing with retrieving the IPMI SDR Repository data"""
