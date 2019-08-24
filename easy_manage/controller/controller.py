@@ -10,6 +10,6 @@ class Controller:
         self.db = db
         self.standards = {}
         self.connectors = []
-        self.system = AbstractSystem()
+        self.system = AbstractSystem(abstract=True)
         self.systems_interfaces = {}
         self.chassis_interfaces = []
