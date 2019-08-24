@@ -57,8 +57,8 @@ class AbstractSDR:
         return 'other'
     # Public API
     # Abstract methods to override in child classes
-
-    def sdr_sensor_capabilities(self):
+    @property
+    def sensor_capabilities(self):
         "Returns sensor's capabilities dict"
         raise NotImplementedError
 
@@ -66,30 +66,36 @@ class AbstractSDR:
         "Abstract method for parsing raw reading into a value"
         raise NotImplementedError
 
-    def sdr_sensor_unit(self):
+    @property
+    def sensor_unit(self):
         "Returns dict with unit info"
         raise NotImplementedError
 
-    # Common getters
-    def sdr_sensor_kind(self):
+    # Common properties
+    @property
+    def sensor_kind(self):
         "Returns sensor class based on stored sdr object's instance"
         reading_code = self._sdr_object.event_reading_type_code
         return AbstractSDR.get_sensor_kind(reading_code)
 
+    @property
     def sdr_type(self):
         "Returns SDR type in hex"
         return self._sdr_object.type
 
-    def sdr_sensor_type(self):
+    @property
+    def sensor_type(self):
         "Returns string with sensor type"
         return map_code_to_value(
             self._sdr_object.sensor_type_code, SENSOR_TYPE_MAP)
 
-    def sdr_name(self):
+    @property
+    def name(self):
         "Returns SDR string, parsed from record"
         return self._sdr_object.device_id_string
 
-    def sdr_record_key(self):
+    @property
+    def record_key(self):
         "Returns record key for unique identificaiton of monitored sensor"
         return {
             "owner_id": self._sdr_object.owner_id,
@@ -107,7 +113,7 @@ class FullSDR(AbstractSDR):
     def parse_sensor_reading(self, raw_value):
         "Parses full SDR sensor reading, provided raw value"
         # TODO: Check if thresholds are being used in analog (normal) sensors
-        if self.sdr_sensor_kind() not in ('discrete', 'threshold'):
+        if self.sensor_kind not in ('discrete', 'threshold'):
             return self._sdr_object.convert_sensor_raw_to_value(raw_value)
         try:
             return self._value_map[raw_value]
@@ -115,12 +121,12 @@ class FullSDR(AbstractSDR):
             print(
                 "Key error encountered, raw value cannot be parsed by this SDR object")
             return None
-
-    def sdr_sensor_capabilities(self):
+    @property
+    def sensor_capabilities(self):
         "Returns sensor's capabilities"
         return self._sdr_object.capabilities
-
-    def sdr_sensor_unit(self):
+    @property
+    def sensor_unit(self):
         "Returns unit information of the sensor"
         return {
             'base_unit': map_code_to_value(self._sdr_object.units_2, UNIT_MAP),
@@ -130,7 +136,8 @@ class FullSDR(AbstractSDR):
         }
 
     # Public API
-    def sdr_sensor_bounds(self):
+    @property
+    def sensor_bounds(self):
         "Returns sensor readings max/mins with their respective values"
         return {
             "normal_maximum":  self._sdr_object.normal_maximum,
@@ -138,8 +145,8 @@ class FullSDR(AbstractSDR):
             "sensor_maximum_reading":  self._sdr_object.sensor_maximum_reading,
             "sensor_minimum_reading":  self._sdr_object.sensor_minimum_reading
         }
-
-    def sdr_sensor_thresholds(self):
+    @property
+    def sensor_thresholds(self):
         "Returns sensor thresolds dictionary"
         return self._sdr_object.threshold
 
@@ -154,8 +161,8 @@ class CompactSDR(AbstractSDR):
         except KeyError:
             print("Key error encountered, raw value cannot be parsed by this SDR object")
             return None
-
-    def sdr_sensor_capabilities(self):
+    @property
+    def sensor_capabilities(self):
         "Method which decodes sensor's capabilities based on given info byte"
         capabilities_byte = self._sdr_object.capabilities
         capabilities = []
@@ -195,8 +202,8 @@ class CompactSDR(AbstractSDR):
         elif capabilities_byte & THRESHOLD_MASK == THRESHOLD_IS_FIXED:
             capabilities.append('threshold_fixed')
         return capabilities
-
-    def sdr_sensor_unit(self):
+    @property
+    def sensor_unit(self):
         "Returns unit information of the sensor"
         rate_unit = (self._sdr_object.units_1 >> 3) >> 0x7
         percentage = self._sdr_object.units_1 & 0x1

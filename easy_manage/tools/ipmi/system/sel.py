@@ -3,6 +3,8 @@ from pyipmi.sel import SelEntry
 from pyipmi.event import EVENT_ASSERTION, EVENT_DEASSERTION
 from easy_manage.tools.ipmi.system.sdr_maps import SENSOR_TYPE_MAP
 from easy_manage.tools.ipmi.system.event_maps import EVENT_TYPE_MAP
+
+
 class SEL:
 
     def __init__(self, ipmi):
@@ -51,24 +53,29 @@ class AbstractEvent:
         self.data = event.data
 
     # Public API
-    def event_sensor_type(self):
+    @property
+    def sensor_type(self):
         "Returns type of sensor, which generated the event"
         return SENSOR_TYPE_MAP[self._event.sensor_type]
 
-    def event_name(self):
+    @property
+    def name(self):
         "Returns sensor description string"
         return str(self._event)
 
-    def event_sensor_nr(self):
+    @property
+    def sensor_nr(self):
         "Return sensor's number, which generated the event"
         return self._event.sensor_number
 
-    def event_timestamp(self):
+    @property
+    def timestamp(self):
         "Returns timestamp of the event"
         # TODO: Maybe parse it, and check out it's format
         return self._event.timestamp
 
-    def event_direction(self):
+    @property
+    def direction(self):
         "Tells if event was asserted or deasserted, whatever the f.. it means"
         direction = self._event.event_direction
         if direction is AbstractEvent.ASSERTION:
@@ -77,12 +84,15 @@ class AbstractEvent:
             return 'deassertion'
         return 'unrecognised'
 
+    @property
     def event_type(self):
         "Returns event type based on given info"
         return EVENT_TYPE_MAP[self._event.event_type]
-    
-    def event_data(self):
+
+    @property
+    def data(self):
         raise NotImplementedError
+
 
 class ThresholdEvent(AbstractEvent):
     "Class for events which are threshold-based"
