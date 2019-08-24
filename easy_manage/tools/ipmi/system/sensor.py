@@ -7,10 +7,13 @@ class Sensor:
     def __init__(self, ipmi):
         self._ipmi = ipmi
 
-    def sensor_reading(self, sdr):
-        """Utility used to fetch reading from one specific sensor, based on it's SDR"""
-        raw_reading = self._ipmi.get_sensor_reading(sdr.number, sdr.lun)
-        return sdr.parse_reading(raw_reading)
+    def read_sensor(self, sdr):
+        """Utility used to fetch reading from one specific sensor, based on its SDR"""
+        record_key = sdr.sdr_record_key()
+        sensor_nr = record_key['sensor_number']
+        lun = record_key['fru_owner_lun']
+        raw_reading = self._ipmi.get_sensor_reading(sensor_nr,lun)
+        return sdr.parse_sensor_reading(raw_reading)
 
     def mass_read_sensor(self, sdr_list):
         """
@@ -20,5 +23,5 @@ class Sensor:
         """
         readings = {}
         for sdr in sdr_list:
-            readings[sdr.name] = self.sensor_reading(sdr)
+            readings[sdr.name] = self.read_sensor(sdr)
             return readings
