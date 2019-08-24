@@ -1,8 +1,8 @@
 "TODO: Implement Event type and content parsing"
 from pyipmi.sel import SelEntry
 from pyipmi.event import EVENT_ASSERTION, EVENT_DEASSERTION
-
-
+from easy_manage.tools.ipmi.system.sdr_maps import SENSOR_TYPE_MAP
+from easy_manage.tools.ipmi.system.event_maps import EVENT_TYPE_MAP
 class SEL:
 
     def __init__(self, ipmi):
@@ -47,16 +47,42 @@ class AbstractEvent:
     DEASSERTION = EVENT_DEASSERTION
 
     def __init__(self, event):
-        self.timestamp = event.timestamp
-        self.description = str(event)
-        self.sensor_type = event.sensor_type
-        self.sensor_number = event.sensor_number
-        # Direction is described by assertion/deassertion flags respectievly
-        self.event_direction = event.event_direction
-        # TODO: Event type and data should be decoded into more human-readable format
-        self.event_type = event.event_type
+        self._event = event
         self.data = event.data
 
+    # Public API
+    def event_sensor_type(self):
+        "Returns type of sensor, which generated the event"
+        return SENSOR_TYPE_MAP[self._event.sensor_type]
+
+    def event_name(self):
+        "Returns sensor description string"
+        return str(self._event)
+
+    def event_sensor_nr(self):
+        "Return sensor's number, which generated the event"
+        return self._event.sensor_number
+
+    def event_timestamp(self):
+        "Returns timestamp of the event"
+        # TODO: Maybe parse it, and check out it's format
+        return self._event.timestamp
+
+    def event_direction(self):
+        "Tells if event was asserted or deasserted, whatever the f.. it means"
+        direction = self._event.event_direction
+        if direction is AbstractEvent.ASSERTION:
+            return 'assertion'
+        if direction is AbstractEvent.DEASSERTION:
+            return 'deassertion'
+        return 'unrecognised'
+
+    def event_type(self):
+        "Returns event type based on given info"
+        return EVENT_TYPE_MAP[self._event.event_type]
+    
+    def event_data(self):
+        raise NotImplementedError
 
 class ThresholdEvent(AbstractEvent):
     "Class for events which are threshold-based"
