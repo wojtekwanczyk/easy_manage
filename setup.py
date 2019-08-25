@@ -7,7 +7,8 @@ REQUIREMENTS_LIST = [
     'redfish >= 2.1.0',
     'pymongo[srv] >= 3.8.0',
     'cryptography >= 2.7',
-    'python-ipmi'
+    'python-ipmi',
+    'paramiko >= 2.6.0'
 ]
 
 setuptools.setup(
