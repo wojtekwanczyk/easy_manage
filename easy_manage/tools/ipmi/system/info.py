@@ -9,6 +9,7 @@ class Info:
         self._ipmi = ipmi
         self.device_id = None
 
+    @property
     def device_info(self, refresh=True):
         """
         Method for printing device primary options to console
@@ -24,6 +25,7 @@ class Info:
                 'Object has not been initialized with anything, set refresh to true')
 
         # Below code used only to print out the device ID information
+        # TODO: Refactor this, it's kind of worthless
         print('''
         #- ---- BASIC DEVICE INFO ----- #
         Device ID:          %(device_id)s
@@ -36,9 +38,9 @@ class Info:
         Provides SDRs:      %(provides_sdrs)d
         Additional Device Support:
         '''[1:-1] % self.device_id.__dict__)
-        # TODO: Parse the data to more human-readable format (it will be used for display)
         return self.device_id.__dict__
 
+    @property
     def functions(self, refresh=True):
         """
         Method for fetching available features of the device
@@ -69,6 +71,7 @@ class Info:
                 supported_functions.append(name)
         return supported_functions
 
+    @property
     def firmware_version(self, refresh=False):
         """
         Method for fetching firmware version of the device

@@ -6,6 +6,7 @@ from easy_manage.tools.ipmi.system.event_maps import EVENT_TYPE_MAP
 
 
 class SEL:
+    "Class for fetching SEL data records"
 
     def __init__(self, ipmi):
         self._ipmi = ipmi
@@ -47,6 +48,9 @@ class AbstractEvent:
     "Class which includes all of the common elements in events"
     ASSERTION = EVENT_ASSERTION
     DEASSERTION = EVENT_DEASSERTION
+    BYTE_CONTENT_ABSENT = 0b00
+    BYTE_CONTENT_OEM = 0b10
+    BYTE_CONTENT_SENSOR_SPECIFIC = 0b11
 
     def __init__(self, event):
         self._event = event
@@ -91,24 +95,48 @@ class AbstractEvent:
 
     @property
     def data(self):
+        "Abstract method for threshold and discrete event to implement"
         raise NotImplementedError
 
 
 class ThresholdEvent(AbstractEvent):
     "Class for events which are threshold-based"
     THRESHOLD_EVENT_TYPE = 0x01
-
+    # Second byte
+    BYTE_TRIGGER_READING = 0b01
+    # Third byte
+    BYTE_TRIGGER_VALUE = 0b01
     @staticmethod
     def is_threshold(event):
         "Returns boolean based on SelEvent object"
         return event.type == ThresholdEvent.THRESHOLD_EVENT_TYPE
 
+    @property
+    def data(self):
+        ev_dat_1 = self._event.event_data_1
+        # Decoding of byte 1
+        offset = ev_dat_1 & 0x0f
+        dat_2_cont = ev_dat_1 & 0x30
+        dat_3_cont = ev_dat_1 & 0xc0
+
 
 class DiscreteEvent(AbstractEvent):
     "Class for events which are discrete-based"
     DISCRETE_EVENT_TYPE_RANGE = list(range(0x02, 0x70))
+    # Second byte
+    BYTE_PREVIOUS_STATE = 0b01
+    # Third byte
+    BYTE_RESERVED = 0b01
 
     @staticmethod
     def is_discrete(event):
         "Returns boolean based on SelEvent object"
         return event.type in DiscreteEvent.DISCRETE_EVENT_TYPE_RANGE
+
+    @property
+    def data(self):
+        ev_dat_1 = self._event.event_data_1
+        # Decoding of byte 1
+        offset = ev_dat_1 & 0x0f
+        dat_2_cont = ev_dat_1 & 0x30
+        dat_3_cont = ev_dat_1 & 0xc0
