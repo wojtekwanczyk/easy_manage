@@ -3,7 +3,7 @@ from paramiko import SSHClient, AutoAddPolicy
 
 
 class BashShell:
-    """Class responsible for running bash commands and 
+    """Class responsible for running bash commands and
     scripts on a remote server through ssh"""
 
     def __init__(self, host, credentials):
@@ -25,7 +25,7 @@ class BashShell:
         self.client.close()
 
     def execute(self, cmd):
-        stdin, stdout, stderr = self.client.exec_command(cmd)
+        _, stdout, _ = self.client.exec_command(cmd)
         return list(stdout)
 
     # Memory commands
@@ -53,3 +53,17 @@ class BashShell:
         total = self.get_memory_total(swap)
         used = self.get_memory_used(swap)
         return float(used/total)
+
+    # CPU commands
+
+    def get_cpu_usage_current(self):
+        cmd = "top -b -n1 | grep 'Cpu(s)' | awk '{printf $2 + $4}'"
+        output = self.execute(cmd)
+        return float(output[0])
+
+    # Disk commands
+
+    def get_disk_percentage(self):
+        cmd = "df -h | awk '$NF==\"/\"{print $5}' | cut -d% -f1"
+        output = self.execute(cmd)
+        return int(output[0])
