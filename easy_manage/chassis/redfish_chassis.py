@@ -1,7 +1,6 @@
 "Module with class responsible for chassis management through Redfish interface"
 
 import logging
-import pprint as pp
 from easy_manage.chassis.abstract_chassis import AbstractChassis
 from easy_manage.tools.redfish.redfish_tools import RedfishTools
 
