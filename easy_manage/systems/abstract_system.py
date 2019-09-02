@@ -17,5 +17,5 @@ class AbstractSystem(Abstract):
     def get_power_state(self):
         raise NotImplementedError
 
-    def get_status(self):
+    def get_system_health(self):
         raise NotImplementedError

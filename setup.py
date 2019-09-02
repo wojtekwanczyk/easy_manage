@@ -6,8 +6,9 @@ with open("README.md", "r") as f:
 REQUIREMENTS_LIST = [
     'redfish >= 2.1.0',
     'pymongo[srv] >= 3.8.0',
-    'python-ipmi >= 0.4.1',
-    'cryptography >= 2.7'
+    'cryptography >= 2.7',
+    'python-ipmi',
+    'paramiko >= 2.6.0'
 ]
 
 setuptools.setup(
@@ -29,5 +30,8 @@ setuptools.setup(
         'console_scripts': [
             'easy_manage = easy_manage.__init__:main']
     },
-    install_requires=REQUIREMENTS_LIST
+    install_requires=REQUIREMENTS_LIST,
+    dependency_links=[
+        'http://github.com/Arcticae/python-ipmi/tarball/master#egg=python-ipmi-0'
+    ]
 )
