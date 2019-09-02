@@ -21,7 +21,7 @@ setuptools.setup(
     url="https://github.com/wojtekwanczyk/easy_manage",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.6.8",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],

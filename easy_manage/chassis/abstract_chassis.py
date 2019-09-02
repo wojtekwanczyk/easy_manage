@@ -1,5 +1,6 @@
 "Module which describes abstract chassis class"
 
+
 class AbstractChassis:
     "Class that represents the chassis and defines its methods"
 
@@ -9,7 +10,7 @@ class AbstractChassis:
         self.db = connector.db
         self.data = {}
         self.last_update = None
-        
+
     def get_power_state(self, fetch):
         pass
 
