@@ -11,14 +11,14 @@ from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.systems.redfish_system import RedfishSystem
 
 
-#  todo: should this be in other file?
+#  todo: should this be in other file and how can this be done better?
 def get_system(protocol, connector):
     switcher = {
-        Protocols.REDFISH: RedfishSystem('test_system_redfish', connector,
-                                         '/redfish/v1/Systems/1'),
-        Protocols.IPMI: IpmiSystem('test_system_ipmi', connector)
+        Protocols.REDFISH: lambda: RedfishSystem('test_system_redfish', connector,
+                                                 '/redfish/v1/Systems/1'),
+        Protocols.IPMI: lambda: IpmiSystem('test_system_ipmi', connector)
     }
-    return switcher.get(protocol, AbstractSystem(abstract=True))
+    return switcher.get(protocol, lambda: AbstractSystem(abstract=True))()
 
 
 class ControllerFactory:
@@ -40,11 +40,11 @@ class ControllerFactory:
         "Detects which standards can be used on given server"
         rf_conn = RedfishConnector('test_connector_redfish', address, self.db, credentials)
         if rf_conn.connect():
-            controller.standards['redfish'] = rf_conn
+            controller.standards[Protocols.REDFISH] = rf_conn
 
         ipmi_conn = IpmiConnector('test_connector_ipmi', address, credentials)
         if ipmi_conn.connect():
-            controller.standards['ipmi'] = ipmi_conn
+            controller.standards[Protocols.IPMI] = ipmi_conn
         print(f"STANDARDS: {controller.standards.keys()}")
 
     @staticmethod

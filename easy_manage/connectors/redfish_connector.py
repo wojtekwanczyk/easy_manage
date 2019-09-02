@@ -17,7 +17,6 @@ class RedfishConnector(Connector, RedfishTools):
 
     def __init__(self, name, address, db, credentials, port=None):
         super().__init__(name, address, credentials, port)
-
         self.url = 'https://' + self.address
         self.endpoint = '/redfish/v1'
         self.db_filter_name = '_connector'
