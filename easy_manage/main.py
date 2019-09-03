@@ -79,8 +79,8 @@ def shell_demo(config, credentials):
     cmd = None
     while cmd != 'end':
         cmd = input()
-        sh.cmd(cmd)
-    sh.disconnect()
+        print(sh.execute(cmd))
+    return sh
 
 def main():
     "Main program function"
@@ -93,10 +93,10 @@ def main():
     creds_controller = utils.get_credentials(config, 'CONTROLLER', user_password)
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
-    # global rf, c
+    global rf, c, sh
     # rf, c = redfish_demo(config, db, creds_controller)
     #ipmi_demo(args, db, creds_controller)
-    shell_demo(config, creds_device)
+    sh = shell_demo(config, creds_device)
 
     # controller_factory = ControllerFactory()
     # controller = controller_factory.create_controller(

@@ -2,7 +2,6 @@
 
 import logging
 import operator
-import pprint as pp
 from datetime import datetime
 from easy_manage.utils import utils
 
@@ -250,7 +249,8 @@ class RedfishTools:
                     parsed_dict[key] = value['@odata.id']
         return parsed_dict
 
-    def remove_odata(self, data):
+    @staticmethod
+    def remove_odata(data):
         "Removes all odata entries"
         new_data = {}
         for key, value in data.items():
@@ -307,10 +307,14 @@ class RedfishTools:
                 return_data[key] = value
         return self.remove_odata(return_data)
 
-    def _get_device_info(self, name, level=2):
-        "Get device info from Redfish Links"
-        endpoints = self._endpoint_inception(self._find([name]), level)
+    def evaluate_endpoints(self, endpoints):
+        "Returns dictionary with endpoints' data as values"
         data = {}
         for endpoint in endpoints:
             data[endpoint] = self.get_data(endpoint)
         return data
+
+    def _get_device_info(self, name, level=2):
+        "Get device info from Redfish Links"
+        endpoints = self._endpoint_inception(self._find([name]), level)
+        return self.evaluate_endpoints(endpoints)
