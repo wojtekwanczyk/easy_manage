@@ -3,7 +3,7 @@ from pyipmi.sel import SelEntry
 from pyipmi.event import EVENT_ASSERTION, EVENT_DEASSERTION
 from easy_manage.tools.ipmi.system.sdr_maps import SENSOR_TYPE_MAP
 from easy_manage.tools.ipmi.system.event_maps import EVENT_TYPE_MAP
-
+from easy_manage.tools.ipmi.system.typecodes import TYPECODES
 
 class SEL:
     "Class for fetching SEL data records"
@@ -17,11 +17,15 @@ class SEL:
     def _fetch_system_event_list(self):
         "Fetches all SEL SYSTEM events entries"
         entries = self._ipmi.get_sel_entries()
-        def is_system_event(
-            event): return event.type == SelEntry.TYPE_SYSTEM_EVENT
+
+        def is_system_event(event):
+            return event.type == SelEntry.TYPE_SYSTEM_EVENT
+
         sys_events = list(filter(is_system_event, entries))
         # Filter events to those which are compliant with IPMI v2.0 formatting
-        def is_compliant(event): return event.evm_rev == 0x04
+        def is_compliant(event):
+            return event.evm_rev == 0x04
+
         self.all_events = list(filter(is_compliant, sys_events))
 
     def _parse_all_events(self):
@@ -29,9 +33,11 @@ class SEL:
         if not self.all_events:
             self._fetch_system_event_list()
         self.threshold_events_list = list(
-            filter(ThresholdEvent.is_threshold, self.all_events))
+            filter(ThresholdEvent.is_threshold, self.all_events)
+        )
         self.discrete_events_list = list(
-            filter(DiscreteEvent.is_discrete, self.all_events))
+            filter(DiscreteEvent.is_discrete, self.all_events)
+        )
 
     def threshold_events(self):
         "Returns list of filtered threshold events"
@@ -51,7 +57,7 @@ class AbstractEvent:
     BYTE_CONTENT_ABSENT = 0b00
     BYTE_CONTENT_OEM = 0b10
     BYTE_CONTENT_SENSOR_SPECIFIC = 0b11
-
+    BYTE_UNSPECIFIED = 0xFF
     def __init__(self, event):
         self._event = event
         self.data = event.data
@@ -83,10 +89,10 @@ class AbstractEvent:
         "Tells if event was asserted or deasserted, whatever the f.. it means"
         direction = self._event.event_direction
         if direction is AbstractEvent.ASSERTION:
-            return 'assertion'
+            return "assertion"
         if direction is AbstractEvent.DEASSERTION:
-            return 'deassertion'
-        return 'unrecognised'
+            return "deassertion"
+        return "unrecognised"
 
     @property
     def event_type(self):
@@ -106,6 +112,9 @@ class ThresholdEvent(AbstractEvent):
     BYTE_TRIGGER_READING = 0b01
     # Third byte
     BYTE_TRIGGER_VALUE = 0b01
+    # Shared
+    EVENT_EXTENSION_CODE = 0b11
+
     @staticmethod
     def is_threshold(event):
         "Returns boolean based on SelEvent object"
@@ -113,11 +122,37 @@ class ThresholdEvent(AbstractEvent):
 
     @property
     def data(self):
-        ev_dat_1 = self._event.event_data_1
+        data = {"event_extension": []}
+        data_1, data_2, data_3 = self._event.event_data
         # Decoding of byte 1
-        offset = ev_dat_1 & 0x0f
-        dat_2_cont = ev_dat_1 & 0x30
-        dat_3_cont = ev_dat_1 & 0xc0
+        offset = data_1 & 0x0F
+        dat_2_cont = (data_1 & 0xC0) >> 4
+        dat_3_cont = (data_1 & 0x30) >> 4
+
+        data["value"] = EVENT_TYPE_MAP[self._event.type].offsets[offset].value
+
+        if dat_2_cont is ThresholdEvent.BYTE_TRIGGER_READING:
+            data["reading"] = data_2
+
+        if dat_3_cont is ThresholdEvent.BYTE_TRIGGER_VALUE:
+            data["threshold_value"] = data_3
+
+        if dat_2_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
+            ext_code_2 = (
+                EVENT_TYPE_MAP[self._event.sensor_type]
+                .offsets[offset]
+                .parse_ext_2(dat_2_cont)
+            )
+            data["event_extension"].append(ext_code_2)
+
+        if dat_3_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
+            ext_code_3 = (
+                EVENT_TYPE_MAP[self._event.sensor_type]
+                .offsets[offset]
+                .parse_ext_3(dat_3_cont)
+            )
+            data["event_extension"].append(ext_code_3)
+        return data
 
 
 class DiscreteEvent(AbstractEvent):
@@ -135,8 +170,31 @@ class DiscreteEvent(AbstractEvent):
 
     @property
     def data(self):
-        ev_dat_1 = self._event.event_data_1
+        data = {"event_extension": []}
+        data_1, data_2, data_3 = self._event.event_data
         # Decoding of byte 1
-        offset = ev_dat_1 & 0x0f
-        dat_2_cont = ev_dat_1 & 0x30
-        dat_3_cont = ev_dat_1 & 0xc0
+        offset = data_1 & 0x0F
+        dat_2_cont = (data_1 & 0xC0) >> 4
+        dat_3_cont = (data_1 & 0x30) >> 4
+        data["value"] = EVENT_TYPE_MAP[self._event.sensor_type].offsets[offset].value
+        if (dat_2_cont is DiscreteEvent.BYTE_PREVIOUS_STATE) and (data_3 is not AbstractEvent.BYTE_UNSPECIFIED):
+            severity_offset = data_2 & 0x0F
+            prev_reading_type_offset = (data_2 & 0xF0) >> 4
+            data["previous_state"] = EVENT_TYPE_MAP[self._event.sensor_type].offsets[prev_reading_type_offset]
+            data["severity"] = TYPECODES[self._event.type][severity_offset]
+            
+        if dat_2_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
+            ext_code_2 = (
+                EVENT_TYPE_MAP[self._event.sensor_type]
+                .offsets[offset]
+                .parse_ext_2(dat_2_cont)
+            )
+            data["event_extension"].append(ext_code_2)
+        if dat_3_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
+            ext_code_3 = (
+                EVENT_TYPE_MAP[self._event.sensor_type]
+                .offsets[offset]
+                .parse_ext_3(dat_3_cont)
+            )
+            data["event_extension"].append(ext_code_3)
+        return data
