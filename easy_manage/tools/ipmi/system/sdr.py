@@ -232,8 +232,8 @@ class SDRRepository:
         else:
             sdrs = self._sdrs
         unfiltered = list(map(AbstractSDR.get_sdr_object, sdrs))
-        def isNone(x): return x is not None
-        filtered = list(filter(isNone, unfiltered))
+        def notNone(x): return x is not None
+        filtered = list(filter(notNone, unfiltered))
         self._sdrs = filtered
         return filtered
 
