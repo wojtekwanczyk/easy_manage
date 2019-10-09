@@ -7,9 +7,10 @@ from easy_manage.tools.ipmi.system.typecodes import TYPECODES
 SDR_TYPE_FULL_SENSOR_RECORD = 0x01
 SDR_TYPE_COMPACT_SENSOR_RECORD = 0x02
 THRESHOLD_SENSOR_CODE = 0x01
-DISCRETE_SENSOR_RANGE = list(range(0x02, 0x70))
+DISCRETE_SENSOR_RANGE = list(range(0x02, 0x6F))
 COMPACT_RECORD_TYPE = 0x02
 FULL_RECORD_TYPE = 0x01
+# TODO: Implementation of sensor-specific event/readings
 
 
 def parse_repository_info(repository):
@@ -40,10 +41,9 @@ class AbstractSDR:
     def get_sdr_object(sdr):
         "Creates SDR object of proper type based on library SDR object"
         ret_sdr = None
-        sdr_type = sdr.get_type()
-        if sdr_type == FULL_RECORD_TYPE:
+        if sdr.type == FULL_RECORD_TYPE:
             ret_sdr = FullSDR(sdr)
-        elif sdr_type == COMPACT_RECORD_TYPE:
+        elif sdr.type == COMPACT_RECORD_TYPE:
             ret_sdr = CompactSDR(sdr)
         return ret_sdr
 
@@ -121,10 +121,12 @@ class FullSDR(AbstractSDR):
             print(
                 "Key error encountered, raw value cannot be parsed by this SDR object")
             return None
+
     @property
     def sensor_capabilities(self):
         "Returns sensor's capabilities"
         return self._sdr_object.capabilities
+
     @property
     def sensor_unit(self):
         "Returns unit information of the sensor"
@@ -145,6 +147,7 @@ class FullSDR(AbstractSDR):
             "sensor_maximum_reading":  self._sdr_object.sensor_maximum_reading,
             "sensor_minimum_reading":  self._sdr_object.sensor_minimum_reading
         }
+
     @property
     def sensor_thresholds(self):
         "Returns sensor thresolds dictionary"
@@ -161,6 +164,7 @@ class CompactSDR(AbstractSDR):
         except KeyError:
             print("Key error encountered, raw value cannot be parsed by this SDR object")
             return None
+
     @property
     def sensor_capabilities(self):
         "Method which decodes sensor's capabilities based on given info byte"
@@ -202,6 +206,7 @@ class CompactSDR(AbstractSDR):
         elif capabilities_byte & THRESHOLD_MASK == THRESHOLD_IS_FIXED:
             capabilities.append('threshold_fixed')
         return capabilities
+
     @property
     def sensor_unit(self):
         "Returns unit information of the sensor"

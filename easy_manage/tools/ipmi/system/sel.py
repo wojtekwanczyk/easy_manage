@@ -5,6 +5,7 @@ from easy_manage.tools.ipmi.system.sdr_maps import SENSOR_TYPE_MAP
 from easy_manage.tools.ipmi.system.event_maps import EVENT_TYPE_MAP
 from easy_manage.tools.ipmi.system.typecodes import TYPECODES
 
+
 class SEL:
     "Class for fetching SEL data records"
 
@@ -23,6 +24,7 @@ class SEL:
 
         sys_events = list(filter(is_system_event, entries))
         # Filter events to those which are compliant with IPMI v2.0 formatting
+
         def is_compliant(event):
             return event.evm_rev == 0x04
 
@@ -32,11 +34,11 @@ class SEL:
         "Parses all events and divides them into 2 categories: Threshold and Discrete"
         if not self.all_events:
             self._fetch_system_event_list()
-        self.threshold_events_list = list(
-            filter(ThresholdEvent.is_threshold, self.all_events)
-        )
         self.discrete_events_list = list(
-            filter(DiscreteEvent.is_discrete, self.all_events)
+            map(ThresholdEvent, filter(ThresholdEvent.is_threshold, self.all_events))
+        )
+        self.threshold_events_list = list(
+            map(DiscreteEvent, filter(DiscreteEvent.is_discrete, self.all_events))
         )
 
     def threshold_events(self):
@@ -58,9 +60,9 @@ class AbstractEvent:
     BYTE_CONTENT_OEM = 0b10
     BYTE_CONTENT_SENSOR_SPECIFIC = 0b11
     BYTE_UNSPECIFIED = 0xFF
+
     def __init__(self, event):
         self._event = event
-        self.data = event.data
 
     # Public API
     @property
@@ -182,7 +184,7 @@ class DiscreteEvent(AbstractEvent):
             prev_reading_type_offset = (data_2 & 0xF0) >> 4
             data["previous_state"] = EVENT_TYPE_MAP[self._event.sensor_type].offsets[prev_reading_type_offset]
             data["severity"] = TYPECODES[self._event.type][severity_offset]
-            
+
         if dat_2_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
             ext_code_2 = (
                 EVENT_TYPE_MAP[self._event.sensor_type]
