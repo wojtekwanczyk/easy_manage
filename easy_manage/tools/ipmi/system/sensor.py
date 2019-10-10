@@ -1,4 +1,6 @@
 "Module for sensor-specific operations"
+import logging
+log = logging.getLogger(__name__)
 
 
 class Sensor:
@@ -9,10 +11,9 @@ class Sensor:
 
     def read_sensor(self, sdr):
         """Utility used to fetch reading from one specific sensor, based on its SDR"""
-        record_key = sdr.sdr_record_key()
-        sensor_nr = record_key['sensor_number']
-        lun = record_key['fru_owner_lun']
-        raw_reading = self._ipmi.get_sensor_reading(sensor_nr,lun)
+        sensor_nr = sdr.record_key['sensor_number']
+        lun = sdr.record_key['fru_owner_lun']
+        raw_reading = self._ipmi.get_sensor_reading(sensor_nr, lun)
         return sdr.parse_sensor_reading(raw_reading)
 
     def mass_read_sensor(self, sdr_list):
@@ -24,4 +25,4 @@ class Sensor:
         readings = {}
         for sdr in sdr_list:
             readings[sdr.name] = self.read_sensor(sdr)
-            return readings
+        return readings
