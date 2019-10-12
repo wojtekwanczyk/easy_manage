@@ -41,11 +41,15 @@ def redfish_demo(config, db, credentials):
                            rf_conn, '/redfish/v1/Systems/1')
     rf_cha = RedfishChassis('test_chassis_redfish', rf_conn, '/redfish/v1/Chassis/1')
 
-    # power = rf_sys.get_power_state()
-    # print(f"Power state: {power}")
-    # rf_sys.power_on()
-    # status = rf_sys.get_system_health()
-    # print(f"Status: {status}")
+    power = rf_sys.get_power_state()
+    print(f"Power state: {power}")
+    rf_sys.power_on()
+    status = rf_sys.get_system_health()
+    print(f"Status: {status}")
+    print("Ambient temp in Celsius")
+    pp.pprint(rf_cha.get_temperature('CPU1 Temp'))
+    print("Fan 1 Tach usage quota")
+    pp.pprint(rf_cha.get_fan_speed('Fan 1 Tach'))
 
     # cmd = None
     # while cmd != 'end':
@@ -75,11 +79,17 @@ def shell_demo(config, credentials):
     print("Connecting through ssh")
     sh.connect()
     print("Connected")
+    print("BASH DEMO")
 
-    cmd = None
-    while cmd != 'end':
-        cmd = input()
-        print(sh.execute(cmd))
+    # cmd = None
+    # while cmd != 'end':
+    #     cmd = input()
+    #     print(sh.execute(cmd))
+    print("Total memory in kb: " + str(sh.get_memory_total()))
+    print("Total memory used in kb: " + str(sh.get_memory_used()))
+    print("Total memory usage in percent: " + str(sh.get_memory_percentage()))
+    print("Current cpu usage: " + str(sh.get_cpu_usage_current()))
+    print("Total used disk percentage: : " + str(sh.get_disk_percentage()))
     return sh
 
 def main():
@@ -94,7 +104,7 @@ def main():
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
     global rf, c, sh
-    # rf, c = redfish_demo(config, db, creds_controller)
+    rf, c = redfish_demo(config, db, creds_controller)
     #ipmi_demo(args, db, creds_controller)
     sh = shell_demo(config, creds_device)
 

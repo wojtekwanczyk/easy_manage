@@ -286,8 +286,11 @@ class RedfishTools:
 
         # such element is in this dictionary
         for key, value in data.items():
-            if name in key or name in value:
-                return data
+            try:
+                if name in key or name in value:
+                    return data
+            except Exception:
+                pass
 
         # if not found in current dictionary, we search through curent dict values
         for value in data.values():
