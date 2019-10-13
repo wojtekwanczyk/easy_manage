@@ -1,24 +1,49 @@
 "SDR Repository IPMI commands and utilities Module"
 import logging
+from enum import Enum, auto
 from pyipmi.helper import get_sdr_data_helper
 from pyipmi.sdr import SdrCommon
 from pyipmi.errors import DecodingError
-from .sdr_maps import SENSOR_TYPE_MAP, RATE_UNIT_MAP, UNIT_MAP, map_code_to_value
 from easy_manage.tools.ipmi.system.typecodes import TYPECODES, SENSOR_SPECIFIC, THRESHOLDS
+from .sdr_maps import SENSOR_TYPE_MAP, RATE_UNIT_MAP, UNIT_MAP, map_code_to_value
 
 log = logging.getLogger(__name__)
 
 SDR_TYPE_FULL_SENSOR_RECORD = 0x01
 SDR_TYPE_COMPACT_SENSOR_RECORD = 0x02
 THRESHOLD_SENSOR_CODE = 0x01
+SENSOR_SPECIFIC_CODE = 0x6F
 DISCRETE_SENSOR_RANGE = list(range(0x02, 0x6F))
 COMPACT_RECORD_TYPE = 0x02
 FULL_RECORD_TYPE = 0x01
-# TODO: Implementation of sensor-specific event/readings
+
+# sensor hysteresis support
+HYSTERESIS_MASK = 0x30
+HYSTERESIS_IS_NOT_SUPPORTED = 0x00
+HYSTERESIS_IS_READABLE = 0x10
+HYSTERESIS_IS_READ_AND_SETTABLE = 0x20
+HYSTERESIS_IS_FIXED = 0x30
+
+# sensor threshold support
+THRESHOLD_MASK = 0x0C
+THRESHOLD_IS_NOT_SUPPORTED = 0x00
+THRESHOLD_IS_READABLE = 0x08
+THRESHOLD_IS_READ_AND_SETTABLE = 0x04
+THRESHOLD_IS_FIXED = 0x0C
+
+# TODO: Create enum for classes of sdr (sensor-specific, discrete, threshold)
 
 
 class UnsupportedOperationError(Exception):
-    pass
+    """ Exception type for performing non-standard SDR actions """
+
+
+class SensorReadingKind(Enum):
+    """ Enum describing what kind of values sensor returns"""
+    SENSOR_SPECIFIC = auto()
+    THRESHOLD = auto()
+    DISCRETE = auto()
+    UNSUPPORTED = auto()
 
 
 def parse_repository_info(repository):
@@ -37,19 +62,21 @@ class AbstractSDR:
     def __init__(self, sdr_object):
         self._sdr_object = sdr_object
         # Only full and compact SDR are supported
-        self._value_map = None
-
+        self._value_mapping = None
+        # FIXME: Finish refactoring this
         evt_reading_typecode = sdr_object.event_reading_type_code
         kind = AbstractSDR.get_sensor_kind(evt_reading_typecode)
-        if kind in ('discrete', 'threshold'):
+        if kind in (SensorReadingKind.DISCRETE, SensorReadingKind.THRESHOLD):
             # Value map is specified only for threshold and discrete sensors
-            self._value_map = TYPECODES[evt_reading_typecode]
-            log.info(f'Creating sdr with event/reading type code: {evt_reading_typecode}')
-        if kind == 'sensor-specific':
+            self._value_mapping = TYPECODES[evt_reading_typecode]
+        if kind == SensorReadingKind.SENSOR_SPECIFIC:
             # Special value map, for sensor-defined states
-            self._value_map = SENSOR_SPECIFIC[sdr_object.sensor_type_code]
-        if not self._value_map:
-            log.error(f'Could not match typecode map to evt_reading_typecode: \'{evt_reading_typecode}\' for sensor of kind {kind}')
+            self._value_mapping = SENSOR_SPECIFIC[sdr_object.sensor_type_code]
+        if not self._value_mapping:
+            if kind in (SensorReadingKind.DISCRETE, SensorReadingKind.THRESHOLD):
+                log.error(f'Could not match typecode map to evt_reading_typecode: \'{evt_reading_typecode}\' for sensor of kind {kind}')
+            else:
+                log.error(f'Could not match decoding function to sensor_type_code: \'{sdr_object.sensor_type_code}\' for sensor of kind {kind}')
 
     # Static methods
     @staticmethod
@@ -65,22 +92,74 @@ class AbstractSDR:
     @staticmethod
     def get_sensor_kind(reading_code):
         "Returns sensor class based on given sensor code"
-        if reading_code == THRESHOLD_SENSOR_CODE:
-            return 'threshold'
-        if reading_code == 0x6F:
-            return 'sensor-specific'
+        mapped_kind = {
+            THRESHOLD_SENSOR_CODE: SensorReadingKind.THRESHOLD,
+            SENSOR_SPECIFIC_CODE: SensorReadingKind.SENSOR_SPECIFIC,
+        }.get(reading_code, None)
+        if isinstance(mapped_kind, SensorReadingKind):
+            return mapped_kind
         if reading_code in DISCRETE_SENSOR_RANGE:
-            return 'discrete'
-        return 'other'
+            return SensorReadingKind.DISCRETE
+        return SensorReadingKind.UNSUPPORTED
+
+    def _parse_discrete_reading(self, raw_reading):
+        try:
+            states = []
+            binstring = raw_reading_to_binstring(raw_reading)
+            for i, asserted in enumerate(binstring):
+                if asserted == '1':
+                    try:
+                        states.append(self._value_mapping[i])
+                    except KeyError as k_err:
+                        log.error(f"Exception on sensor type: {self.sensor_type}, kind: {self.sensor_kind}, val-map: {self._value_mapping}, bin(raw_reading): {bin(raw_reading[1])}")
+                        log.exception(k_err)
+                    except TypeError:
+                        log.error(f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}')
+            return {
+                'states_asserted': states
+            }
+        except KeyError as k_err:
+            log.exception(k_err)
+            return None
+
+    def _parse_specific_reading(self, raw_reading):
+        try:
+            if self._value_mapping:
+                log.info(f"Parsing sensor-specific's  raw_value, : {raw_reading}, mapping: {self._value_mapping}")
+            return {
+                'reading': self._value_mapping[raw_reading[1]]
+            }
+        except KeyError:
+            log.error(f'Could not parse reading for value: {raw_reading} and sensor of type: {self.sensor_type}')
+            return None
+        except TypeError:
+            log.error(f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}')
+            
+    def _parse_threshold_reading(self, raw_reading):
+        return {
+            'value': self._sdr_object.convert_sensor_raw_to_value(raw_reading[0]),
+            'thresholds': decode_thresholds(raw_reading),
+        }    
+    
+   
+        
+    def parse_sensor_reading(self, raw_value):
+        "Parses full SDR sensor reading, provided raw value"
+        try:
+            return {
+                SensorReadingKind.DISCRETE: self._parse_discrete_reading,
+                SensorReadingKind.SENSOR_SPECIFIC: self._parse_specific_reading,
+                SensorReadingKind.THRESHOLD: self._parse_threshold_reading,
+            }[self.sensor_kind](raw_value)
+        except KeyError:
+            raise UnsupportedOperationError("Cannot read from unsupported sensor")
+
+        
     # Public API
     # Abstract methods to override in child classes
     @property
     def sensor_capabilities(self):
         "Returns sensor's capabilities dict"
-        raise NotImplementedError
-
-    def parse_sensor_reading(self, raw_value):
-        "Abstract method for parsing raw reading into a value"
         raise NotImplementedError
 
     @property
@@ -120,59 +199,12 @@ class AbstractSDR:
             "sensor_number": self._sdr_object.number
         }
 
-    def decode_asserted_states(self, raw_value):
-        states = []
-        state_list = bin(raw_value[1])[2:]
-        state1 = state_list[0:8]
-        state2 = state_list[8:15]
-        binstring = state1 + state2
-        for i, asserted in enumerate(binstring):
-            if asserted == '1':
-                try:
-                    states.append(self._value_map[i])
-                except KeyError as k_err:
-                    # FIXME: Log all missing keys, not just discrete ones
-
-                    if self.sensor_kind != 'sensor-specific':
-                        log.error(f"Exception on sensor type: {self.sensor_type}, kind: {self.sensor_kind}, val-map: {self._value_map}")
-                        log.error(f"State1: {state1}, State2: {state2} , bin(raw_value): {bin(raw_value[1])}")
-                        log.exception(k_err)
-        return {
-            'states_asserted': states
-        }
-
     # TODO: Implement Monitored entity type and ID, if we have the time to do so
 
 
 class FullSDR(AbstractSDR):
     "Class which represents 8 bit sensor with thresholds data record"
-    # public API
-
-    def parse_sensor_reading(self, raw_value):
-        "Parses full SDR sensor reading, provided raw value"
-        # TODO: Check if thresholds are being used in analog (normal) sensors
-        # TODO: Remember about the normal sensors which also fall into some of these catagories
-        if self.sensor_kind in ('discrete', 'sensor-specific'):
-            return self.decode_asserted_states(raw_value)
-        elif self.sensor_kind == 'threshold':
-            # Raw value is utilized, and thresholds present
-            val = self._sdr_object.convert_sensor_raw_to_value(raw_value[0])
-
-            return {
-                'value': val,
-                'thresholds': self.decode_thresholds(raw_value)
-            }
-        raise UnsupportedOperationError("Cannot read from unsupported sensor")
-
-    def decode_thresholds(self, raw_value):
-        binstring = bin(raw_value[1])[4:]  # 2 first values ignored, 2 first of bin ignored ('0b')
-        binstring = binstring[::-1]  # it's backwards, to be documentation compatible i reverse it.
-        thresholds = []
-        for i, asserted in enumerate(binstring):
-            if asserted == '1':
-                thresholds.append(THRESHOLDS[i])
-        return thresholds
-
+    # Public API
     @property
     def sensor_capabilities(self):
         "Returns sensor's capabilities"
@@ -183,8 +215,7 @@ class FullSDR(AbstractSDR):
         "Returns unit information of the sensor"
         return {
             'base_unit': map_code_to_value(self._sdr_object.units_2, UNIT_MAP),
-            'rate_unit': map_code_to_value(
-                self._sdr_object.rate_unit, RATE_UNIT_MAP),
+            'rate_unit': map_code_to_value(self._sdr_object.rate_unit, RATE_UNIT_MAP),
             'percentage': (False, True)[self._sdr_object.percentage]
         }
 
@@ -207,15 +238,6 @@ class FullSDR(AbstractSDR):
 
 class CompactSDR(AbstractSDR):
     "Class which represents compact sensor data record"
-
-    def parse_sensor_reading(self, raw_value):
-        "Parses compact SDR sensor reading, provided raw value"
-        try:
-            self.decode_asserted_states(raw_value)
-        except KeyError as k_err:
-            log.exception(k_err)
-            return None
-
     @property
     def sensor_capabilities(self):
         "Method which decodes sensor's capabilities based on given info byte"
@@ -228,12 +250,7 @@ class CompactSDR(AbstractSDR):
         # sensor auto re-arm support
         if capabilities_byte & 0x40:
             capabilities.append('auto_rearm')
-        # sensor hysteresis support
-        HYSTERESIS_MASK = 0x30
-        HYSTERESIS_IS_NOT_SUPPORTED = 0x00
-        HYSTERESIS_IS_READABLE = 0x10
-        HYSTERESIS_IS_READ_AND_SETTABLE = 0x20
-        HYSTERESIS_IS_FIXED = 0x30
+
         if capabilities_byte & HYSTERESIS_MASK == HYSTERESIS_IS_NOT_SUPPORTED:
             capabilities.append('hysteresis_not_supported')
         elif capabilities_byte & HYSTERESIS_MASK == HYSTERESIS_IS_READABLE:
@@ -242,12 +259,7 @@ class CompactSDR(AbstractSDR):
             capabilities.append('hysteresis_read_and_setable')
         elif capabilities_byte & HYSTERESIS_MASK == HYSTERESIS_IS_FIXED:
             capabilities.append('hysteresis_fixed')
-        # sensor threshold support
-        THRESHOLD_MASK = 0x0C
-        THRESHOLD_IS_NOT_SUPPORTED = 0x00
-        THRESHOLD_IS_READABLE = 0x08
-        THRESHOLD_IS_READ_AND_SETTABLE = 0x04
-        THRESHOLD_IS_FIXED = 0x0C
+
         if capabilities_byte & THRESHOLD_MASK == THRESHOLD_IS_NOT_SUPPORTED:
             capabilities.append('threshold_not_supported')
         elif capabilities_byte & THRESHOLD_MASK == THRESHOLD_IS_READABLE:
@@ -341,3 +353,22 @@ class SDRRepository:
         if curr is None or curr["most_recent_addition"] != new_info["most_recent_addition"]:
             return True
         return False
+
+
+def raw_reading_to_binstring(raw_reading):
+    """ Converts raw ipmi reading to binary-string states mask"""
+    state_list = bin(raw_reading[1])[2:]
+    state1 = state_list[0:8]
+    state2 = state_list[8:15]
+    binstring = state1 + state2
+    return binstring
+
+def decode_thresholds(raw_reading):
+    """ Decodes binary mask to proper threshold values"""
+    binstring = bin(raw_reading[1])[4:]  # 2 first values ignored, 2 first of bin ignored ('0b')
+    binstring = binstring[::-1]  # it's backwards, to be documentation compatible i reverse it.
+    thresholds = []
+    for i, asserted in enumerate(binstring):
+        if asserted == '1':
+            thresholds.append(THRESHOLDS[i])
+    return thresholds

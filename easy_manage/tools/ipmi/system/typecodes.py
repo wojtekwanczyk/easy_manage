@@ -99,14 +99,29 @@ TYPECODES = {
     0x0C: DISCRETE_0CH
 }
 SENSOR_SPECIFIC = {
-    0x0: {},
+    0x0: {
+    },
     0x1: {},
     0x2: {},
     0x3: {},
     0x4: {},
     0x5: {},
     0x6: {},
-    0x7: {},
+    0x7: {
+        0x00: 'IERR',
+        0x01: 'Thermal Trip',
+        0x02: 'FRB1/BIST failure',
+        0x03: 'FRB2/Hang in POST failure (used hang is believed to be due or related to a processor failure. Use System Firmware Progress sensor for other BIOS hangs.)',
+        0x04: 'FRB3/Processor Startup/Initialization failure (CPU didn’t start)',
+        0x05: 'Configuration Error',
+        0x06: 'SM BIOS ‘Uncorrectable CPU-complex Error’',
+        0x07: 'Processor Presence detected',
+        0x08: 'Processor disabled',
+        0x09: 'Terminator Presence Detected',
+        0x0A: 'Processor Automatically Throttled (processor throttling triggered by a hardware-based mechanism operating independent from system software, such as automatic thermal throttling or throttling to limit power consumption.)',
+        0x0B: 'Machine Check Exception (Uncorrectable)',
+        0x0C: 'Correctable Machine Check Error',
+    },
     0x8: {},
     0x9: {},
     0xA: {},
