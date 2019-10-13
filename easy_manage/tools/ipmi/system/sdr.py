@@ -122,18 +122,20 @@ class AbstractSDR:
 
     def decode_asserted_states(self, raw_value):
         states = []
-        state1 = bin(raw_value[1] >> 8)[2:][::-1]
-        state2 = bin(raw_value[1] & 0xFF)[2:][::-1][:-1]
+        state_list = bin(raw_value[1])[2:]
+        state1 = state_list[0:8]
+        state2 = state_list[8:15]
         binstring = state1 + state2
         for i, asserted in enumerate(binstring):
             if asserted == '1':
                 try:
                     states.append(self._value_map[i])
-                    log.info(f"Appended: {self._value_map[i]}")
                 except KeyError as k_err:
                     # FIXME: Log all missing keys, not just discrete ones
+
                     if self.sensor_kind != 'sensor-specific':
                         log.error(f"Exception on sensor type: {self.sensor_type}, kind: {self.sensor_kind}, val-map: {self._value_map}")
+                        log.error(f"State1: {state1}, State2: {state2} , bin(raw_value): {bin(raw_value[1])}")
                         log.exception(k_err)
         return {
             'states_asserted': states
