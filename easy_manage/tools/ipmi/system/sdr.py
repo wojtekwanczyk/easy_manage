@@ -103,46 +103,51 @@ class AbstractSDR:
         return SensorReadingKind.UNSUPPORTED
 
     def _parse_discrete_reading(self, raw_reading):
-        try:
-            states = []
-            binstring = raw_reading_to_binstring(raw_reading)
-            for i, asserted in enumerate(binstring):
-                if asserted == '1':
-                    try:
-                        states.append(self._value_mapping[i])
-                    except KeyError as k_err:
-                        log.error(f"Exception on sensor type: {self.sensor_type}, kind: {self.sensor_kind}, val-map: {self._value_mapping}, bin(raw_reading): {bin(raw_reading[1])}")
-                        log.exception(k_err)
-                    except TypeError:
-                        log.error(f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}')
-            return {
-                'states_asserted': states
-            }
-        except KeyError as k_err:
-            log.exception(k_err)
-            return None
+        binstring = raw_reading_to_binstring(raw_reading)
+        return {
+            'states_asserted': self._map_binstring_to_states(binstring)
+        }
 
     def _parse_specific_reading(self, raw_reading):
-        try:
-            if self._value_mapping:
-                log.info(f"Parsing sensor-specific's  raw_value, : {raw_reading}, mapping: {self._value_mapping}")
-            return {
-                'reading': self._value_mapping[raw_reading[1]]
-            }
-        except KeyError:
-            log.error(f'Could not parse reading for value: {raw_reading} and sensor of type: {self.sensor_type}')
-            return None
-        except TypeError:
-            log.error(f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}')
-            
+        binstring = raw_reading_to_binstring(raw_reading)
+        states = self._map_binstring_to_states(binstring)
+        if states:
+            print(f"Succesful decoding performedm raw_reading(bin): {bin(raw_reading[1])[2:]}")
+            print(states)
+        return {
+            'states_asserted': self._map_binstring_to_states(binstring)
+        }
+        # try:
+        #     if self._value_mapping:
+        #         log.info(f"Parsing sensor-specific's  raw_value, : {raw_reading}, mapping: {self._value_mapping}")
+        #     return {
+        #         'reading': self._value_mapping[raw_reading[1]]
+        #     }
+        # except KeyError:
+        #     log.error(f'Could not parse reading for value: {raw_reading} and sensor of type: {self.sensor_type}')
+        #     return None
+        # except TypeError:
+        #     log.error(f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}')
+
     def _parse_threshold_reading(self, raw_reading):
         return {
             'value': self._sdr_object.convert_sensor_raw_to_value(raw_reading[0]),
             'thresholds': decode_thresholds(raw_reading),
-        }    
-    
-   
-        
+        }
+
+    def _map_binstring_to_states(self, binstring):
+        states = []
+        for i, asserted in enumerate(binstring):
+            if asserted == '1':
+                try:
+                    states.append(self._value_mapping[i])
+                except KeyError as k_err:
+                    log.error(f"Exception on sensor type: {self.sensor_type}, kind: {self.sensor_kind}, val-map: {self._value_mapping} ")
+                    log.exception(k_err)
+                except TypeError:
+                    log.error(f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}')
+        return states
+
     def parse_sensor_reading(self, raw_value):
         "Parses full SDR sensor reading, provided raw value"
         try:
@@ -154,7 +159,6 @@ class AbstractSDR:
         except KeyError:
             raise UnsupportedOperationError("Cannot read from unsupported sensor")
 
-        
     # Public API
     # Abstract methods to override in child classes
     @property
@@ -362,6 +366,7 @@ def raw_reading_to_binstring(raw_reading):
     state2 = state_list[8:15]
     binstring = state1 + state2
     return binstring
+
 
 def decode_thresholds(raw_reading):
     """ Decodes binary mask to proper threshold values"""
