@@ -1,9 +1,13 @@
 "TODO: Implement Event type and content parsing"
+import logging
 from pyipmi.sel import SelEntry
 from pyipmi.event import EVENT_ASSERTION, EVENT_DEASSERTION
 from easy_manage.tools.ipmi.system.sdr_maps import SENSOR_TYPE_MAP
 from easy_manage.tools.ipmi.system.event_maps import EVENT_TYPE_MAP
-from easy_manage.tools.ipmi.system.typecodes import TYPECODES
+from easy_manage.tools.ipmi.system.typecodes import TYPECODES, SENSOR_SPECIFIC
+from easy_manage.tools.ipmi.system.reading_kind import get_reading_kind, ReadingKind
+
+log = logging.getLogger(__name__)
 
 
 class SEL:
@@ -34,10 +38,10 @@ class SEL:
         "Parses all events and divides them into 2 categories: Threshold and Discrete"
         if not self.all_events:
             self._fetch_system_event_list()
-        self.discrete_events_list = list(
+        self.threshold_events_list = list(
             map(ThresholdEvent, filter(ThresholdEvent.is_threshold, self.all_events))
         )
-        self.threshold_events_list = list(
+        self.discrete_events_list = list(
             map(DiscreteEvent, filter(DiscreteEvent.is_discrete, self.all_events))
         )
 
@@ -61,8 +65,15 @@ class AbstractEvent:
     BYTE_CONTENT_SENSOR_SPECIFIC = 0b11
     BYTE_UNSPECIFIED = 0xFF
 
+    DATA_UNSPECIFIED = 0xF
+    EVENT_EXTENSION_CODE = 0b11
+
     def __init__(self, event):
         self._event = event
+        self._is_sensor_specific = False
+        self._val_map = None
+        self.reading_kind = get_reading_kind(event.event_type)
+        self._initialize_val_map(event.event_type)
 
     # Public API
     @property
@@ -71,14 +82,14 @@ class AbstractEvent:
         return SENSOR_TYPE_MAP[self._event.sensor_type]
 
     @property
-    def name(self):
-        "Returns sensor description string"
-        return str(self._event)
-
-    @property
     def sensor_nr(self):
         "Return sensor's number, which generated the event"
         return self._event.sensor_number
+
+    @property
+    def name(self):
+        "Returns sensor description string"
+        return str(self._event)
 
     @property
     def timestamp(self):
@@ -97,14 +108,46 @@ class AbstractEvent:
         return "unrecognised"
 
     @property
-    def event_type(self):
-        "Returns event type based on given info"
-        return EVENT_TYPE_MAP[self._event.event_type]
-
-    @property
     def data(self):
         "Abstract method for threshold and discrete event to implement"
+        # TODO: Make this method be utilized in subclasses, so only decoding function is passed (thus eliminating repeated code)
         raise NotImplementedError
+
+    def _initialize_val_map(self, evt_typecode):
+        evt_kind = self.reading_kind
+        try:
+            if evt_kind in (ReadingKind.DISCRETE, ReadingKind.THRESHOLD):
+                self._val_map = TYPECODES[evt_typecode]
+            elif evt_kind == ReadingKind.SENSOR_SPECIFIC:
+                self._val_map = SENSOR_SPECIFIC[self._event.sensor_type]
+                self._is_sensor_specific = True
+            else:
+                self._val_map = None
+                log.error(f'No val-map matched in map for evt_kind UNSUPPORTED')
+        except KeyError:
+            raise NotImplementedError(f'No implemented val-map for evt_typecode: {hex(evt_typecode)}, reading kind: {evt_kind}')
+
+    def _parse_extension_code(self, fun_name, data):
+        try:
+            ext_code = (
+                self._val_map[
+                    self._event.sensor_type
+                ][fun_name](data)
+            )
+        except KeyError as k_err:
+            log.error(f'Method parse_ext_2 not implemented for sensor_type: {self._event.sensor_type}')
+            return None
+
+    def _parse_extension_codes(self, data_dict, dat_2_tuple, dat_3_tuple):
+        dat_2_cont, data_2 = dat_2_tuple
+        dat_3_cont, data_3 = dat_3_tuple
+        if dat_2_cont is AbstractEvent.EVENT_EXTENSION_CODE:
+            evt_extension = self._parse_extension_code('parse_ext_2', data_2)
+            data_dict["event_extensions"].append(evt_extension)
+
+        if dat_3_cont is AbstractEvent.EVENT_EXTENSION_CODE:
+            evt_extension = self._parse_extension_code('parse_ext_3', data_3)
+            data_dict["event_extensions"].append(evt_extension)
 
 
 class ThresholdEvent(AbstractEvent):
@@ -113,90 +156,81 @@ class ThresholdEvent(AbstractEvent):
     # Second byte
     BYTE_TRIGGER_READING = 0b01
     # Third byte
-    BYTE_TRIGGER_VALUE = 0b01
-    # Shared
-    EVENT_EXTENSION_CODE = 0b11
+    BYTE_THRESHOLD_VALUE = 0b01
 
     @staticmethod
     def is_threshold(event):
         "Returns boolean based on SelEvent object"
-        return event.type == ThresholdEvent.THRESHOLD_EVENT_TYPE
+        return event.event_type == ThresholdEvent.THRESHOLD_EVENT_TYPE
 
     @property
     def data(self):
-        data = {"event_extension": []}
+        "Returns all of the event's essential data"
+        data_dict = {"event_extensions": []}
         data_1, data_2, data_3 = self._event.event_data
+        data_dict["direction"] = self.direction
+
         # Decoding of byte 1
         offset = data_1 & 0x0F
-        dat_2_cont = (data_1 & 0xC0) >> 4
-        dat_3_cont = (data_1 & 0x30) >> 4
+        data_dict["value"] = self._val_map[offset]
 
-        data["value"] = EVENT_TYPE_MAP[self._event.type].offsets[offset].value
-
-        if dat_2_cont is ThresholdEvent.BYTE_TRIGGER_READING:
-            data["reading"] = data_2
-
-        if dat_3_cont is ThresholdEvent.BYTE_TRIGGER_VALUE:
-            data["threshold_value"] = data_3
-
-        if dat_2_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
-            ext_code_2 = (
-                EVENT_TYPE_MAP[self._event.sensor_type]
-                .offsets[offset]
-                .parse_ext_2(dat_2_cont)
-            )
-            data["event_extension"].append(ext_code_2)
-
-        if dat_3_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
-            ext_code_3 = (
-                EVENT_TYPE_MAP[self._event.sensor_type]
-                .offsets[offset]
-                .parse_ext_3(dat_3_cont)
-            )
-            data["event_extension"].append(ext_code_3)
+        # Bytes 2 and 3 are optional
+        if data_2 is not AbstractEvent.DATA_UNSPECIFIED and data_3 is not AbstractEvent.DATA_UNSPECIFIED:
+            self._decode_event_extension(data_dict, data_1, data_2, data_3)
         return data
+
+    def _decode_event_extension(self, data_dict, data_1, data_2, data_3):
+        dat_2_cont = (data_1 & 0xC0) >> 6
+        dat_3_cont = (data_1 & 0x30) >> 4
+        # Further decoding relies on prescence of bytes 2 and 3 of event data
+        if dat_2_cont is ThresholdEvent.BYTE_TRIGGER_READING:
+            data_dict["trigger_reading"] = data_2
+        if dat_3_cont is ThresholdEvent.BYTE_THRESHOLD_VALUE:
+            data_dict["threshold_value"] = data_3
+
+        self._parse_extension_codes(data_dict, (dat_2_cont, data_2), (dat_3_cont, data_3))
 
 
 class DiscreteEvent(AbstractEvent):
     "Class for events which are discrete-based"
-    DISCRETE_EVENT_TYPE_RANGE = list(range(0x02, 0x70))
+    DISCRETE_EVENT_TYPE_RANGE = list(range(0x02, 0xD))
+    SENSOR_SPECIFIC_CODE = 0x6F
     # Second byte
     BYTE_PREVIOUS_STATE = 0b01
     # Third byte
     BYTE_RESERVED = 0b01
-
     @staticmethod
     def is_discrete(event):
         "Returns boolean based on SelEvent object"
-        return event.type in DiscreteEvent.DISCRETE_EVENT_TYPE_RANGE
+        return event.event_type in DiscreteEvent.DISCRETE_EVENT_TYPE_RANGE or event.event_type == DiscreteEvent.SENSOR_SPECIFIC_CODE
 
     @property
     def data(self):
-        data = {"event_extension": []}
         data_1, data_2, data_3 = self._event.event_data
+        data_dict = {"event_extensions": []}
         # Decoding of byte 1
         offset = data_1 & 0x0F
-        dat_2_cont = (data_1 & 0xC0) >> 4
+        data_dict["direction"] = self.direction
+
+        if data_2 is not AbstractEvent.DATA_UNSPECIFIED and data_3 is not AbstractEvent.DATA_UNSPECIFIED:
+            self._decode_event_extension(data_dict, data_1, data_2, data_3)
+        return data_dict
+
+    def _decode_event_extension(self, data_dict, data_1, data_2, data_3):
+        dat_2_cont = (data_1 & 0xC0) >> 6
         dat_3_cont = (data_1 & 0x30) >> 4
-        data["value"] = EVENT_TYPE_MAP[self._event.sensor_type].offsets[offset].value
         if (dat_2_cont is DiscreteEvent.BYTE_PREVIOUS_STATE) and (data_3 is not AbstractEvent.BYTE_UNSPECIFIED):
             severity_offset = data_2 & 0x0F
             prev_reading_type_offset = (data_2 & 0xF0) >> 4
-            data["previous_state"] = EVENT_TYPE_MAP[self._event.sensor_type].offsets[prev_reading_type_offset]
-            data["severity"] = TYPECODES[self._event.type][severity_offset]
 
-        if dat_2_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
-            ext_code_2 = (
-                EVENT_TYPE_MAP[self._event.sensor_type]
-                .offsets[offset]
-                .parse_ext_2(dat_2_cont)
-            )
-            data["event_extension"].append(ext_code_2)
-        if dat_3_cont is ThresholdEvent.EVENT_EXTENSION_CODE:
-            ext_code_3 = (
-                EVENT_TYPE_MAP[self._event.sensor_type]
-                .offsets[offset]
-                .parse_ext_3(dat_3_cont)
-            )
-            data["event_extension"].append(ext_code_3)
-        return data
+            if prev_reading_type_offset is not AbstractEvent.BYTE_UNSPECIFIED:  # Parsing of previous reading
+                if self.reading_kind is ReadingKind.SENSOR_SPECIFIC:
+                    valmap = SENSOR_SPECIFIC[self._event.sensor_type]
+                else:
+                    valmap = TYPECODES[self.event.event_type]
+                data_dict["previous_state"] = valmap[prev_reading_type_offset]
+
+            if severity_offset is not AbstractEvent.BYTE_UNSPECIFIED:  # Parsing of severity of the event
+                data_dict["severity"] = TYPECODES[0x7][severity_offset]
+
+        self._parse_extension_codes(data_dict, (dat_2_cont, data_2), (dat_3_cont, data_3))

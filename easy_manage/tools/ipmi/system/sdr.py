@@ -6,14 +6,14 @@ from pyipmi.sdr import SdrCommon
 from pyipmi.errors import DecodingError
 from easy_manage.tools.ipmi.system.typecodes import TYPECODES, SENSOR_SPECIFIC, THRESHOLDS
 from .sdr_maps import SENSOR_TYPE_MAP, RATE_UNIT_MAP, UNIT_MAP, map_code_to_value
-
+from .reading_kind import ReadingKind, get_reading_kind
 log = logging.getLogger(__name__)
 
 SDR_TYPE_FULL_SENSOR_RECORD = 0x01
 SDR_TYPE_COMPACT_SENSOR_RECORD = 0x02
 THRESHOLD_SENSOR_CODE = 0x01
+DISCRETE_SENSOR_RANGE = list(range(0x02, 0xD))
 SENSOR_SPECIFIC_CODE = 0x6F
-DISCRETE_SENSOR_RANGE = list(range(0x02, 0x6F))
 COMPACT_RECORD_TYPE = 0x02
 FULL_RECORD_TYPE = 0x01
 
@@ -63,17 +63,16 @@ class AbstractSDR:
         self._sdr_object = sdr_object
         # Only full and compact SDR are supported
         self._value_mapping = None
-        # FIXME: Finish refactoring this
         evt_reading_typecode = sdr_object.event_reading_type_code
-        kind = AbstractSDR.get_sensor_kind(evt_reading_typecode)
-        if kind in (SensorReadingKind.DISCRETE, SensorReadingKind.THRESHOLD):
+        kind = get_reading_kind(evt_reading_typecode)
+        if kind in (ReadingKind.DISCRETE, ReadingKind.THRESHOLD):
             # Value map is specified only for threshold and discrete sensors
             self._value_mapping = TYPECODES[evt_reading_typecode]
-        if kind == SensorReadingKind.SENSOR_SPECIFIC:
+        if kind == ReadingKind.SENSOR_SPECIFIC:
             # Special value map, for sensor-defined states
             self._value_mapping = SENSOR_SPECIFIC[sdr_object.sensor_type_code]
         if not self._value_mapping:
-            if kind in (SensorReadingKind.DISCRETE, SensorReadingKind.THRESHOLD):
+            if kind in (ReadingKind.DISCRETE, ReadingKind.THRESHOLD):
                 log.error(f'Could not match typecode map to evt_reading_typecode: \'{evt_reading_typecode}\' for sensor of kind {kind}')
             else:
                 log.error(f'Could not match decoding function to sensor_type_code: \'{sdr_object.sensor_type_code}\' for sensor of kind {kind}')
@@ -88,19 +87,6 @@ class AbstractSDR:
         elif sdr.type == COMPACT_RECORD_TYPE:
             ret_sdr = CompactSDR(sdr)
         return ret_sdr
-
-    @staticmethod
-    def get_sensor_kind(reading_code):
-        "Returns sensor class based on given sensor code"
-        mapped_kind = {
-            THRESHOLD_SENSOR_CODE: SensorReadingKind.THRESHOLD,
-            SENSOR_SPECIFIC_CODE: SensorReadingKind.SENSOR_SPECIFIC,
-        }.get(reading_code, None)
-        if isinstance(mapped_kind, SensorReadingKind):
-            return mapped_kind
-        if reading_code in DISCRETE_SENSOR_RANGE:
-            return SensorReadingKind.DISCRETE
-        return SensorReadingKind.UNSUPPORTED
 
     def _parse_discrete_reading(self, raw_reading):
         binstring = raw_reading_to_binstring(raw_reading)
@@ -137,9 +123,9 @@ class AbstractSDR:
         "Parses full SDR sensor reading, provided raw value"
         try:
             return {
-                SensorReadingKind.DISCRETE: self._parse_discrete_reading,
-                SensorReadingKind.SENSOR_SPECIFIC: self._parse_specific_reading,
-                SensorReadingKind.THRESHOLD: self._parse_threshold_reading,
+                ReadingKind.DISCRETE: self._parse_discrete_reading,
+                ReadingKind.SENSOR_SPECIFIC: self._parse_specific_reading,
+                ReadingKind.THRESHOLD: self._parse_threshold_reading,
             }[self.sensor_kind](raw_value)
         except KeyError:
             raise UnsupportedOperationError("Cannot read from unsupported sensor")
@@ -161,7 +147,7 @@ class AbstractSDR:
     def sensor_kind(self):
         "Returns sensor class based on stored sdr object's instance"
         typecode = self._sdr_object.event_reading_type_code
-        return AbstractSDR.get_sensor_kind(typecode)
+        return get_reading_kind(typecode)
 
     @property
     def sdr_type(self):
