@@ -110,24 +110,9 @@ class AbstractSDR:
 
     def _parse_specific_reading(self, raw_reading):
         binstring = raw_reading_to_binstring(raw_reading)
-        states = self._map_binstring_to_states(binstring)
-        if states:
-            print(f"Succesful decoding performedm raw_reading(bin): {bin(raw_reading[1])[2:]}")
-            print(states)
         return {
             'states_asserted': self._map_binstring_to_states(binstring)
         }
-        # try:
-        #     if self._value_mapping:
-        #         log.info(f"Parsing sensor-specific's  raw_value, : {raw_reading}, mapping: {self._value_mapping}")
-        #     return {
-        #         'reading': self._value_mapping[raw_reading[1]]
-        #     }
-        # except KeyError:
-        #     log.error(f'Could not parse reading for value: {raw_reading} and sensor of type: {self.sensor_type}')
-        #     return None
-        # except TypeError:
-        #     log.error(f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}')
 
     def _parse_threshold_reading(self, raw_reading):
         return {
@@ -192,7 +177,7 @@ class AbstractSDR:
     @property
     def name(self):
         "Returns SDR string, parsed from record"
-        return self._sdr_object.device_id_string
+        return self._sdr_object.device_id_string.decode()
 
     @property
     def record_key(self):
@@ -362,8 +347,8 @@ class SDRRepository:
 def raw_reading_to_binstring(raw_reading):
     """ Converts raw ipmi reading to binary-string states mask"""
     state_list = bin(raw_reading[1])[2:]
-    state1 = state_list[0:8]
-    state2 = state_list[8:15]
+    state1 = state_list[8:16][::-1]
+    state2 = state_list[0:8][::-1][:7]
     binstring = state1 + state2
     return binstring
 
