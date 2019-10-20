@@ -177,7 +177,7 @@ class ThresholdEvent(AbstractEvent):
         data_dict = {"event_extensions": []}
         data_1, data_2, data_3 = self._event.event_data
         data_dict["direction"] = self.direction
-
+        data_dict["timestamp"] = self.timestamp
         # Decoding of byte 1
         offset = data_1 & 0x0F
 
@@ -226,6 +226,7 @@ class DiscreteEvent(AbstractEvent):
 
         data_dict["direction"] = self.direction
         data_dict["value"] = self._val_map[offset]
+        data_dict["timestamp"] = self.timestamp
 
         if data_2 is not AbstractEvent.DATA_UNSPECIFIED and data_3 is not AbstractEvent.DATA_UNSPECIFIED:
             self._decode_event_extension(data_dict, offset, data_1, data_2, data_3)
