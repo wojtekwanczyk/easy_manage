@@ -1,12 +1,9 @@
-"SDR Repository IPMI commands and utilities Module"
+"Module containing SDR records classes"
 import logging
-from enum import Enum, auto
-from pyipmi.helper import get_sdr_data_helper
-from pyipmi.sdr import SdrCommon
-from pyipmi.errors import DecodingError
-from easy_manage.tools.ipmi.system.typecodes import TYPECODES, SENSOR_SPECIFIC, THRESHOLDS
-from .sdr_maps import SENSOR_TYPE_MAP, RATE_UNIT_MAP, UNIT_MAP, map_code_to_value
-from .reading_kind import ReadingKind, get_reading_kind
+from easy_manage.tools.ipmi.system.maps.typecodes import TYPECODES, SENSOR_SPECIFIC, THRESHOLDS
+from easy_manage.tools.ipmi.system.maps.sdr_maps import SENSOR_TYPE_MAP, RATE_UNIT_MAP, UNIT_MAP, map_code_to_value
+from easy_manage.tools.ipmi.system.utils.reading_kind import ReadingKind, get_reading_kind
+
 log = logging.getLogger(__name__)
 
 SDR_TYPE_FULL_SENSOR_RECORD = 0x01
@@ -31,30 +28,6 @@ THRESHOLD_IS_READABLE = 0x08
 THRESHOLD_IS_READ_AND_SETTABLE = 0x04
 THRESHOLD_IS_FIXED = 0x0C
 
-# TODO: Create enum for classes of sdr (sensor-specific, discrete, threshold)
-
-
-class UnsupportedOperationError(Exception):
-    """ Exception type for performing non-standard SDR actions """
-
-
-class SensorReadingKind(Enum):
-    """ Enum describing what kind of values sensor returns"""
-    SENSOR_SPECIFIC = auto()
-    THRESHOLD = auto()
-    DISCRETE = auto()
-    UNSUPPORTED = auto()
-
-
-def parse_repository_info(repository):
-    """ Function which parses returned object into a dictionary of entries"""
-    return {
-        "sdr_version": repository.sdr_version,
-        "record_count": repository.record_count,
-        "free_space": repository.free_space,
-        "most_recent_addition": repository.most_recent_addition
-    }
-
 
 class AbstractSDR:
     "Superclass for SDR's, contains common elements"
@@ -73,9 +46,13 @@ class AbstractSDR:
             self._value_mapping = SENSOR_SPECIFIC[sdr_object.sensor_type_code]
         if not self._value_mapping:
             if kind in (ReadingKind.DISCRETE, ReadingKind.THRESHOLD):
-                log.error(f'Could not match typecode map to evt_reading_typecode: \'{evt_reading_typecode}\' for sensor of kind {kind}')
+                log.error(
+                    f'Could not match typecode map to evt_reading_typecode: \'{evt_reading_typecode}\' for sensor of kind {kind}'
+                )
             else:
-                log.error(f'Could not match decoding function to sensor_type_code: \'{sdr_object.sensor_type_code}\' for sensor of kind {kind}')
+                log.error(
+                    f'Could not match decoding function to sensor_type_code: \'{sdr_object.sensor_type_code}\' for sensor of kind {kind}'
+                )
 
     # Static methods
     @staticmethod
@@ -113,10 +90,14 @@ class AbstractSDR:
                 try:
                     states.append(self._value_mapping[i])
                 except KeyError as k_err:
-                    log.error(f"Exception on sensor type: {self.sensor_type}, kind: {self.sensor_kind}, val-map: {self._value_mapping} ")
+                    log.error(
+                        f"Exception on sensor type: {self.sensor_type}, kind: {self.sensor_kind}, val-map: {self._value_mapping} "
+                    )
                     log.exception(k_err)
                 except TypeError:
-                    log.error(f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}')
+                    log.error(
+                        f'Value mapping is not defined on sensor type: {self.sensor_type}, kind: {self.sensor_kind}'
+                    )
         return states
 
     def parse_sensor_reading(self, raw_value):
@@ -257,79 +238,6 @@ class CompactSDR(AbstractSDR):
         }
 
 
-class SDRRepository:
-    """ Class for dealing with retrieving the IPMI SDR Repository data"""
-
-    def __init__(self, ipmi):
-        self._ipmi = ipmi
-        self._repo_info = None
-        self._sdrs = None
-
-    def fetch_sdr_object_list(self):
-        """ Returns list of SDR objects"""
-
-        repo = self._ipmi.get_sdr_repository_info()
-        repo = parse_repository_info(repo)
-        if self._is_stale(repo) or self._sdrs is None:
-            sdrs = self._fetch_sdrs()
-        else:
-            sdrs = self._sdrs
-        unfiltered = list(map(AbstractSDR.get_sdr_object, sdrs))
-        def notNone(x): return x is not None
-        filtered = list(filter(notNone, unfiltered))
-        self._sdrs = filtered
-        return filtered
-
-    def fetch_repository_info(self):
-        """ Fetches and saves the data in the object"""
-        if not self._repo_info:
-            repo = self._ipmi.get_sdr_repository_info()
-            self._repo_info = parse_repository_info(repo)
-        return self._repo_info
-
-    def _fetch_sdrs(self):
-        """ Fetches SDR entries from the BMC"""
-        tmp_sdrs = self._get_repository_sdr_list()
-        self._sdrs = list(filter(lambda x: (x is not None), tmp_sdrs))
-        return self._sdrs
-
-    def _get_repository_sdr(self, record_id, reservation_id=None):
-        """ Method for fetching a single record, and next record's ID in a tuple"""
-        (next_id, record_data) = get_sdr_data_helper(
-            self._ipmi.reserve_sdr_repository, self._ipmi._get_sdr_chunk,
-            record_id, reservation_id)
-        try:
-            return (SdrCommon.from_data(record_data, next_id), next_id)
-        except DecodingError as ex:
-            print(ex)
-            # By policy, we skip unsupported records
-            return (None, next_id)
-
-    def _sdr_repository_entries(self):
-        """ Generator of tuples (next_id, entry)"""
-        reservation_id = self._ipmi.reserve_sdr_repository()
-        record_id = 0
-
-        while True:
-            (record, next_id) = self._get_repository_sdr(
-                record_id, reservation_id)
-            yield record
-            if next_id == 0xffff:
-                break
-            record_id = next_id
-
-    def _get_repository_sdr_list(self):
-        """ Utilizes generator of entries"""
-        return list(self._sdr_repository_entries())
-
-    def _is_stale(self, new_info):
-        """ Does object needs to re-fetch data from BMC"""
-        curr = self._repo_info
-        if curr is None or curr["most_recent_addition"] != new_info["most_recent_addition"]:
-            return True
-        return False
-
-
 def raw_reading_to_binstring(raw_reading):
     """ Converts raw ipmi reading to binary-string states mask"""
     state_list = bin(raw_reading[1])[2:]
@@ -342,9 +250,14 @@ def raw_reading_to_binstring(raw_reading):
 def decode_thresholds(raw_reading):
     """ Decodes binary mask to proper threshold values"""
     binstring = bin(raw_reading[1])[4:]  # 2 first values ignored, 2 first of bin ignored ('0b')
-    binstring = binstring[::-1]  # it's backwards, to be documentation compatible i reverse it.
+    # it's backwards, to be documentation compatible i reverse it.
+    binstring = binstring[::-1]
     thresholds = []
     for i, asserted in enumerate(binstring):
         if asserted == '1':
             thresholds.append(THRESHOLDS[i])
     return thresholds
+
+
+class UnsupportedOperationError(Exception):
+    """ Exception type for performing non-standard SDR actions """

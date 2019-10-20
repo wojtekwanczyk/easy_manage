@@ -1,59 +1,12 @@
-"TODO: Implement Event type and content parsing"
+"various classes of events"
 import logging
-from pyipmi.sel import SelEntry
 from pyipmi.event import EVENT_ASSERTION, EVENT_DEASSERTION
 from easy_manage.tools.ipmi.system.sdr_maps import SENSOR_TYPE_MAP
-from easy_manage.tools.ipmi.system.event_maps import EVENT_TYPE_MAP
-from easy_manage.tools.ipmi.system.typecodes import TYPECODES, SENSOR_SPECIFIC, SEN_SPEC_EXT_FUNC
+from easy_manage.tools.ipmi.system.maps.event_extensions import SEN_SPEC_EXT_FUNC
+from easy_manage.tools.ipmi.system.typecodes import TYPECODES, SENSOR_SPECIFIC
 from easy_manage.tools.ipmi.system.reading_kind import get_reading_kind, ReadingKind
 
 log = logging.getLogger(__name__)
-
-
-class SEL:
-    "Class for fetching SEL data records"
-
-    def __init__(self, ipmi):
-        self._ipmi = ipmi
-        self.threshold_events_list = None
-        self.discrete_events_list = None
-        self.all_events = None
-
-    def _fetch_system_event_list(self):
-        "Fetches all SEL SYSTEM events entries"
-        entries = self._ipmi.get_sel_entries()
-
-        def is_system_event(event):
-            return event.type == SelEntry.TYPE_SYSTEM_EVENT
-
-        sys_events = list(filter(is_system_event, entries))
-        # Filter events to those which are compliant with IPMI v2.0 formatting
-
-        def is_compliant(event):
-            return event.evm_rev == 0x04
-
-        self.all_events = list(filter(is_compliant, sys_events))
-
-    def _parse_all_events(self):
-        "Parses all events and divides them into 2 categories: Threshold and Discrete"
-        if not self.all_events:
-            self._fetch_system_event_list()
-        self.threshold_events_list = list(
-            map(ThresholdEvent, filter(ThresholdEvent.is_threshold, self.all_events))
-        )
-        self.discrete_events_list = list(
-            map(DiscreteEvent, filter(DiscreteEvent.is_discrete, self.all_events))
-        )
-
-    def threshold_events(self):
-        "Returns list of filtered threshold events"
-        self._parse_all_events()
-        return self.threshold_events_list
-
-    def discrete_events(self):
-        "Returns list of filtered discrete events"
-        self._parse_all_events()
-        return self.discrete_events_list
 
 
 class AbstractEvent:
@@ -88,14 +41,8 @@ class AbstractEvent:
         return self._event.sensor_number
 
     @property
-    def name(self):
-        "Returns sensor description string"
-        return str(self._event)
-
-    @property
     def timestamp(self):
         "Returns timestamp of the event"
-        # TODO: Maybe parse it, and check out it's format
         return self._event.timestamp
 
     @property
@@ -178,6 +125,8 @@ class ThresholdEvent(AbstractEvent):
         data_1, data_2, data_3 = self._event.event_data
         data_dict["direction"] = self.direction
         data_dict["timestamp"] = self.timestamp
+        data_dict["sensor_type"] = self.sensor_type
+        data_dict["sensor_number"] = self.sensor_nr
         # Decoding of byte 1
         offset = data_1 & 0x0F
 
@@ -189,7 +138,8 @@ class ThresholdEvent(AbstractEvent):
 
         # Bytes 2 and 3 are optional
         if data_2 is not AbstractEvent.DATA_UNSPECIFIED and data_3 is not AbstractEvent.DATA_UNSPECIFIED:
-            self._decode_event_extension(data_dict, offset ,data_1, data_2, data_3)
+            self._decode_event_extension(
+                data_dict, offset, data_1, data_2, data_3)
         return data_dict
 
     def _decode_event_extension(self, data_dict, offset, data_1, data_2, data_3):
@@ -201,7 +151,8 @@ class ThresholdEvent(AbstractEvent):
         if dat_3_cont is ThresholdEvent.BYTE_THRESHOLD_VALUE:
             data_dict["threshold_value"] = data_3
 
-        self._parse_extension_codes(data_dict, offset, (dat_2_cont, data_2), (dat_3_cont, data_3))
+        self._parse_extension_codes(
+            data_dict, offset, (dat_2_cont, data_2), (dat_3_cont, data_3))
 
 
 class DiscreteEvent(AbstractEvent):
@@ -227,9 +178,12 @@ class DiscreteEvent(AbstractEvent):
         data_dict["direction"] = self.direction
         data_dict["value"] = self._val_map[offset]
         data_dict["timestamp"] = self.timestamp
+        data_dict["sensor_type"] = self.sensor_type
+        data_dict["sensor_number"] = self.sensor_nr
 
         if data_2 is not AbstractEvent.DATA_UNSPECIFIED and data_3 is not AbstractEvent.DATA_UNSPECIFIED:
-            self._decode_event_extension(data_dict, offset, data_1, data_2, data_3)
+            self._decode_event_extension(
+                data_dict, offset, data_1, data_2, data_3)
         return data_dict
 
     def _decode_event_extension(self, data_dict, offset, data_1, data_2, data_3):
@@ -249,4 +203,5 @@ class DiscreteEvent(AbstractEvent):
             if severity_offset is not AbstractEvent.BYTE_UNSPECIFIED:  # Parsing of severity of the event
                 data_dict["severity"] = TYPECODES[0x7][severity_offset]
 
-        self._parse_extension_codes(data_dict, offset, (dat_2_cont, data_2), (dat_3_cont, data_3))
+        self._parse_extension_codes(
+            data_dict, offset, (dat_2_cont, data_2), (dat_3_cont, data_3))
