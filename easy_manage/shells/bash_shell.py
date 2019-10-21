@@ -1,4 +1,9 @@
 "Module responsible for running bash commands and scripts on a remote server through ssh"
+import socket
+import sys
+import termios
+import tty
+import select
 from paramiko import SSHClient, AutoAddPolicy
 
 
@@ -27,6 +32,37 @@ class BashShell:
     def execute(self, cmd):
         _, stdout, _ = self.client.exec_command(cmd)
         return list(stdout)
+
+    def interactive_shell(self):
+        "Run remote interactive shell on connected client machine"
+        channel = self.client.invoke_shell()
+        oldtty = termios.tcgetattr(sys.stdin)
+        try:
+            tty.setraw(sys.stdin.fileno())
+            tty.setcbreak(sys.stdin.fileno())
+            channel.settimeout(0.0)
+
+            while True:
+                rlist, _, _ = select.select([channel, sys.stdin], [], [])
+                if channel in rlist:
+                    try:
+                        output = channel.recv(1024).decode()
+                        if not output:
+                            sys.stdout.write("*** exiting interactive shell ***\r\n")
+                            break
+                        sys.stdout.write(output)
+                        sys.stdout.flush()
+                    except socket.timeout:
+                        pass
+                if sys.stdin in rlist:
+                    user_input = sys.stdin.read(1)
+                    if not user_input:
+                        break
+                    channel.send(user_input)
+
+        finally:
+            termios.tcsetattr(sys.stdin, termios.TCSADRAIN, oldtty)
+        channel.close()
 
     # Memory commands
 
