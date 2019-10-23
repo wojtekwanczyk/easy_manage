@@ -24,6 +24,18 @@ LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
 
+<< << << < Updated upstream
+== == == =
+<< << << < Updated upstream
+
+
+def parse_conf(filename, name='LENOVO'):
+
+
+== == == =
+>>>>>> > Stashed changes
+
+
 def parse_args():
     "Method for parsing arguments from command line"
     parser = argparse.ArgumentParser(description='Placeholder for description')
@@ -34,13 +46,25 @@ def parse_args():
     # FIXME - only for testing
     if not args.address:
         args.address = '172.16.67.120'
-        LOGGER.debug(f"Default server address {args.address} has been set")
 
-    return args
+
+<< << << < Updated upstream
+   LOGGER.debug(f"Default server address {args.address} has been set")
+== == == =
+   LOGGER.debug(f'Default server address {args.address} has been set')
+>>>>>> > Stashed changes
+
+   return args
 
 
 def parse_conf(filename):
-    with open(filename) as config_file:
+
+
+<< << << < Updated upstream
+== == == =
+>>>>>> > Stashed changes
+>>>>>> > Stashed changes
+   with open(filename) as config_file:
         data = json.load(config_file)
     return data
 
@@ -105,16 +129,34 @@ def ipmi_demo(args, db, credentials):
     ipmi_conn = IpmiConnector('test_connector_ipmi',
                               args.address, credentials)
     print(ipmi_conn.connect())
-    # ipmi_conn.show_device_id()
-    # ipmi_conn.show_functions()
-    # ipmi_conn.show_firmware_version()
-    #print('========= ' + ipmi_conn.ipmi.connected)
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
     ipmi_chass = IpmiChassis(ipmi_conn)
     sdrs = ipmi_sys.SDRRepository.fetch_sdr_object_list()
 
     for sdr in sdrs:
         print(sdr.name)
+
+    ipmi_chass = IpmiChassis(ipmi_conn)
+
+    # FRU FETCHING
+    for fru in ipmi_sys.FRU.component_info():
+        print(fru['fru_id'])
+
+    # SDR FETCHING
+    # sdrs = ipmi_sys.SDRRepository.fetch_sdr_object_list()
+    # readings = ipmi_sys.Sensor.mass_read_sensor(sdrs)
+    # for k, v in readings.items():
+    #     print(f'{{{k}: {v}}}')
+
+    # SEL FETCHING
+    # thresh_evts = ipmi_sys.SEL.threshold_events()
+    # print(f'Fetched {len(thresh_evts)} threshold events from the system event log')
+    # for evt in thresh_evts:
+    # print(evt.data)
+    # discre_evts = ipmi_sys.SEL.discrete_events()
+    # for evt in discre_evts:
+    # print(evt.data)
+    # print(f'Fetched {len(discre_evts)} threshold events from the system event log')
 
 
 def main():
