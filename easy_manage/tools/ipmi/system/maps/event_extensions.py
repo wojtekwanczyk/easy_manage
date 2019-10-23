@@ -1,6 +1,6 @@
 "Module with functions for parsing event-data"
 from collections import defaultdict
-from easy_manage.tools.ipmi.system.typecodes import SENSOR_SPECIFIC
+from easy_manage.tools.ipmi.system.maps.typecodes import SENSOR_SPECIFIC
 SEN_SPEC_EXT_FUNC = {
     0x08: {
         0x06: {

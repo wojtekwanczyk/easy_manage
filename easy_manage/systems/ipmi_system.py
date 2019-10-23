@@ -2,8 +2,8 @@
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.ipmi.system.fru import FRU
-from easy_manage.tools.ipmi.system.sel import SEL
-from easy_manage.tools.ipmi.system.sdr import SDRRepository
+from easy_manage.tools.ipmi.system.SEL.event_log import SEL
+from easy_manage.tools.ipmi.system.SDR.repository import SDRRepository
 from easy_manage.tools.ipmi.system.info import Info
 from easy_manage.tools.ipmi.system.sensor import Sensor
 
@@ -24,7 +24,7 @@ class IpmiSystem(AbstractSystem):
     def __init__(self, name, connector):
         super().__init__(name, connector)
         ipmi = connector.ipmi
-        self.FRU = FRU(ipmi)
+        self.FRU = FRU(ipmi, connector.credentials, connector.address)
         self.SEL = SEL(ipmi)
         self.SDRRepository = SDRRepository(ipmi)
         self.Info = Info(ipmi)

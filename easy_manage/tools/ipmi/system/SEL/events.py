@@ -1,10 +1,10 @@
 "various classes of events"
 import logging
 from pyipmi.event import EVENT_ASSERTION, EVENT_DEASSERTION
-from easy_manage.tools.ipmi.system.sdr_maps import SENSOR_TYPE_MAP
+from easy_manage.tools.ipmi.system.maps.sdr_maps import SENSOR_TYPE_MAP
 from easy_manage.tools.ipmi.system.maps.event_extensions import SEN_SPEC_EXT_FUNC
-from easy_manage.tools.ipmi.system.typecodes import TYPECODES, SENSOR_SPECIFIC
-from easy_manage.tools.ipmi.system.reading_kind import get_reading_kind, ReadingKind
+from easy_manage.tools.ipmi.system.maps.typecodes import TYPECODES, SENSOR_SPECIFIC
+from easy_manage.tools.ipmi.system.utils.reading_kind import get_reading_kind, ReadingKind
 
 log = logging.getLogger(__name__)
 
