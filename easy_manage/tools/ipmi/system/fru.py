@@ -27,7 +27,7 @@ class FRU(FRUInventoryOwner):
 
     def __init__(self, ipmi, credentials, address):
         super().__init__(ipmi)
-        self._ipmitool_baseargs = f'-H {address} -U {credentials.username} -P {credentials.password} -I lanplus'
+        self._ipmitool_baseargs = ['-H', address, '-U', credentials.username, '-P', credentials.password, '-I', 'lanplus']
 
     def board_info(self):
         "General board info"
@@ -60,15 +60,14 @@ class FRU(FRUInventoryOwner):
         "Method which fetches data about fru devices utilizing ipmitool"
 
         try:
-            proc = subprocess.Popen(
-                f'ipmitool {self._ipmitool_baseargs} fru print', encoding='utf-8', stdout=subprocess.PIPE, shell=True
+            proc = subprocess.run(
+                [f'ipmitool'] + self._ipmitool_baseargs + ['fru', 'print'], encoding='utf-8', stdout=subprocess.PIPE
             )
-            output = proc.stdout.read()
-            return dictonarify_output(output)
-
+            if proc.returncode != 1:  # This is a weird check, because ipmitool fails the program even if there is no apparent reason for it
+                proc.check_returncode()
+            return dictonarify_output(proc.stdout)
         except CalledProcessError as cp_err:
             log.error(f'Ipmitool failed, exit code: {cp_err.returncode}')
-            log.debug(f'CMD USED: {cp_err.cmd}')
             log.error(f'Process output: {cp_err.output}')
 
 
