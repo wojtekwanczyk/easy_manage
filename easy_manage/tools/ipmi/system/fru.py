@@ -4,6 +4,7 @@ from subprocess import CalledProcessError
 import logging
 import re
 
+from easy_manage.tools.ipmi.system.maps.chassis_maps import CHASSIS_MAP
 log = logging.getLogger(__name__)
 
 
@@ -130,8 +131,8 @@ class FRUChassis(FRUInventoryOwner):
             self._fetch_inventory()
         if self.fru_inventory.chassis_info_area:
             return {
-                "type": self.fru_inventory.chassis_info_area.type,
-                "part_number": self.fru_inventory.chassis_info_area.part_number,
-                "serial_number": self.fru_inventory.chassis_info_area.serial_number
+                "type": CHASSIS_MAP.get(self.fru_inventory.chassis_info_area.type, 'undefined'),
+                "part_number": str(self.fru_inventory.chassis_info_area.part_number).strip(),
+                "serial_number": str(self.fru_inventory.chassis_info_area.serial_number).strip()
             }
         return None

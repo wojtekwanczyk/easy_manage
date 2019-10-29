@@ -1,6 +1,7 @@
 "IPMI chassis module"
 from easy_manage.tools.ipmi.chassis.chassis_messages import ChassisControl
 from easy_manage.tools.ipmi.system.fru import FRUChassis
+from easy_manage.tools.ipmi.system.maps.chassis_maps import map_chassis_capabilities
 
 
 class IpmiChassis(FRUChassis):
@@ -13,7 +14,9 @@ class IpmiChassis(FRUChassis):
 
     def functions(self):
         "Returns chassis capabilities"
-        return self.ipmi.send_message_with_name('GetChassisCapabilities')
+        rsp = self.ipmi.send_message_with_name('GetChassisCapabilities')
+        caps = map_chassis_capabilities(rsp.capabilities_flags)
+        return caps
 
     def status(self):
         "Returns Chasiss status object"
