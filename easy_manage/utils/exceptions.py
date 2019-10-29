@@ -7,3 +7,7 @@ class BadHttpResponse(Exception):
 
 class InvalidCredentials(Exception):
     pass
+
+
+class NotInitializedError(Exception):
+    pass
