@@ -24,18 +24,6 @@ LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
 
-<< << << < Updated upstream
-== == == =
-<< << << < Updated upstream
-
-
-def parse_conf(filename, name='LENOVO'):
-
-
-== == == =
->>>>>> > Stashed changes
-
-
 def parse_args():
     "Method for parsing arguments from command line"
     parser = argparse.ArgumentParser(description='Placeholder for description')
@@ -46,25 +34,13 @@ def parse_args():
     # FIXME - only for testing
     if not args.address:
         args.address = '172.16.67.120'
+        LOGGER.debug(f"Default server address {args.address} has been set")
 
-
-<< << << < Updated upstream
-   LOGGER.debug(f"Default server address {args.address} has been set")
-== == == =
-   LOGGER.debug(f'Default server address {args.address} has been set')
->>>>>> > Stashed changes
-
-   return args
+    return args
 
 
 def parse_conf(filename):
-
-
-<< << << < Updated upstream
-== == == =
->>>>>> > Stashed changes
->>>>>> > Stashed changes
-   with open(filename) as config_file:
+    with open(filename) as config_file:
         data = json.load(config_file)
     return data
 
@@ -128,25 +104,41 @@ def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')
     ipmi_conn = IpmiConnector('test_connector_ipmi',
                               args.address, credentials)
-    print(ipmi_conn.connect())
+    ipmi_conn.connect()
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
+
     ipmi_chass = IpmiChassis(ipmi_conn)
+
+#    FRU FETCHING
+    frus = ipmi_sys.FRU.component_info()
+   # SDR FETCHING
     sdrs = ipmi_sys.SDRRepository.fetch_sdr_object_list()
 
-    for sdr in sdrs:
-        print(sdr.name)
+    
+    # Fru to sdr matching attempt [*] rip on p
+    # def wrapper_matching(sdr_id):
+    #     def matching(x):
+    #         print(f"Compare {x['fru_id']} with {sdr_id}")
+    #         return int(x['fru_id']) == int(sdr_id)
+    #     return matching
 
-    ipmi_chass = IpmiChassis(ipmi_conn)
+    # for sdr in sdrs:
+        # sdr_id = sdr.record_key['sensor_number'] >> 1
+        # print(f"Trying to match {sdr.record_key}")
 
-    # FRU FETCHING
-    for fru in ipmi_sys.FRU.component_info():
-        print(fru['fru_id'])
+        # matching = list(filter(wrapper_matching(sdr_id), frus))
+        # if matching:
+            # print("Matched some frus with sdrs")
+            # print(matching)
+            # print(sdr.name)
+        # else:
+            # print("No match\n")
 
-    # SDR FETCHING
-    # sdrs = ipmi_sys.SDRRepository.fetch_sdr_object_list()
-    # readings = ipmi_sys.Sensor.mass_read_sensor(sdrs)
+    # READING SENESRS
+    #readings = ipmi_sys.Sensor.mass_read_sensor(sdrs)
+
     # for k, v in readings.items():
-    #     print(f'{{{k}: {v}}}')
+        # print(f'{{{k}: {v}}}')
 
     # SEL FETCHING
     # thresh_evts = ipmi_sys.SEL.threshold_events()

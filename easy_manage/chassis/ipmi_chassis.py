@@ -5,7 +5,6 @@ from easy_manage.tools.ipmi.system.fru import FRUChassis
 
 class IpmiChassis(FRUChassis):
     "IPMI chassis class, for fetching basic info"
-    # TODO: Determine whether to merge chassis info and chassis status into one - or leave it till we have interface definition
 
     def __init__(self, ipmi):
         super().__init__(ipmi)
@@ -13,7 +12,6 @@ class IpmiChassis(FRUChassis):
 
     def functions(self):
         "Returns chassis capabilities"
-        # TODO: Test this
         return self.ipmi.send_message_with_name('GetChassisCapabilities')
 
     def status(self):
@@ -39,7 +37,6 @@ class IpmiChassis(FRUChassis):
 
     def power_cycle(self):
         "Power cycle IPMI function on chassis"
-        # TODO Check this out
         self.__set_chassis_power(ChassisControl.POWER_CYCLE)
 
     def power_down(self):
@@ -60,9 +57,17 @@ class IpmiChassis(FRUChassis):
 
     def power_on_hours(self):
         "Returns power on hours on chassis"
-        # TODO: Test this
         return self.ipmi.send_message_with_name('GetPohCounter')
 
     def chassis_info(self):
         "Returns FRU chassis info - "
         return self.fru_chassis_info()
+
+    def aggregate(self):
+        "Returns aggregate of ipmichassis's info"
+        return {
+            'power_on_hours': self.power_on_hours(),
+            'chassis_info': self.chassis_info(),
+            'chassis_status': self.status(),
+            'chassis_functions': self.functions()
+        }
