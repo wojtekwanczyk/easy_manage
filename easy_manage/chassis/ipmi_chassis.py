@@ -6,7 +6,8 @@ from easy_manage.tools.ipmi.system.fru import FRUChassis
 class IpmiChassis(FRUChassis):
     "IPMI chassis class, for fetching basic info"
 
-    def __init__(self, ipmi):
+    def __init__(self, ipmi_connector):
+        ipmi = ipmi_connector.ipmi
         super().__init__(ipmi)
         self.ipmi = ipmi
 
@@ -57,7 +58,11 @@ class IpmiChassis(FRUChassis):
 
     def power_on_hours(self):
         "Returns power on hours on chassis"
-        return self.ipmi.send_message_with_name('GetPohCounter')
+        poh_rsp = self.ipmi.send_message_with_name('GetPohCounter')
+        return {
+            'minutes_per_count': poh_rsp.minutes_per_count,
+            'counter_reading': poh_rsp.counter_reading
+        }
 
     def chassis_info(self):
         "Returns FRU chassis info - "
@@ -66,7 +71,7 @@ class IpmiChassis(FRUChassis):
     def aggregate(self):
         "Returns aggregate of ipmichassis's info"
         return {
-            'power_on_hours': self.power_on_hours(),
+            'power_on_counter': self.power_on_hours(),
             'chassis_info': self.chassis_info(),
             'chassis_status': self.status(),
             'chassis_functions': self.functions()
