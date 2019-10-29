@@ -4,7 +4,6 @@ Module containing helpers for easy_manage package
 
 import hashlib
 import base64
-import logging
 from collections import namedtuple
 from cryptography.fernet import Fernet
 from easy_manage.utils.exceptions import InvalidCredentials
@@ -31,6 +30,8 @@ Credentials = namedtuple(
         'password'])
 
 def get_credentials(config, name, user_password):
+    """Get decrypted credentials relying on user password.
+    `name` is parsed from config file"""
     hashed_password = config['USER_PASSWORD']
     if hashlib.sha256(user_password.encode()).hexdigest() != hashed_password:
         raise InvalidCredentials

@@ -78,7 +78,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     # Boot options
 
-    def set_boot_source(self, source, force_fetch=True):
+    def set_boot_source(self, source):
         "We are not allowed to do it from student account :("
         body = {'Boot': {
             'BootSourceOverrideEnabled': 'Once',
@@ -167,17 +167,14 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     # Network Interfaces
 
     def get_network_interface(self, index):
-        """Right now it returns structure with links to Chassis' 
+        """Right now it returns structure with links to Chassis'
         Adapters/Ports. We must rethink how do we want to store it."""
         return self.get_data(self.endpoint + '/NetworkInterfaces/' + str(index))
 
     def get_ethernet_interfaces(self):
         interfaces = self.get_data(self.endpoint + '/EthernetInterfaces')
         endpoints = self._endpoint_inception(self._find(['Members'], False, interfaces))
-        data = {}
-        for endpoint in endpoints:
-            data[endpoint] = self.get_data(endpoint)
-        return data
+        return self.evaluate_endpoints(endpoints)
 
     # Other
 
