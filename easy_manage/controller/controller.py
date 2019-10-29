@@ -1,5 +1,5 @@
 "It contains only Controller instance"
-from easy_manage.systems.abstract_system import AbstractSystem
+from easy_manage.controller.abstract import ControllerTools
 
 
 class Controller:
@@ -10,6 +10,7 @@ class Controller:
         self.db = db
         self.standards = {}
         self.connectors = []
-        self.system = AbstractSystem(abstract=True)
+        # todo: universal class contanier for system, chasis, etc could be done
+        self.system = ControllerTools()
         self.systems_interfaces = {}
         self.chassis_interfaces = []

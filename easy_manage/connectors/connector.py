@@ -8,5 +8,7 @@ class Connector():
         self.name = name
         self.address = address
         self.port = port
-        self.last_update = None
         self.credentials = credentials
+
+    def test_connection(self):
+        raise NotImplementedError
