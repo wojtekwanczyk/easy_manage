@@ -10,6 +10,7 @@ from easy_manage.utils.exceptions import BadHttpResponse
 LOGGER = logging.getLogger('RedfishConnector')
 LOGGER.setLevel(logging.DEBUG)
 
+
 class RedfishConnector(Connector, RedfishTools):
     """
     Class for data retrieved from connector through

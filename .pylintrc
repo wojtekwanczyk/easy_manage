@@ -357,7 +357,7 @@ const-naming-style=UPPER_CASE
 
 # Minimum line length for functions/classes that require docstrings, shorter
 # ones are exempt.
-docstring-min-length=15
+docstring-min-length=-1
 
 # Naming style matching correct function names.
 function-naming-style=snake_case
@@ -537,7 +537,7 @@ known-third-party=enchant
 [DESIGN]
 
 # Maximum number of arguments for function / method.
-max-args=6
+max-args=5
 
 # Maximum number of attributes for a class (see R0902).
 max-attributes=7

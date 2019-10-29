@@ -1,22 +1,36 @@
 "IPMI chassis module"
 from easy_manage.tools.ipmi.chassis.chassis_messages import ChassisControl
+from easy_manage.tools.ipmi.system.fru import FRUChassis
+from easy_manage.tools.ipmi.system.maps.chassis_maps import map_chassis_capabilities
 
 
-class IpmiChassisTools:
+class IpmiChassis(FRUChassis):
     "IPMI chassis class, for fetching basic info"
 
-    def __init__(self, ipmi):
+    def __init__(self, ipmi_connector):
+        ipmi = ipmi_connector.ipmi
+        super().__init__(ipmi)
         self.ipmi = ipmi
 
     def functions(self):
         "Returns chassis capabilities"
-        # TODO: Test this
-        return self.ipmi.send_message_with_name('GetChassisCapabilities')
+        rsp = self.ipmi.send_message_with_name('GetChassisCapabilities')
+        caps = map_chassis_capabilities(rsp.capabilities_flags)
+        return caps
 
     def status(self):
         "Returns Chasiss status object"
-        # TODO: Check return object
-        return self.ipmi.get_chassis_status()
+        status = self.ipmi.get_chassis_status()
+        return {
+            "power_on": status.power_on,
+            "overload": status.overload,
+            "interlock": status.interlock,
+            "fault": status.fault,
+            "control_fault": status.control_fault,
+            "restore_policy": status.restore_policy,
+            "last_event": status.last_event,
+            "chassis_state": status.chassis_state
+        }
 
     def __set_chassis_power(self, power_status):
         self.ipmi.chassis_control(power_status)
@@ -27,7 +41,6 @@ class IpmiChassisTools:
 
     def power_cycle(self):
         "Power cycle IPMI function on chassis"
-        # TODO Check this out
         self.__set_chassis_power(ChassisControl.POWER_CYCLE)
 
     def power_down(self):
@@ -48,9 +61,21 @@ class IpmiChassisTools:
 
     def power_on_hours(self):
         "Returns power on hours on chassis"
-        return self.ipmi.send_message_with_name('GetPohCounter')
+        poh_rsp = self.ipmi.send_message_with_name('GetPohCounter')
+        return {
+            'minutes_per_count': poh_rsp.minutes_per_count,
+            'counter_reading': poh_rsp.counter_reading
+        }
 
-        # GetPowerLevel
-        # GetFanSpeedProperties
-        # SetFanLevel
-        # GetFanLevel
+    def chassis_info(self):
+        "Returns FRU chassis info - "
+        return self.fru_chassis_info()
+
+    def aggregate(self):
+        "Returns aggregate of ipmichassis's info"
+        return {
+            'power_on_counter': self.power_on_hours(),
+            'chassis_info': self.chassis_info(),
+            'chassis_status': self.status(),
+            'chassis_functions': self.functions()
+        }

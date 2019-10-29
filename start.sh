@@ -1,2 +1,2 @@
 python setup.py install
-easy_manage
+python -m easy_manage
