@@ -1,7 +1,4 @@
-#!/bin/bash
-
 python setup.py install
 which python
 python --version
 python -i easy_manage/main.py
-

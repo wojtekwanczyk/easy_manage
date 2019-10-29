@@ -11,6 +11,7 @@ from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.chassis.redfish_chassis import RedfishChassis
 from easy_manage.systems.ipmi_system import IpmiSystem
+from easy_manage.chassis.ipmi_chassis import IpmiChassis
 from easy_manage.controller.controller_factory import ControllerFactory
 from easy_manage.utils import utils
 from easy_manage.shells.bash_shell import BashShell
@@ -21,10 +22,10 @@ LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
 
-def parse_conf(filename):
+def parse_conf(filename, name='LENOVO'):
     with open(filename) as config_file:
         data = json.load(config_file)
-    return data['LENOVO']
+    return data[name]
 
 def redfish_demo(config, db, credentials):
     "Just some Redfish testing cases"
@@ -59,15 +60,52 @@ def redfish_demo(config, db, credentials):
 def ipmi_demo(args, db, credentials):
     LOGGER.info('IPMI demo')
     ipmi_conn = IpmiConnector('test_connector_ipmi',
-                              args.address, db, credentials)
-    print(ipmi_conn.connect())
-    # ipmi_conn.show_device_id()
-    # ipmi_conn.show_functions()
-    # ipmi_conn.show_firmware_version()
-    #print('========= ' + ipmi_conn.ipmi.connected)
+                              args.address, credentials)
+    ipmi_conn.connect()
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
-    power = ipmi_sys.get_power_state()
-    print(f"Power state: {power}")
+
+    ipmi_chass = IpmiChassis(ipmi_conn)
+
+#    FRU FETCHING
+    frus = ipmi_sys.FRU.component_info()
+   # SDR FETCHING
+    sdrs = ipmi_sys.SDRRepository.fetch_sdr_object_list()
+
+    
+    # Fru to sdr matching attempt [*] rip on p
+    # def wrapper_matching(sdr_id):
+    #     def matching(x):
+    #         print(f"Compare {x['fru_id']} with {sdr_id}")
+    #         return int(x['fru_id']) == int(sdr_id)
+    #     return matching
+
+    # for sdr in sdrs:
+        # sdr_id = sdr.record_key['sensor_number'] >> 1
+        # print(f"Trying to match {sdr.record_key}")
+
+        # matching = list(filter(wrapper_matching(sdr_id), frus))
+        # if matching:
+            # print("Matched some frus with sdrs")
+            # print(matching)
+            # print(sdr.name)
+        # else:
+            # print("No match\n")
+
+    # READING SENESRS
+    #readings = ipmi_sys.Sensor.mass_read_sensor(sdrs)
+
+    # for k, v in readings.items():
+        # print(f'{{{k}: {v}}}')
+
+    # SEL FETCHING
+    # thresh_evts = ipmi_sys.SEL.threshold_events()
+    # print(f'Fetched {len(thresh_evts)} threshold events from the system event log')
+    # for evt in thresh_evts:
+    # print(evt.data)
+    # discre_evts = ipmi_sys.SEL.discrete_events()
+    # for evt in discre_evts:
+    # print(evt.data)
+    # print(f'Fetched {len(discre_evts)} threshold events from the system event log')
 
 
 def shell_demo(config, credentials):
@@ -75,11 +113,7 @@ def shell_demo(config, credentials):
     print("Connecting through ssh")
     sh.connect()
     print("Connected")
-
-    cmd = None
-    while cmd != 'end':
-        cmd = input()
-        print(sh.execute(cmd))
+    #sh.interactive_shell()    
     return sh
 
 
@@ -93,7 +127,7 @@ def controller_factory_demo(db, config, credentials):
 def main():
     "Main program function"
     LOGGER.info("Welcome to easy_manage!")
-    config = parse_conf('config.json')
+    config = parse_conf('config.json', 'LENOVO')
 
     mongo_client = MongoClient(config['DATABASE']['NAME'])
     db = mongo_client.get_database(config['DATABASE']['NAME'])
@@ -102,9 +136,9 @@ def main():
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
     global rf, c, sh
-    rf, c = redfish_demo(config, db, creds_controller)
+    #rf, c = redfish_demo(config, db, creds_controller)
     #ipmi_demo(args, db, creds_controller)
-    #sh = shell_demo(config, creds_device)
+    sh = shell_demo(config, creds_device)
 
     # controller_factory = ControllerFactory()
     # controller = controller_factory.create_controller(

@@ -11,7 +11,6 @@ LOGGER.setLevel(logging.DEBUG)
 
 
 class IpmiConnector(Connector):
-    "TODO: check out if IPMB number matters"
 
     def __init__(self, name, address, credentials, port=623):
         super().__init__(name, address, credentials, port)

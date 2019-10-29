@@ -9,6 +9,7 @@ from easy_manage.utils import utils
 LOGGER = logging.getLogger('RedfishConnector')
 LOGGER.setLevel(logging.INFO)
 
+
 class RedfishTools:
     "Class with useful methods to simplify communication with Devices using Redfish Standard"
 

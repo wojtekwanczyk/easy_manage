@@ -78,7 +78,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     # Boot options
 
-    def set_boot_source(self, source):
+    def set_boot_source(self, source, force_fetch=True):
         "We are not allowed to do it from student account :("
         body = {'Boot': {
             'BootSourceOverrideEnabled': 'Once',
