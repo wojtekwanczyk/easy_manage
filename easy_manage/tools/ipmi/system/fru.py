@@ -29,6 +29,7 @@ class FRU(FRUInventoryOwner):
         super().__init__(ipmi)
         self._ipmitool_baseargs = ['-H', address, '-U', credentials.username, '-P', credentials.password, '-I', 'lanplus']
 
+    @property
     def board_info(self):
         "General board info"
         if not self.fru_inventory:
@@ -42,6 +43,7 @@ class FRU(FRUInventoryOwner):
                 "fru_file_id": self.fru_inventory.board_info_area.fru_file_id}
         return None
 
+    @property
     def product_info(self):
         "General product info"
         if not self.fru_inventory:
@@ -56,6 +58,7 @@ class FRU(FRUInventoryOwner):
                 "asset_tag": self.fru_inventory.product_info_area.asset_tag}
         return None
 
+    @property
     def component_info(self):
         "Method which fetches data about fru devices utilizing ipmitool"
 
@@ -70,8 +73,17 @@ class FRU(FRUInventoryOwner):
             log.error(f'Ipmitool failed, exit code: {cp_err.returncode}')
             log.error(f'Process output: {cp_err.output}')
 
+    def aggregate(self):
+        "Method which aggregates all of the sub-info into one dictionary for scraping purposes"
+        return {
+            'system_components': self.component_info,
+            'product_info': self.product_info,
+            'board_info': self.board_info
+        }
+
 
 def dictonarify_output(output_str):
+    "Function which parses output into sepearate component strings"
     components = []
     component = ''
     for line in output_str.split('\n'):
@@ -86,6 +98,7 @@ def dictonarify_output(output_str):
 
 
 def dictonarify(component):
+    "Function which parses components into dictionaries"
     lines = component.split('\n')  # First line is always header
     k, v = [header_val.strip() for header_val in lines[0].split(':')]
     fru_name, fru_id = re.fullmatch(FRU.COMPONENT_HEADER_REGEXP, v).groups()

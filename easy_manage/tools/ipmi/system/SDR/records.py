@@ -2,7 +2,7 @@
 import logging
 from easy_manage.tools.ipmi.system.maps.typecodes import TYPECODES, SENSOR_SPECIFIC, THRESHOLDS
 from easy_manage.tools.ipmi.system.maps.sdr_maps import SENSOR_TYPE_MAP, RATE_UNIT_MAP, UNIT_MAP, map_code_to_value
-from easy_manage.tools.ipmi.system.utils.reading_kind import ReadingKind, get_reading_kind
+from easy_manage.tools.ipmi.system.utils.reading_kind import ReadingKind, get_reading_kind, get_reading_kind_readable
 
 log = logging.getLogger(__name__)
 
@@ -131,6 +131,11 @@ class AbstractSDR:
         return get_reading_kind(typecode)
 
     @property
+    def sensor_kind_readable(self):
+        "Returns a human-readable "
+        return get_reading_kind_readable(self.sensor_kind)
+
+    @property
     def sdr_type(self):
         "Returns SDR type in hex"
         return self._sdr_object.type
@@ -155,7 +160,14 @@ class AbstractSDR:
             "sensor_number": self._sdr_object.number
         }
 
-    # TODO: Implement Monitored entity type and ID, if we have the time to do so
+    def aggregate(self):
+        "Returns all of necessary info about the sdr itself, for data aggregating purposes"
+        return {
+            'record_key': self.record_key,
+            'name': self.name,
+            'sensor_type': self.sensor_type,
+            'sensor_kind': self.sensor_kind_readable,
+        }
 
 
 class FullSDR(AbstractSDR):
@@ -190,6 +202,14 @@ class FullSDR(AbstractSDR):
     def sensor_thresholds(self):
         "Returns sensor thresolds dictionary"
         return self._sdr_object.threshold
+
+    def aggregate(self):
+        return {
+            'sensor_capabilities': self.sensor_capabilities,
+            'sensor_unit': self.sensor_unit,
+            'sensor_bounds': self.sensor_bounds,
+            **super().aggregate()
+        }
 
 
 class CompactSDR(AbstractSDR):
@@ -235,6 +255,13 @@ class CompactSDR(AbstractSDR):
             'base_unit': map_code_to_value(self._sdr_object.units_2, UNIT_MAP),
             'rate_unit': map_code_to_value(rate_unit, RATE_UNIT_MAP),
             'percentage': (False, True)[percentage]
+        }
+
+    def aggregate(self):
+        return {
+            'sensor_capabilities': self.sensor_capabilities,
+            'sensor_unit': self.sensor_unit,
+            **super().aggregate()
         }
 
 

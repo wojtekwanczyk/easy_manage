@@ -40,12 +40,21 @@ class SEL:
             map(DiscreteEvent, filter(DiscreteEvent.is_discrete, self.all_events))
         )
 
+    @property
     def threshold_events(self):
         "Returns list of filtered threshold events"
         self._parse_all_events()
         return self.threshold_events_list
 
+    @property
     def discrete_events(self):
         "Returns list of filtered discrete events"
         self._parse_all_events()
         return self.discrete_events_list
+
+    def aggregate(self):
+        "Returns both event lists, for aggregating purposes"
+        return {
+            'discrete_events': list(map(lambda evt: evt.aggregate(), self.discrete_events)),
+            'threshold_events':  list(map(lambda evt: evt.aggregate(), self.threshold_events))
+        }

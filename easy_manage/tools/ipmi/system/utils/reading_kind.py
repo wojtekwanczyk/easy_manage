@@ -1,5 +1,6 @@
 from enum import Enum, auto
 
+
 class ReadingKind(Enum):
     """ Enum describing what kind of values event returns"""
     SENSOR_SPECIFIC = auto()
@@ -24,3 +25,13 @@ def get_reading_kind(reading_code):
     if reading_code in DISCRETE_READING_RANGE:
         return ReadingKind.DISCRETE
     return ReadingKind.UNSUPPORTED
+
+
+def get_reading_kind_readable(kind: ReadingKind) -> str:
+    "Returns readable sensor's reading kind"
+    return {
+        ReadingKind.SENSOR_SPECIFIC: 'sensor_specific',
+        ReadingKind.THRESHOLD: 'threshold',
+        ReadingKind.DISCRETE: 'discrete',
+        ReadingKind.UNSUPPORTED: 'unsupported',
+    }[kind]

@@ -104,6 +104,16 @@ class AbstractEvent:
                 offset, 'parse_ext_3', data_3)
             data_dict["event_extensions"].append(evt_extension)
 
+    def aggregate(self):
+        "Aggregating function, for scraping purposes"
+        return {
+            'generating_sensors_type': self.sensor_type,
+            'generating_sensors_number': self.sensor_nr,
+            'event_timestamp': self.timestamp,
+            'event_direction': self.direction,
+            'event_payload': self.data
+        }
+
 
 class ThresholdEvent(AbstractEvent):
     "Class for events which are threshold-based"
