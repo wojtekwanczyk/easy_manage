@@ -4,7 +4,7 @@
 class Connector():
     "Class responsible for connection with remote device(s)"
 
-    def __init__(self, name, address, credentials, port):
+    def __init__(self, name, address, db, credentials, port):
         self.name = name
         self.address = address
         self.port = port
@@ -12,3 +12,4 @@ class Connector():
         self.data = {}
         self.last_update = None
         self.credentials = credentials
+        self.db = db

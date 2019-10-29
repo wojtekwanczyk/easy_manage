@@ -1,7 +1,19 @@
 {
-    "database uri": "mongodb+srv://easy-manage:admin@easy-manage-t2mek.mongodb.net/test?retryWrites=true",
-    "database name": "easy_manage_db",
-    "username": "student",
-    "encrypted system password": "gAAAAABdK21lama6ZNjnkuZy2_Ktda0mf7xVER7U6TFnfictJt0DN9SXqOF6c8v4pa0_oLLYeXD5czUvLYn9VddaUPIbaaVHYH4f6aEgwZEzqxAOcbal3Mc=",
-    "hashed_password": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1"
+    "LENOVO": {
+        "USER_PASSWORD": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1",
+        "DATABASE": {
+            "NAME": "easy_manage_db",
+            "URI": "mongodb+srv://easy-manage:admin@easy-manage-t2mek.mongodb.net/test?retryWrites=true"
+        },
+        "CONTROLLER": {
+            "ADDRESS": "172.16.67.120",
+            "USERNAME": "student",
+            "PASSWORD": "gAAAAABdK21lama6ZNjnkuZy2_Ktda0mf7xVER7U6TFnfictJt0DN9SXqOF6c8v4pa0_oLLYeXD5czUvLYn9VddaUPIbaaVHYH4f6aEgwZEzqxAOcbal3Mc="
+        },
+        "DEVICE": {
+            "ADDRESS": "172.16.67.45",
+            "USERNAME": "root",
+            "PASSWORD": "gAAAAABdZZ0ZgAeRzyGsnhFMnj5YGisg-M5jh8c_kR7EOQitTpbtntQYZJvvueOZyZvEVtQ0Z-0IJLL3xhhpG8ZXRIs2japiXA=="
+        }
+    }
 }

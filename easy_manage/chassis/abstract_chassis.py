@@ -10,3 +10,9 @@ class AbstractChassis():
         self.db = connector.db
         self.data = {}
         self.last_update = None
+
+    def get_power_state(self):
+        pass
+
+    def get_health(self):
+        pass

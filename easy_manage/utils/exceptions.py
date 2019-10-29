@@ -5,5 +5,5 @@ class BadHttpResponse(Exception):
     pass
 
 
-class NotInitializedError(Exception):
+class InvalidCredentials(Exception):
     pass

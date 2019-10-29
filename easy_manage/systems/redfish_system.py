@@ -32,6 +32,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     # Basic info
 
     def get_info(self):
+        "Get basic system info"
         return self._get_basic_info()
 
     def get_oem_info(self):
@@ -155,8 +156,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     def _get_cpu_history(self, metric):
         processors_endpoint = self.endpoint + '/Processors'
         processors_data = self.get_data(processors_endpoint)
-        history_endpoint = self._find(
-            ['History', 'odata'], False, processors_data)
+        history_endpoint = self._find(['History', 'odata'], False, processors_data)
         history_data = self.get_data(history_endpoint)
         final_endpoint = self._get_dict_containing(metric, history_data)
         return self.get_data(final_endpoint['@odata.id'])
@@ -170,18 +170,14 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     # Network Interfaces
 
     def get_network_interface(self, index):
-        """Right now it returns structure with links to Chassis' 
+        """Right now it returns structure with links to Chassis'
         Adapters/Ports. We must rethink how do we want to store it."""
         return self.get_data(self.endpoint + '/NetworkInterfaces/' + str(index))
 
     def get_ethernet_interfaces(self):
         interfaces = self.get_data(self.endpoint + '/EthernetInterfaces')
-        endpoints = self._endpoint_inception(
-            self._find(['Members'], False, interfaces))
-        data = {}
-        for endpoint in endpoints:
-            data[endpoint] = self.get_data(endpoint)
-        return data
+        endpoints = self._endpoint_inception(self._find(['Members'], False, interfaces))
+        return self.evaluate_endpoints(endpoints)
 
     # Other
 
