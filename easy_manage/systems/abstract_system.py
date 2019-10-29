@@ -1,14 +1,21 @@
-class AbstractSystem:
+"Module with class responsible for abstraction over systems"
+
+from easy_manage.controller.abstract import ControllerTools
+
+
+class AbstractSystem(ControllerTools):
     "Class that represents the system and defines its methods"
 
-    def __init__(self, name, connector):
+    def __init__(self, name=None, connector=None):
+        super().__init__()
+
         self.name = name
         self.connector = connector
         self.data = {}
         self.last_update = None
 
     def get_power_state(self):
-        pass
+        raise NotImplementedError
 
     def get_system_health(self):
-        pass
+        raise NotImplementedError

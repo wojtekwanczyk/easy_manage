@@ -1,21 +1,18 @@
-'''
+"""
 Module with class responsible for management with separate system through Redfish interface
-'''
+"""
 
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.redfish.redfish_tools import RedfishTools
 from easy_manage.utils.exceptions import BadHttpResponse
 
-
 LOGGER = logging.getLogger('redfish_system')
 LOGGER.setLevel(logging.DEBUG)
 
 
 class RedfishSystem(AbstractSystem, RedfishTools):
-    '''
-    Class responsible for management with separate system through Redfish interface
-    '''
+    "Class responsible for management with separate system through Redfish interface"
 
     def __init__(self, name, connector, endpoint):
         super().__init__(name, connector)

@@ -116,6 +116,14 @@ def shell_demo(config, credentials):
     #sh.interactive_shell()    
     return sh
 
+
+def controller_factory_demo(db, config, credentials):
+    factory = ControllerFactory(db)
+    controller = factory.create_controller('test', 'test', config['CONTROLLER']['ADDRESS'],
+                                           credentials)
+    print(controller.system.get_methods())
+
+
 def main():
     "Main program function"
     LOGGER.info("Welcome to easy_manage!")
@@ -130,7 +138,8 @@ def main():
     global rf, c, sh
     #rf, c = redfish_demo(config, db, creds_controller)
     #ipmi_demo(args, db, creds_controller)
-    sh = shell_demo(config, creds_device)
+    controller_factory_demo(db, config, creds_controller)
+    # sh = shell_demo(config, creds_device)
 
     # controller_factory = ControllerFactory()
     # controller = controller_factory.create_controller(

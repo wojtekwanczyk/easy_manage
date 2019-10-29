@@ -1,28 +1,37 @@
+"""
+Module with class responsible for correct creation of controllers that can be used
+without knowledge of which interfaces they use
+"""
+# todo: chasis need to be added to factory
+import logging
+
 from easy_manage.controller.controller import Controller
-from easy_manage.connectors.ipmi_connector import IpmiConnector
-from easy_manage.connectors.redfish_connector import RedfishConnector
-from easy_manage.systems.redfish_system import RedfishSystem
-from easy_manage.systems.ipmi_system import IpmiSystem
+from easy_manage.protocols import Protocols
+from easy_manage.systems.system_switch import systems_switch
+from easy_manage.connectors.connectors_switch import connectors_switch
+
+LOGGER = logging.getLogger('ControllerFactory')
+LOGGER.setLevel(logging.INFO)
 
 
 class ControllerFactory:
+    "Class responsible for creating controllers, it detects available interfaces"
 
-    def create_controller(self, name, description, address, credentials, db):
-        controller = Controller(name, description)
+    def __init__(self, db):
+        self.db = db
 
-        rf_conn = RedfishConnector(
-            'test_connector_redfish', address, db, credentials)
-        if rf_conn.connect():
-            controller.standards.append('redfish')
-            rf_sys = RedfishSystem('test_system_redfish',
-                                   rf_conn, '/redfish/v1/Systems/1')
-            controller.systems.append(rf_sys)
+    def create_controller(self, name, description, address, credentials):
+        "Create controller detecting with interfaces it can support"
+        controller = Controller(name, description, self.db)
+        for protocol in Protocols:
+            connector = connectors_switch(protocol, address, credentials, self.db)
+            if connector and connector.connect():
+                controller.standards[protocol] = connector
+                system = systems_switch(protocol, connector)
+                if system:
+                    controller.systems_interfaces[protocol] = system
+                    controller.system.assign_missing_methods(system)
 
-        ipmi_conn = IpmiConnector(
-            'test_connector_ipmi', address, db, credentials)
-        if ipmi_conn.connect():
-            controller.standards.append('ipmi')
-            ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
-            controller.systems.append(ipmi_sys)
-
+        LOGGER.info(f"SYSTEMS: {controller.systems_interfaces}")
+        LOGGER.info(f"STANDARDS: {controller.standards.keys()}")
         return controller

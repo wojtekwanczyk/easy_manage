@@ -1,14 +1,16 @@
+"It contains only Controller instance"
+from easy_manage.controller.abstract import ControllerTools
 
 
 class Controller:
-
-    def __init__(self, name, description):
+    "It's responsible for controlling whole server functionality"
+    def __init__(self, name, description, db):
         self.name = name
         self.description = description
-        self.standards = []
-        self.systems = []
-        self.chassis = []
-
-    def get_power_state(self):
-        print(f"SYSTEMS: {self.systems}")
-        return self.systems[0].get_power_state()
+        self.db = db
+        self.standards = {}
+        self.connectors = []
+        # todo: universal class contanier for system, chasis, etc could be done
+        self.system = ControllerTools()
+        self.systems_interfaces = {}
+        self.chassis_interfaces = []

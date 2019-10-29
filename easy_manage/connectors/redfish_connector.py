@@ -12,14 +12,11 @@ LOGGER.setLevel(logging.DEBUG)
 
 
 class RedfishConnector(Connector, RedfishTools):
-    """
-    Class for data retrieved from connector through
-    Redfish standard.
-    """
+    "Class responisbile for connection through Redfish standard."
 
     def __init__(self, name, address, db, credentials, port=None):
-        super().__init__(name, address, db, credentials, port)
-
+        super().__init__(name, address, credentials, port)
+        self.url = 'https://' + self.address
         self.endpoint = '/redfish/v1'
         self.db_filter_name = '_connector'
         self.db_collection = 'connectors'
@@ -27,10 +24,13 @@ class RedfishConnector(Connector, RedfishTools):
         self.connected = False
         self.client = None
         self.connector = self
+        #     for testing
+        self.db = db
         self.systems = None
 
     def connect(self):
         "Connect to Redfish device(s)"
+
         try:
             self.client = redfish.redfish_client(
                 base_url=self.url,
