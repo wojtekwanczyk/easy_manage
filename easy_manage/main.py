@@ -138,7 +138,8 @@ def main():
     global rf, c, sh
     #rf, c = redfish_demo(config, db, creds_controller)
     #ipmi_demo(args, db, creds_controller)
-    sh = shell_demo(config, creds_device)
+    controller_factory_demo(db, config, creds_controller)
+    # sh = shell_demo(config, creds_device)
 
     # controller_factory = ControllerFactory()
     # controller = controller_factory.create_controller(

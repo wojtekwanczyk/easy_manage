@@ -1,6 +1,5 @@
 "Utility module for connecting to BMC with IPMI"
 import logging
-
 import pyipmi
 import pyipmi.interfaces
 
