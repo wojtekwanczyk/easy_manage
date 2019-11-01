@@ -1,0 +1,148 @@
+Query ipmi_system(){
+    ...Bmc
+    ...Hardware
+    ...Events
+    ...Sensors
+}
+
+fragment Bmc{
+    bmc_firmware_version
+    bmc_functions
+    bmc_info
+}
+
+fragment Hardware{
+    system_components {
+        fru_id
+        properties {
+            name
+            value
+        }
+    }
+    board_info{
+        manufacturer
+        product_name
+        serial_number
+        part_number
+        fru_file_id
+    }
+    product_info{
+        manufacturer
+        name
+        part_number
+        version
+        serial_number
+        asset_tag
+    }
+}
+
+Events{
+    discrete_events {
+        ...DiscreteEvent
+    }
+    threshold_events {
+        ...ThresholdEvent
+    }
+}
+
+fragment DiscreteEvent {
+    event_payload {
+        ...StandardEventPayload 
+        previous_state
+        severity
+    }
+}
+fragment ThresholdEvent {
+    event_payload {
+        ...StandardEventPayload 
+        threshold_value
+        trigger_reading
+    }
+}
+fragment StandardEventPayload {
+    generating_sensors_type
+    generating_sensors_number
+    event_timestamp
+    event_direction
+    event_extensions
+    event_value
+}
+
+Sensors{
+    sensor_info{
+        ...StandardSensorData
+        ... on FullSensorRecord {
+            sensor_capabilities
+            sensor_bounds
+        }
+        ... on CompactSensorRecord { 
+            sensor_capabilities   
+        }
+    }
+    reading {
+        ... on ThresholdReading {
+            value
+            thresholds
+        }
+        ... on DiscreteReading {
+            states_asserted
+        }
+    }
+    unit {
+        ...SensorUnit
+    }
+}
+
+fragment StandardSensorData{
+    record_key {
+        owner_id
+        fru_owner_id
+        sensor_number
+    }
+    name
+    type
+    kind 
+    sensor_unit {
+        ...SensorUnit
+    }
+}
+
+fragment SensorUnit{
+    base_unit
+    rate_unit
+    percentage
+}
+
+
+# IPMI CHASSIS 
+Query ipmi_chassis(){
+    power_on_counter {
+        minutes_per_count
+        counter_reading
+    }
+    chassis_info {
+        type
+        part_number
+        serial_number    
+    }
+    chassis_status {
+        power_on
+        overload
+        interlock
+        fault
+        control_fault
+        restore_policy
+        last_event
+        chassis_state
+    }
+    chassis_functions
+}
+
+Mutation ipmi_chassis(){
+    power_up
+    power_cycle
+    power_down
+    hard_reset
+    diagnostic_interrupt
+    soft_shutdown
+}
