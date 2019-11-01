@@ -1,0 +1,1330 @@
+{
+    "basic info": {
+        "SerialNumber": "S4ATJ171",
+        "PowerState": "On",
+        "ChassisType": "RackMount",
+        "PartNumber": "SB27A18555",
+        "Description": "This resource is used to represent a chassis or other physical enclosure for a Redfish implementation.",
+        "Id": "1",
+        "AssetTag": "",
+        "SKU": "7X08CTO1WW",
+        "Name": "Chassis",
+        "HeightMm": 44.45,
+        "IndicatorLED": "Off",
+        "Manufacturer": "Lenovo",
+        "Model": "7X08CTO1WW"
+    },
+    "oem info": {
+        "Lenovo": {
+            "LocatedIn": {
+                "ContactPerson": "admin@iisg.agh.edu.pl",
+                "FullPostalAddress": "",
+                "Location": "AGH D-17",
+                "Rack": "1.12B2",
+                "DescriptiveName": "server-4",
+                "Room": "1.12",
+                "Height": 1,
+                "Position": 12
+            },
+            "@odata.type": "#LenovoChassis.v1_0_0.LenovoChassisProperties",
+            "ProductName": "ThinkSystem SR530",
+            "Sensors": {
+                "@odata.id": "/redfish/v1/Chassis/1/Oem/Lenovo/Sensors"
+            },
+            "LEDs": {
+                "@odata.id": "/redfish/v1/Chassis/1/Oem/Lenovo/LEDs"
+            },
+            "Slots": {
+                "@odata.id": "/redfish/v1/Chassis/1/Oem/Lenovo/Slots"
+            }
+        }
+    },
+    "power state": "On",
+    "health": "OK",
+    "thermal health": "OK",
+    "example temp": 29,
+    "example fan spd": 35,
+    "power info": {
+        "Lenovo": {
+            "@odata.type": "#LenovoPower.v1_0_0.Capabilities",
+            "LocalPowerControlEnabled": true,
+            "PowerOnPermissionEnabled": true,
+            "PowerRestorePolicy": "Restore",
+            "WakeOnLANEnabled": true
+        }
+    },
+    "power control": [
+        {
+            "PowerAllocatedWatts": 900,
+            "RelatedItem": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1"
+                }
+            ],
+            "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerControl/0",
+            "Status": {
+                "HealthRollup": "OK",
+                "State": "Enabled"
+            },
+            "PowerMetrics": {
+                "IntervalInMin": 60,
+                "AverageConsumedWatts": 69.125,
+                "MinConsumedWatts": 4,
+                "MaxConsumedWatts": 170
+            },
+            "Name": "Server Power Control",
+            "MemberId": "0",
+            "PowerAvailableWatts": 0,
+            "Oem": {
+                "Lenovo": {
+                    "PowerUtilization": {
+                        "MaxLimitInWatts": 900,
+                        "EnablePowerCapping": false,
+                        "LimitMode": "AC",
+                        "EnablePowerCapping@Redfish.Deprecated": "The property is deprecated. Please use LimitInWatts instead.",
+                        "CapacityMinAC": 258,
+                        "MinLimitInWatts": 0,
+                        "GuaranteedInWatts": 258,
+                        "CapacityMinDC": 245,
+                        "CapacityMaxDC": 346,
+                        "CapacityMaxAC": 352
+                    },
+                    "HistoryPowerMetric": {
+                        "@odata.id": "/redfish/v1/Chassis/1/Power/PowerControl/0/Oem/Lenovo/HistoryPowerMetric"
+                    },
+                    "@odata.type": "#LenovoPower.v1_0_0.PowerControl"
+                }
+            },
+            "RelatedItem@odata.count": 1,
+            "PowerCapacityWatts": 900,
+            "PowerLimit": {
+                "LimitException": "NoAction",
+                "LimitInWatts": null
+            },
+            "PowerConsumedWatts": 97,
+            "PowerRequestedWatts": 352
+        }
+    ],
+    "power supply example": {
+        "SerialNumber": "A4DB87R12JV",
+        "InputRanges": [
+            {
+                "InputType": "AC",
+                "OutputWattage": 750,
+                "MinimumVoltage": 200,
+                "MaximumVoltage": 240
+            }
+        ],
+        "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/0",
+        "RelatedItem@odata.count": 1,
+        "PowerCapacityWatts": 750,
+        "PartNumber": "SP57A02019",
+        "RelatedItem": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/1"
+            }
+        ],
+        "Status": {
+            "State": "Enabled",
+            "Health": "OK"
+        },
+        "LineInputVoltage": 220,
+        "Name": "PSU1",
+        "MemberId": "0",
+        "FirmwareVersion": "2.52",
+        "Oem": {
+            "Lenovo": {
+                "Location": {
+                    "InfoFormat": "Slot X",
+                    "Info": "Slot 1"
+                },
+                "HistoryPowerSupplyMetric": {
+                    "@odata.id": "/redfish/v1/Chassis/1/Power/PowerSupplies/0/Oem/Lenovo/HistoryPowerSupplyMetric"
+                },
+                "@odata.type": "#LenovoPower.v1_0_0.PowerSupply"
+            }
+        },
+        "LastPowerOutputWatts": 86,
+        "Manufacturer": "ACBE",
+        "LineInputVoltageType": "ACMidLine",
+        "Model": "LENOVO-SP57A02019",
+        "PowerSupplyType": "AC"
+    },
+    "power voltages example": {
+        "MaxReadingRange": 3.95,
+        "RelatedItem": [
+            {
+                "@odata.id": "/redfish/v1/Systems/1"
+            },
+            {
+                "@odata.id": "/redfish/v1/Chassis/1"
+            }
+        ],
+        "@odata.id": "/redfish/v1/Chassis/1/Power#/Voltages/0",
+        "Status": {
+            "State": "Enabled"
+        },
+        "SensorNumber": 141,
+        "Name": "SysBrd 3.3V",
+        "PhysicalContext": "VoltageRegulator",
+        "MemberId": "0",
+        "RelatedItem@odata.count": 2,
+        "LowerThresholdCritical": 2.98,
+        "MinReadingRange": null,
+        "UpperThresholdCritical": 3.63,
+        "ReadingVolts": 3.35
+    },
+    "power redundancy": [
+        {
+            "@odata.id": "/redfish/v1/Chassis/1/Power#/Redundancy/0",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "PSU Redundancy",
+            "MaxNumSupported": 2,
+            "MemberId": "0",
+            "Oem": {
+                "Lenovo": {
+                    "NonRedundantAvailablePower": 900,
+                    "PowerRedundancySettings": {
+                        "EstimatedUsage": "36.78%",
+                        "MaxPowerLimitWatts": 900,
+                        "PowerFailureLimit": 1,
+                        "PowerRedundancyPolicy": "RedundantWithThrottling"
+                    },
+                    "@odata.type": "#LenovoRedundancy.v1_0_0.LenovoRedundancyProperties"
+                }
+            },
+            "RedundancyEnabled": true,
+            "RedundancySet": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/0"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/1"
+                }
+            ],
+            "MinNumNeeded": 2,
+            "Mode": "N+m",
+            "RedundancySet@odata.count": 2
+        }
+    ],
+    "network adapters": {
+        "/redfish/v1/Chassis/1/NetworkAdapters": {
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters",
+            "Name": "NetworkAdapterCollection",
+            "@odata.context": "/redfish/v1/$metadata#NetworkAdapterCollection.NetworkAdapterCollection",
+            "Members": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3"
+                }
+            ],
+            "@odata.type": "#NetworkAdapterCollection.NetworkAdapterCollection",
+            "@odata.etag": "\"688f314020050769c2d86520b6580c18\"",
+            "Members@odata.count": 2,
+            "Description": "A collection of NetworkAdapter resource instances."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4": {
+            "SerialNumber": "N/A",
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4",
+            "NetworkPorts": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts"
+            },
+            "@odata.context": "/redfish/v1/$metadata#NetworkAdapter.NetworkAdapter",
+            "PartNumber": "N/A",
+            "Description": "A NetworkAdapter represents the physical network adapter capable of connecting to a computer network.",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Intel X722 LOM (onboard)",
+            "Id": "ob-4",
+            "NetworkDeviceFunctions": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions"
+            },
+            "SKU": "N/A",
+            "@odata.type": "#NetworkAdapter.v1_2_0.NetworkAdapter",
+            "Controllers": [
+                {
+                    "Links": {
+                        "NetworkPorts": [
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4"
+                            }
+                        ],
+                        "NetworkDeviceFunctions": [
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/1.1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/2.1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/3.1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/4.1"
+                            }
+                        ],
+                        "PCIeDevices": [
+                            {
+                                "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4"
+                            }
+                        ]
+                    },
+                    "FirmwarePackageVersion": "1.1937.0",
+                    "ControllerCapabilities": {
+                        "NetworkDeviceFunctionCount": 4,
+                        "NetworkPortCount": 4
+                    }
+                }
+            ],
+            "Manufacturer": "Intel",
+            "@odata.etag": "\"d9f3c5c509bcc3f0fbb4002dd6083df8\"",
+            "Model": "N/A",
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "OnBoard",
+                        "Info": "OnBoard"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo",
+                    "UUID": "000000000000000000000894EF7921AE"
+                }
+            }
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts": {
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts",
+            "Name": "NetworkPortCollection",
+            "@odata.context": "/redfish/v1/$metadata#NetworkPortCollection.NetworkPortCollection",
+            "Members": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4"
+                }
+            ],
+            "@odata.type": "#NetworkPortCollection.NetworkPortCollection",
+            "@odata.etag": "\"f8f11382f275330ba2c156adcb5cb2bf\"",
+            "Members@odata.count": 4,
+            "Description": "A collection of NetworkPort resource instances."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions": {
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions",
+            "Name": "NetworkDeviceFunctionCollection",
+            "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection",
+            "Members": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/1.1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/2.1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/3.1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/4.1"
+                }
+            ],
+            "@odata.type": "#NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection",
+            "@odata.etag": "\"5cbb7c977f92dd28fa2c4fd975ee6746\"",
+            "Members@odata.count": 4,
+            "Description": "A collection of NetworkDeviceFunction resource instances."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1": {
+            "AssociatedNetworkAddresses": [
+                "0894EF7921AE"
+            ],
+            "NetDevFuncMaxBWAlloc": [
+                {
+                    "MaxBWAllocPercent": null,
+                    "NetworkDeviceFunction": {
+                        "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/1.1"
+                    }
+                }
+            ],
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "PortMaximumMTU": 12000,
+            "Name": "Phyical Port 1",
+            "@odata.context": "/redfish/v1/$metadata#NetworkPort.NetworkPort",
+            "Id": "1",
+            "@odata.type": "#NetworkPort.v1_2_0.NetworkPort",
+            "ActiveLinkTechnology": "Ethernet",
+            "LinkStatus": "Down",
+            "@odata.etag": "\"f716d90f7e6e531ce85d059cc3ac022e\"",
+            "Description": "A Network Port represents a discrete physical port capable of connecting to a network.",
+            "PhysicalPortNumber": "1"
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2": {
+            "AssociatedNetworkAddresses": [
+                "0894EF7921AF"
+            ],
+            "NetDevFuncMaxBWAlloc": [
+                {
+                    "MaxBWAllocPercent": null,
+                    "NetworkDeviceFunction": {
+                        "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/2.1"
+                    }
+                }
+            ],
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "PortMaximumMTU": 12000,
+            "Name": "Phyical Port 2",
+            "@odata.context": "/redfish/v1/$metadata#NetworkPort.NetworkPort",
+            "Id": "2",
+            "@odata.type": "#NetworkPort.v1_2_0.NetworkPort",
+            "ActiveLinkTechnology": "Ethernet",
+            "LinkStatus": "Down",
+            "@odata.etag": "\"254f79ac2d60e2e055b4b0a0576c0a21\"",
+            "PhysicalPortNumber": "2",
+            "Description": "A Network Port represents a discrete physical port capable of connecting to a network."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3": {
+            "AssociatedNetworkAddresses": [
+                "0894EF7921B0"
+            ],
+            "NetDevFuncMaxBWAlloc": [
+                {
+                    "MaxBWAllocPercent": 1073741,
+                    "NetworkDeviceFunction": {
+                        "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/3.1"
+                    }
+                }
+            ],
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "PortMaximumMTU": 12000,
+            "Name": "Phyical Port 3",
+            "@odata.context": "/redfish/v1/$metadata#NetworkPort.NetworkPort",
+            "Id": "3",
+            "@odata.type": "#NetworkPort.v1_2_0.NetworkPort",
+            "ActiveLinkTechnology": "Ethernet",
+            "LinkStatus": "Up",
+            "@odata.etag": "\"19510494f1620ea1b6dda130ebe4aa9f\"",
+            "Description": "A Network Port represents a discrete physical port capable of connecting to a network.",
+            "PhysicalPortNumber": "3"
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4": {
+            "AssociatedNetworkAddresses": [
+                "0894EF7921B1"
+            ],
+            "NetDevFuncMaxBWAlloc": [
+                {
+                    "MaxBWAllocPercent": 1073741,
+                    "NetworkDeviceFunction": {
+                        "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/4.1"
+                    }
+                }
+            ],
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "PortMaximumMTU": 12000,
+            "Name": "Phyical Port 4",
+            "@odata.context": "/redfish/v1/$metadata#NetworkPort.NetworkPort",
+            "Id": "4",
+            "@odata.type": "#NetworkPort.v1_2_0.NetworkPort",
+            "ActiveLinkTechnology": "Ethernet",
+            "LinkStatus": "Up",
+            "@odata.etag": "\"7b3180974cb68e2ba44579b63d421da2\"",
+            "PhysicalPortNumber": "4",
+            "Description": "A Network Port represents a discrete physical port capable of connecting to a network."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/1.1": {
+            "Ethernet": {
+                "MACAddress": "0894EF7921AE",
+                "PermanentMACAddress": "0894EF7921AE",
+                "MTUSize": 12000
+            },
+            "DeviceEnabled": true,
+            "Id": "1.1",
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/1.1",
+            "PhysicalPortAssignment": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1"
+            },
+            "Links": {
+                "PCIeFunction": {
+                    "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.00"
+                }
+            },
+            "Name": "Logical Port 1",
+            "AssignablePhysicalPorts": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4"
+                }
+            ],
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "@odata.type": "#NetworkDeviceFunction.v1_3_0.NetworkDeviceFunction",
+            "NetDevFuncType": "Ethernet",
+            "AssignablePhysicalPorts@odata.count": 4,
+            "@odata.etag": "\"0c7680eb9e2cbb7f9f9b7acc28626bbb\"",
+            "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunction.NetworkDeviceFunction",
+            "Description": "A Network Device Function represents a logical interface exposed by the network adapter."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/2.1": {
+            "Ethernet": {
+                "MACAddress": "0894EF7921AF",
+                "PermanentMACAddress": "0894EF7921AF",
+                "MTUSize": 12000
+            },
+            "DeviceEnabled": true,
+            "Id": "2.1",
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/2.1",
+            "PhysicalPortAssignment": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2"
+            },
+            "Links": {
+                "PCIeFunction": {
+                    "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.01"
+                }
+            },
+            "Name": "Logical Port 1",
+            "AssignablePhysicalPorts": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4"
+                }
+            ],
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "@odata.type": "#NetworkDeviceFunction.v1_3_0.NetworkDeviceFunction",
+            "NetDevFuncType": "Ethernet",
+            "AssignablePhysicalPorts@odata.count": 4,
+            "@odata.etag": "\"72152bcada045b460c902943cda815b2\"",
+            "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunction.NetworkDeviceFunction",
+            "Description": "A Network Device Function represents a logical interface exposed by the network adapter."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/3.1": {
+            "Ethernet": {
+                "MACAddress": "0894EF7921B0",
+                "PermanentMACAddress": "0894EF7921B0",
+                "MTUSize": 12000
+            },
+            "AssignablePhysicalPorts": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4"
+                }
+            ],
+            "Id": "3.1",
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/3.1",
+            "PhysicalPortAssignment": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3"
+            },
+            "Links": {
+                "PCIeFunction": {
+                    "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.02"
+                }
+            },
+            "Name": "Logical Port 1",
+            "NetDevFuncType": "Ethernet",
+            "DeviceEnabled": true,
+            "@odata.type": "#NetworkDeviceFunction.v1_3_0.NetworkDeviceFunction",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunction.NetworkDeviceFunction",
+            "@odata.etag": "\"6987ed4c565588ceb2b1542e69290079\"",
+            "AssignablePhysicalPorts@odata.count": 4,
+            "Description": "A Network Device Function represents a logical interface exposed by the network adapter."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/4.1": {
+            "Ethernet": {
+                "MACAddress": "0894EF7921B1",
+                "PermanentMACAddress": "0894EF7921B1",
+                "MTUSize": 12000
+            },
+            "DeviceEnabled": true,
+            "Id": "4.1",
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkDeviceFunctions/4.1",
+            "PhysicalPortAssignment": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4"
+            },
+            "Links": {
+                "PCIeFunction": {
+                    "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.03"
+                }
+            },
+            "Name": "Logical Port 1",
+            "AssignablePhysicalPorts": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/2"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/3"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/ob-4/NetworkPorts/4"
+                }
+            ],
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "@odata.type": "#NetworkDeviceFunction.v1_3_0.NetworkDeviceFunction",
+            "NetDevFuncType": "Ethernet",
+            "AssignablePhysicalPorts@odata.count": 4,
+            "@odata.etag": "\"f3cc845e07f4ad26fcfdad9f0f3c6e79\"",
+            "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunction.NetworkDeviceFunction",
+            "Description": "A Network Device Function represents a logical interface exposed by the network adapter."
+        },
+        "/redfish/v1/Systems/1/PCIeDevices/ob_4": {
+            "SerialNumber": "N/A",
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4",
+            "Links": {
+                "Chassis": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                ],
+                "PCIeFunctions": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.01"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.00"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.02"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.03"
+                    }
+                ]
+            },
+            "@odata.context": "/redfish/v1/$metadata#PCIeDevice.PCIeDevice",
+            "PartNumber": "N/A",
+            "Description": "This resource represents the properties of a PCIeDevice attached to a System.",
+            "FirmwareVersion": "1.1937.0",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Intel X722 LOM (onboard)",
+            "Id": "ob_4",
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "OnBoard",
+                        "Info": "OnBoard"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo"
+                }
+            },
+            "@odata.type": "#PCIeDevice.v1_3_0.PCIeDevice",
+            "DeviceType": "MultiFunction",
+            "Manufacturer": "Intel",
+            "@odata.etag": "\"35869a41a34fbe24b5c626bc0c00ed11\"",
+            "Model": "N/A",
+            "SKU": "N/A"
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/slot-3": {
+            "SerialNumber": "Y651HY91S0B1",
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3",
+            "NetworkPorts": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts"
+            },
+            "@odata.context": "/redfish/v1/$metadata#NetworkAdapter.NetworkAdapter",
+            "PartNumber": "01CV842",
+            "Description": "A NetworkAdapter represents the physical network adapter capable of connecting to a computer network.",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Emulex 01CV842 16Gb FC Dual-port HBA",
+            "Id": "slot-3",
+            "NetworkDeviceFunctions": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions"
+            },
+            "SKU": "01KR609",
+            "@odata.type": "#NetworkAdapter.v1_2_0.NetworkAdapter",
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "Slot X",
+                        "Info": "Slot 3"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo",
+                    "UUID": "2923BE84E16C49AEB19000109B6681DF"
+                }
+            },
+            "Manufacturer": "Emulex",
+            "@odata.etag": "\"1f3eb96721a13123a685f79329563bff\"",
+            "Model": "LPe31002-M6-L",
+            "Controllers": [
+                {
+                    "Links": {
+                        "NetworkPorts": [
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/2"
+                            }
+                        ],
+                        "NetworkDeviceFunctions": [
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/1.1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/2.1"
+                            }
+                        ],
+                        "PCIeDevices": [
+                            {
+                                "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/slot_3"
+                            }
+                        ]
+                    },
+                    "FirmwarePackageVersion": "11.4.329.55",
+                    "ControllerCapabilities": {
+                        "NetworkDeviceFunctionCount": 2,
+                        "NetworkPortCount": 2
+                    }
+                }
+            ]
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts": {
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts",
+            "Name": "NetworkPortCollection",
+            "@odata.context": "/redfish/v1/$metadata#NetworkPortCollection.NetworkPortCollection",
+            "Members": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/2"
+                }
+            ],
+            "@odata.type": "#NetworkPortCollection.NetworkPortCollection",
+            "@odata.etag": "\"15a0b7d47d9dad9a9f1bdde42d3c597a\"",
+            "Members@odata.count": 2,
+            "Description": "A collection of NetworkPort resource instances."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions": {
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions",
+            "Name": "NetworkDeviceFunctionCollection",
+            "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection",
+            "Members": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/1.1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/2.1"
+                }
+            ],
+            "@odata.type": "#NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection",
+            "@odata.etag": "\"fcba62bd0c7312e73ecc24f85c007a5f\"",
+            "Members@odata.count": 2,
+            "Description": "A collection of NetworkDeviceFunction resource instances."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/1": {
+            "AssociatedNetworkAddresses": [
+                "100000109B6681DF"
+            ],
+            "NetDevFuncMaxBWAlloc": [
+                {
+                    "MaxBWAllocPercent": null,
+                    "NetworkDeviceFunction": {
+                        "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/1.1"
+                    }
+                }
+            ],
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/1",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "Name": "Phyical Port 1",
+            "@odata.context": "/redfish/v1/$metadata#NetworkPort.NetworkPort",
+            "Id": "1",
+            "@odata.type": "#NetworkPort.v1_2_0.NetworkPort",
+            "ActiveLinkTechnology": "FibreChannel",
+            "PortMaximumMTU": 16384,
+            "@odata.etag": "\"3544be860f33eff083dab84fbd6b65fc\"",
+            "PhysicalPortNumber": "1",
+            "Description": "A Network Port represents a discrete physical port capable of connecting to a network."
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/2": {
+            "AssociatedNetworkAddresses": [
+                "100000109B6681E0"
+            ],
+            "NetDevFuncMaxBWAlloc": [
+                {
+                    "MaxBWAllocPercent": null,
+                    "NetworkDeviceFunction": {
+                        "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/2.1"
+                    }
+                }
+            ],
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/2",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "Name": "Phyical Port 2",
+            "@odata.context": "/redfish/v1/$metadata#NetworkPort.NetworkPort",
+            "Id": "2",
+            "@odata.type": "#NetworkPort.v1_2_0.NetworkPort",
+            "ActiveLinkTechnology": "FibreChannel",
+            "PortMaximumMTU": 16384,
+            "@odata.etag": "\"2652c404969ee3cdfb1a7f84208ed399\"",
+            "Description": "A Network Port represents a discrete physical port capable of connecting to a network.",
+            "PhysicalPortNumber": "2"
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/1.1": {
+            "Ethernet": {
+                "MACAddress": "100000109B6681DF",
+                "PermanentMACAddress": "100000109B6681DF",
+                "MTUSize": 16384
+            },
+            "Id": "1.1",
+            "Links": {
+                "PCIeFunction": {
+                    "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.00"
+                }
+            },
+            "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunction.NetworkDeviceFunction",
+            "Description": "A Network Device Function represents a logical interface exposed by the network adapter.",
+            "PhysicalPortAssignment": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/1"
+            },
+            "NetDevFuncType": "FibreChannel",
+            "AssignablePhysicalPorts@odata.count": 2,
+            "AssignablePhysicalPorts": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/2"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/1"
+                }
+            ],
+            "DeviceEnabled": true,
+            "@odata.type": "#NetworkDeviceFunction.v1_3_0.NetworkDeviceFunction",
+            "Name": "Logical Port 1",
+            "FibreChannel": {
+                "WWPN": "100000109B6681DF",
+                "PermanentWWPN": "100000109B6681DF"
+            },
+            "@odata.etag": "\"36b59d634fd919ff284f0fbaf856071a\"",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/1.1"
+        },
+        "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/2.1": {
+            "Ethernet": {
+                "MACAddress": "100000109B6681E0",
+                "PermanentMACAddress": "100000109B6681E0",
+                "MTUSize": 16384
+            },
+            "Id": "2.1",
+            "Links": {
+                "PCIeFunction": {
+                    "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.01"
+                }
+            },
+            "@odata.context": "/redfish/v1/$metadata#NetworkDeviceFunction.NetworkDeviceFunction",
+            "Description": "A Network Device Function represents a logical interface exposed by the network adapter.",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK",
+                "HealthRollup": "OK"
+            },
+            "DeviceEnabled": true,
+            "AssignablePhysicalPorts@odata.count": 2,
+            "AssignablePhysicalPorts": [
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/2"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/1"
+                }
+            ],
+            "NetDevFuncType": "FibreChannel",
+            "FibreChannel": {
+                "WWPN": "100000109B6681E0",
+                "PermanentWWPN": "100000109B6681E0"
+            },
+            "Name": "Logical Port 1",
+            "@odata.type": "#NetworkDeviceFunction.v1_3_0.NetworkDeviceFunction",
+            "@odata.etag": "\"84b4c3e9a7eae26a61686c63888bf677\"",
+            "PhysicalPortAssignment": {
+                "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkPorts/2"
+            },
+            "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters/slot-3/NetworkDeviceFunctions/2.1"
+        },
+        "/redfish/v1/Systems/1/PCIeDevices/slot_3": {
+            "SerialNumber": "Y651HY91S0B1",
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/slot_3",
+            "Links": {
+                "Chassis": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                ],
+                "PCIeFunctions": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.00"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.01"
+                    }
+                ]
+            },
+            "@odata.context": "/redfish/v1/$metadata#PCIeDevice.PCIeDevice",
+            "PartNumber": "01CV842",
+            "Description": "This resource represents the properties of a PCIeDevice attached to a System.",
+            "FirmwareVersion": "11.4.329.55",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Emulex 01CV842 16Gb FC Dual-port HBA",
+            "Id": "slot_3",
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "Slot X",
+                        "Info": "Slot 3"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo"
+                }
+            },
+            "@odata.type": "#PCIeDevice.v1_3_0.PCIeDevice",
+            "DeviceType": "MultiFunction",
+            "Manufacturer": "Emulex",
+            "@odata.etag": "\"56bf2904fcb24d4aa5a00f3b4bd3b6d1\"",
+            "Model": "LPe31002-M6-L",
+            "SKU": "01KR609"
+        }
+    },
+    "storage": {},
+    "pcie devices": {
+        "/redfish/v1/Systems/1/PCIeDevices/ob_1": {
+            "SerialNumber": null,
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_1",
+            "Links": {
+                "Chassis": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                ],
+                "PCIeFunctions": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_1.00"
+                    }
+                ]
+            },
+            "@odata.context": "/redfish/v1/$metadata#PCIeDevice.PCIeDevice",
+            "PartNumber": null,
+            "Description": "This resource represents the properties of a PCIeDevice attached to a System.",
+            "FirmwareVersion": null,
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Adapter",
+            "Id": "ob_1",
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "OnBoard",
+                        "Info": "OnBoard"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo"
+                }
+            },
+            "@odata.type": "#PCIeDevice.v1_3_0.PCIeDevice",
+            "DeviceType": "SingleFunction",
+            "Manufacturer": null,
+            "@odata.etag": "\"c7ec0de4e6a7fd15c551695977864d5f\"",
+            "Model": null,
+            "SKU": null
+        },
+        "/redfish/v1/Systems/1/PCIeDevices/ob_2": {
+            "SerialNumber": null,
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_2",
+            "Links": {
+                "Chassis": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                ],
+                "PCIeFunctions": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_2.00"
+                    }
+                ]
+            },
+            "@odata.context": "/redfish/v1/$metadata#PCIeDevice.PCIeDevice",
+            "PartNumber": null,
+            "Description": "This resource represents the properties of a PCIeDevice attached to a System.",
+            "FirmwareVersion": null,
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Adapter",
+            "Id": "ob_2",
+            "SKU": null,
+            "@odata.type": "#PCIeDevice.v1_3_0.PCIeDevice",
+            "DeviceType": "SingleFunction",
+            "Manufacturer": null,
+            "@odata.etag": "\"bedd20937ef2aa6d0390f1a10b89a1ae\"",
+            "Model": null,
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "OnBoard",
+                        "Info": "OnBoard"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo"
+                }
+            }
+        },
+        "/redfish/v1/Systems/1/PCIeDevices/ob_3": {
+            "SerialNumber": null,
+            "DeviceType": "SingleFunction",
+            "Links": {
+                "Chassis": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                ],
+                "PCIeFunctions": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_3.00"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_3.05"
+                    }
+                ]
+            },
+            "@odata.context": "/redfish/v1/$metadata#PCIeDevice.PCIeDevice",
+            "PartNumber": null,
+            "Description": "This resource represents the properties of a PCIeDevice attached to a System.",
+            "FirmwareVersion": null,
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Adapter",
+            "Id": "ob_3",
+            "SKU": null,
+            "@odata.type": "#PCIeDevice.v1_3_0.PCIeDevice",
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_3",
+            "Manufacturer": null,
+            "@odata.etag": "\"83306b792f4746037fb5312843ce22cc\"",
+            "Model": null,
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "OnBoard",
+                        "Info": "OnBoard"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo"
+                }
+            }
+        },
+        "/redfish/v1/Systems/1/PCIeDevices/ob_4": {
+            "SerialNumber": "N/A",
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4",
+            "Links": {
+                "Chassis": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                ],
+                "PCIeFunctions": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.01"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.00"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.02"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.03"
+                    }
+                ]
+            },
+            "@odata.context": "/redfish/v1/$metadata#PCIeDevice.PCIeDevice",
+            "PartNumber": "N/A",
+            "Description": "This resource represents the properties of a PCIeDevice attached to a System.",
+            "FirmwareVersion": "1.1937.0",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Intel X722 LOM (onboard)",
+            "Id": "ob_4",
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "OnBoard",
+                        "Info": "OnBoard"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo"
+                }
+            },
+            "@odata.type": "#PCIeDevice.v1_3_0.PCIeDevice",
+            "DeviceType": "MultiFunction",
+            "Manufacturer": "Intel",
+            "@odata.etag": "\"35869a41a34fbe24b5c626bc0c00ed11\"",
+            "Model": "N/A",
+            "SKU": "N/A"
+        },
+        "/redfish/v1/Systems/1/PCIeDevices/slot_3": {
+            "SerialNumber": "Y651HY91S0B1",
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/slot_3",
+            "Links": {
+                "Chassis": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                ],
+                "PCIeFunctions": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.00"
+                    },
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.01"
+                    }
+                ]
+            },
+            "@odata.context": "/redfish/v1/$metadata#PCIeDevice.PCIeDevice",
+            "PartNumber": "01CV842",
+            "Description": "This resource represents the properties of a PCIeDevice attached to a System.",
+            "FirmwareVersion": "11.4.329.55",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "Name": "Emulex 01CV842 16Gb FC Dual-port HBA",
+            "Id": "slot_3",
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "Slot X",
+                        "Info": "Slot 3"
+                    },
+                    "@odata.type": "#LenovoDeviceInfo.v1_0_0.LenovoDeviceInfo"
+                }
+            },
+            "@odata.type": "#PCIeDevice.v1_3_0.PCIeDevice",
+            "DeviceType": "MultiFunction",
+            "Manufacturer": "Emulex",
+            "@odata.etag": "\"56bf2904fcb24d4aa5a00f3b4bd3b6d1\"",
+            "Model": "LPe31002-M6-L",
+            "SKU": "01KR609"
+        }
+    },
+    "drives": {},
+    "managers": {
+        "/redfish/v1/Managers/1": {
+            "DateTimeLocalOffset": "+00:00",
+            "@odata.id": "/redfish/v1/Managers/1",
+            "NetworkProtocol": {
+                "@odata.id": "/redfish/v1/Managers/1/NetworkProtocol"
+            },
+            "PowerState": "On",
+            "@odata.context": "/redfish/v1/$metadata#Manager.Manager",
+            "Links": {
+                "ManagerForChassis": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                ],
+                "ManagerForServers": [
+                    {
+                        "@odata.id": "/redfish/v1/Systems/1"
+                    }
+                ]
+            },
+            "Id": "1",
+            "HostInterfaces": {
+                "@odata.id": "/redfish/v1/Managers/1/HostInterfaces"
+            },
+            "Actions": {
+                "#Manager.Reset": {
+                    "target": "/redfish/v1/Managers/1/Actions/Manager.Reset",
+                    "title": "Reset",
+                    "ResetType@Redfish.AllowableValues": [
+                        "GracefulRestart",
+                        "ForceRestart"
+                    ]
+                }
+            },
+            "FirmwareVersion": "CDI334W 2.50 2019-03-29",
+            "VirtualMedia": {
+                "@odata.id": "/redfish/v1/Managers/1/VirtualMedia"
+            },
+            "Description": "This resource is used to represent a management subsystem for a Redfish implementation.",
+            "ManagerType": "BMC",
+            "Model": "Lenovo XClarity Controller",
+            "CommandShell": {
+                "MaxConcurrentSessions": 2,
+                "ConnectTypesSupported": [
+                    "SSH"
+                ],
+                "ServiceEnabled": true
+            },
+            "UUID": "C838ECAE-4A8C-11E9-B06B-0A94EF7919E1",
+            "Status": {
+                "State": "Enabled"
+            },
+            "SerialConsole": {
+                "MaxConcurrentSessions": 2,
+                "ConnectTypesSupported": [
+                    "IPMI",
+                    "SSH"
+                ],
+                "ServiceEnabled": true
+            },
+            "Name": "Manager",
+            "SerialInterfaces": {
+                "@odata.id": "/redfish/v1/Managers/1/SerialInterfaces"
+            },
+            "ServiceEntryPointUUID": "C838ECAE-4A8C-11E9-B06B-0A94EF7919E1",
+            "Oem": {
+                "Lenovo": {
+                    "Configuration": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/Configuration"
+                    },
+                    "FoD": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/FoD"
+                    },
+                    "Security": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/Security"
+                    },
+                    "ServiceData": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/ServiceData"
+                    },
+                    "RemoteMap": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/RemoteMap"
+                    },
+                    "DateTimeService": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/DateTimeService"
+                    },
+                    "@odata.type": "#LenovoManager.v1_0_0.LenovoManagerProperties",
+                    "Watchdogs": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/Watchdogs"
+                    },
+                    "RemoteControl": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/RemoteControl"
+                    },
+                    "ServerProfile": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/ServerProfile"
+                    },
+                    "RecipientsSettings": {
+                        "RetryCount": 5,
+                        "RetryInterval": 0.5,
+                        "RntryRetryInterval": 0.5
+                    },
+                    "Recipients": {
+                        "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/Recipients"
+                    }
+                }
+            },
+            "@odata.type": "#Manager.v1_5_0.Manager",
+            "GraphicalConsole": {
+                "MaxConcurrentSessions": 6,
+                "ServiceEnabled": true,
+                "ConnectTypesSupported": [
+                    "KVMIP"
+                ]
+            },
+            "DateTime": "2019-11-01T23:57:36+00:00",
+            "@odata.etag": "\"220e51d59f5464552462918d73271751\"",
+            "LogServices": {
+                "@odata.id": "/redfish/v1/Systems/1/LogServices"
+            },
+            "EthernetInterfaces": {
+                "@odata.id": "/redfish/v1/Managers/1/EthernetInterfaces"
+            }
+        }
+    }
+}

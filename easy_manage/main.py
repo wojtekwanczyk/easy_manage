@@ -70,6 +70,85 @@ def ipmi_demo(args, db, credentials):
     print(f"Power state: {power}")
 
 
+def redfish_save(rf, ch):
+
+    def system(rf):
+
+        res = {}
+
+        r = {}
+        r['basic info'] = rf.get_info()
+        r['oem info'] = rf.get_oem_info()
+        r['power state'] = rf.get_power_state()
+        r['system health'] = rf.get_system_health()
+        r['memory size'] = rf.get_memory_size()
+
+        r['allowable boot sources'] = rf.get_allowable_boot_sources()
+        r['boot source'] = rf.get_boot_source()
+
+        coolers = rf.get_coolers()
+        fans = coolers['/redfish/v1/Chassis/1/Thermal']['Fans'][0]
+        r['coolers'] = fans
+
+        r['chassis'] = rf.get_chassis()
+        r['power supplies'] = rf.get_power_supplies()
+        r['managers'] = rf.get_managers()
+
+        r['cpu summary'] = rf.get_processor_summary()
+        r['cpu info'] = rf.get_processor_info(1)
+        r['cpu data'] = rf.get_processor_data(1)
+        hist = rf.get_cpu_history_performance()
+        hist['Container'] = hist['Container'][:4]
+        r['cpu history performance'] = hist
+        hist = rf.get_cpu_history_power()
+        r['cpu history power'] = hist['Container'][0:3]
+
+        r['ethernet interfaces'] = rf.get_ethernet_interfaces()
+        r['storage'] = rf.get_storage()
+        r['memory'] = rf.get_memory()
+        r['pcie devices'] = rf.get_pcie_devices()
+        r['pcie functions'] = rf.get_pcie_functions()
+        logs = rf.get_standard_logs()
+        logs["Members"] = logs['Members'][0]
+        r['standard logs'] = logs
+        #r['active logs'] = rf.get_active_logs()
+
+        res['system'] = r
+
+        with open('out_system.json', 'w') as f:
+            json.dump(res, f)
+
+    def chassis(ch):
+
+        c = {}
+
+        c['basic info'] = ch.get_info()
+        c['oem info'] = ch.get_oem_info()
+        c['power state'] = ch.get_power_state()
+        c['health'] = ch.get_health()
+
+
+        c['thermal health'] = ch.get_thermal_health()
+        c['example temp'] = ch.get_temperature('Ambient Temp')
+        c['example fan spd'] = ch.get_fan_speed('Fan 1 Tach')
+        c['power info'] = ch.get_power_info()
+        c['power control'] = ch.get_power_control()
+        c['power supply example'] = ch.get_power_supply(0)
+        c['power voltages example'] = ch.get_power_voltage(0)
+        c['power redundancy'] = ch.get_power_redundancy()
+ 
+        c['network adapters'] = ch.get_network_adapters()
+        c['storage'] = ch.get_storage()
+        c['pcie devices'] = ch.get_pcie_devices()
+        c['drives'] = ch.get_drives()
+        c['managers'] = ch.get_managers()
+
+        with open('out_chassis.json', 'w') as f:
+            json.dump(c, f)
+    
+    chassis(ch)
+
+
 def shell_demo(config, credentials):
     sh = BashShell(config['DEVICE']['ADDRESS'], credentials)
     print("Connecting through ssh")
@@ -90,9 +169,10 @@ def main():
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
     global rf, c, sh
-    #rf, c = redfish_demo(config, db, creds_controller)
+    rf, c = redfish_demo(config, db, creds_controller)
+    redfish_save(rf, c)
     #ipmi_demo(args, db, creds_controller)
-    sh = shell_demo(config, creds_device)
+    # sh = shell_demo(config, creds_device)
 
     # controller_factory = ControllerFactory()
     # controller = controller_factory.create_controller(

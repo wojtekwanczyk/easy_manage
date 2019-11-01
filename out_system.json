@@ -1,0 +1,1379 @@
+{
+    "system": {
+        "basic info": {
+            "SerialNumber": "S4ATJ171",
+            "Id": "1",
+            "IndicatorLED": "Off",
+            "PowerState": "On",
+            "PartNumber": null,
+            "UUID": "c838ecae-4a8c-11e9-b06b-0a94ef7919e1",
+            "Name": "ComputerSystem",
+            "Manufacturer": "Lenovo",
+            "AssetTag": "",
+            "BiosVersion": "TEE136T",
+            "HostName": "XCC-7X08-S4ATJ171",
+            "Description": "This resource is used to represent a computing system for a Redfish implementation.",
+            "SKU": "7X08CTO1WW",
+            "Model": "ThinkSystem SR530",
+            "SystemType": "Physical"
+        },
+        "oem info": {
+            "Lenovo": {
+                "ScheduledPowerActions": {
+                    "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/ScheduledPowerActions"
+                },
+                "FrontPanelUSB": {
+                    "IDButton": "On",
+                    "PortSwitchingTo": "Server",
+                    "InactivityTimeoutMins": 5,
+                    "FPMode": "Shared"
+                },
+                "Metrics": {
+                    "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/Metrics"
+                },
+                "SystemStatus": "BootingOSOrInUndetectedOS",
+                "NumberOfReboots": 188,
+                "HistorySysPerf": {
+                    "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/HistorySysPerf"
+                },
+                "@odata.type": "#LenovoComputerSystem.v1_0_0.LenovoSystemProperties",
+                "BootSettings": {
+                    "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/BootSettings"
+                },
+                "TPMSettings": {
+                    "EnableRPP": true,
+                    "AssertRPP": false,
+                    "AssertDurationMins": 30
+                },
+                "TotalPowerOnHours": 3971,
+                "Sensors": {
+                    "@odata.id": "/redfish/v1/Chassis/1/Oem/Lenovo/Sensors"
+                }
+            }
+        },
+        "power state": "On",
+        "system health": "OK",
+        "memory size": 256,
+        "allowable boot sources": [
+            "None",
+            "Pxe",
+            "Cd",
+            "Usb",
+            "Hdd",
+            "BiosSetup",
+            "Diags",
+            "UefiTarget"
+        ],
+        "boot source": "None",
+        "coolers": {
+            "UpperThresholdFatal": null,
+            "ReadingUnits": "Percent",
+            "PhysicalContext": "SystemBoard",
+            "LowerThresholdFatal": null,
+            "MinReadingRange": 0,
+            "UpperThresholdCritical": null,
+            "MaxReadingRange": 100,
+            "RelatedItem": [
+                {
+                    "@odata.id": "/redfish/v1/Systems/1"
+                },
+                {
+                    "@odata.id": "/redfish/v1/Chassis/1"
+                }
+            ],
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "FanName": "Fan 1 Tach",
+            "Name": "Fan 1 Tach",
+            "UpperThresholdNonCritical": null,
+            "Oem": {
+                "Lenovo": {
+                    "Location": {
+                        "InfoFormat": "Slot X",
+                        "Info": "Slot 1"
+                    }
+                }
+            },
+            "MemberId": "0",
+            "LowerThresholdCritical": 5,
+            "LowerThresholdNonCritical": null,
+            "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/0",
+            "Reading": 35
+        },
+        "chassis": {
+            "/redfish/v1/Chassis/1": {
+                "SerialNumber": "S4ATJ171",
+                "@odata.id": "/redfish/v1/Chassis/1",
+                "Links": {
+                    "Drives": [],
+                    "CooledBy": [
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/0"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/1"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/2"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/3"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/4"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/5"
+                        }
+                    ],
+                    "ComputerSystems": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1"
+                        }
+                    ],
+                    "PCIeDevices": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_1"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_2"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_3"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/slot_3"
+                        }
+                    ],
+                    "PoweredBy": [
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/0"
+                        },
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/1"
+                        }
+                    ],
+                    "Storage": [],
+                    "ManagedBy": [
+                        {
+                            "@odata.id": "/redfish/v1/Managers/1"
+                        }
+                    ],
+                    "ManagersInChassis": [
+                        {
+                            "@odata.id": "/redfish/v1/Managers/1"
+                        }
+                    ]
+                },
+                "PowerState": "On",
+                "@odata.context": "/redfish/v1/$metadata#Chassis.Chassis",
+                "ChassisType": "RackMount",
+                "PartNumber": "SB27A18555",
+                "Description": "This resource is used to represent a chassis or other physical enclosure for a Redfish implementation.",
+                "Thermal": {
+                    "@odata.id": "/redfish/v1/Chassis/1/Thermal"
+                },
+                "Id": "1",
+                "AssetTag": "",
+                "SKU": "7X08CTO1WW",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK"
+                },
+                "@odata.type": "#Chassis.v1_8_0.Chassis",
+                "Name": "Chassis",
+                "HeightMm": 44.45,
+                "Power": {
+                    "@odata.id": "/redfish/v1/Chassis/1/Power"
+                },
+                "Oem": {
+                    "Lenovo": {
+                        "LocatedIn": {
+                            "ContactPerson": "admin@iisg.agh.edu.pl",
+                            "FullPostalAddress": "",
+                            "Location": "AGH D-17",
+                            "Rack": "1.12B2",
+                            "DescriptiveName": "server-4",
+                            "Room": "1.12",
+                            "Height": 1,
+                            "Position": 12
+                        },
+                        "@odata.type": "#LenovoChassis.v1_0_0.LenovoChassisProperties",
+                        "ProductName": "ThinkSystem SR530",
+                        "Sensors": {
+                            "@odata.id": "/redfish/v1/Chassis/1/Oem/Lenovo/Sensors"
+                        },
+                        "LEDs": {
+                            "@odata.id": "/redfish/v1/Chassis/1/Oem/Lenovo/LEDs"
+                        },
+                        "Slots": {
+                            "@odata.id": "/redfish/v1/Chassis/1/Oem/Lenovo/Slots"
+                        }
+                    }
+                },
+                "NetworkAdapters": {
+                    "@odata.id": "/redfish/v1/Chassis/1/NetworkAdapters"
+                },
+                "IndicatorLED": "Off",
+                "Manufacturer": "Lenovo",
+                "@odata.etag": "\"f5cb06cb007d641d938cce36515ec584\"",
+                "Model": "7X08CTO1WW",
+                "LogServices": {
+                    "@odata.id": "/redfish/v1/Systems/1/LogServices"
+                }
+            }
+        },
+        "power supplies": {
+            "/redfish/v1/Chassis/1/Power": {
+                "PowerControl@odata.count": 1,
+                "Id": "Power",
+                "Redundancy@odata.count": 1,
+                "@odata.context": "/redfish/v1/$metadata#Power.Power",
+                "Voltages": [
+                    {
+                        "MaxReadingRange": 3.95,
+                        "RelatedItem": [
+                            {
+                                "@odata.id": "/redfish/v1/Systems/1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1"
+                            }
+                        ],
+                        "@odata.id": "/redfish/v1/Chassis/1/Power#/Voltages/0",
+                        "Status": {
+                            "State": "Enabled"
+                        },
+                        "SensorNumber": 141,
+                        "Name": "SysBrd 3.3V",
+                        "PhysicalContext": "VoltageRegulator",
+                        "MemberId": "0",
+                        "RelatedItem@odata.count": 2,
+                        "LowerThresholdCritical": 2.98,
+                        "MinReadingRange": null,
+                        "UpperThresholdCritical": 3.63,
+                        "ReadingVolts": 3.35
+                    },
+                    {
+                        "MaxReadingRange": 5.92,
+                        "RelatedItem": [
+                            {
+                                "@odata.id": "/redfish/v1/Systems/1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1"
+                            }
+                        ],
+                        "@odata.id": "/redfish/v1/Chassis/1/Power#/Voltages/1",
+                        "Status": {
+                            "State": "Enabled"
+                        },
+                        "SensorNumber": 142,
+                        "Name": "SysBrd 5V",
+                        "PhysicalContext": "VoltageRegulator",
+                        "MemberId": "1",
+                        "RelatedItem@odata.count": 2,
+                        "LowerThresholdCritical": 4.5,
+                        "MinReadingRange": null,
+                        "UpperThresholdCritical": 5.5,
+                        "ReadingVolts": 5.06
+                    },
+                    {
+                        "MaxReadingRange": 14.28,
+                        "RelatedItem": [
+                            {
+                                "@odata.id": "/redfish/v1/Systems/1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1"
+                            }
+                        ],
+                        "@odata.id": "/redfish/v1/Chassis/1/Power#/Voltages/2",
+                        "Status": {
+                            "State": "Enabled"
+                        },
+                        "SensorNumber": 140,
+                        "Name": "SysBrd 12V",
+                        "PhysicalContext": "VoltageRegulator",
+                        "MemberId": "2",
+                        "RelatedItem@odata.count": 2,
+                        "LowerThresholdCritical": 10.81,
+                        "MinReadingRange": null,
+                        "UpperThresholdCritical": 13.22,
+                        "ReadingVolts": 12.26
+                    },
+                    {
+                        "MaxReadingRange": 3.32,
+                        "RelatedItem": [
+                            {
+                                "@odata.id": "/redfish/v1/Systems/1"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1"
+                            }
+                        ],
+                        "@odata.id": "/redfish/v1/Chassis/1/Power#/Voltages/3",
+                        "Status": {
+                            "State": "Enabled"
+                        },
+                        "SensorNumber": 3,
+                        "Name": "CMOS Battery",
+                        "PhysicalContext": "VoltageRegulator",
+                        "MemberId": "3",
+                        "RelatedItem@odata.count": 2,
+                        "LowerThresholdCritical": 2.25,
+                        "MinReadingRange": null,
+                        "ReadingVolts": 3.16,
+                        "LowerThresholdNonCritical": 2.39
+                    }
+                ],
+                "Voltages@odata.count": 4,
+                "Redundancy": [
+                    {
+                        "@odata.id": "/redfish/v1/Chassis/1/Power#/Redundancy/0",
+                        "Status": {
+                            "State": "Enabled",
+                            "Health": "OK"
+                        },
+                        "Name": "PSU Redundancy",
+                        "MaxNumSupported": 2,
+                        "MemberId": "0",
+                        "Oem": {
+                            "Lenovo": {
+                                "NonRedundantAvailablePower": 900,
+                                "PowerRedundancySettings": {
+                                    "EstimatedUsage": "36.78%",
+                                    "MaxPowerLimitWatts": 900,
+                                    "PowerFailureLimit": 1,
+                                    "PowerRedundancyPolicy": "RedundantWithThrottling"
+                                },
+                                "@odata.type": "#LenovoRedundancy.v1_0_0.LenovoRedundancyProperties"
+                            }
+                        },
+                        "RedundancyEnabled": true,
+                        "RedundancySet": [
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/0"
+                            },
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/1"
+                            }
+                        ],
+                        "MinNumNeeded": 2,
+                        "Mode": "N+m",
+                        "RedundancySet@odata.count": 2
+                    }
+                ],
+                "Description": "Power Consumption and Power Limiting",
+                "Name": "Power",
+                "PowerSupplies@odata.count": 2,
+                "Oem": {
+                    "Lenovo": {
+                        "@odata.type": "#LenovoPower.v1_0_0.Capabilities",
+                        "LocalPowerControlEnabled": true,
+                        "PowerOnPermissionEnabled": true,
+                        "PowerRestorePolicy": "Restore",
+                        "WakeOnLANEnabled": true
+                    }
+                },
+                "@odata.type": "#Power.v1_5_1.Power",
+                "PowerControl": [
+                    {
+                        "PowerAllocatedWatts": 900,
+                        "RelatedItem": [
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1"
+                            }
+                        ],
+                        "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerControl/0",
+                        "Status": {
+                            "HealthRollup": "OK",
+                            "State": "Enabled"
+                        },
+                        "PowerMetrics": {
+                            "IntervalInMin": 60,
+                            "AverageConsumedWatts": 69.25,
+                            "MinConsumedWatts": 3,
+                            "MaxConsumedWatts": 172
+                        },
+                        "Name": "Server Power Control",
+                        "MemberId": "0",
+                        "PowerAvailableWatts": 0,
+                        "Oem": {
+                            "Lenovo": {
+                                "PowerUtilization": {
+                                    "MaxLimitInWatts": 900,
+                                    "EnablePowerCapping": false,
+                                    "LimitMode": "AC",
+                                    "EnablePowerCapping@Redfish.Deprecated": "The property is deprecated. Please use LimitInWatts instead.",
+                                    "CapacityMinAC": 258,
+                                    "MinLimitInWatts": 0,
+                                    "GuaranteedInWatts": 258,
+                                    "CapacityMinDC": 245,
+                                    "CapacityMaxDC": 346,
+                                    "CapacityMaxAC": 352
+                                },
+                                "HistoryPowerMetric": {
+                                    "@odata.id": "/redfish/v1/Chassis/1/Power/PowerControl/0/Oem/Lenovo/HistoryPowerMetric"
+                                },
+                                "@odata.type": "#LenovoPower.v1_0_0.PowerControl"
+                            }
+                        },
+                        "RelatedItem@odata.count": 1,
+                        "PowerCapacityWatts": 900,
+                        "PowerLimit": {
+                            "LimitException": "NoAction",
+                            "LimitInWatts": null
+                        },
+                        "PowerConsumedWatts": 97,
+                        "PowerRequestedWatts": 352
+                    }
+                ],
+                "@odata.etag": "\"43909cf7f1574c321b2ed065d1145ce6\"",
+                "@odata.id": "/redfish/v1/Chassis/1/Power",
+                "PowerSupplies": [
+                    {
+                        "SerialNumber": "A4DB87R12JV",
+                        "InputRanges": [
+                            {
+                                "InputType": "AC",
+                                "OutputWattage": 750,
+                                "MinimumVoltage": 200,
+                                "MaximumVoltage": 240
+                            }
+                        ],
+                        "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/0",
+                        "RelatedItem@odata.count": 1,
+                        "PowerCapacityWatts": 750,
+                        "PartNumber": "SP57A02019",
+                        "RelatedItem": [
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1"
+                            }
+                        ],
+                        "Status": {
+                            "State": "Enabled",
+                            "Health": "OK"
+                        },
+                        "LineInputVoltage": 220,
+                        "Name": "PSU1",
+                        "MemberId": "0",
+                        "FirmwareVersion": "2.52",
+                        "Oem": {
+                            "Lenovo": {
+                                "Location": {
+                                    "InfoFormat": "Slot X",
+                                    "Info": "Slot 1"
+                                },
+                                "HistoryPowerSupplyMetric": {
+                                    "@odata.id": "/redfish/v1/Chassis/1/Power/PowerSupplies/0/Oem/Lenovo/HistoryPowerSupplyMetric"
+                                },
+                                "@odata.type": "#LenovoPower.v1_0_0.PowerSupply"
+                            }
+                        },
+                        "LastPowerOutputWatts": 73,
+                        "Manufacturer": "ACBE",
+                        "LineInputVoltageType": "ACMidLine",
+                        "Model": "LENOVO-SP57A02019",
+                        "PowerSupplyType": "AC"
+                    },
+                    {
+                        "SerialNumber": "A4DB87R119L",
+                        "InputRanges": [
+                            {
+                                "InputType": "AC",
+                                "OutputWattage": 750,
+                                "MinimumVoltage": 200,
+                                "MaximumVoltage": 240
+                            }
+                        ],
+                        "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/1",
+                        "RelatedItem@odata.count": 1,
+                        "PowerCapacityWatts": 750,
+                        "PartNumber": "SP57A02019",
+                        "RelatedItem": [
+                            {
+                                "@odata.id": "/redfish/v1/Chassis/1"
+                            }
+                        ],
+                        "Status": {
+                            "State": "Enabled",
+                            "Health": "OK"
+                        },
+                        "LineInputVoltage": 220,
+                        "Name": "PSU2",
+                        "MemberId": "1",
+                        "FirmwareVersion": "2.52",
+                        "Oem": {
+                            "Lenovo": {
+                                "Location": {
+                                    "InfoFormat": "Slot X",
+                                    "Info": "Slot 2"
+                                },
+                                "HistoryPowerSupplyMetric": {
+                                    "@odata.id": "/redfish/v1/Chassis/1/Power/PowerSupplies/1/Oem/Lenovo/HistoryPowerSupplyMetric"
+                                },
+                                "@odata.type": "#LenovoPower.v1_0_0.PowerSupply"
+                            }
+                        },
+                        "PowerSupplyType": "AC",
+                        "Manufacturer": "ACBE",
+                        "LineInputVoltageType": "ACMidLine",
+                        "Model": "LENOVO-SP57A02019",
+                        "LastPowerOutputWatts": 73
+                    }
+                ]
+            }
+        },
+        "managers": {
+            "/redfish/v1/Managers/1": {
+                "DateTimeLocalOffset": "+00:00",
+                "@odata.id": "/redfish/v1/Managers/1",
+                "NetworkProtocol": {
+                    "@odata.id": "/redfish/v1/Managers/1/NetworkProtocol"
+                },
+                "PowerState": "On",
+                "@odata.context": "/redfish/v1/$metadata#Manager.Manager",
+                "Links": {
+                    "ManagerForChassis": [
+                        {
+                            "@odata.id": "/redfish/v1/Chassis/1"
+                        }
+                    ],
+                    "ManagerForServers": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1"
+                        }
+                    ]
+                },
+                "Id": "1",
+                "HostInterfaces": {
+                    "@odata.id": "/redfish/v1/Managers/1/HostInterfaces"
+                },
+                "Actions": {
+                    "#Manager.Reset": {
+                        "target": "/redfish/v1/Managers/1/Actions/Manager.Reset",
+                        "title": "Reset",
+                        "ResetType@Redfish.AllowableValues": [
+                            "GracefulRestart",
+                            "ForceRestart"
+                        ]
+                    }
+                },
+                "FirmwareVersion": "CDI334W 2.50 2019-03-29",
+                "VirtualMedia": {
+                    "@odata.id": "/redfish/v1/Managers/1/VirtualMedia"
+                },
+                "Description": "This resource is used to represent a management subsystem for a Redfish implementation.",
+                "ManagerType": "BMC",
+                "Model": "Lenovo XClarity Controller",
+                "CommandShell": {
+                    "MaxConcurrentSessions": 2,
+                    "ConnectTypesSupported": [
+                        "SSH"
+                    ],
+                    "ServiceEnabled": true
+                },
+                "UUID": "C838ECAE-4A8C-11E9-B06B-0A94EF7919E1",
+                "Status": {
+                    "State": "Enabled"
+                },
+                "SerialConsole": {
+                    "MaxConcurrentSessions": 2,
+                    "ConnectTypesSupported": [
+                        "IPMI",
+                        "SSH"
+                    ],
+                    "ServiceEnabled": true
+                },
+                "Name": "Manager",
+                "SerialInterfaces": {
+                    "@odata.id": "/redfish/v1/Managers/1/SerialInterfaces"
+                },
+                "ServiceEntryPointUUID": "C838ECAE-4A8C-11E9-B06B-0A94EF7919E1",
+                "Oem": {
+                    "Lenovo": {
+                        "Configuration": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/Configuration"
+                        },
+                        "FoD": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/FoD"
+                        },
+                        "Security": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/Security"
+                        },
+                        "ServiceData": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/ServiceData"
+                        },
+                        "RemoteMap": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/RemoteMap"
+                        },
+                        "DateTimeService": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/DateTimeService"
+                        },
+                        "@odata.type": "#LenovoManager.v1_0_0.LenovoManagerProperties",
+                        "Watchdogs": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/Watchdogs"
+                        },
+                        "RemoteControl": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/RemoteControl"
+                        },
+                        "ServerProfile": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/ServerProfile"
+                        },
+                        "RecipientsSettings": {
+                            "RetryCount": 5,
+                            "RetryInterval": 0.5,
+                            "RntryRetryInterval": 0.5
+                        },
+                        "Recipients": {
+                            "@odata.id": "/redfish/v1/Managers/1/Oem/Lenovo/Recipients"
+                        }
+                    }
+                },
+                "@odata.type": "#Manager.v1_5_0.Manager",
+                "GraphicalConsole": {
+                    "MaxConcurrentSessions": 6,
+                    "ServiceEnabled": true,
+                    "ConnectTypesSupported": [
+                        "KVMIP"
+                    ]
+                },
+                "DateTime": "2019-11-01T23:42:59+00:00",
+                "@odata.etag": "\"220e51d59f5464552462918d73271751\"",
+                "LogServices": {
+                    "@odata.id": "/redfish/v1/Systems/1/LogServices"
+                },
+                "EthernetInterfaces": {
+                    "@odata.id": "/redfish/v1/Managers/1/EthernetInterfaces"
+                }
+            }
+        },
+        "cpu summary": {
+            "Status": {
+                "HealthRollup": "OK",
+                "Health": "OK",
+                "State": "Enabled"
+            },
+            "Count": 2,
+            "Model": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz"
+        },
+        "cpu info": {
+            "InstructionSet": "x86-64",
+            "Description": "This resource is used to represent a processor for a Redfish implementation.",
+            "Id": "1",
+            "ProcessorArchitecture": "x86",
+            "Model": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz",
+            "ProcessorType": "CPU",
+            "Name": "Processor 1",
+            "TotalThreads": 28,
+            "MaxSpeedMHz": 3200,
+            "Manufacturer": "Intel(R) Corporation",
+            "TotalCores": 14,
+            "Socket": "CPU 1"
+        },
+        "cpu data": {
+            "@odata.id": "/redfish/v1/Systems/1/Processors/1",
+            "Links": {
+                "Chassis": {
+                    "@odata.id": "/redfish/v1/Chassis/1"
+                }
+            },
+            "@odata.context": "/redfish/v1/$metadata#Processor.Processor",
+            "InstructionSet": "x86-64",
+            "Description": "This resource is used to represent a processor for a Redfish implementation.",
+            "Id": "1",
+            "ProcessorArchitecture": "x86",
+            "Model": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz",
+            "Status": {
+                "State": "Enabled",
+                "Health": "OK"
+            },
+            "ProcessorType": "CPU",
+            "Name": "Processor 1",
+            "ProcessorId": {
+                "Step": "0x04",
+                "VendorId": "GenuineIntel",
+                "EffectiveModel": "0x55",
+                "EffectiveFamily": "0x06",
+                "IdentificationRegisters": "0x00050654bfebfbff",
+                "MicrocodeInfo": null
+            },
+            "TotalThreads": 28,
+            "Oem": {
+                "Lenovo": {
+                    "ProcessorFamily": 179,
+                    "CacheInfo": [
+                        {
+                            "InstalledSizeKByte": 896,
+                            "MaxCacheSizeKByte": 896,
+                            "CacheLevel": "L1"
+                        },
+                        {
+                            "InstalledSizeKByte": 14336,
+                            "MaxCacheSizeKByte": 14336,
+                            "CacheLevel": "L2"
+                        },
+                        {
+                            "InstalledSizeKByte": 19712,
+                            "MaxCacheSizeKByte": 19712,
+                            "CacheLevel": "L3"
+                        }
+                    ],
+                    "@odata.type": "#LenovoProcessor.v1_0_0.LenovoProcessor",
+                    "NumberOfEnabledCores": 14,
+                    "ExternalBusClockSpeedMHz": 100,
+                    "CurrentClockSpeedMHz": 2200
+                }
+            },
+            "@odata.type": "#Processor.v1_3_1.Processor",
+            "MaxSpeedMHz": 3200,
+            "Manufacturer": "Intel(R) Corporation",
+            "@odata.etag": "\"9213b82169206635fb0252c06cc80fa5\"",
+            "TotalCores": 14,
+            "Socket": "CPU 1"
+        },
+        "cpu history performance": {
+            "Container": [
+                {
+                    "Timestamp": "01 Nov 2019, 11:43:00.000 PM",
+                    "MetricValue": 0,
+                    "Duration": "00:30",
+                    "MetricType": "Avg",
+                    "TimestampWithTZ": "2019-11-01T23:43:00+00:00"
+                },
+                {
+                    "Timestamp": "01 Nov 2019, 11:42:30.000 PM",
+                    "MetricValue": 0,
+                    "Duration": "00:30",
+                    "MetricType": "Avg",
+                    "TimestampWithTZ": "2019-11-01T23:42:30+00:00"
+                },
+                {
+                    "Timestamp": "01 Nov 2019, 11:42:00.000 PM",
+                    "MetricValue": 0,
+                    "Duration": "00:30",
+                    "MetricType": "Avg",
+                    "TimestampWithTZ": "2019-11-01T23:42:00+00:00"
+                },
+                {
+                    "Timestamp": "01 Nov 2019, 11:41:30.000 PM",
+                    "MetricValue": 0,
+                    "Duration": "00:30",
+                    "MetricType": "Avg",
+                    "TimestampWithTZ": "2019-11-01T23:41:30+00:00"
+                }
+            ],
+            "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/Metrics/CPUSubsystemPerformance",
+            "Name": "Metric Value Container",
+            "@odata.context": "/redfish/v1/$metadata#LenovoHistoryMetricValueContainer.LenovoHistoryMetricValueContainer",
+            "TimeScope": "Previous_hour",
+            "@odata.type": "#LenovoHistoryMetricValueContainer.v1_0_0.LenovoHistoryMetricValueContainer",
+            "Id": "CPUSubsystemPerformance",
+            "@odata.etag": "\"65222ab802d1fcd3fb0795fa82881867\"",
+            "ContainerName": "CPUSubsystemPerformance",
+            "Description": "This resource is used to represent an array of history metric values in the container for a Redfish implementation."
+        },
+        "cpu history power": [
+            {
+                "Timestamp": "01 Nov 2019, 11:43:00.000 PM",
+                "MetricValue": 20,
+                "Duration": "00:30",
+                "MetricType": "Min",
+                "TimestampWithTZ": "2019-11-01T23:43:00+00:00"
+            },
+            {
+                "Timestamp": "01 Nov 2019, 11:43:00.000 PM",
+                "MetricValue": 22,
+                "Duration": "00:30",
+                "MetricType": "Max",
+                "TimestampWithTZ": "2019-11-01T23:43:00+00:00"
+            },
+            {
+                "Timestamp": "01 Nov 2019, 11:43:00.000 PM",
+                "MetricValue": 21,
+                "Duration": "00:30",
+                "MetricType": "Avg",
+                "TimestampWithTZ": "2019-11-01T23:43:00+00:00"
+            }
+        ],
+        "ethernet interfaces": {
+            "/redfish/v1/Systems/1/EthernetInterfaces/ToManager": {
+                "Id": "ToManager",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": null
+                },
+                "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/ToManager",
+                "InterfaceEnabled": true,
+                "Links": {
+                    "Chassis": {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    },
+                    "HostInterface": {
+                        "@odata.id": "/redfish/v1/Managers/1/HostInterfaces/1"
+                    }
+                },
+                "Name": "Host Ethernet Interface",
+                "@odata.context": "/redfish/v1/$metadata#EthernetInterface.EthernetInterface",
+                "SpeedMbps": 100,
+                "@odata.type": "#EthernetInterface.v1_4_1.EthernetInterface",
+                "MACAddress": "0a:94:ef:79:19:e1",
+                "LinkStatus": "LinkUp",
+                "@odata.etag": "\"4feb268e46a844fd399c1a8eab8ecc79\"",
+                "PermanentMACAddress": "0a:94:ef:79:19:e1",
+                "Description": "Host Network Interface"
+            },
+            "/redfish/v1/Systems/1/EthernetInterfaces/NIC1": {
+                "MACAddress": "08:94:EF:79:21:AE",
+                "Id": "NIC1",
+                "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC1",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK"
+                },
+                "Links": {
+                    "Chassis": {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                },
+                "Name": "External Ethernet Interface",
+                "@odata.context": "/redfish/v1/$metadata#EthernetInterface.EthernetInterface",
+                "SpeedMbps": null,
+                "@odata.type": "#EthernetInterface.v1_4_1.EthernetInterface",
+                "InterfaceEnabled": true,
+                "LinkStatus": "LinkDown",
+                "@odata.etag": "\"463bd2fc98726243c6d5225d52069db0\"",
+                "PermanentMACAddress": "08:94:EF:79:21:AE",
+                "Description": "External Network Interface"
+            },
+            "/redfish/v1/Systems/1/EthernetInterfaces/NIC2": {
+                "MACAddress": "08:94:EF:79:21:AF",
+                "Id": "NIC2",
+                "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC2",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK"
+                },
+                "Links": {
+                    "Chassis": {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                },
+                "Name": "External Ethernet Interface",
+                "@odata.context": "/redfish/v1/$metadata#EthernetInterface.EthernetInterface",
+                "SpeedMbps": null,
+                "@odata.type": "#EthernetInterface.v1_4_1.EthernetInterface",
+                "InterfaceEnabled": true,
+                "LinkStatus": "LinkDown",
+                "@odata.etag": "\"307f2ccb3b353569c00a4885d0638801\"",
+                "PermanentMACAddress": "08:94:EF:79:21:AF",
+                "Description": "External Network Interface"
+            },
+            "/redfish/v1/Systems/1/EthernetInterfaces/NIC3": {
+                "MACAddress": "08:94:EF:79:21:B0",
+                "Id": "NIC3",
+                "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC3",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK"
+                },
+                "Links": {
+                    "Chassis": {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                },
+                "Name": "External Ethernet Interface",
+                "@odata.context": "/redfish/v1/$metadata#EthernetInterface.EthernetInterface",
+                "SpeedMbps": 1000,
+                "@odata.type": "#EthernetInterface.v1_4_1.EthernetInterface",
+                "InterfaceEnabled": true,
+                "LinkStatus": "LinkUp",
+                "@odata.etag": "\"7fb8c570f2e784bb234d65d88d6a5843\"",
+                "PermanentMACAddress": "08:94:EF:79:21:B0",
+                "Description": "External Network Interface"
+            },
+            "/redfish/v1/Systems/1/EthernetInterfaces/NIC4": {
+                "Links": {
+                    "Chassis": {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                },
+                "Id": "NIC4",
+                "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC4",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK"
+                },
+                "MACAddress": "08:94:EF:79:21:B1",
+                "Name": "External Ethernet Interface",
+                "@odata.context": "/redfish/v1/$metadata#EthernetInterface.EthernetInterface",
+                "SpeedMbps": 1000,
+                "@odata.type": "#EthernetInterface.v1_4_1.EthernetInterface",
+                "InterfaceEnabled": true,
+                "LinkStatus": "LinkUp",
+                "@odata.etag": "\"78fddc4e1f4777d02659f247f9054f70\"",
+                "PermanentMACAddress": "08:94:EF:79:21:B1",
+                "Description": "External Network Interface"
+            },
+            "/redfish/v1/Systems/1/EthernetInterfaces/NIC5": {
+                "MACAddress": "10:00:00:10:9B:66:81:DF",
+                "Id": "NIC5",
+                "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC5",
+                "InterfaceEnabled": true,
+                "Links": {
+                    "Chassis": {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                },
+                "Name": "External Ethernet Interface",
+                "@odata.context": "/redfish/v1/$metadata#EthernetInterface.EthernetInterface",
+                "SpeedMbps": 16000,
+                "@odata.type": "#EthernetInterface.v1_4_1.EthernetInterface",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK"
+                },
+                "LinkStatus": "LinkUp",
+                "@odata.etag": "\"8246b64b0db5757546fd301ae507f012\"",
+                "PermanentMACAddress": "10:00:00:10:9B:66:81:DF",
+                "Description": "External Network Interface"
+            },
+            "/redfish/v1/Systems/1/EthernetInterfaces/NIC6": {
+                "Links": {
+                    "Chassis": {
+                        "@odata.id": "/redfish/v1/Chassis/1"
+                    }
+                },
+                "Id": "NIC6",
+                "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC6",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK"
+                },
+                "MACAddress": "10:00:00:10:9B:66:81:E0",
+                "Name": "External Ethernet Interface",
+                "@odata.context": "/redfish/v1/$metadata#EthernetInterface.EthernetInterface",
+                "SpeedMbps": 16000,
+                "@odata.type": "#EthernetInterface.v1_4_1.EthernetInterface",
+                "InterfaceEnabled": true,
+                "LinkStatus": "LinkUp",
+                "@odata.etag": "\"b4d82f5df055d7e5ff8674eed5734956\"",
+                "PermanentMACAddress": "10:00:00:10:9B:66:81:E0",
+                "Description": "External Network Interface"
+            }
+        },
+        "storage": {
+            "/redfish/v1/Systems/1/Storage": {
+                "@odata.id": "/redfish/v1/Systems/1/Storage",
+                "Name": "StorageCollection",
+                "@odata.context": "/redfish/v1/$metadata#StorageCollection.StorageCollection",
+                "Members": [],
+                "@odata.type": "#StorageCollection.StorageCollection",
+                "@odata.etag": "\"112cbbc359317835659728e28e789ea0\"",
+                "Members@odata.count": 0,
+                "Description": "A collection of storage resource instances"
+            }
+        },
+        "memory": {},
+        "pcie devices": {},
+        "pcie functions": {
+            "/redfish/v1/Systems/1/PCIeFunctions/ob_1.00": {
+                "VendorId": "0x102b",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_1.00",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_1"
+                    },
+                    "EthernetInterfaces": []
+                },
+                "FunctionId": 0,
+                "SubsystemId": "0x0101",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "DisplayController",
+                "Name": "Adapter 02:00:00",
+                "SubsystemVendorId": "0x19a2",
+                "Id": "ob_1.00",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0x0522",
+                "RevisionId": "0x42",
+                "@odata.etag": "\"9ce391ae2fe8db1a3ca26ac4a39fed2d\"",
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "ClassCode": "0x030000"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/ob_2.00": {
+                "VendorId": "0x8086",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_2.00",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_2"
+                    },
+                    "EthernetInterfaces": []
+                },
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "SubsystemId": "0x7801",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "MassStorageController",
+                "Name": "Adapter 00:17:00",
+                "SubsystemVendorId": "0x17aa",
+                "Id": "ob_2.00",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0xa182",
+                "FunctionId": 0,
+                "@odata.etag": "\"34a8a390cfe00b2cd5ae56566699e108\"",
+                "RevisionId": "0x09",
+                "ClassCode": "0x010601"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/ob_3.00": {
+                "VendorId": "0x8086",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_3.00",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_3"
+                    },
+                    "EthernetInterfaces": []
+                },
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "SubsystemId": "0x7801",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "Other",
+                "Name": "Adapter 00:11:00",
+                "SubsystemVendorId": "0x17aa",
+                "Id": "ob_3.00",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0xa1ec",
+                "FunctionId": 0,
+                "@odata.etag": "\"2791889b8068cfdc04643e954d3b8171\"",
+                "RevisionId": "0x09",
+                "ClassCode": "0xff0000"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/ob_3.05": {
+                "VendorId": "0x8086",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_3.05",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_3"
+                    },
+                    "EthernetInterfaces": []
+                },
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "SubsystemId": "0x7801",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "MassStorageController",
+                "Name": "Adapter 00:11:05",
+                "SubsystemVendorId": "0x17aa",
+                "Id": "ob_3.05",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0xa1d2",
+                "FunctionId": 5,
+                "@odata.etag": "\"9e3136772bdea75fcfa70091d6b88fc0\"",
+                "RevisionId": "0x09",
+                "ClassCode": "0x010601"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/ob_4.00": {
+                "VendorId": "0x8086",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.00",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4"
+                    },
+                    "EthernetInterfaces": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC1"
+                        }
+                    ]
+                },
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "SubsystemId": "0x4020",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "NetworkController",
+                "Name": "Intel X722 LOM 5a:00:00",
+                "SubsystemVendorId": "0x17aa",
+                "Id": "ob_4.00",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0x37d3",
+                "FunctionId": 0,
+                "@odata.etag": "\"b19b79183e90f552970848d029016b84\"",
+                "RevisionId": "0x09",
+                "ClassCode": "0x020000"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/ob_4.01": {
+                "VendorId": "0x8086",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.01",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4"
+                    },
+                    "EthernetInterfaces": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC2"
+                        }
+                    ]
+                },
+                "FunctionId": 1,
+                "SubsystemId": "0x4020",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "NetworkController",
+                "Name": "Intel X722 LOM 5a:00:01",
+                "SubsystemVendorId": "0x17aa",
+                "Id": "ob_4.01",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0x37d3",
+                "RevisionId": "0x09",
+                "@odata.etag": "\"9059765a0e87dad44854e6e4c8743c90\"",
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "ClassCode": "0x020000"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/ob_4.02": {
+                "VendorId": "0x8086",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.02",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4"
+                    },
+                    "EthernetInterfaces": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC3"
+                        }
+                    ]
+                },
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "SubsystemId": "0x4020",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "NetworkController",
+                "Name": "Intel X722 LOM 5a:00:02",
+                "SubsystemVendorId": "0x17aa",
+                "Id": "ob_4.02",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0x37d1",
+                "FunctionId": 2,
+                "@odata.etag": "\"2b4dca5f34be27ed96661d29c7a66525\"",
+                "RevisionId": "0x09",
+                "ClassCode": "0x020000"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/ob_4.03": {
+                "VendorId": "0x8086",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.03",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4"
+                    },
+                    "EthernetInterfaces": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC4"
+                        }
+                    ]
+                },
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "SubsystemId": "0x4020",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "NetworkController",
+                "Name": "Intel X722 LOM 5a:00:03",
+                "SubsystemVendorId": "0x17aa",
+                "Id": "ob_4.03",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0x37d1",
+                "FunctionId": 3,
+                "@odata.etag": "\"04fef9d274779af0c213c544431adef9\"",
+                "RevisionId": "0x09",
+                "ClassCode": "0x020000"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/slot_3.00": {
+                "VendorId": "0x10df",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.00",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/slot_3"
+                    },
+                    "EthernetInterfaces": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC5"
+                        }
+                    ]
+                },
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "SubsystemId": "0xe332",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "NetworkController",
+                "Name": "Emulex 01CV842 16Gb FC Dual-port HBA 06:00:00",
+                "SubsystemVendorId": "0x10df",
+                "Id": "slot_3.00",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0xe300",
+                "FunctionId": 0,
+                "@odata.etag": "\"02c034258d9a5abac5e16cca4532080b\"",
+                "RevisionId": "0x01",
+                "ClassCode": "0x0c0400"
+            },
+            "/redfish/v1/Systems/1/PCIeFunctions/slot_3.01": {
+                "VendorId": "0x10df",
+                "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.01",
+                "Links": {
+                    "Drives": [],
+                    "StorageControllers": [],
+                    "PCIeDevice": {
+                        "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/slot_3"
+                    },
+                    "EthernetInterfaces": [
+                        {
+                            "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces/NIC6"
+                        }
+                    ]
+                },
+                "@odata.context": "/redfish/v1/$metadata#PCIeFunction.PCIeFunction",
+                "SubsystemId": "0xe332",
+                "Description": "This resource represents the properties of a PCIeFunction attached to a System.",
+                "FunctionType": "Physical",
+                "Status": {
+                    "State": "Enabled",
+                    "Health": "OK",
+                    "HealthRollup": "OK"
+                },
+                "DeviceClass": "NetworkController",
+                "Name": "Emulex 01CV842 16Gb FC Dual-port HBA 06:00:01",
+                "SubsystemVendorId": "0x10df",
+                "Id": "slot_3.01",
+                "@odata.type": "#PCIeFunction.v1_2_1.PCIeFunction",
+                "DeviceId": "0xe300",
+                "FunctionId": 1,
+                "@odata.etag": "\"cfe4085b6df57dacb38dc8d467dd67f2\"",
+                "RevisionId": "0x01",
+                "ClassCode": "0x0c0400"
+            }
+        },
+        "standard logs": {
+            "@odata.id": "/redfish/v1/Systems/1/LogServices/StandardLog/Entries",
+            "Name": "LogEntryStandardLogEntryCollection",
+            "@odata.context": "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection",
+            "Members": {
+                "MessageArgs": [
+                    "Host Power"
+                ],
+                "Id": "518",
+                "Message": "Host Power has been turned off.",
+                "EntryType": "Oem",
+                "Name": "LogEntry",
+                "@odata.context": "/redfish/v1/$metadata#LogEntry.LogEntry",
+                "Description": "This resource is used to represent a log entry for log services for a Redfish implementation.",
+                "Oem": {
+                    "Lenovo": {
+                        "ReportingChain": "XCC",
+                        "IsLocalEvent": true,
+                        "RawDebugLogURL": "",
+                        "AffectedIndicatorLEDs": [
+                            {
+                                "LEDIdentifier": "30e",
+                                "LEDState": "Blinking"
+                            }
+                        ],
+                        "EventFlag": 0,
+                        "AuxiliaryData": "",
+                        "Source": "Power",
+                        "FailingFRU": [
+                            {
+                                "FRUSerialNumber": "",
+                                "FRUNumber": ""
+                            }
+                        ],
+                        "TSLVersion": "16",
+                        "CommonEventID": "FQXSPPW0008I",
+                        "Hidden": false,
+                        "EventID": "0x806f00091301ffff",
+                        "EventSequenceNumber": 1,
+                        "EventType": 0,
+                        "@odata.type": "#LenovoLogEntry.v1_0_0.StandardLogEntry",
+                        "LenovoMessageID": "PLAT0106",
+                        "RelatedEventID": "",
+                        "Serviceable": "Not Serviceable"
+                    }
+                },
+                "@odata.type": "#LogEntry.v1_4_0.LogEntry",
+                "OemRecordFormat": "Lenovo",
+                "Severity": "OK",
+                "@odata.id": "/redfish/v1/Systems/1/LogServices/StandardLog/Entries/518",
+                "Created": "2019-04-03T12:07:34.169+00:00"
+            },
+            "@odata.type": "#LogEntryCollection.LogEntryCollection",
+            "@odata.etag": "\"0bf671d4c7eaf7dd4232bb91dc25b986\"",
+            "Members@odata.count": 1772,
+            "Description": "A collection of LogEntryStandardLogEntry resource instances."
+        }
+    }
+}
