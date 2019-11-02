@@ -9,6 +9,13 @@ class Connector():
         self.address = address
         self.port = port
         self.credentials = credentials
+        self.connected = False
 
     def test_connection(self):
+        raise NotImplementedError
+
+    def connect(self):
+        raise NotImplementedError
+
+    def disconnect(self):
         raise NotImplementedError

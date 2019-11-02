@@ -4,38 +4,25 @@ import sys
 import termios
 import tty
 import select
-from paramiko import SSHClient, AutoAddPolicy
 
 
 class BashShell:
     """Class responsible for running bash commands and
     scripts on a remote server through ssh"""
 
-    def __init__(self, host, credentials):
-        self.host = host
-        self.credentials = credentials
-        self.client = None
+    def __init__(self, connector):
+        self.connector = connector
 
     # Base commands
 
-    def connect(self):
-        self.client = SSHClient()
-        self.client.set_missing_host_key_policy(AutoAddPolicy())
-        self.client.connect(
-            hostname=self.host,
-            username=self.credentials.username,
-            password=self.credentials.password)
-
-    def disconnect(self):
-        self.client.close()
 
     def execute(self, cmd):
-        _, stdout, _ = self.client.exec_command(cmd)
+        _, stdout, _ = self.connector.exec_command(cmd)
         return list(stdout)
 
     def interactive_shell(self):
         "Run remote interactive shell on connected client machine"
-        channel = self.client.invoke_shell()
+        channel = self.connector.invoke_shell()
         oldtty = termios.tcgetattr(sys.stdin)
         try:
             tty.setraw(sys.stdin.fileno())

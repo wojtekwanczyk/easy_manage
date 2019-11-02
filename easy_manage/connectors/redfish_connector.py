@@ -21,7 +21,6 @@ class RedfishConnector(Connector, RedfishTools):
         self.db_filter_name = '_connector'
         self.db_collection = 'connectors'
         self.db_filter = {self.db_filter_name: self.name}
-        self.connected = False
         self.client = None
         self.connector = self
         #     for testing
@@ -42,6 +41,15 @@ class RedfishConnector(Connector, RedfishTools):
             LOGGER.error(f"Error while logging in\n{ex}")
             return False
         return True
+
+    def disconnect(self):
+        self.client.logout()
+
+    def test_connection(self):
+        if self.connect():
+            self.disconnect()
+            return True
+        return False
 
     def get_systems(self):
         "Get systems"
