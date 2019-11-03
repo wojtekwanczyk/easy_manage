@@ -15,13 +15,7 @@ class RedfishChassis(AbstractChassis, RedfishTools):
         super().__init__(name, connector)
         self.endpoint = endpoint
         self.thermal = None
-        self.db_filter_name = '_chassis'
-        self.db_collection = 'chassis'
         self.force_fetch = False
-        self.db_filter = {
-            self.connector.db_filter_name: self.connector.name,
-            self.db_filter_name: self.name
-        }
 
     # Basic info
 

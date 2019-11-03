@@ -17,14 +17,11 @@ LOGGER.setLevel(logging.INFO)
 class ControllerFactory:
     "Class responsible for creating controllers, it detects available interfaces"
 
-    def __init__(self, db):
-        self.db = db
-
     def create_controller(self, name, description, address, credentials):
         "Create controller detecting with interfaces it can support"
-        controller = Controller(name, description, self.db)
+        controller = Controller(name, description)
         for protocol in Protocols:
-            connector = connectors_switch(protocol, address, credentials, self.db)
+            connector = connectors_switch(protocol, address, credentials)
             if connector and connector.connect():
                 controller.standards[protocol] = connector
                 system = systems_switch(protocol, connector)

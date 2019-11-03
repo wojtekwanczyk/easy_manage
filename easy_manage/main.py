@@ -8,6 +8,7 @@ import json
 from pymongo import MongoClient
 from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
+from easy_manage.connectors.ssh_connector import SshConnector
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.chassis.redfish_chassis import RedfishChassis
 from easy_manage.systems.ipmi_system import IpmiSystem
@@ -27,15 +28,15 @@ def parse_conf(filename, name='LENOVO'):
         data = json.load(config_file)
     return data[name]
 
-def redfish_demo(config, db, credentials):
+def redfish_demo(config, credentials):
     "Just some Redfish testing cases"
 
     LOGGER.info('Redfish demo')
 
     global rf_conn
-    rf_conn = RedfishConnector('test_connector_redfish', config['CONTROLLER']['ADDRESS'], db, credentials)
+    rf_conn = RedfishConnector('test_connector_redfish', config['CONTROLLER']['ADDRESS'], credentials)
     LOGGER.debug("Connecting to Redfish...")
-    rf_conn.connect() # without this data is taken from db
+    rf_conn.connect()
     LOGGER.debug("Connected")
 
     rf_sys = RedfishSystem('test_system_redfish',
@@ -54,10 +55,10 @@ def redfish_demo(config, db, credentials):
     #     d = rf_sys.get_data("/redfish/v1/" + cmd)
     #     pp.pprint(d)
 
-    return rf_sys, rf_cha
+    return rf_sys, rf_cha, rf_conn
 
 
-def ipmi_demo(args, db, credentials):
+def ipmi_demo(args, credentials):
     LOGGER.info('IPMI demo')
     ipmi_conn = IpmiConnector('test_connector_ipmi',
                               args.address, credentials)
@@ -109,19 +110,22 @@ def ipmi_demo(args, db, credentials):
 
 
 def shell_demo(config, credentials):
-    sh = BashShell(config['DEVICE']['ADDRESS'], credentials)
+    conn = SshConnector('randomname', config['DEVICE']['ADDRESS'], credentials)
     print("Connecting through ssh")
-    sh.connect()
+    conn.connect()
     print("Connected")
+    sh = BashShell(conn)
+    print('Shell obtained')
     #sh.interactive_shell()    
-    return sh
+    return sh, conn
 
 
-def controller_factory_demo(db, config, credentials):
-    factory = ControllerFactory(db)
+def controller_factory_demo(config, credentials):
+    factory = ControllerFactory()
     controller = factory.create_controller('test', 'test', config['CONTROLLER']['ADDRESS'],
                                            credentials)
     print(controller.system.get_methods())
+    return controller
 
 
 def main():
@@ -129,26 +133,16 @@ def main():
     LOGGER.info("Welcome to easy_manage!")
     config = parse_conf('config.json', 'LENOVO')
 
-    mongo_client = MongoClient(config['DATABASE']['NAME'])
-    db = mongo_client.get_database(config['DATABASE']['NAME'])
     user_password = 'pass'
     creds_controller = utils.get_credentials(config, 'CONTROLLER', user_password)
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
-    global rf, c, sh
-    #rf, c = redfish_demo(config, db, creds_controller)
-    #ipmi_demo(args, db, creds_controller)
-    controller_factory_demo(db, config, creds_controller)
-    # sh = shell_demo(config, creds_device)
+    global rf, c, sh, cont, r_conn, s_conn
+    #ipmi_demo(args, creds_controller)
+    rf, c, r_conn = redfish_demo(config, creds_controller)
+    cont = controller_factory_demo(config, creds_controller)
+    sh, s_conn = shell_demo(config, creds_device)
 
-    # controller_factory = ControllerFactory()
-    # controller = controller_factory.create_controller(
-    #     'name',
-    #     'description',
-    #     args.address,
-    #     credentials,
-    #     db)
-    # print(f"POWER STATE: {controller.get_power_state()}")
     return 0
 
 

@@ -18,13 +18,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
         super().__init__(name, connector)
 
         self.endpoint = endpoint
-        self.db_filter_name = '_system'
-        self.db_collection = 'systems'
         self.force_fetch = False
-        self.db_filter = {
-            self.connector.db_filter_name: self.connector.name,
-            self.db_filter_name: self.name
-        }
 
     # Basic info
 

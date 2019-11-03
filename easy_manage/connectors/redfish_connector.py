@@ -14,18 +14,12 @@ LOGGER.setLevel(logging.DEBUG)
 class RedfishConnector(Connector, RedfishTools):
     "Class responisbile for connection through Redfish standard."
 
-    def __init__(self, name, address, db, credentials, port=None):
+    def __init__(self, name, address, credentials, port=None):
         super().__init__(name, address, credentials, port)
         self.url = 'https://' + self.address
         self.endpoint = '/redfish/v1'
-        self.db_filter_name = '_connector'
-        self.db_collection = 'connectors'
-        self.db_filter = {self.db_filter_name: self.name}
-        self.connected = False
         self.client = None
         self.connector = self
-        #     for testing
-        self.db = db
         self.systems = None
 
     def connect(self):
@@ -42,6 +36,15 @@ class RedfishConnector(Connector, RedfishTools):
             LOGGER.error(f"Error while logging in\n{ex}")
             return False
         return True
+
+    def disconnect(self):
+        self.client.logout()
+
+    def test_connection(self):
+        if self.connect():
+            self.disconnect()
+            return True
+        return False
 
     def get_systems(self):
         "Get systems"

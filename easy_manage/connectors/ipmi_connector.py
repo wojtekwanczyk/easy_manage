@@ -17,7 +17,6 @@ class IpmiConnector(Connector):
         self.device_id = None
         self.interface = None
         self.ipmi = None
-        self.connected = False
 
     def connect(self):
         "Function creates connection to given device"

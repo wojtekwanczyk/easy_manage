@@ -4,10 +4,9 @@
 class AbstractChassis():
     "Abstract chasiss class, for aggregating and unifying chassis functionalities"
 
-    def __init__(self, system_name, connector):
-        self.system_name = system_name
+    def __init__(self, name, connector):
+        self.name = name
         self.connector = connector
-        self.db = connector.db
         self.data = {}
         self.last_update = None
 
