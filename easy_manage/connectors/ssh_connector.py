@@ -17,26 +17,29 @@ class SshConnector(Connector, SSHClient):
         SSHClient.__init__(self)
 
     def connect(self):
-        self.set_missing_host_key_policy(AutoAddPolicy())
-        SSHClient.connect(
-            self,
-            hostname=self.address,
-            username=self.credentials.username,
-            password=self.credentials.password)
-        self.connected = True
-
-    def disconnect(self):
-        SSHClient.close(self)
-
-    def test_connection(self):
         """
         Possible exceptions: BadHostKeyException, AuthenticationException,
         SSHException but it dosn't matter which one it is, just logging it.
         """
+        self.set_missing_host_key_policy(AutoAddPolicy())
         try:
-            self.connect()
+            SSHClient.connect(
+                self,
+                hostname=self.address,
+                username=self.credentials.username,
+                password=self.credentials.password)
         except Exception as ex:
             LOGGER.critical(ex)
             return False
-        self.disconnect()
+        self.connected = True
         return True
+
+    def disconnect(self):
+        SSHClient.close(self)
+        self.connected = False
+
+    def test_connection(self):
+        if self.connect():
+            self.disconnect()
+            return True
+        return False
