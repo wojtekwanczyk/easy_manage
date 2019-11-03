@@ -1,3 +1,5 @@
+"easy_manage setup file"
+
 import setuptools
 
 with open("README.md", "r") as f:
@@ -5,7 +7,6 @@ with open("README.md", "r") as f:
 
 REQUIREMENTS_LIST = [
     'redfish >= 2.1.0',
-    'pymongo[srv] >= 3.8.0',
     'cryptography >= 2.7',
     'python-ipmi',
     'paramiko >= 2.6.0'

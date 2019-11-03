@@ -18,12 +18,8 @@ class RedfishTools:
         self.name = None
         self.data = None
         self.last_update = None
-        self.db = {}
-        self.db_filter = None
-        self.db_collection = None
         self.connector = None
         self.client = None
-        self.db_filter_name = None
         self.force_fetch = None
 
     def set_force_fetch(self, value):
@@ -32,10 +28,9 @@ class RedfishTools:
         self.force_fetch = value
 
     def _fetch(self, level=1, interval=60, force=False):
-        """Fetches data from device through Redfish interface and passes it to database.
-        If the session has not been established, then data is fetched from database. When
-        data has been fetched from Redfish Connector in less than `interval` seconds, it won't
-        be fetched once again
+        """Fetches data from device through Redfish interface and stores it in the memory.
+        When data has been fetched from Redfish Connector in less than `interval` seconds,
+        it won't be fetched once again but will be taken from memory
         :param level: How recursively deep data should be fetched from Redfish
         :param interval: Minimal time in seconds between two Redfish fetch requests
         :param force: If set, method ignores interval parameter and forces fetch from Redfish
@@ -54,18 +49,6 @@ class RedfishTools:
         else:
             LOGGER.info("Fetching data from memory")
         return self.data
-
-    def _save_to_db(self):
-        "DEPRECATED - Save data to database"
-        self.data.update(self.db_filter)
-        self.db[self.db_collection].update(
-            self.db_filter,
-            self.data,
-            upsert=True)
-
-    def _fetch_from_db(self):
-        "DEPRECATED - Fetch data from database"
-        self.data = self.db[self.db_collection].find_one(self.db_filter)
 
     def get_data(self, endpoint):
         """Get data from endpoint. Wrapper for redfish client"""

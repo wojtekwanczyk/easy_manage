@@ -7,7 +7,6 @@ class AbstractChassis():
     def __init__(self, name, connector):
         self.name = name
         self.connector = connector
-        self.db = connector.db
         self.data = {}
         self.last_update = None
 

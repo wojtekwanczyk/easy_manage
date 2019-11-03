@@ -1,10 +1,6 @@
 {
     "LENOVO": {
         "USER_PASSWORD": "d74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1",
-        "DATABASE": {
-            "NAME": "easy_manage_db",
-            "URI": "mongodb+srv://easy-manage:admin@easy-manage-t2mek.mongodb.net/test?retryWrites=true"
-        },
         "CONTROLLER": {
             "ADDRESS": "172.16.67.120",
             "USERNAME": "student",
