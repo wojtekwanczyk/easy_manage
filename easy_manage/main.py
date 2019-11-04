@@ -28,6 +28,7 @@ def parse_conf(filename, name='LENOVO'):
         data = json.load(config_file)
     return data[name]
 
+
 def redfish_demo(config, credentials):
     "Just some Redfish testing cases"
 
@@ -64,15 +65,22 @@ def ipmi_demo(args, credentials):
                               args.address, credentials)
     ipmi_conn.connect()
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
-
+    sys = ipmi_sys.aggregate()
     ipmi_chass = IpmiChassis(ipmi_conn)
+    chasis = ipmi_chass.aggregate()
+    sys['events']['discrete_events'] = sys['events']['discrete_events'][0:10]
+    # return sys,chasis
+    with open('ipmi_out_sys.json', 'w') as f:
+        json.dump(sys, f, indent=4)
+#
+    with open('ipmi_out_chassis.json', 'w') as f:
+        json.dump(chasis, f, indent=4)
 
 #    FRU FETCHING
-    frus = ipmi_sys.FRU.component_info()
+    # frus = ipmi_sys.FRU.component_info()
    # SDR FETCHING
-    sdrs = ipmi_sys.SDRRepository.fetch_sdr_object_list()
+    # sdrs = ipmi_sys.SDRRepository.fetch_sdr_object_list()
 
-    
     # Fru to sdr matching attempt [*] rip on p
     # def wrapper_matching(sdr_id):
     #     def matching(x):
@@ -86,11 +94,11 @@ def ipmi_demo(args, credentials):
 
         # matching = list(filter(wrapper_matching(sdr_id), frus))
         # if matching:
-            # print("Matched some frus with sdrs")
-            # print(matching)
-            # print(sdr.name)
+        # print("Matched some frus with sdrs")
+        # print(matching)
+        # print(sdr.name)
         # else:
-            # print("No match\n")
+        # print("No match\n")
 
     # READING SENESRS
     #readings = ipmi_sys.Sensor.mass_read_sensor(sdrs)
@@ -116,7 +124,7 @@ def shell_demo(config, credentials):
     print("Connected")
     sh = BashShell(conn)
     print('Shell obtained')
-    #sh.interactive_shell()    
+    # sh.interactive_shell()
     return sh, conn
 
 

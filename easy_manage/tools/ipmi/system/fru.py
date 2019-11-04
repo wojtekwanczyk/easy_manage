@@ -37,11 +37,11 @@ class FRU(FRUInventoryOwner):
             self._fetch_inventory()
         if self.fru_inventory.board_info_area:
             return {
-                "manufacturer": self.fru_inventory.board_info_area.manufacturer,
-                "product_name": self.fru_inventory.board_info_area.product_name,
-                "serial_number": self.fru_inventory.board_info_area.serial_number,
-                "part_number": self.fru_inventory.board_info_area.part_number,
-                "fru_file_id": self.fru_inventory.board_info_area.fru_file_id}
+                "manufacturer": str(self.fru_inventory.board_info_area.manufacturer),
+                "product_name": str(self.fru_inventory.board_info_area.product_name),
+                "serial_number": str(self.fru_inventory.board_info_area.serial_number),
+                "part_number": str(self.fru_inventory.board_info_area.part_number),
+                "fru_file_id": str(self.fru_inventory.board_info_area.fru_file_id)}
         return None
 
     @property
@@ -51,12 +51,12 @@ class FRU(FRUInventoryOwner):
             self._fetch_inventory()
         if self.fru_inventory.product_info_area:
             return{
-                "manufacturer": self.fru_inventory.product_info_area.manufacturer,
-                "name": self.fru_inventory.product_info_area.name,
-                "part_number": self.fru_inventory.product_info_area.part_number,
-                "version": self.fru_inventory.product_info_area.version,
-                "serial_number": self.fru_inventory.product_info_area.serial_number,
-                "asset_tag": self.fru_inventory.product_info_area.asset_tag}
+                "manufacturer": str(self.fru_inventory.product_info_area.manufacturer),
+                "name": str(self.fru_inventory.product_info_area.name),
+                "part_number": str(self.fru_inventory.product_info_area.part_number),
+                "version": str(self.fru_inventory.product_info_area.version),
+                "serial_number": str(self.fru_inventory.product_info_area.serial_number),
+                "asset_tag": str(self.fru_inventory.product_info_area.asset_tag)}
         return None
 
     @property

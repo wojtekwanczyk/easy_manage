@@ -53,5 +53,5 @@ class BMCInfo:
         return {
             'bmc_firmware_version': self.firmware_version,
             'bmc_functions': self.functions,
-            'bmc_info': self.device_info
+            'bmc_info': str(self.device_info)
         }
