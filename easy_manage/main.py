@@ -58,14 +58,21 @@ def redfish_demo(config, credentials):
     return rf_sys, rf_cha, rf_conn
 
 
-def ipmi_demo(args, credentials):
+def ipmi_demo(config, credentials):
     LOGGER.info('IPMI demo')
     ipmi_conn = IpmiConnector('test_connector_ipmi',
-                              args.address, credentials)
+                              config['CONTROLLER']['ADDRESS'], credentials)
     ipmi_conn.connect()
     ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
-
+    sys = ipmi_sys.aggregate()
     ipmi_chass = IpmiChassis(ipmi_conn)
+    chasis = ipmi_chass.aggregate()
+
+    with open('oy_sys.json', 'w') as f:
+        json.dump(sys, f, indent=4)
+
+    with open('out_chassis.json', 'w') as f:
+        json.dump(chasis, f, indent=4)
 
 #    FRU FETCHING
     frus = ipmi_sys.FRU.component_info()
@@ -138,7 +145,7 @@ def main():
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
     global rf, c, sh, cont, r_conn, s_conn
-    #ipmi_demo(args, creds_controller)
+    ipmi_demo(config, creds_controller)
     rf, c, r_conn = redfish_demo(config, creds_controller)
     cont = controller_factory_demo(config, creds_controller)
     sh, s_conn = shell_demo(config, creds_device)
