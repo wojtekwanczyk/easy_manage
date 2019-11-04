@@ -1,0 +1,22 @@
+{
+    "power_on_counter": {
+        "minutes_per_count": 60,
+        "counter_reading": 4041
+    },
+    "chassis_info": {
+        "type": "other",
+        "part_number": "",
+        "serial_number": "S4ATJ171"
+    },
+    "chassis_status": {
+        "power_on": true,
+        "overload": false,
+        "interlock": false,
+        "fault": false,
+        "control_fault": false,
+        "restore_policy": 1,
+        "last_event": [],
+        "chassis_state": []
+    },
+    "chassis_functions": []
+}

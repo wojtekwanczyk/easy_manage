@@ -1,0 +1,5244 @@
+{
+    "bmc": {
+        "bmc_firmware_version": "undefined",
+        "bmc_functions": [
+            "SENSOR",
+            "SDR_REPOSITORY",
+            "SEL",
+            "FRU_INVENTORY",
+            "IPMB_EVENT_RECEIVER",
+            "IPMB_EVENT_GENERATOR",
+            "CHASSIS"
+        ],
+        "bmc_info": "{'device_id': 32, 'revision': 0, 'provides_sdrs': False, 'available': False, 'fw_revision': <pyipmi.fields.VersionField object at 0x7ff6983d9828>, 'ipmi_version': <pyipmi.fields.VersionField object at 0x7ff6983d9ac8>, 'manufacturer_id': 19046, 'product_id': 1088, 'supported_functions': ['sensor', 'sdr_repository', 'sel', 'fru_inventory', 'ipmb_event_receiver', 'ipmb_event_generator', 'chassis'], 'aux': None}"
+    },
+    "hardware": {
+        "system_components": [
+            {
+                "Product Extra": "Builtin FRU Device",
+                "fru_id": "0",
+                "properties": {
+                    "Chassis Type": "Other",
+                    "Chassis Serial": "S4ATJ171",
+                    "Chassis Extra": "c838ecae4a8c11e9b06b0a94ef7919e1",
+                    "Board Mfg Date": "Mon Feb 25 13:00:00 2019",
+                    "Board Mfg": "LENOVO",
+                    "Board Product": "System Board",
+                    "Board Serial": "W8ZS931006T",
+                    "Board Part Number": "SB27A18555",
+                    "Product Manufacturer": "Lenovo",
+                    "Product Name": "ThinkSystem SR530",
+                    "Product Part Number": "7X08CTO1WW",
+                    "Product Version": "0008",
+                    "Product Serial": "S4ATJ171",
+                    "Product Asset Tag": "",
+                    "Product Extra": "LENOVO"
+                }
+            },
+            {
+                "Product Asset Tag": "CPU 1",
+                "fru_id": "1",
+                "properties": {
+                    "Product Manufacturer": "Intel(R) Corporation",
+                    "Product Name": "Intel Genuine Processor",
+                    "Product Part Number": "00953530",
+                    "Product Version": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz",
+                    "Product Asset Tag": "Max Core:14/Max Threads:28"
+                }
+            },
+            {
+                "Product Asset Tag": "CPU 2",
+                "fru_id": "2",
+                "properties": {
+                    "Product Manufacturer": "Intel(R) Corporation",
+                    "Product Name": "Intel Genuine Processor",
+                    "Product Part Number": "00953530",
+                    "Product Version": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz",
+                    "Product Asset Tag": "Max Core:14/Max Threads:28"
+                }
+            },
+            {
+                "Board Extra": "PCI Riser 2",
+                "fru_id": "66",
+                "properties": {
+                    "Board Mfg Date": "Mon Feb 18 13:00:00 2019",
+                    "Board Mfg": "LNVO",
+                    "Board Product": "LENOVO Product",
+                    "Board Serial": "W2ZS92P0070",
+                    "Board Part Number": "SC57A02006"
+                }
+            },
+            {
+                "Board Extra": "PHY Card",
+                "fru_id": "68",
+                "properties": {
+                    "Board Mfg Date": "Mon Jan 21 13:00:00 2019",
+                    "Board Mfg": "LENOVO",
+                    "Board Product": "LENOVO Product",
+                    "Board Serial": "S2SZ91S00HG",
+                    "Board Part Number": "SN37A18686"
+                }
+            },
+            {
+                "Board Extra": "PSU 1",
+                "fru_id": "33",
+                "properties": {
+                    "Board Mfg Date": "Mon Jul 23 14:00:00 2018",
+                    "Board Mfg": "ACBE",
+                    "Board Product": "LENOVO Product",
+                    "Board Serial": "A4DB87R12JV",
+                    "Board Part Number": "SP57A02019"
+                }
+            },
+            {
+                "Board Extra": "PSU 2",
+                "fru_id": "34",
+                "properties": {
+                    "Board Mfg Date": "Mon Jul 23 14:00:00 2018",
+                    "Board Mfg": "ACBE",
+                    "Board Product": "LENOVO Product",
+                    "Board Serial": "A4DB87R119L",
+                    "Board Part Number": "SP57A02019"
+                }
+            },
+            {
+                "Part Number": "DIMM_2",
+                "fru_id": "97",
+                "properties": {
+                    "Memory Type": "DDR4 SDRAM",
+                    "SDRAM Package Type": "Monolithic DRAM Device",
+                    "Technology": "RDIMM",
+                    "SDRAM Die Count": "1",
+                    "SDRAM Capacity": "8192 Mb",
+                    "Memory Bank Group": "2 (4 Bank Groups)",
+                    "Memory Banks": "2 (4 Banks)",
+                    "Primary Bus Width": "64 bits",
+                    "SDRAM Device Width": "4 bits",
+                    "Logical Rank per DIMM": "2",
+                    "Memory size": "32768 MB",
+                    "Memory Density": "8 Gb",
+                    "1.2 V Nominal Op": "Yes",
+                    "TBD1 V Nominal Op": "No",
+                    "TBD2 V Nominal Op": "No",
+                    "Error Detect/Cor": "8 bits",
+                    "Manufacturer": "Samsung",
+                    "Manufacture Date": "year 2018 week 37",
+                    "Serial Number": "23bb99f0",
+                    "Part Number": "M393A4K40CB2-CTD"
+                }
+            },
+            {
+                "Part Number": "DIMM_3",
+                "fru_id": "98",
+                "properties": {
+                    "Memory Type": "DDR4 SDRAM",
+                    "SDRAM Package Type": "Monolithic DRAM Device",
+                    "Technology": "RDIMM",
+                    "SDRAM Die Count": "1",
+                    "SDRAM Capacity": "8192 Mb",
+                    "Memory Bank Group": "2 (4 Bank Groups)",
+                    "Memory Banks": "2 (4 Banks)",
+                    "Primary Bus Width": "64 bits",
+                    "SDRAM Device Width": "4 bits",
+                    "Logical Rank per DIMM": "2",
+                    "Memory size": "32768 MB",
+                    "Memory Density": "8 Gb",
+                    "1.2 V Nominal Op": "Yes",
+                    "TBD1 V Nominal Op": "No",
+                    "TBD2 V Nominal Op": "No",
+                    "Error Detect/Cor": "8 bits",
+                    "Manufacturer": "Samsung",
+                    "Manufacture Date": "year 2018 week 37",
+                    "Serial Number": "23bb9abf",
+                    "Part Number": "M393A4K40CB2-CTD"
+                }
+            },
+            {
+                "Part Number": "DIMM_4",
+                "fru_id": "99",
+                "properties": {
+                    "Memory Type": "DDR4 SDRAM",
+                    "SDRAM Package Type": "Monolithic DRAM Device",
+                    "Technology": "RDIMM",
+                    "SDRAM Die Count": "1",
+                    "SDRAM Capacity": "8192 Mb",
+                    "Memory Bank Group": "2 (4 Bank Groups)",
+                    "Memory Banks": "2 (4 Banks)",
+                    "Primary Bus Width": "64 bits",
+                    "SDRAM Device Width": "4 bits",
+                    "Logical Rank per DIMM": "2",
+                    "Memory size": "32768 MB",
+                    "Memory Density": "8 Gb",
+                    "1.2 V Nominal Op": "Yes",
+                    "TBD1 V Nominal Op": "No",
+                    "TBD2 V Nominal Op": "No",
+                    "Error Detect/Cor": "8 bits",
+                    "Manufacturer": "Samsung",
+                    "Manufacture Date": "year 2018 week 37",
+                    "Serial Number": "23bb99f7",
+                    "Part Number": "M393A4K40CB2-CTD"
+                }
+            },
+            {
+                "Part Number": "DIMM_5",
+                "fru_id": "100",
+                "properties": {
+                    "Memory Type": "DDR4 SDRAM",
+                    "SDRAM Package Type": "Monolithic DRAM Device",
+                    "Technology": "RDIMM",
+                    "SDRAM Die Count": "1",
+                    "SDRAM Capacity": "8192 Mb",
+                    "Memory Bank Group": "2 (4 Bank Groups)",
+                    "Memory Banks": "2 (4 Banks)",
+                    "Primary Bus Width": "64 bits",
+                    "SDRAM Device Width": "4 bits",
+                    "Logical Rank per DIMM": "2",
+                    "Memory size": "32768 MB",
+                    "Memory Density": "8 Gb",
+                    "1.2 V Nominal Op": "Yes",
+                    "TBD1 V Nominal Op": "No",
+                    "TBD2 V Nominal Op": "No",
+                    "Error Detect/Cor": "8 bits",
+                    "Manufacturer": "Samsung",
+                    "Manufacture Date": "year 2018 week 37",
+                    "Serial Number": "23bb99db",
+                    "Part Number": "M393A4K40CB2-CTD"
+                }
+            },
+            {
+                "Part Number": "DIMM_8",
+                "fru_id": "103",
+                "properties": {
+                    "Memory Type": "DDR4 SDRAM",
+                    "SDRAM Package Type": "Monolithic DRAM Device",
+                    "Technology": "RDIMM",
+                    "SDRAM Die Count": "1",
+                    "SDRAM Capacity": "8192 Mb",
+                    "Memory Bank Group": "2 (4 Bank Groups)",
+                    "Memory Banks": "2 (4 Banks)",
+                    "Primary Bus Width": "64 bits",
+                    "SDRAM Device Width": "4 bits",
+                    "Logical Rank per DIMM": "2",
+                    "Memory size": "32768 MB",
+                    "Memory Density": "8 Gb",
+                    "1.2 V Nominal Op": "Yes",
+                    "TBD1 V Nominal Op": "No",
+                    "TBD2 V Nominal Op": "No",
+                    "Error Detect/Cor": "8 bits",
+                    "Manufacturer": "Samsung",
+                    "Manufacture Date": "year 2018 week 37",
+                    "Serial Number": "23bb9a8c",
+                    "Part Number": "M393A4K40CB2-CTD"
+                }
+            },
+            {
+                "Part Number": "DIMM_9",
+                "fru_id": "104",
+                "properties": {
+                    "Memory Type": "DDR4 SDRAM",
+                    "SDRAM Package Type": "Monolithic DRAM Device",
+                    "Technology": "RDIMM",
+                    "SDRAM Die Count": "1",
+                    "SDRAM Capacity": "8192 Mb",
+                    "Memory Bank Group": "2 (4 Bank Groups)",
+                    "Memory Banks": "2 (4 Banks)",
+                    "Primary Bus Width": "64 bits",
+                    "SDRAM Device Width": "4 bits",
+                    "Logical Rank per DIMM": "2",
+                    "Memory size": "32768 MB",
+                    "Memory Density": "8 Gb",
+                    "1.2 V Nominal Op": "Yes",
+                    "TBD1 V Nominal Op": "No",
+                    "TBD2 V Nominal Op": "No",
+                    "Error Detect/Cor": "8 bits",
+                    "Manufacturer": "Samsung",
+                    "Manufacture Date": "year 2018 week 37",
+                    "Serial Number": "23bb99cc",
+                    "Part Number": "M393A4K40CB2-CTD"
+                }
+            },
+            {
+                "Part Number": "DIMM_10",
+                "fru_id": "105",
+                "properties": {
+                    "Memory Type": "DDR4 SDRAM",
+                    "SDRAM Package Type": "Monolithic DRAM Device",
+                    "Technology": "RDIMM",
+                    "SDRAM Die Count": "1",
+                    "SDRAM Capacity": "8192 Mb",
+                    "Memory Bank Group": "2 (4 Bank Groups)",
+                    "Memory Banks": "2 (4 Banks)",
+                    "Primary Bus Width": "64 bits",
+                    "SDRAM Device Width": "4 bits",
+                    "Logical Rank per DIMM": "2",
+                    "Memory size": "32768 MB",
+                    "Memory Density": "8 Gb",
+                    "1.2 V Nominal Op": "Yes",
+                    "TBD1 V Nominal Op": "No",
+                    "TBD2 V Nominal Op": "No",
+                    "Error Detect/Cor": "8 bits",
+                    "Manufacturer": "Samsung",
+                    "Manufacture Date": "year 2018 week 37",
+                    "Serial Number": "23bb9a71",
+                    "Part Number": "M393A4K40CB2-CTD"
+                }
+            },
+            {
+                "Part Number": "DIMM_11",
+                "fru_id": "106",
+                "properties": {
+                    "Memory Type": "DDR4 SDRAM",
+                    "SDRAM Package Type": "Monolithic DRAM Device",
+                    "Technology": "RDIMM",
+                    "SDRAM Die Count": "1",
+                    "SDRAM Capacity": "8192 Mb",
+                    "Memory Bank Group": "2 (4 Bank Groups)",
+                    "Memory Banks": "2 (4 Banks)",
+                    "Primary Bus Width": "64 bits",
+                    "SDRAM Device Width": "4 bits",
+                    "Logical Rank per DIMM": "2",
+                    "Memory size": "32768 MB",
+                    "Memory Density": "8 Gb",
+                    "1.2 V Nominal Op": "Yes",
+                    "TBD1 V Nominal Op": "No",
+                    "TBD2 V Nominal Op": "No",
+                    "Error Detect/Cor": "8 bits",
+                    "Manufacturer": "Samsung",
+                    "Manufacture Date": "year 2018 week 37",
+                    "Serial Number": "23bb99b8",
+                    "Part Number": "M393A4K40CB2-CTD"
+                }
+            }
+        ],
+        "product_info": {
+            "manufacturer": "Lenovo",
+            "name": "ThinkSystem SR530               ",
+            "part_number": "7X08CTO1WW",
+            "version": "00 08",
+            "serial_number": "  S4ATJ171",
+            "asset_tag": "                                "
+        },
+        "board_info": {
+            "manufacturer": "LENOVO",
+            "product_name": "System Board",
+            "serial_number": "W8ZS931006T",
+            "part_number": "SB27A18555  ",
+            "fru_file_id": ""
+        }
+    },
+    "events": {
+        "discrete_events": [
+            {
+                "generating_sensors_type": "evt_logging_disable",
+                "generating_sensors_number": 254,
+                "event_timestamp": 1553048717,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [],
+                    "direction": "assertion",
+                    "value": "Log Area Reset/Cleared",
+                    "timestamp": 1553048717,
+                    "sensor_type": "evt_logging_disable",
+                    "sensor_number": 254
+                }
+            },
+            {
+                "generating_sensors_type": "power_unit",
+                "generating_sensors_number": 1,
+                "event_timestamp": 1554293157,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [],
+                    "direction": "assertion",
+                    "value": "Power Off / Power Down",
+                    "timestamp": 1554293157,
+                    "sensor_type": "power_unit",
+                    "sensor_number": 1
+                }
+            },
+            {
+                "generating_sensors_type": "power_unit",
+                "generating_sensors_number": 1,
+                "event_timestamp": 1554293253,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [],
+                    "direction": "assertion",
+                    "value": "Power Off / Power Down",
+                    "timestamp": 1554293253,
+                    "sensor_type": "power_unit",
+                    "sensor_number": 1
+                }
+            },
+            {
+                "generating_sensors_type": "entity_presence",
+                "generating_sensors_number": 233,
+                "event_timestamp": 1554293269,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [],
+                    "direction": "assertion",
+                    "value": "Entity Present",
+                    "timestamp": 1554293269,
+                    "sensor_type": "entity_presence",
+                    "sensor_number": 233
+                }
+            },
+            {
+                "generating_sensors_type": "power_supply",
+                "generating_sensors_number": 215,
+                "event_timestamp": 1554293271,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [],
+                    "direction": "assertion",
+                    "value": "Power Supply input lost (AC/DC)",
+                    "timestamp": 1554293271,
+                    "sensor_type": "power_supply",
+                    "sensor_number": 215
+                }
+            },
+            {
+                "generating_sensors_type": "power_unit",
+                "generating_sensors_number": 210,
+                "event_timestamp": 1554293273,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [],
+                    "direction": "assertion",
+                    "value": "Non-Redundant:  Resources Sufficient",
+                    "timestamp": 1554293273,
+                    "sensor_type": "power_unit",
+                    "sensor_number": 210
+                }
+            },
+            {
+                "generating_sensors_type": "power_unit",
+                "generating_sensors_number": 1,
+                "event_timestamp": 1554293628,
+                "event_direction": "deassertion",
+                "event_payload": {
+                    "event_extensions": [],
+                    "direction": "deassertion",
+                    "value": "Power Off / Power Down",
+                    "timestamp": 1554293628,
+                    "sensor_type": "power_unit",
+                    "sensor_number": 1
+                }
+            },
+            {
+                "generating_sensors_type": "firmware_progress",
+                "generating_sensors_number": 29,
+                "event_timestamp": 1554293636,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [
+                        "Unspecified"
+                    ],
+                    "direction": "assertion",
+                    "value": "System Firmware Progress",
+                    "timestamp": 1554293636,
+                    "sensor_type": "firmware_progress",
+                    "sensor_number": 29
+                }
+            },
+            {
+                "generating_sensors_type": "firmware_progress",
+                "generating_sensors_number": 29,
+                "event_timestamp": 1554293646,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [
+                        "Unspecified"
+                    ],
+                    "direction": "assertion",
+                    "value": "System Firmware Progress",
+                    "timestamp": 1554293646,
+                    "sensor_type": "firmware_progress",
+                    "sensor_number": 29
+                }
+            },
+            {
+                "generating_sensors_type": "power_unit",
+                "generating_sensors_number": 1,
+                "event_timestamp": 1554293726,
+                "event_direction": "assertion",
+                "event_payload": {
+                    "event_extensions": [],
+                    "direction": "assertion",
+                    "value": "Power Off / Power Down",
+                    "timestamp": 1554293726,
+                    "sensor_type": "power_unit",
+                    "sensor_number": 1
+                }
+            }
+        ],
+        "threshold_events": []
+    },
+    "sensors": {
+        "SysBrd 3.3V": {
+            "reading": {
+                "value": 3.3480000000000003,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Volts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Volts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 0,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 141
+                },
+                "name": "SysBrd 3.3V",
+                "sensor_type": "voltage",
+                "sensor_kind": "threshold"
+            }
+        },
+        "SysBrd 5V": {
+            "reading": {
+                "value": 5.0576,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Volts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Volts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 0,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 142
+                },
+                "name": "SysBrd 5V",
+                "sensor_type": "voltage",
+                "sensor_kind": "threshold"
+            }
+        },
+        "SysBrd 12V": {
+            "reading": {
+                "value": 12.264000000000001,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Volts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Volts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 0,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 140
+                },
+                "name": "SysBrd 12V",
+                "sensor_type": "voltage",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Ambient Temp": {
+            "reading": {
+                "value": 29.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 100,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 100,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 128
+                },
+                "name": "Ambient Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "ME Status": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 244
+                },
+                "name": "ME Status",
+                "sensor_type": "management_sys_health",
+                "sensor_kind": "discrete"
+            }
+        },
+        "BP 1 Status": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 227
+                },
+                "name": "BP 1 Status",
+                "sensor_type": "entity_presence",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PCI Riser 1": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 237
+                },
+                "name": "PCI Riser 1",
+                "sensor_type": "entity_presence",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "CPU 1 Status": {
+            "reading": {
+                "states_asserted": [
+                    "Processor Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 240
+                },
+                "name": "CPU 1 Status",
+                "sensor_type": "processor",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "CPU 2 Status": {
+            "reading": {
+                "states_asserted": [
+                    "Processor Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 241
+                },
+                "name": "CPU 2 Status",
+                "sensor_type": "processor",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "CPU1 OverTemp": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 133
+                },
+                "name": "CPU1 OverTemp",
+                "sensor_type": "temperature",
+                "sensor_kind": "discrete"
+            }
+        },
+        "SysBrd Vol Fault": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 143
+                },
+                "name": "SysBrd Vol Fault",
+                "sensor_type": "voltage",
+                "sensor_kind": "discrete"
+            }
+        },
+        "CPU1 Temp": {
+            "reading": {
+                "value": 33.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 132
+                },
+                "name": "CPU1 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "CPU2 Temp": {
+            "reading": {
+                "value": 32.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 134
+                },
+                "name": "CPU2 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "PCI Riser 2": {
+            "reading": {
+                "states_asserted": [
+                    "Entity Present"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 238
+                },
+                "name": "PCI Riser 2",
+                "sensor_type": "entity_presence",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "CPU2 OverTemp": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 135
+                },
+                "name": "CPU2 OverTemp",
+                "sensor_type": "temperature",
+                "sensor_kind": "discrete"
+            }
+        },
+        "System Air Flow": {
+            "reading": {
+                "value": 18.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "CFM",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "CFM",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 136
+                },
+                "name": "System Air Flow",
+                "sensor_type": "cooling_device",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Pwr Rail ABC Err": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 154
+                },
+                "name": "Pwr Rail ABC Err",
+                "sensor_type": "voltage",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Pwr Rail DEF Err": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 155
+                },
+                "name": "Pwr Rail DEF Err",
+                "sensor_type": "voltage",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Pwr Rail GHJ Err": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 156
+                },
+                "name": "Pwr Rail GHJ Err",
+                "sensor_type": "voltage",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Pwr Rail KLM Err": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 157
+                },
+                "name": "Pwr Rail KLM Err",
+                "sensor_type": "voltage",
+                "sensor_kind": "discrete"
+            }
+        },
+        "CPU Utilization": {
+            "reading": {
+                "value": 0.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": true
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": true
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 255
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 211
+                },
+                "name": "CPU Utilization",
+                "sensor_type": "other_unit_based_sensor",
+                "sensor_kind": "threshold"
+            }
+        },
+        "IO Utilization": {
+            "reading": {
+                "value": 0.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": true
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": true
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 255
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 212
+                },
+                "name": "IO Utilization",
+                "sensor_type": "other_unit_based_sensor",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Mem Utilization": {
+            "reading": {
+                "value": 0.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": true
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": true
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 255
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 213
+                },
+                "name": "Mem Utilization",
+                "sensor_type": "other_unit_based_sensor",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Sys Utilization": {
+            "reading": {
+                "value": 0.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": true
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": true
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 255
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 214
+                },
+                "name": "Sys Utilization",
+                "sensor_type": "other_unit_based_sensor",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Front Panel": {
+            "reading": {
+                "states_asserted": [
+                    "Entity Present"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 233
+                },
+                "name": "Front Panel",
+                "sensor_type": "entity_presence",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "COMport Card": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 225
+                },
+                "name": "COMport Card",
+                "sensor_type": "cable_interconnect",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Front Video": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 226
+                },
+                "name": "Front Video",
+                "sensor_type": "cable_interconnect",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "ML2 Card Fault": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 250
+                },
+                "name": "ML2 Card Fault",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "ML2 Card": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 234
+                },
+                "name": "ML2 Card",
+                "sensor_type": "entity_presence",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PHY Card Fault": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 248
+                },
+                "name": "PHY Card Fault",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PHY Card": {
+            "reading": {
+                "states_asserted": [
+                    "Entity Present"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 232
+                },
+                "name": "PHY Card",
+                "sensor_type": "entity_presence",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Exhaust Temp": {
+            "reading": {
+                "value": 35.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 100,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 100,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 131
+                },
+                "name": "Exhaust Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "CPUs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 10
+                },
+                "name": "CPUs",
+                "sensor_type": "crit_interrupt",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "All CPUs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 4
+                },
+                "name": "All CPUs",
+                "sensor_type": "processor",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "One of CPUs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 24
+                },
+                "name": "One of CPUs",
+                "sensor_type": "processor",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PSU Mismatch": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 208
+                },
+                "name": "PSU Mismatch",
+                "sensor_type": "power_unit",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PS Heavy Load": {
+            "reading": {
+                "states_asserted": [
+                    "State Deasserted"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 209
+                },
+                "name": "PS Heavy Load",
+                "sensor_type": "power_unit",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Power Resource": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 210
+                },
+                "name": "Power Resource",
+                "sensor_type": "power_unit",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Power Supply 1": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 215
+                },
+                "name": "Power Supply 1",
+                "sensor_type": "power_supply",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PSU1 Failure": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 216
+                },
+                "name": "PSU1 Failure",
+                "sensor_type": "power_supply",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PSU1 PF Failure": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 217
+                },
+                "name": "PSU1 PF Failure",
+                "sensor_type": "power_supply",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PSU1 IN Failure": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 218
+                },
+                "name": "PSU1 IN Failure",
+                "sensor_type": "power_supply",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PSU1 AC In Pwr": {
+            "reading": {
+                "value": 50.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Watts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Watts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 148
+                },
+                "name": "PSU1 AC In Pwr",
+                "sensor_type": "current",
+                "sensor_kind": "threshold"
+            }
+        },
+        "PSU1 DC Out Pwr": {
+            "reading": {
+                "value": 30.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Watts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Watts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 149
+                },
+                "name": "PSU1 DC Out Pwr",
+                "sensor_type": "current",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Power Supply 2": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 219
+                },
+                "name": "Power Supply 2",
+                "sensor_type": "power_supply",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PSU2 Failure": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 220
+                },
+                "name": "PSU2 Failure",
+                "sensor_type": "power_supply",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PSU2 PF Failure": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 221
+                },
+                "name": "PSU2 PF Failure",
+                "sensor_type": "power_supply",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PSU2 IN Failure": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 222
+                },
+                "name": "PSU2 IN Failure",
+                "sensor_type": "power_supply",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PSU2 AC In Pwr": {
+            "reading": {
+                "value": 45.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Watts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Watts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 150
+                },
+                "name": "PSU2 AC In Pwr",
+                "sensor_type": "current",
+                "sensor_kind": "threshold"
+            }
+        },
+        "PSU2 DC Out Pwr": {
+            "reading": {
+                "value": 40.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Watts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Watts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 151
+                },
+                "name": "PSU2 DC Out Pwr",
+                "sensor_type": "current",
+                "sensor_kind": "threshold"
+            }
+        },
+        "IPMI Watchdog": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 2
+                },
+                "name": "IPMI Watchdog",
+                "sensor_type": "watchdog_2",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "SEL Fullness": {
+            "reading": {
+                "states_asserted": [
+                    "SEL Almost Full"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 254
+                },
+                "name": "SEL Fullness",
+                "sensor_type": "evt_logging_disable",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Host Power": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 1
+                },
+                "name": "Host Power",
+                "sensor_type": "power_unit",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "All DIMMs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 5
+                },
+                "name": "All DIMMs",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMMs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 11
+                },
+                "name": "DIMMs",
+                "sensor_type": "crit_interrupt",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "One of DIMMs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 25
+                },
+                "name": "One of DIMMs",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Backup Memory": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 8
+                },
+                "name": "Backup Memory",
+                "sensor_type": "memory",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Lane Failover": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 16
+                },
+                "name": "Lane Failover",
+                "sensor_type": "memory",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Memory Resized": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 18
+                },
+                "name": "Memory Resized",
+                "sensor_type": "post_memory",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Non-Auth DIMMs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 23
+                },
+                "name": "Non-Auth DIMMs",
+                "sensor_type": "memory",
+                "sensor_kind": "discrete"
+            }
+        },
+        "SMI Lane Failed": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 35
+                },
+                "name": "SMI Lane Failed",
+                "sensor_type": "memory",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Aux Log": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 7
+                },
+                "name": "Aux Log",
+                "sensor_type": "sys_event",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Firmware Error": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 12
+                },
+                "name": "Firmware Error",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "GPT Status": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 13
+                },
+                "name": "GPT Status",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "discrete"
+            }
+        },
+        "No Boot Device": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 20
+                },
+                "name": "No Boot Device",
+                "sensor_type": "boot_error",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "No Op ROM Space": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 22
+                },
+                "name": "No Op ROM Space",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Progress": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 29
+                },
+                "name": "Progress",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Sec Rollback Err": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 32
+                },
+                "name": "Sec Rollback Err",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Secure Boot Err": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 33
+                },
+                "name": "Secure Boot Err",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Sys Boot Status": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 36
+                },
+                "name": "Sys Boot Status",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "TPM_TCM Init Err": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 38
+                },
+                "name": "TPM_TCM Init Err",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "discrete"
+            }
+        },
+        "TPM_TCM Lock": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 39
+                },
+                "name": "TPM_TCM Lock",
+                "sensor_type": "button",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Phy Presence Set": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 40
+                },
+                "name": "Phy Presence Set",
+                "sensor_type": "button",
+                "sensor_kind": "discrete"
+            }
+        },
+        "TXT ACM Module": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 41
+                },
+                "name": "TXT ACM Module",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "discrete"
+            }
+        },
+        "SMM Mode": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 30
+                },
+                "name": "SMM Mode",
+                "sensor_type": "sys_event",
+                "sensor_kind": "discrete"
+            }
+        },
+        "SMM Monitor": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 31
+                },
+                "name": "SMM Monitor",
+                "sensor_type": "sys_event",
+                "sensor_kind": "discrete"
+            }
+        },
+        "XCC FW Corrupted": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 14
+                },
+                "name": "XCC FW Corrupted",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "discrete"
+            }
+        },
+        "XCC Switchover": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 15
+                },
+                "name": "XCC Switchover",
+                "sensor_type": "ver_change",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Low Security Jmp": {
+            "reading": {
+                "states_asserted": [
+                    "Device Absent"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 17
+                },
+                "name": "Low Security Jmp",
+                "sensor_type": "management_sys_health",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Phy Presence Jmp": {
+            "reading": {
+                "states_asserted": [
+                    "Device Absent"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 28
+                },
+                "name": "Phy Presence Jmp",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "discrete"
+            }
+        },
+        "XCC DB Status": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 42
+                },
+                "name": "XCC DB Status",
+                "sensor_type": "management_sys_health",
+                "sensor_kind": "discrete"
+            }
+        },
+        "NMI State": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 19
+                },
+                "name": "NMI State",
+                "sensor_type": "crit_interrupt",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PCIe 1": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 83
+                },
+                "name": "PCIe 1",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PCIe 2": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 84
+                },
+                "name": "PCIe 2",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PCIe 3": {
+            "reading": {
+                "states_asserted": [
+                    "Slot / Connector Device installed/attached"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 85
+                },
+                "name": "PCIe 3",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "PCIs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 27
+                },
+                "name": "PCIs",
+                "sensor_type": "crit_interrupt",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "All PCI Error": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 6
+                },
+                "name": "All PCI Error",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "One of PCIs": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 26
+                },
+                "name": "One of PCIs",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "No I/O Resources": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 21
+                },
+                "name": "No I/O Resources",
+                "sensor_type": "firmware_progress",
+                "sensor_kind": "discrete"
+            }
+        },
+        "RAID Vol State": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 184
+                },
+                "name": "RAID Vol State",
+                "sensor_type": "drive_slot",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Ext Drive": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 186
+                },
+                "name": "Ext Drive",
+                "sensor_type": "drive_slot",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "Ext Enclosure PS": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 187
+                },
+                "name": "Ext Enclosure PS",
+                "sensor_type": "power_supply",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "RAID Log": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 9
+                },
+                "name": "RAID Log",
+                "sensor_type": "sys_event",
+                "sensor_kind": "discrete"
+            }
+        },
+        "M2 Card": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 236
+                },
+                "name": "M2 Card",
+                "sensor_type": "entity_presence",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "M2 Card Fault": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 249
+                },
+                "name": "M2 Card Fault",
+                "sensor_type": "slot_connector",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "M2 Drive 0": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 122
+                },
+                "name": "M2 Drive 0",
+                "sensor_type": "drive_slot",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "M2 Drive 1": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 123
+                },
+                "name": "M2 Drive 1",
+                "sensor_type": "drive_slot",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "CPU1 VR": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 158
+                },
+                "name": "CPU1 VR",
+                "sensor_type": "voltage",
+                "sensor_kind": "discrete"
+            }
+        },
+        "CPU2 VR": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 159
+                },
+                "name": "CPU2 VR",
+                "sensor_type": "voltage",
+                "sensor_kind": "discrete"
+            }
+        },
+        "CMOS Battery": {
+            "reading": {
+                "value": 3.1590000000000003,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Volts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Volts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 0,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 3
+                },
+                "name": "CMOS Battery",
+                "sensor_type": "voltage",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Sys Power": {
+            "reading": {
+                "value": 100.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Watts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Watts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 144
+                },
+                "name": "Sys Power",
+                "sensor_type": "current",
+                "sensor_kind": "threshold"
+            }
+        },
+        "CPU Power": {
+            "reading": {
+                "value": 22.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Watts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Watts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 146
+                },
+                "name": "CPU Power",
+                "sensor_type": "current",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Mem Power": {
+            "reading": {
+                "value": 4.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Watts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Watts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 147
+                },
+                "name": "Mem Power",
+                "sensor_type": "current",
+                "sensor_kind": "threshold"
+            }
+        },
+        "CPU 1 PECI": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 252
+                },
+                "name": "CPU 1 PECI",
+                "sensor_type": "crit_interrupt",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "CPU 2 PECI": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 253
+                },
+                "name": "CPU 2 PECI",
+                "sensor_type": "crit_interrupt",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "CPU 1 QPILinkErr": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 242
+                },
+                "name": "CPU 1 QPILinkErr",
+                "sensor_type": "cable_interconnect",
+                "sensor_kind": "discrete"
+            }
+        },
+        "CPU 2 QPILinkErr": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 243
+                },
+                "name": "CPU 2 QPILinkErr",
+                "sensor_type": "cable_interconnect",
+                "sensor_kind": "discrete"
+            }
+        },
+        "CPU1 DTS": {
+            "reading": {
+                "value": -51.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 80
+                },
+                "name": "CPU1 DTS",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "CPU2 DTS": {
+            "reading": {
+                "value": -51.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 81
+                },
+                "name": "CPU2 DTS",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 1": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 160
+                },
+                "name": "DIMM 1",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 1 Temp": {
+            "reading": {
+                "value": null,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 48
+                },
+                "name": "DIMM 1 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 2": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 161
+                },
+                "name": "DIMM 2",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 2 Temp": {
+            "reading": {
+                "value": 31.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 49
+                },
+                "name": "DIMM 2 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 3": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 162
+                },
+                "name": "DIMM 3",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 3 Temp": {
+            "reading": {
+                "value": 32.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 50
+                },
+                "name": "DIMM 3 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 4": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 163
+                },
+                "name": "DIMM 4",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 4 Temp": {
+            "reading": {
+                "value": 32.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 51
+                },
+                "name": "DIMM 4 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 5": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 164
+                },
+                "name": "DIMM 5",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 5 Temp": {
+            "reading": {
+                "value": 32.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 52
+                },
+                "name": "DIMM 5 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 6": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 165
+                },
+                "name": "DIMM 6",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 6 Temp": {
+            "reading": {
+                "value": null,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 53
+                },
+                "name": "DIMM 6 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 7": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 166
+                },
+                "name": "DIMM 7",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 7 Temp": {
+            "reading": {
+                "value": null,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 54
+                },
+                "name": "DIMM 7 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 8": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 167
+                },
+                "name": "DIMM 8",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 8 Temp": {
+            "reading": {
+                "value": 33.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 55
+                },
+                "name": "DIMM 8 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 9": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 168
+                },
+                "name": "DIMM 9",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 9 Temp": {
+            "reading": {
+                "value": 33.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 56
+                },
+                "name": "DIMM 9 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 10": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 169
+                },
+                "name": "DIMM 10",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 10 Temp": {
+            "reading": {
+                "value": 32.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 57
+                },
+                "name": "DIMM 10 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 11": {
+            "reading": {
+                "states_asserted": [
+                    "Presence detected"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 170
+                },
+                "name": "DIMM 11",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 11 Temp": {
+            "reading": {
+                "value": 33.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 58
+                },
+                "name": "DIMM 11 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "DIMM 12": {
+            "reading": {
+                "states_asserted": []
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 171
+                },
+                "name": "DIMM 12",
+                "sensor_type": "memory",
+                "sensor_kind": "sensor_specific"
+            }
+        },
+        "DIMM 12 Temp": {
+            "reading": {
+                "value": null,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 59
+                },
+                "name": "DIMM 12 Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Drive Mismatch": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 124
+                },
+                "name": "Drive Mismatch",
+                "sensor_type": "drive_slot",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PCH OverTemp": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 139
+                },
+                "name": "PCH OverTemp",
+                "sensor_type": "temperature",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PCH Temp": {
+            "reading": {
+                "value": 46.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_read_and_setable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 255,
+                    "sensor_maximum_reading": 0,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 47
+                },
+                "name": "PCH Temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "PCI 1 OverTemp": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 72
+                },
+                "name": "PCI 1 OverTemp",
+                "sensor_type": "temperature",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PCI 2 OverTemp": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 73
+                },
+                "name": "PCI 2 OverTemp",
+                "sensor_type": "temperature",
+                "sensor_kind": "discrete"
+            }
+        },
+        "PCI 3 OverTemp": {
+            "reading": {
+                "states_asserted": [
+                    "Transition to OK"
+                ]
+            },
+            "unit": {
+                "base_unit": "unspecified",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "unspecified",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 74
+                },
+                "name": "PCI 3 OverTemp",
+                "sensor_type": "temperature",
+                "sensor_kind": "discrete"
+            }
+        },
+        "Fan 1 Tach": {
+            "reading": {
+                "value": 9212.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "RPM",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "RPM",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 192
+                },
+                "name": "Fan 1 Tach",
+                "sensor_type": "fan",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Fan 2 Tach": {
+            "reading": {
+                "value": 8820.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "RPM",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "RPM",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 193
+                },
+                "name": "Fan 2 Tach",
+                "sensor_type": "fan",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Fan 3 Tach": {
+            "reading": {
+                "value": 8820.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "RPM",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "RPM",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 194
+                },
+                "name": "Fan 3 Tach",
+                "sensor_type": "fan",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Fan 4 Tach": {
+            "reading": {
+                "value": 8820.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "RPM",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "RPM",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 195
+                },
+                "name": "Fan 4 Tach",
+                "sensor_type": "fan",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Fan 5 Tach": {
+            "reading": {
+                "value": 8820.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "RPM",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "RPM",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 196
+                },
+                "name": "Fan 5 Tach",
+                "sensor_type": "fan",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Fan 6 Tach": {
+            "reading": {
+                "value": 8820.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "RPM",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "RPM",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 197
+                },
+                "name": "Fan 6 Tach",
+                "sensor_type": "fan",
+                "sensor_kind": "threshold"
+            }
+        },
+        "Sys Fan Pwr": {
+            "reading": {
+                "value": 7.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "Watts",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "auto_rearm",
+                    "hysteresis_not_supported",
+                    "threshold_not_supported"
+                ],
+                "sensor_unit": {
+                    "base_unit": "Watts",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 152
+                },
+                "name": "Sys Fan Pwr",
+                "sensor_type": "current",
+                "sensor_kind": "threshold"
+            }
+        }
+    }
+}
