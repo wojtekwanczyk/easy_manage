@@ -24,6 +24,7 @@ class Sensor:
         """
         readings = {}
         for sdr in sdr_list:
+            ('_').join(sdr.name.lower().split(' '))
             readings[sdr.name] = {
                 'reading': self.read_sensor(sdr),
                 'unit': sdr.sensor_unit
