@@ -149,7 +149,8 @@ class AbstractSDR:
     @property
     def name(self):
         "Returns SDR string, parsed from record"
-        return self._sdr_object.device_id_string.decode()
+        decoded = self._sdr_object.device_id_string.decode()
+        return ('_').join(decoded.lower().split(' '))
 
     @property
     def record_key(self):

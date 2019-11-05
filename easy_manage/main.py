@@ -70,11 +70,11 @@ def ipmi_demo(config, credentials):
     ipmi_chass = IpmiChassis(ipmi_conn)
     chasis = ipmi_chass.aggregate()
     sys['events']['discrete_events'] = sys['events']['discrete_events'][0:10]
-
+    # return sys,chasis
     with open('ipmi_out_sys.json', 'w') as f:
         json.dump(sys, f, indent=4)
-
-    with open('out_chassis.json', 'w') as f:
+#
+    with open('ipmi_out_chassis.json', 'w') as f:
         json.dump(chasis, f, indent=4)
 
 #    FRU FETCHING
