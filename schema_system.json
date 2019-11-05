@@ -1,0 +1,12 @@
+{
+    "Basic Info": "array",
+    "Memory Size in GiB": "int",
+    "Allowable Boot Sources": "array",
+    "Fans": "JSON",
+    "CPU Info": "JSON",
+    "Ethernet Interfaces": "array",
+    "Network Adapters": "array",
+    "Storage": "JSON",
+    "PCIE": "JSON",
+    
+}

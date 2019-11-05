@@ -1,0 +1,7 @@
+{
+    "PowerOn Hours": "int",
+    "Power State": "string",
+    "Power Health": "string",
+    "CPU Reading": "JSON"
+
+}

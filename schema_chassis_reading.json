@@ -1,0 +1,8 @@
+{
+    "Power State": "string",
+    "Temperature": "JSON",
+    "Fan Speed": "JSON",
+    "Power Health": "string",
+    "Power Consumed Watts": "int",
+    "Sensors": "JSON"
+}

@@ -1,0 +1,18 @@
+{
+    "bmc": {
+        "bmc_firmware_version": "undefined",
+        "bmc_functions": [
+            "SENSOR",
+            "SDR_REPOSITORY",
+            "SEL",
+            "FRU_INVENTORY",
+            "IPMB_EVENT_RECEIVER",
+            "IPMB_EVENT_GENERATOR",
+            "CHASSIS"
+        ],
+        "bmc_info": {
+            "device_id": 32,
+            "revision": 0,
+            "provides_sdrs": false,
+            "available": false,
+            "fw_revision": 
