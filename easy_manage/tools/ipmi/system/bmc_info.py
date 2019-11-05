@@ -23,7 +23,10 @@ class BMCInfo:
     def device_info(self):
         "Method which returns bmc options"
         self.device_id = self._ipmi.get_device_id()
-        return self.device_id.__dict__
+        bmc_info = self.device_id.__dict__
+        bmc_info['fw_revision'] = bmc_info['fw_revision'].version_to_string()
+        bmc_info['ipmi_version'] = bmc_info['ipmi_version'].version_to_string()
+        return bmc_info
 
     @property
     def functions(self):
@@ -50,8 +53,9 @@ class BMCInfo:
 
     def aggregate(self):
         "Function which aggregates bmc's info, for scraping purposes"
+
         return {
             'bmc_firmware_version': self.firmware_version,
             'bmc_functions': self.functions,
-            'bmc_info': str(self.device_info)
+            'bmc_info': self.device_info
         }
