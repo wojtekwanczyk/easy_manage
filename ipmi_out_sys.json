@@ -495,9 +495,9 @@
         "threshold_events": []
     },
     "sensors": {
-        "SysBrd 3.3V": {
+        "sysbrd_3.3v": {
             "reading": {
-                "value": 3.3480000000000003,
+                "value": 3.3635,
                 "thresholds": []
             },
             "unit": {
@@ -527,12 +527,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 141
                 },
-                "name": "SysBrd 3.3V",
+                "name": "sysbrd_3.3v",
                 "sensor_type": "voltage",
                 "sensor_kind": "threshold"
             }
         },
-        "SysBrd 5V": {
+        "sysbrd_5v": {
             "reading": {
                 "value": 5.0576,
                 "thresholds": []
@@ -564,12 +564,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 142
                 },
-                "name": "SysBrd 5V",
+                "name": "sysbrd_5v",
                 "sensor_type": "voltage",
                 "sensor_kind": "threshold"
             }
         },
-        "SysBrd 12V": {
+        "sysbrd_12v": {
             "reading": {
                 "value": 12.264000000000001,
                 "thresholds": []
@@ -601,12 +601,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 140
                 },
-                "name": "SysBrd 12V",
+                "name": "sysbrd_12v",
                 "sensor_type": "voltage",
                 "sensor_kind": "threshold"
             }
         },
-        "Ambient Temp": {
+        "ambient_temp": {
             "reading": {
                 "value": 18.0,
                 "thresholds": []
@@ -638,12 +638,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 128
                 },
-                "name": "Ambient Temp",
+                "name": "ambient_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "ME Status": {
+        "me_status": {
             "reading": {
                 "states_asserted": []
             },
@@ -668,12 +668,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 244
                 },
-                "name": "ME Status",
+                "name": "me_status",
                 "sensor_type": "management_sys_health",
                 "sensor_kind": "discrete"
             }
         },
-        "BP 1 Status": {
+        "bp_1_status": {
             "reading": {
                 "states_asserted": []
             },
@@ -698,12 +698,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 227
                 },
-                "name": "BP 1 Status",
+                "name": "bp_1_status",
                 "sensor_type": "entity_presence",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PCI Riser 1": {
+        "pci_riser_1": {
             "reading": {
                 "states_asserted": []
             },
@@ -728,12 +728,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 237
                 },
-                "name": "PCI Riser 1",
+                "name": "pci_riser_1",
                 "sensor_type": "entity_presence",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "CPU 1 Status": {
+        "cpu_1_status": {
             "reading": {
                 "states_asserted": [
                     "Processor Presence detected"
@@ -760,12 +760,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 240
                 },
-                "name": "CPU 1 Status",
+                "name": "cpu_1_status",
                 "sensor_type": "processor",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "CPU 2 Status": {
+        "cpu_2_status": {
             "reading": {
                 "states_asserted": [
                     "Processor Presence detected"
@@ -792,12 +792,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 241
                 },
-                "name": "CPU 2 Status",
+                "name": "cpu_2_status",
                 "sensor_type": "processor",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "CPU1 OverTemp": {
+        "cpu1_overtemp": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -825,12 +825,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 133
                 },
-                "name": "CPU1 OverTemp",
+                "name": "cpu1_overtemp",
                 "sensor_type": "temperature",
                 "sensor_kind": "discrete"
             }
         },
-        "SysBrd Vol Fault": {
+        "sysbrd_vol_fault": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -857,50 +857,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 143
                 },
-                "name": "SysBrd Vol Fault",
+                "name": "sysbrd_vol_fault",
                 "sensor_type": "voltage",
                 "sensor_kind": "discrete"
             }
         },
-        "CPU1 Temp": {
-            "reading": {
-                "value": 27.0,
-                "thresholds": []
-            },
-            "unit": {
-                "base_unit": "degrees C",
-                "rate_unit": "none",
-                "percentage": false
-            },
-            "sensor_info": {
-                "sensor_capabilities": [
-                    "ignore_sensor",
-                    "auto_rearm",
-                    "hysteresis_read_and_setable",
-                    "threshold_readable"
-                ],
-                "sensor_unit": {
-                    "base_unit": "degrees C",
-                    "rate_unit": "none",
-                    "percentage": false
-                },
-                "sensor_bounds": {
-                    "normal_maximum": 255,
-                    "normal_minimum": 0,
-                    "sensor_maximum_reading": 255,
-                    "sensor_minimum_reading": 0
-                },
-                "record_key": {
-                    "owner_id": 32,
-                    "fru_owner_lun": 0,
-                    "sensor_number": 132
-                },
-                "name": "CPU1 Temp",
-                "sensor_type": "temperature",
-                "sensor_kind": "threshold"
-            }
-        },
-        "CPU2 Temp": {
+        "cpu1_temp": {
             "reading": {
                 "value": 25.0,
                 "thresholds": []
@@ -931,14 +893,52 @@
                 "record_key": {
                     "owner_id": 32,
                     "fru_owner_lun": 0,
-                    "sensor_number": 134
+                    "sensor_number": 132
                 },
-                "name": "CPU2 Temp",
+                "name": "cpu1_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "PCI Riser 2": {
+        "cpu2_temp": {
+            "reading": {
+                "value": 23.0,
+                "thresholds": []
+            },
+            "unit": {
+                "base_unit": "degrees C",
+                "rate_unit": "none",
+                "percentage": false
+            },
+            "sensor_info": {
+                "sensor_capabilities": [
+                    "ignore_sensor",
+                    "auto_rearm",
+                    "hysteresis_read_and_setable",
+                    "threshold_readable"
+                ],
+                "sensor_unit": {
+                    "base_unit": "degrees C",
+                    "rate_unit": "none",
+                    "percentage": false
+                },
+                "sensor_bounds": {
+                    "normal_maximum": 255,
+                    "normal_minimum": 0,
+                    "sensor_maximum_reading": 255,
+                    "sensor_minimum_reading": 0
+                },
+                "record_key": {
+                    "owner_id": 32,
+                    "fru_owner_lun": 0,
+                    "sensor_number": 134
+                },
+                "name": "cpu2_temp",
+                "sensor_type": "temperature",
+                "sensor_kind": "threshold"
+            }
+        },
+        "pci_riser_2": {
             "reading": {
                 "states_asserted": [
                     "Entity Present"
@@ -965,12 +965,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 238
                 },
-                "name": "PCI Riser 2",
+                "name": "pci_riser_2",
                 "sensor_type": "entity_presence",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "CPU2 OverTemp": {
+        "cpu2_overtemp": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -998,12 +998,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 135
                 },
-                "name": "CPU2 OverTemp",
+                "name": "cpu2_overtemp",
                 "sensor_type": "temperature",
                 "sensor_kind": "discrete"
             }
         },
-        "System Air Flow": {
+        "system_air_flow": {
             "reading": {
                 "value": 12.0,
                 "thresholds": []
@@ -1035,12 +1035,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 136
                 },
-                "name": "System Air Flow",
+                "name": "system_air_flow",
                 "sensor_type": "cooling_device",
                 "sensor_kind": "threshold"
             }
         },
-        "Pwr Rail ABC Err": {
+        "pwr_rail_abc_err": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -1067,12 +1067,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 154
                 },
-                "name": "Pwr Rail ABC Err",
+                "name": "pwr_rail_abc_err",
                 "sensor_type": "voltage",
                 "sensor_kind": "discrete"
             }
         },
-        "Pwr Rail DEF Err": {
+        "pwr_rail_def_err": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -1099,12 +1099,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 155
                 },
-                "name": "Pwr Rail DEF Err",
+                "name": "pwr_rail_def_err",
                 "sensor_type": "voltage",
                 "sensor_kind": "discrete"
             }
         },
-        "Pwr Rail GHJ Err": {
+        "pwr_rail_ghj_err": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -1131,12 +1131,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 156
                 },
-                "name": "Pwr Rail GHJ Err",
+                "name": "pwr_rail_ghj_err",
                 "sensor_type": "voltage",
                 "sensor_kind": "discrete"
             }
         },
-        "Pwr Rail KLM Err": {
+        "pwr_rail_klm_err": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -1163,12 +1163,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 157
                 },
-                "name": "Pwr Rail KLM Err",
+                "name": "pwr_rail_klm_err",
                 "sensor_type": "voltage",
                 "sensor_kind": "discrete"
             }
         },
-        "CPU Utilization": {
+        "cpu_utilization": {
             "reading": {
                 "value": 0.0,
                 "thresholds": []
@@ -1200,12 +1200,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 211
                 },
-                "name": "CPU Utilization",
+                "name": "cpu_utilization",
                 "sensor_type": "other_unit_based_sensor",
                 "sensor_kind": "threshold"
             }
         },
-        "IO Utilization": {
+        "io_utilization": {
             "reading": {
                 "value": 0.0,
                 "thresholds": []
@@ -1237,12 +1237,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 212
                 },
-                "name": "IO Utilization",
+                "name": "io_utilization",
                 "sensor_type": "other_unit_based_sensor",
                 "sensor_kind": "threshold"
             }
         },
-        "Mem Utilization": {
+        "mem_utilization": {
             "reading": {
                 "value": 0.0,
                 "thresholds": []
@@ -1274,12 +1274,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 213
                 },
-                "name": "Mem Utilization",
+                "name": "mem_utilization",
                 "sensor_type": "other_unit_based_sensor",
                 "sensor_kind": "threshold"
             }
         },
-        "Sys Utilization": {
+        "sys_utilization": {
             "reading": {
                 "value": 0.0,
                 "thresholds": []
@@ -1311,12 +1311,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 214
                 },
-                "name": "Sys Utilization",
+                "name": "sys_utilization",
                 "sensor_type": "other_unit_based_sensor",
                 "sensor_kind": "threshold"
             }
         },
-        "Front Panel": {
+        "front_panel": {
             "reading": {
                 "states_asserted": [
                     "Entity Present"
@@ -1343,12 +1343,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 233
                 },
-                "name": "Front Panel",
+                "name": "front_panel",
                 "sensor_type": "entity_presence",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "COMport Card": {
+        "comport_card": {
             "reading": {
                 "states_asserted": []
             },
@@ -1373,12 +1373,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 225
                 },
-                "name": "COMport Card",
+                "name": "comport_card",
                 "sensor_type": "cable_interconnect",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Front Video": {
+        "front_video": {
             "reading": {
                 "states_asserted": []
             },
@@ -1403,12 +1403,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 226
                 },
-                "name": "Front Video",
+                "name": "front_video",
                 "sensor_type": "cable_interconnect",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "ML2 Card Fault": {
+        "ml2_card_fault": {
             "reading": {
                 "states_asserted": []
             },
@@ -1433,12 +1433,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 250
                 },
-                "name": "ML2 Card Fault",
+                "name": "ml2_card_fault",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "ML2 Card": {
+        "ml2_card": {
             "reading": {
                 "states_asserted": []
             },
@@ -1463,12 +1463,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 234
                 },
-                "name": "ML2 Card",
+                "name": "ml2_card",
                 "sensor_type": "entity_presence",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PHY Card Fault": {
+        "phy_card_fault": {
             "reading": {
                 "states_asserted": []
             },
@@ -1493,12 +1493,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 248
                 },
-                "name": "PHY Card Fault",
+                "name": "phy_card_fault",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PHY Card": {
+        "phy_card": {
             "reading": {
                 "states_asserted": [
                     "Entity Present"
@@ -1525,14 +1525,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 232
                 },
-                "name": "PHY Card",
+                "name": "phy_card",
                 "sensor_type": "entity_presence",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Exhaust Temp": {
+        "exhaust_temp": {
             "reading": {
-                "value": 28.0,
+                "value": 27.0,
                 "thresholds": []
             },
             "unit": {
@@ -1562,12 +1562,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 131
                 },
-                "name": "Exhaust Temp",
+                "name": "exhaust_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "CPUs": {
+        "cpus": {
             "reading": {
                 "states_asserted": []
             },
@@ -1592,12 +1592,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 10
                 },
-                "name": "CPUs",
+                "name": "cpus",
                 "sensor_type": "crit_interrupt",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "All CPUs": {
+        "all_cpus": {
             "reading": {
                 "states_asserted": []
             },
@@ -1622,12 +1622,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 4
                 },
-                "name": "All CPUs",
+                "name": "all_cpus",
                 "sensor_type": "processor",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "One of CPUs": {
+        "one_of_cpus": {
             "reading": {
                 "states_asserted": []
             },
@@ -1652,12 +1652,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 24
                 },
-                "name": "One of CPUs",
+                "name": "one_of_cpus",
                 "sensor_type": "processor",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PSU Mismatch": {
+        "psu_mismatch": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -1684,12 +1684,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 208
                 },
-                "name": "PSU Mismatch",
+                "name": "psu_mismatch",
                 "sensor_type": "power_unit",
                 "sensor_kind": "discrete"
             }
         },
-        "PS Heavy Load": {
+        "ps_heavy_load": {
             "reading": {
                 "states_asserted": [
                     "State Deasserted"
@@ -1716,12 +1716,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 209
                 },
-                "name": "PS Heavy Load",
+                "name": "ps_heavy_load",
                 "sensor_type": "power_unit",
                 "sensor_kind": "discrete"
             }
         },
-        "Power Resource": {
+        "power_resource": {
             "reading": {
                 "states_asserted": []
             },
@@ -1746,12 +1746,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 210
                 },
-                "name": "Power Resource",
+                "name": "power_resource",
                 "sensor_type": "power_unit",
                 "sensor_kind": "discrete"
             }
         },
-        "Power Supply 1": {
+        "power_supply_1": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -1778,12 +1778,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 215
                 },
-                "name": "Power Supply 1",
+                "name": "power_supply_1",
                 "sensor_type": "power_supply",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PSU1 Failure": {
+        "psu1_failure": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -1810,12 +1810,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 216
                 },
-                "name": "PSU1 Failure",
+                "name": "psu1_failure",
                 "sensor_type": "power_supply",
                 "sensor_kind": "discrete"
             }
         },
-        "PSU1 PF Failure": {
+        "psu1_pf_failure": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -1842,12 +1842,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 217
                 },
-                "name": "PSU1 PF Failure",
+                "name": "psu1_pf_failure",
                 "sensor_type": "power_supply",
                 "sensor_kind": "discrete"
             }
         },
-        "PSU1 IN Failure": {
+        "psu1_in_failure": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -1874,12 +1874,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 218
                 },
-                "name": "PSU1 IN Failure",
+                "name": "psu1_in_failure",
                 "sensor_type": "power_supply",
                 "sensor_kind": "discrete"
             }
         },
-        "PSU1 AC In Pwr": {
+        "psu1_ac_in_pwr": {
             "reading": {
                 "value": 50.0,
                 "thresholds": []
@@ -1911,14 +1911,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 148
                 },
-                "name": "PSU1 AC In Pwr",
+                "name": "psu1_ac_in_pwr",
                 "sensor_type": "current",
                 "sensor_kind": "threshold"
             }
         },
-        "PSU1 DC Out Pwr": {
+        "psu1_dc_out_pwr": {
             "reading": {
-                "value": 50.0,
+                "value": 15.0,
                 "thresholds": []
             },
             "unit": {
@@ -1948,12 +1948,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 149
                 },
-                "name": "PSU1 DC Out Pwr",
+                "name": "psu1_dc_out_pwr",
                 "sensor_type": "current",
                 "sensor_kind": "threshold"
             }
         },
-        "Power Supply 2": {
+        "power_supply_2": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -1980,12 +1980,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 219
                 },
-                "name": "Power Supply 2",
+                "name": "power_supply_2",
                 "sensor_type": "power_supply",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PSU2 Failure": {
+        "psu2_failure": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -2012,12 +2012,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 220
                 },
-                "name": "PSU2 Failure",
+                "name": "psu2_failure",
                 "sensor_type": "power_supply",
                 "sensor_kind": "discrete"
             }
         },
-        "PSU2 PF Failure": {
+        "psu2_pf_failure": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -2044,12 +2044,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 221
                 },
-                "name": "PSU2 PF Failure",
+                "name": "psu2_pf_failure",
                 "sensor_type": "power_supply",
                 "sensor_kind": "discrete"
             }
         },
-        "PSU2 IN Failure": {
+        "psu2_in_failure": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -2076,14 +2076,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 222
                 },
-                "name": "PSU2 IN Failure",
+                "name": "psu2_in_failure",
                 "sensor_type": "power_supply",
                 "sensor_kind": "discrete"
             }
         },
-        "PSU2 AC In Pwr": {
+        "psu2_ac_in_pwr": {
             "reading": {
-                "value": 45.0,
+                "value": 40.0,
                 "thresholds": []
             },
             "unit": {
@@ -2113,14 +2113,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 150
                 },
-                "name": "PSU2 AC In Pwr",
+                "name": "psu2_ac_in_pwr",
                 "sensor_type": "current",
                 "sensor_kind": "threshold"
             }
         },
-        "PSU2 DC Out Pwr": {
+        "psu2_dc_out_pwr": {
             "reading": {
-                "value": 25.0,
+                "value": 10.0,
                 "thresholds": []
             },
             "unit": {
@@ -2150,12 +2150,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 151
                 },
-                "name": "PSU2 DC Out Pwr",
+                "name": "psu2_dc_out_pwr",
                 "sensor_type": "current",
                 "sensor_kind": "threshold"
             }
         },
-        "IPMI Watchdog": {
+        "ipmi_watchdog": {
             "reading": {
                 "states_asserted": []
             },
@@ -2180,12 +2180,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 2
                 },
-                "name": "IPMI Watchdog",
+                "name": "ipmi_watchdog",
                 "sensor_type": "watchdog_2",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "SEL Fullness": {
+        "sel_fullness": {
             "reading": {
                 "states_asserted": [
                     "SEL Almost Full"
@@ -2212,12 +2212,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 254
                 },
-                "name": "SEL Fullness",
+                "name": "sel_fullness",
                 "sensor_type": "evt_logging_disable",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Host Power": {
+        "host_power": {
             "reading": {
                 "states_asserted": []
             },
@@ -2242,12 +2242,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 1
                 },
-                "name": "Host Power",
+                "name": "host_power",
                 "sensor_type": "power_unit",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "All DIMMs": {
+        "all_dimms": {
             "reading": {
                 "states_asserted": []
             },
@@ -2272,12 +2272,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 5
                 },
-                "name": "All DIMMs",
+                "name": "all_dimms",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMMs": {
+        "dimms": {
             "reading": {
                 "states_asserted": []
             },
@@ -2302,12 +2302,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 11
                 },
-                "name": "DIMMs",
+                "name": "dimms",
                 "sensor_type": "crit_interrupt",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "One of DIMMs": {
+        "one_of_dimms": {
             "reading": {
                 "states_asserted": []
             },
@@ -2332,12 +2332,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 25
                 },
-                "name": "One of DIMMs",
+                "name": "one_of_dimms",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Backup Memory": {
+        "backup_memory": {
             "reading": {
                 "states_asserted": []
             },
@@ -2362,12 +2362,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 8
                 },
-                "name": "Backup Memory",
+                "name": "backup_memory",
                 "sensor_type": "memory",
                 "sensor_kind": "discrete"
             }
         },
-        "Lane Failover": {
+        "lane_failover": {
             "reading": {
                 "states_asserted": []
             },
@@ -2392,12 +2392,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 16
                 },
-                "name": "Lane Failover",
+                "name": "lane_failover",
                 "sensor_type": "memory",
                 "sensor_kind": "discrete"
             }
         },
-        "Memory Resized": {
+        "memory_resized": {
             "reading": {
                 "states_asserted": []
             },
@@ -2422,12 +2422,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 18
                 },
-                "name": "Memory Resized",
+                "name": "memory_resized",
                 "sensor_type": "post_memory",
                 "sensor_kind": "discrete"
             }
         },
-        "Non-Auth DIMMs": {
+        "non-auth_dimms": {
             "reading": {
                 "states_asserted": []
             },
@@ -2452,12 +2452,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 23
                 },
-                "name": "Non-Auth DIMMs",
+                "name": "non-auth_dimms",
                 "sensor_type": "memory",
                 "sensor_kind": "discrete"
             }
         },
-        "SMI Lane Failed": {
+        "smi_lane_failed": {
             "reading": {
                 "states_asserted": []
             },
@@ -2482,12 +2482,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 35
                 },
-                "name": "SMI Lane Failed",
+                "name": "smi_lane_failed",
                 "sensor_type": "memory",
                 "sensor_kind": "discrete"
             }
         },
-        "Aux Log": {
+        "aux_log": {
             "reading": {
                 "states_asserted": []
             },
@@ -2512,12 +2512,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 7
                 },
-                "name": "Aux Log",
+                "name": "aux_log",
                 "sensor_type": "sys_event",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Firmware Error": {
+        "firmware_error": {
             "reading": {
                 "states_asserted": []
             },
@@ -2542,12 +2542,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 12
                 },
-                "name": "Firmware Error",
+                "name": "firmware_error",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "GPT Status": {
+        "gpt_status": {
             "reading": {
                 "states_asserted": []
             },
@@ -2572,12 +2572,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 13
                 },
-                "name": "GPT Status",
+                "name": "gpt_status",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "discrete"
             }
         },
-        "No Boot Device": {
+        "no_boot_device": {
             "reading": {
                 "states_asserted": []
             },
@@ -2602,12 +2602,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 20
                 },
-                "name": "No Boot Device",
+                "name": "no_boot_device",
                 "sensor_type": "boot_error",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "No Op ROM Space": {
+        "no_op_rom_space": {
             "reading": {
                 "states_asserted": []
             },
@@ -2632,12 +2632,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 22
                 },
-                "name": "No Op ROM Space",
+                "name": "no_op_rom_space",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Progress": {
+        "progress": {
             "reading": {
                 "states_asserted": []
             },
@@ -2662,12 +2662,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 29
                 },
-                "name": "Progress",
+                "name": "progress",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Sec Rollback Err": {
+        "sec_rollback_err": {
             "reading": {
                 "states_asserted": []
             },
@@ -2692,12 +2692,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 32
                 },
-                "name": "Sec Rollback Err",
+                "name": "sec_rollback_err",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "discrete"
             }
         },
-        "Secure Boot Err": {
+        "secure_boot_err": {
             "reading": {
                 "states_asserted": []
             },
@@ -2722,12 +2722,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 33
                 },
-                "name": "Secure Boot Err",
+                "name": "secure_boot_err",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "discrete"
             }
         },
-        "Sys Boot Status": {
+        "sys_boot_status": {
             "reading": {
                 "states_asserted": []
             },
@@ -2752,12 +2752,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 36
                 },
-                "name": "Sys Boot Status",
+                "name": "sys_boot_status",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "TPM_TCM Init Err": {
+        "tpm_tcm_init_err": {
             "reading": {
                 "states_asserted": []
             },
@@ -2782,12 +2782,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 38
                 },
-                "name": "TPM_TCM Init Err",
+                "name": "tpm_tcm_init_err",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "discrete"
             }
         },
-        "TPM_TCM Lock": {
+        "tpm_tcm_lock": {
             "reading": {
                 "states_asserted": []
             },
@@ -2812,12 +2812,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 39
                 },
-                "name": "TPM_TCM Lock",
+                "name": "tpm_tcm_lock",
                 "sensor_type": "button",
                 "sensor_kind": "discrete"
             }
         },
-        "Phy Presence Set": {
+        "phy_presence_set": {
             "reading": {
                 "states_asserted": []
             },
@@ -2842,12 +2842,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 40
                 },
-                "name": "Phy Presence Set",
+                "name": "phy_presence_set",
                 "sensor_type": "button",
                 "sensor_kind": "discrete"
             }
         },
-        "TXT ACM Module": {
+        "txt_acm_module": {
             "reading": {
                 "states_asserted": []
             },
@@ -2872,12 +2872,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 41
                 },
-                "name": "TXT ACM Module",
+                "name": "txt_acm_module",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "discrete"
             }
         },
-        "SMM Mode": {
+        "smm_mode": {
             "reading": {
                 "states_asserted": []
             },
@@ -2902,12 +2902,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 30
                 },
-                "name": "SMM Mode",
+                "name": "smm_mode",
                 "sensor_type": "sys_event",
                 "sensor_kind": "discrete"
             }
         },
-        "SMM Monitor": {
+        "smm_monitor": {
             "reading": {
                 "states_asserted": []
             },
@@ -2932,12 +2932,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 31
                 },
-                "name": "SMM Monitor",
+                "name": "smm_monitor",
                 "sensor_type": "sys_event",
                 "sensor_kind": "discrete"
             }
         },
-        "XCC FW Corrupted": {
+        "xcc_fw_corrupted": {
             "reading": {
                 "states_asserted": []
             },
@@ -2962,12 +2962,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 14
                 },
-                "name": "XCC FW Corrupted",
+                "name": "xcc_fw_corrupted",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "discrete"
             }
         },
-        "XCC Switchover": {
+        "xcc_switchover": {
             "reading": {
                 "states_asserted": []
             },
@@ -2992,12 +2992,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 15
                 },
-                "name": "XCC Switchover",
+                "name": "xcc_switchover",
                 "sensor_type": "ver_change",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Low Security Jmp": {
+        "low_security_jmp": {
             "reading": {
                 "states_asserted": [
                     "Device Absent"
@@ -3024,12 +3024,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 17
                 },
-                "name": "Low Security Jmp",
+                "name": "low_security_jmp",
                 "sensor_type": "management_sys_health",
                 "sensor_kind": "discrete"
             }
         },
-        "Phy Presence Jmp": {
+        "phy_presence_jmp": {
             "reading": {
                 "states_asserted": [
                     "Device Absent"
@@ -3056,12 +3056,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 28
                 },
-                "name": "Phy Presence Jmp",
+                "name": "phy_presence_jmp",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "discrete"
             }
         },
-        "XCC DB Status": {
+        "xcc_db_status": {
             "reading": {
                 "states_asserted": []
             },
@@ -3086,12 +3086,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 42
                 },
-                "name": "XCC DB Status",
+                "name": "xcc_db_status",
                 "sensor_type": "management_sys_health",
                 "sensor_kind": "discrete"
             }
         },
-        "NMI State": {
+        "nmi_state": {
             "reading": {
                 "states_asserted": []
             },
@@ -3116,12 +3116,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 19
                 },
-                "name": "NMI State",
+                "name": "nmi_state",
                 "sensor_type": "crit_interrupt",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PCIe 1": {
+        "pcie_1": {
             "reading": {
                 "states_asserted": []
             },
@@ -3146,12 +3146,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 83
                 },
-                "name": "PCIe 1",
+                "name": "pcie_1",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PCIe 2": {
+        "pcie_2": {
             "reading": {
                 "states_asserted": []
             },
@@ -3176,12 +3176,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 84
                 },
-                "name": "PCIe 2",
+                "name": "pcie_2",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PCIe 3": {
+        "pcie_3": {
             "reading": {
                 "states_asserted": [
                     "Slot / Connector Device installed/attached"
@@ -3208,12 +3208,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 85
                 },
-                "name": "PCIe 3",
+                "name": "pcie_3",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "PCIs": {
+        "pcis": {
             "reading": {
                 "states_asserted": []
             },
@@ -3238,12 +3238,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 27
                 },
-                "name": "PCIs",
+                "name": "pcis",
                 "sensor_type": "crit_interrupt",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "All PCI Error": {
+        "all_pci_error": {
             "reading": {
                 "states_asserted": []
             },
@@ -3268,12 +3268,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 6
                 },
-                "name": "All PCI Error",
+                "name": "all_pci_error",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "One of PCIs": {
+        "one_of_pcis": {
             "reading": {
                 "states_asserted": []
             },
@@ -3298,12 +3298,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 26
                 },
-                "name": "One of PCIs",
+                "name": "one_of_pcis",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "No I/O Resources": {
+        "no_i/o_resources": {
             "reading": {
                 "states_asserted": []
             },
@@ -3328,12 +3328,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 21
                 },
-                "name": "No I/O Resources",
+                "name": "no_i/o_resources",
                 "sensor_type": "firmware_progress",
                 "sensor_kind": "discrete"
             }
         },
-        "RAID Vol State": {
+        "raid_vol_state": {
             "reading": {
                 "states_asserted": []
             },
@@ -3358,12 +3358,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 184
                 },
-                "name": "RAID Vol State",
+                "name": "raid_vol_state",
                 "sensor_type": "drive_slot",
                 "sensor_kind": "discrete"
             }
         },
-        "Ext Drive": {
+        "ext_drive": {
             "reading": {
                 "states_asserted": []
             },
@@ -3388,12 +3388,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 186
                 },
-                "name": "Ext Drive",
+                "name": "ext_drive",
                 "sensor_type": "drive_slot",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "Ext Enclosure PS": {
+        "ext_enclosure_ps": {
             "reading": {
                 "states_asserted": []
             },
@@ -3418,12 +3418,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 187
                 },
-                "name": "Ext Enclosure PS",
+                "name": "ext_enclosure_ps",
                 "sensor_type": "power_supply",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "RAID Log": {
+        "raid_log": {
             "reading": {
                 "states_asserted": []
             },
@@ -3448,12 +3448,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 9
                 },
-                "name": "RAID Log",
+                "name": "raid_log",
                 "sensor_type": "sys_event",
                 "sensor_kind": "discrete"
             }
         },
-        "M2 Card": {
+        "m2_card": {
             "reading": {
                 "states_asserted": []
             },
@@ -3478,12 +3478,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 236
                 },
-                "name": "M2 Card",
+                "name": "m2_card",
                 "sensor_type": "entity_presence",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "M2 Card Fault": {
+        "m2_card_fault": {
             "reading": {
                 "states_asserted": []
             },
@@ -3508,12 +3508,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 249
                 },
-                "name": "M2 Card Fault",
+                "name": "m2_card_fault",
                 "sensor_type": "slot_connector",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "M2 Drive 0": {
+        "m2_drive_0": {
             "reading": {
                 "states_asserted": []
             },
@@ -3538,12 +3538,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 122
                 },
-                "name": "M2 Drive 0",
+                "name": "m2_drive_0",
                 "sensor_type": "drive_slot",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "M2 Drive 1": {
+        "m2_drive_1": {
             "reading": {
                 "states_asserted": []
             },
@@ -3568,12 +3568,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 123
                 },
-                "name": "M2 Drive 1",
+                "name": "m2_drive_1",
                 "sensor_type": "drive_slot",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "CPU1 VR": {
+        "cpu1_vr": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -3600,12 +3600,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 158
                 },
-                "name": "CPU1 VR",
+                "name": "cpu1_vr",
                 "sensor_type": "voltage",
                 "sensor_kind": "discrete"
             }
         },
-        "CPU2 VR": {
+        "cpu2_vr": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -3632,12 +3632,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 159
                 },
-                "name": "CPU2 VR",
+                "name": "cpu2_vr",
                 "sensor_type": "voltage",
                 "sensor_kind": "discrete"
             }
         },
-        "CMOS Battery": {
+        "cmos_battery": {
             "reading": {
                 "value": 3.1590000000000003,
                 "thresholds": []
@@ -3669,14 +3669,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 3
                 },
-                "name": "CMOS Battery",
+                "name": "cmos_battery",
                 "sensor_type": "voltage",
                 "sensor_kind": "threshold"
             }
         },
-        "Sys Power": {
+        "sys_power": {
             "reading": {
-                "value": 90.0,
+                "value": 95.0,
                 "thresholds": []
             },
             "unit": {
@@ -3706,14 +3706,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 144
                 },
-                "name": "Sys Power",
+                "name": "sys_power",
                 "sensor_type": "current",
                 "sensor_kind": "threshold"
             }
         },
-        "CPU Power": {
+        "cpu_power": {
             "reading": {
-                "value": 24.0,
+                "value": 22.0,
                 "thresholds": []
             },
             "unit": {
@@ -3743,12 +3743,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 146
                 },
-                "name": "CPU Power",
+                "name": "cpu_power",
                 "sensor_type": "current",
                 "sensor_kind": "threshold"
             }
         },
-        "Mem Power": {
+        "mem_power": {
             "reading": {
                 "value": 4.0,
                 "thresholds": []
@@ -3780,12 +3780,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 147
                 },
-                "name": "Mem Power",
+                "name": "mem_power",
                 "sensor_type": "current",
                 "sensor_kind": "threshold"
             }
         },
-        "CPU 1 PECI": {
+        "cpu_1_peci": {
             "reading": {
                 "states_asserted": []
             },
@@ -3810,12 +3810,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 252
                 },
-                "name": "CPU 1 PECI",
+                "name": "cpu_1_peci",
                 "sensor_type": "crit_interrupt",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "CPU 2 PECI": {
+        "cpu_2_peci": {
             "reading": {
                 "states_asserted": []
             },
@@ -3840,12 +3840,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 253
                 },
-                "name": "CPU 2 PECI",
+                "name": "cpu_2_peci",
                 "sensor_type": "crit_interrupt",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "CPU 1 QPILinkErr": {
+        "cpu_1_qpilinkerr": {
             "reading": {
                 "states_asserted": []
             },
@@ -3870,12 +3870,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 242
                 },
-                "name": "CPU 1 QPILinkErr",
+                "name": "cpu_1_qpilinkerr",
                 "sensor_type": "cable_interconnect",
                 "sensor_kind": "discrete"
             }
         },
-        "CPU 2 QPILinkErr": {
+        "cpu_2_qpilinkerr": {
             "reading": {
                 "states_asserted": []
             },
@@ -3900,12 +3900,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 243
                 },
-                "name": "CPU 2 QPILinkErr",
+                "name": "cpu_2_qpilinkerr",
                 "sensor_type": "cable_interconnect",
                 "sensor_kind": "discrete"
             }
         },
-        "CPU1 DTS": {
+        "cpu1_dts": {
             "reading": {
                 "value": -51.0,
                 "thresholds": []
@@ -3937,12 +3937,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 80
                 },
-                "name": "CPU1 DTS",
+                "name": "cpu1_dts",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "CPU2 DTS": {
+        "cpu2_dts": {
             "reading": {
                 "value": -51.0,
                 "thresholds": []
@@ -3974,12 +3974,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 81
                 },
-                "name": "CPU2 DTS",
+                "name": "cpu2_dts",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 1": {
+        "dimm_1": {
             "reading": {
                 "states_asserted": []
             },
@@ -4004,12 +4004,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 160
                 },
-                "name": "DIMM 1",
+                "name": "dimm_1",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 1 Temp": {
+        "dimm_1_temp": {
             "reading": {
                 "value": null,
                 "thresholds": []
@@ -4041,12 +4041,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 48
                 },
-                "name": "DIMM 1 Temp",
+                "name": "dimm_1_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 2": {
+        "dimm_2": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -4073,14 +4073,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 161
                 },
-                "name": "DIMM 2",
+                "name": "dimm_2",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 2 Temp": {
+        "dimm_2_temp": {
             "reading": {
-                "value": 24.0,
+                "value": 23.0,
                 "thresholds": []
             },
             "unit": {
@@ -4110,12 +4110,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 49
                 },
-                "name": "DIMM 2 Temp",
+                "name": "dimm_2_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 3": {
+        "dimm_3": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -4142,14 +4142,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 162
                 },
-                "name": "DIMM 3",
+                "name": "dimm_3",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 3 Temp": {
+        "dimm_3_temp": {
             "reading": {
-                "value": 25.0,
+                "value": 23.0,
                 "thresholds": []
             },
             "unit": {
@@ -4179,12 +4179,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 50
                 },
-                "name": "DIMM 3 Temp",
+                "name": "dimm_3_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 4": {
+        "dimm_4": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -4211,14 +4211,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 163
                 },
-                "name": "DIMM 4",
+                "name": "dimm_4",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 4 Temp": {
+        "dimm_4_temp": {
             "reading": {
-                "value": 24.0,
+                "value": 23.0,
                 "thresholds": []
             },
             "unit": {
@@ -4248,12 +4248,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 51
                 },
-                "name": "DIMM 4 Temp",
+                "name": "dimm_4_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 5": {
+        "dimm_5": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -4280,14 +4280,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 164
                 },
-                "name": "DIMM 5",
+                "name": "dimm_5",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 5 Temp": {
+        "dimm_5_temp": {
             "reading": {
-                "value": 24.0,
+                "value": 23.0,
                 "thresholds": []
             },
             "unit": {
@@ -4317,12 +4317,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 52
                 },
-                "name": "DIMM 5 Temp",
+                "name": "dimm_5_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 6": {
+        "dimm_6": {
             "reading": {
                 "states_asserted": []
             },
@@ -4347,12 +4347,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 165
                 },
-                "name": "DIMM 6",
+                "name": "dimm_6",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 6 Temp": {
+        "dimm_6_temp": {
             "reading": {
                 "value": null,
                 "thresholds": []
@@ -4384,12 +4384,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 53
                 },
-                "name": "DIMM 6 Temp",
+                "name": "dimm_6_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 7": {
+        "dimm_7": {
             "reading": {
                 "states_asserted": []
             },
@@ -4414,12 +4414,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 166
                 },
-                "name": "DIMM 7",
+                "name": "dimm_7",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 7 Temp": {
+        "dimm_7_temp": {
             "reading": {
                 "value": null,
                 "thresholds": []
@@ -4451,12 +4451,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 54
                 },
-                "name": "DIMM 7 Temp",
+                "name": "dimm_7_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 8": {
+        "dimm_8": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -4483,14 +4483,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 167
                 },
-                "name": "DIMM 8",
+                "name": "dimm_8",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 8 Temp": {
+        "dimm_8_temp": {
             "reading": {
-                "value": 24.0,
+                "value": 23.0,
                 "thresholds": []
             },
             "unit": {
@@ -4520,12 +4520,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 55
                 },
-                "name": "DIMM 8 Temp",
+                "name": "dimm_8_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 9": {
+        "dimm_9": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -4552,14 +4552,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 168
                 },
-                "name": "DIMM 9",
+                "name": "dimm_9",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 9 Temp": {
+        "dimm_9_temp": {
             "reading": {
-                "value": 25.0,
+                "value": 23.0,
                 "thresholds": []
             },
             "unit": {
@@ -4589,12 +4589,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 56
                 },
-                "name": "DIMM 9 Temp",
+                "name": "dimm_9_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 10": {
+        "dimm_10": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -4621,14 +4621,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 169
                 },
-                "name": "DIMM 10",
+                "name": "dimm_10",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 10 Temp": {
+        "dimm_10_temp": {
             "reading": {
-                "value": 24.0,
+                "value": 23.0,
                 "thresholds": []
             },
             "unit": {
@@ -4658,12 +4658,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 57
                 },
-                "name": "DIMM 10 Temp",
+                "name": "dimm_10_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 11": {
+        "dimm_11": {
             "reading": {
                 "states_asserted": [
                     "Presence detected"
@@ -4690,14 +4690,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 170
                 },
-                "name": "DIMM 11",
+                "name": "dimm_11",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 11 Temp": {
+        "dimm_11_temp": {
             "reading": {
-                "value": 25.0,
+                "value": 24.0,
                 "thresholds": []
             },
             "unit": {
@@ -4727,12 +4727,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 58
                 },
-                "name": "DIMM 11 Temp",
+                "name": "dimm_11_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "DIMM 12": {
+        "dimm_12": {
             "reading": {
                 "states_asserted": []
             },
@@ -4757,12 +4757,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 171
                 },
-                "name": "DIMM 12",
+                "name": "dimm_12",
                 "sensor_type": "memory",
                 "sensor_kind": "sensor_specific"
             }
         },
-        "DIMM 12 Temp": {
+        "dimm_12_temp": {
             "reading": {
                 "value": null,
                 "thresholds": []
@@ -4794,12 +4794,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 59
                 },
-                "name": "DIMM 12 Temp",
+                "name": "dimm_12_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "Drive Mismatch": {
+        "drive_mismatch": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -4826,12 +4826,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 124
                 },
-                "name": "Drive Mismatch",
+                "name": "drive_mismatch",
                 "sensor_type": "drive_slot",
                 "sensor_kind": "discrete"
             }
         },
-        "PCH OverTemp": {
+        "pch_overtemp": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -4859,14 +4859,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 139
                 },
-                "name": "PCH OverTemp",
+                "name": "pch_overtemp",
                 "sensor_type": "temperature",
                 "sensor_kind": "discrete"
             }
         },
-        "PCH Temp": {
+        "pch_temp": {
             "reading": {
-                "value": 42.0,
+                "value": 39.0,
                 "thresholds": []
             },
             "unit": {
@@ -4896,12 +4896,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 47
                 },
-                "name": "PCH Temp",
+                "name": "pch_temp",
                 "sensor_type": "temperature",
                 "sensor_kind": "threshold"
             }
         },
-        "PCI 1 OverTemp": {
+        "pci_1_overtemp": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -4929,12 +4929,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 72
                 },
-                "name": "PCI 1 OverTemp",
+                "name": "pci_1_overtemp",
                 "sensor_type": "temperature",
                 "sensor_kind": "discrete"
             }
         },
-        "PCI 2 OverTemp": {
+        "pci_2_overtemp": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -4962,12 +4962,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 73
                 },
-                "name": "PCI 2 OverTemp",
+                "name": "pci_2_overtemp",
                 "sensor_type": "temperature",
                 "sensor_kind": "discrete"
             }
         },
-        "PCI 3 OverTemp": {
+        "pci_3_overtemp": {
             "reading": {
                 "states_asserted": [
                     "Transition to OK"
@@ -4995,14 +4995,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 74
                 },
-                "name": "PCI 3 OverTemp",
+                "name": "pci_3_overtemp",
                 "sensor_type": "temperature",
                 "sensor_kind": "discrete"
             }
         },
-        "Fan 1 Tach": {
+        "fan_1_tach": {
             "reading": {
-                "value": 6272.0,
+                "value": 6468.0,
                 "thresholds": []
             },
             "unit": {
@@ -5032,12 +5032,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 192
                 },
-                "name": "Fan 1 Tach",
+                "name": "fan_1_tach",
                 "sensor_type": "fan",
                 "sensor_kind": "threshold"
             }
         },
-        "Fan 2 Tach": {
+        "fan_2_tach": {
             "reading": {
                 "value": 6272.0,
                 "thresholds": []
@@ -5069,14 +5069,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 193
                 },
-                "name": "Fan 2 Tach",
+                "name": "fan_2_tach",
                 "sensor_type": "fan",
                 "sensor_kind": "threshold"
             }
         },
-        "Fan 3 Tach": {
+        "fan_3_tach": {
             "reading": {
-                "value": 6272.0,
+                "value": 6468.0,
                 "thresholds": []
             },
             "unit": {
@@ -5106,12 +5106,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 194
                 },
-                "name": "Fan 3 Tach",
+                "name": "fan_3_tach",
                 "sensor_type": "fan",
                 "sensor_kind": "threshold"
             }
         },
-        "Fan 4 Tach": {
+        "fan_4_tach": {
             "reading": {
                 "value": 6468.0,
                 "thresholds": []
@@ -5143,12 +5143,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 195
                 },
-                "name": "Fan 4 Tach",
+                "name": "fan_4_tach",
                 "sensor_type": "fan",
                 "sensor_kind": "threshold"
             }
         },
-        "Fan 5 Tach": {
+        "fan_5_tach": {
             "reading": {
                 "value": 6468.0,
                 "thresholds": []
@@ -5180,14 +5180,14 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 196
                 },
-                "name": "Fan 5 Tach",
+                "name": "fan_5_tach",
                 "sensor_type": "fan",
                 "sensor_kind": "threshold"
             }
         },
-        "Fan 6 Tach": {
+        "fan_6_tach": {
             "reading": {
-                "value": 6272.0,
+                "value": 6468.0,
                 "thresholds": []
             },
             "unit": {
@@ -5217,12 +5217,12 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 197
                 },
-                "name": "Fan 6 Tach",
+                "name": "fan_6_tach",
                 "sensor_type": "fan",
                 "sensor_kind": "threshold"
             }
         },
-        "Sys Fan Pwr": {
+        "sys_fan_pwr": {
             "reading": {
                 "value": 4.0,
                 "thresholds": []
@@ -5254,7 +5254,7 @@
                     "fru_owner_lun": 0,
                     "sensor_number": 152
                 },
-                "name": "Sys Fan Pwr",
+                "name": "sys_fan_pwr",
                 "sensor_type": "current",
                 "sensor_kind": "threshold"
             }
