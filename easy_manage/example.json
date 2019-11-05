@@ -1,0 +1,335 @@
+{
+    "SerialNumber": "S4ATJ171",
+    "Id": "1",
+    "IndicatorLED": "Off",
+    "PowerState": "On",
+    "ProcessorSummary": {
+        "Status": {
+            "HealthRollup": "OK",
+            "Health": "OK",
+            "State": "Enabled"
+        },
+        "Count": 2,
+        "Model": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz"
+    },
+    "NetworkInterfaces": {
+        "@odata.id": "/redfish/v1/Systems/1/NetworkInterfaces"
+    },
+    "PCIeDevices@odata.count": 5,
+    "PartNumber": None,
+    "Bios": {
+        "@odata.id": "/redfish/v1/Systems/1/Bios"
+    },
+    "UUID": "c838ecae-4a8c-11e9-b06b-0a94ef7919e1",
+    "Name": "ComputerSystem",
+    "Oem": {
+        "Lenovo": {
+            "ScheduledPowerActions": {
+                "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/ScheduledPowerActions"
+            },
+            "FrontPanelUSB": {
+                "IDButton": "On",
+                "PortSwitchingTo": "Server",
+                "InactivityTimeoutMins": 5,
+                "FPMode": "Shared"
+            },
+            "Metrics": {
+                "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/Metrics"
+            },
+            "SystemStatus": "BootingOSOrInUndetectedOS",
+            "NumberOfReboots": 188,
+            "HistorySysPerf": {
+                "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/HistorySysPerf"
+            },
+            "@odata.type": "#LenovoComputerSystem.v1_0_0.LenovoSystemProperties",
+            "BootSettings": {
+                "@odata.id": "/redfish/v1/Systems/1/Oem/Lenovo/BootSettings"
+            },
+            "TPMSettings": {
+                "EnableRPP": True,
+                "AssertRPP": False,
+                "AssertDurationMins": 30
+            },
+            "TotalPowerOnHours": 4067,
+            "Sensors": {
+                "@odata.id": "/redfish/v1/Chassis/1/Oem/Lenovo/Sensors"
+            }
+        }
+    },
+    "@odata.type": "#ComputerSystem.v1_5_1.ComputerSystem",
+    "Manufacturer": "Lenovo",
+    "@odata.etag": ""8abee022b9f5c80cb555daf1cc39f819"",
+    "Actions": {
+        "#ComputerSystem.Reset": {
+            "target": "/redfish/v1/Systems/1/Actions/ComputerSystem.Reset",
+            "title": "Reset",
+            "ResetType@Redfish.AllowableValues": [
+                "On",
+                "Nmi",
+                "GracefulShutdown",
+                "GracefulRestart",
+                "ForceOn",
+                "ForceOff",
+                "ForceRestart"
+            ]
+        },
+        "Oem": {
+            "#LenovoComputerSystem.BootToBIOSSetup": {
+                "target": "/redfish/v1/Systems/1/Actions/Oem/LenovoComputerSystem.BootToBIOSSetup",
+                "title": "BootToBIOSSetup"
+            },
+            "#LenovoComputerSystem.CustomizedReset": {
+                "target": "/redfish/v1/Systems/1/Actions/Oem/LenovoComputerSystem.CustomizedReset",
+                "title": "CustomizedReset",
+                "ResetType@Redfish.AllowableValues": [
+                    "On"
+                ]
+            }
+        }
+    },
+    "EthernetInterfaces": {
+        "@odata.id": "/redfish/v1/Systems/1/EthernetInterfaces"
+    },
+    "Boot": {
+        "BootSourceOverrideTarget": "None",
+        "BootSourceOverrideTarget@Redfish.AllowableValues": [
+            "None",
+            "Pxe",
+            "Cd",
+            "Usb",
+            "Hdd",
+            "BiosSetup",
+            "Diags",
+            "UefiTarget"
+        ],
+        "BootSourceOverrideEnabled": "Disabled",
+        "UefiTargetBootSourceOverride": None,
+        "BootSourceOverrideMode": "UEFI"
+    },
+    "@odata.id": "/redfish/v1/Systems/1",
+    "AssetTag": "",
+    "PCIeFunctions": [
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_1.00"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_2.00"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_3.00"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_3.05"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.00"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.01"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.02"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/ob_4.03"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.00"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeFunctions/slot_3.01"
+        }
+    ],
+    "@odata.context": "/redfish/v1/$metadata#ComputerSystem.ComputerSystem",
+    "BiosVersion": "TEE136T",
+    "HostName": "XCC-7X08-S4ATJ171",
+    "MemorySummary": {
+        "Status": {
+            "HealthRollup": "OK",
+            "Health": "OK",
+            "State": "Enabled"
+        },
+        "TotalSystemMemoryGiB": 256
+    },
+    "Processors": {
+        "@odata.id": "/redfish/v1/Systems/1/Processors"
+    },
+    "PCIeFunctions@odata.count": 10,
+    "Description": "This resource is used to represent a computing system for a Redfish implementation.",
+    "PCIeDevices": [
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_1"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_2"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_3"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/ob_4"
+        },
+        {
+            "@odata.id": "/redfish/v1/Systems/1/PCIeDevices/slot_3"
+        }
+    ],
+    "Status": {
+        "HealthRollup": "OK",
+        "Health": "OK",
+        "State": "Enabled"
+    },
+    "Links": {
+        "CooledBy": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/0"
+            },
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/1"
+            },
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/2"
+            },
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/3"
+            },
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/4"
+            },
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/Thermal#/Fans/5"
+            }
+        ],
+        "Chassis": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/1"
+            }
+        ],
+        "PoweredBy": [
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/0"
+            },
+            {
+                "@odata.id": "/redfish/v1/Chassis/1/Power#/PowerSupplies/1"
+            }
+        ],
+        "ManagedBy": [
+            {
+                "@odata.id": "/redfish/v1/Managers/1"
+            }
+        ]
+    },
+    "SKU": "7X08CTO1WW",
+    "SecureBoot": {
+        "@odata.id": "/redfish/v1/Systems/1/SecureBoot"
+    },
+    "Memory": {
+        "@odata.id": "/redfish/v1/Systems/1/Memory"
+    },
+    "Storage": {
+        "@odata.id": "/redfish/v1/Systems/1/Storage"
+    },
+    "LogServices": {
+        "@odata.id": "/redfish/v1/Systems/1/LogServices"
+    },
+    "Model": "ThinkSystem SR530",
+    "SystemType": "Physical"
+}
+
+
+{
+    "SerialNumber": "S4ATJ171",
+    "Id": "1",
+    "IndicatorLED": "Off",
+    "PowerState": "On",
+    "ProcessorSummary": {
+        "Status": {
+            "HealthRollup": "OK",
+            "Health": "OK",
+            "State": "Enabled"
+        },
+        "Count": 2,
+        "Model": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz"
+    },
+    "UUID": "c838ecae-4a8c-11e9-b06b-0a94ef7919e1",
+    "Name": "ComputerSystem",
+    "Oem": {
+        "Lenovo": {
+            "FrontPanelUSB": {
+                "IDButton": "On",
+                "PortSwitchingTo": "Server",
+                "InactivityTimeoutMins": 5,
+                "FPMode": "Shared"
+            },
+            "SystemStatus": "BootingOSOrInUndetectedOS",
+            "NumberOfReboots": 188,
+            "TPMSettings": {
+                "EnableRPP": True,
+                "AssertDurationMins": 30
+            },
+            "TotalPowerOnHours": 4067
+        }
+    },
+    "Manufacturer": "Lenovo",
+    "Actions": {
+        "#ComputerSystem.Reset": {
+            "target": "/redfish/v1/Systems/1/Actions/ComputerSystem.Reset",
+            "title": "Reset",
+            "ResetType@Redfish.AllowableValues": [
+                "On",
+                "Nmi",
+                "GracefulShutdown",
+                "GracefulRestart",
+                "ForceOn",
+                "ForceOff",
+                "ForceRestart"
+            ]
+        },
+        "Oem": {
+            "#LenovoComputerSystem.BootToBIOSSetup": {
+                "target": "/redfish/v1/Systems/1/Actions/Oem/LenovoComputerSystem.BootToBIOSSetup",
+                "title": "BootToBIOSSetup"
+            },
+            "#LenovoComputerSystem.CustomizedReset": {
+                "target": "/redfish/v1/Systems/1/Actions/Oem/LenovoComputerSystem.CustomizedReset",
+                "title": "CustomizedReset",
+                "ResetType@Redfish.AllowableValues": [
+                    "On"
+                ]
+            }
+        }
+    },
+    "Boot": {
+        "BootSourceOverrideTarget": "None",
+        "BootSourceOverrideTarget@Redfish.AllowableValues": [
+            "None",
+            "Pxe",
+            "Cd",
+            "Usb",
+            "Hdd",
+            "BiosSetup",
+            "Diags",
+            "UefiTarget"
+        ],
+        "BootSourceOverrideEnabled": "Disabled",
+        "BootSourceOverrideMode": "UEFI"
+    },
+    "BiosVersion": "TEE136T",
+    "HostName": "XCC-7X08-S4ATJ171",
+    "MemorySummary": {
+        "Status": {
+            "HealthRollup": "OK",
+            "Health": "OK",
+            "State": "Enabled"
+        },
+        "TotalSystemMemoryGiB": 256
+    },
+    "Description": "This resource is used to represent a computing system for a Redfish implementation.",
+    "Status": {
+        "HealthRollup": "OK",
+        "Health": "OK",
+        "State": "Enabled"
+    },
+    "SKU": "7X08CTO1WW",
+    "Model": "ThinkSystem SR530",
+    "SystemType": "Physical"
+}

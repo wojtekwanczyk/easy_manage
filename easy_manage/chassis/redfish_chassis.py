@@ -21,23 +21,23 @@ class RedfishChassis(AbstractChassis, RedfishTools):
 
     def get_oem_info(self):
         "Manufacturer and administrative information"
-        return self._find(['Oem'])
+        return self.find(['Oem'])
 
     def get_info(self):
         "Get basic chassis info"
         return self._get_basic_info()
 
     def get_power_state(self):
-        return self._find(['PowerState'], force_fetch=True)
+        return self.find(['PowerState'], force_fetch=True)
 
     def get_health(self):
-        return self._find(['Status', 'Health'], strict=True, force_fetch=True)
+        return self.find(['Status', 'Health'], strict=True, force_fetch=True)
 
     # Thermal management (fans & temperatures)
 
     def get_thermal_health(self):
         thermal = self.get_data(self.endpoint + '/Thermal')
-        return self._find(['Status', 'Health'], data=thermal)
+        return self.find(['Status', 'Health'], data=thermal)
 
     def _get_thermal_names(self, thermal_type):
         thermal = self.get_data(self.endpoint + '/Thermal')
@@ -56,18 +56,18 @@ class RedfishChassis(AbstractChassis, RedfishTools):
         "In Celsius"
         thermal = self.get_data(self.endpoint + '/Thermal')
         sensor_dict = self._get_dict_containing(name, thermal)
-        return self._find(['ReadingCelsius'], data=sensor_dict)
+        return self.find(['ReadingCelsius'], data=sensor_dict)
 
     def get_fan_speed(self, name):
         "Percentage speed"
         thermal = self.get_data(self.endpoint + '/Thermal')
         sensor_dict = self._get_dict_containing(name, thermal)
-        return self._find(['Reading'], data=sensor_dict, strict=True)
+        return self.find(['Reading'], data=sensor_dict, strict=True)
 
     # Power supply management
     def _power_search(self, name):
         power_data = self.get_data(self.endpoint + '/Power')
-        return self._find([name], strict=True, data=power_data)
+        return self.find([name], strict=True, data=power_data)
 
     def get_power_info(self):
         return self._power_search('Oem')

@@ -148,8 +148,8 @@ def main():
     global rf, c, sh, cont, r_conn, s_conn
     #ipmi_demo(args, creds_controller)
     rf, c, r_conn = redfish_demo(config, creds_controller)
-    cont = controller_factory_demo(config, creds_controller)
-    sh, s_conn = shell_demo(config, creds_device)
+    #cont = controller_factory_demo(config, creds_controller)
+    #sh, s_conn = shell_demo(config, creds_device)
 
     return 0
 
