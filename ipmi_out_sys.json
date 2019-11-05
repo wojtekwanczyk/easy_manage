@@ -10,7 +10,26 @@
             "IPMB_EVENT_GENERATOR",
             "CHASSIS"
         ],
-        "bmc_info": "{'device_id': 32, 'revision': 0, 'provides_sdrs': False, 'available': False, 'fw_revision': <pyipmi.fields.VersionField object at 0x7ff6983d9828>, 'ipmi_version': <pyipmi.fields.VersionField object at 0x7ff6983d9ac8>, 'manufacturer_id': 19046, 'product_id': 1088, 'supported_functions': ['sensor', 'sdr_repository', 'sel', 'fru_inventory', 'ipmb_event_receiver', 'ipmb_event_generator', 'chassis'], 'aux': None}"
+        "bmc_info": {
+            "device_id": 32,
+            "revision": 0,
+            "provides_sdrs": false,
+            "available": false,
+            "fw_revision": "2.50",
+            "ipmi_version": "2.0",
+            "manufacturer_id": 19046,
+            "product_id": 1088,
+            "supported_functions": [
+                "sensor",
+                "sdr_repository",
+                "sel",
+                "fru_inventory",
+                "ipmb_event_receiver",
+                "ipmb_event_generator",
+                "chassis"
+            ],
+            "aux": null
+        }
     },
     "hardware": {
         "system_components": [
@@ -589,7 +608,7 @@
         },
         "Ambient Temp": {
             "reading": {
-                "value": 29.0,
+                "value": 18.0,
                 "thresholds": []
             },
             "unit": {
@@ -845,7 +864,7 @@
         },
         "CPU1 Temp": {
             "reading": {
-                "value": 33.0,
+                "value": 27.0,
                 "thresholds": []
             },
             "unit": {
@@ -883,7 +902,7 @@
         },
         "CPU2 Temp": {
             "reading": {
-                "value": 32.0,
+                "value": 25.0,
                 "thresholds": []
             },
             "unit": {
@@ -986,7 +1005,7 @@
         },
         "System Air Flow": {
             "reading": {
-                "value": 18.0,
+                "value": 12.0,
                 "thresholds": []
             },
             "unit": {
@@ -1513,7 +1532,7 @@
         },
         "Exhaust Temp": {
             "reading": {
-                "value": 35.0,
+                "value": 28.0,
                 "thresholds": []
             },
             "unit": {
@@ -1899,7 +1918,7 @@
         },
         "PSU1 DC Out Pwr": {
             "reading": {
-                "value": 30.0,
+                "value": 50.0,
                 "thresholds": []
             },
             "unit": {
@@ -2101,7 +2120,7 @@
         },
         "PSU2 DC Out Pwr": {
             "reading": {
-                "value": 40.0,
+                "value": 25.0,
                 "thresholds": []
             },
             "unit": {
@@ -3657,7 +3676,7 @@
         },
         "Sys Power": {
             "reading": {
-                "value": 100.0,
+                "value": 90.0,
                 "thresholds": []
             },
             "unit": {
@@ -3694,7 +3713,7 @@
         },
         "CPU Power": {
             "reading": {
-                "value": 22.0,
+                "value": 24.0,
                 "thresholds": []
             },
             "unit": {
@@ -4061,7 +4080,7 @@
         },
         "DIMM 2 Temp": {
             "reading": {
-                "value": 31.0,
+                "value": 24.0,
                 "thresholds": []
             },
             "unit": {
@@ -4130,7 +4149,7 @@
         },
         "DIMM 3 Temp": {
             "reading": {
-                "value": 32.0,
+                "value": 25.0,
                 "thresholds": []
             },
             "unit": {
@@ -4199,7 +4218,7 @@
         },
         "DIMM 4 Temp": {
             "reading": {
-                "value": 32.0,
+                "value": 24.0,
                 "thresholds": []
             },
             "unit": {
@@ -4268,7 +4287,7 @@
         },
         "DIMM 5 Temp": {
             "reading": {
-                "value": 32.0,
+                "value": 24.0,
                 "thresholds": []
             },
             "unit": {
@@ -4471,7 +4490,7 @@
         },
         "DIMM 8 Temp": {
             "reading": {
-                "value": 33.0,
+                "value": 24.0,
                 "thresholds": []
             },
             "unit": {
@@ -4540,7 +4559,7 @@
         },
         "DIMM 9 Temp": {
             "reading": {
-                "value": 33.0,
+                "value": 25.0,
                 "thresholds": []
             },
             "unit": {
@@ -4609,7 +4628,7 @@
         },
         "DIMM 10 Temp": {
             "reading": {
-                "value": 32.0,
+                "value": 24.0,
                 "thresholds": []
             },
             "unit": {
@@ -4678,7 +4697,7 @@
         },
         "DIMM 11 Temp": {
             "reading": {
-                "value": 33.0,
+                "value": 25.0,
                 "thresholds": []
             },
             "unit": {
@@ -4847,7 +4866,7 @@
         },
         "PCH Temp": {
             "reading": {
-                "value": 46.0,
+                "value": 42.0,
                 "thresholds": []
             },
             "unit": {
@@ -4983,7 +5002,7 @@
         },
         "Fan 1 Tach": {
             "reading": {
-                "value": 9212.0,
+                "value": 6272.0,
                 "thresholds": []
             },
             "unit": {
@@ -5020,7 +5039,7 @@
         },
         "Fan 2 Tach": {
             "reading": {
-                "value": 8820.0,
+                "value": 6272.0,
                 "thresholds": []
             },
             "unit": {
@@ -5057,7 +5076,7 @@
         },
         "Fan 3 Tach": {
             "reading": {
-                "value": 8820.0,
+                "value": 6272.0,
                 "thresholds": []
             },
             "unit": {
@@ -5094,7 +5113,7 @@
         },
         "Fan 4 Tach": {
             "reading": {
-                "value": 8820.0,
+                "value": 6468.0,
                 "thresholds": []
             },
             "unit": {
@@ -5131,7 +5150,7 @@
         },
         "Fan 5 Tach": {
             "reading": {
-                "value": 8820.0,
+                "value": 6468.0,
                 "thresholds": []
             },
             "unit": {
@@ -5168,7 +5187,7 @@
         },
         "Fan 6 Tach": {
             "reading": {
-                "value": 8820.0,
+                "value": 6272.0,
                 "thresholds": []
             },
             "unit": {
@@ -5205,7 +5224,7 @@
         },
         "Sys Fan Pwr": {
             "reading": {
-                "value": 7.0,
+                "value": 4.0,
                 "thresholds": []
             },
             "unit": {

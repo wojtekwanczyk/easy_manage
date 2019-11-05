@@ -1,7 +1,7 @@
 {
     "power_on_counter": {
         "minutes_per_count": 60,
-        "counter_reading": 4041
+        "counter_reading": 4061
     },
     "chassis_info": {
         "type": "other",
