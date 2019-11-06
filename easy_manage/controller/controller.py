@@ -7,7 +7,6 @@ class Controller:
         self.name = name
         self.description = description
         self.standards = {}
-        self.connectors = []
         self.system = type('', (), {})()
         self.systems_interfaces = {}
         self.chassis = type('', (), {})()

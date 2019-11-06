@@ -2,10 +2,8 @@
 Module with class responsible for correct creation of controllers that can be used
 without knowledge of which interfaces they use
 """
-# todo: chasis need to be added to factory
 import logging
 
-from operator import itemgetter
 from easy_manage.controller.controller import Controller
 from easy_manage.protocols import Protocols
 from easy_manage.connectors.connectors_switch import connectors_switch
@@ -19,12 +17,12 @@ LOGGER.setLevel(logging.INFO)
 class ControllerFactory(Controller):
     "Class responsible for creating controllers, it detects available interfaces"
 
-    def __init__(self, name, description, address, credentials, custom_connection={}):
+    def __init__(self, name, address, credentials, custom_connection={}):
         """
         Create controller detecting with interfaces it can support
         custom_connection is map of protocols custom settings (port,credentials, address)
         """
-        super().__init__(name, description)
+        super().__init__(name)
         if custom_connection is None:
             custom_connection = {}
         for protocol in Protocols:
@@ -39,7 +37,11 @@ class ControllerFactory(Controller):
                     connection_credential = custom.credentials
                 if custom.port:
                     connection_port = custom.port
-            connector = connectors_switch(protocol, connection_address, connection_credential, connection_port)
+            connector = connectors_switch(
+                protocol,
+                connection_address,
+                connection_credential,
+                connection_port)
             if connector and connector.connect():
                 self.standards[protocol] = connector
                 system = systems_switch(protocol, connector)
@@ -66,6 +68,7 @@ class ControllerFactory(Controller):
     @staticmethod
     def assign_missing_methods(recipient, donor):
         "Reassigns available methods call from donor to recipient"
-        new_methods = list(set(ControllerFactory.get_methods(donor)) - set(ControllerFactory.get_methods(recipient)))
+        new_methods = list(set(ControllerFactory.get_methods(donor))
+                           - set(ControllerFactory.get_methods(recipient)))
         for method in new_methods:
             setattr(recipient, method, getattr(donor, method))
