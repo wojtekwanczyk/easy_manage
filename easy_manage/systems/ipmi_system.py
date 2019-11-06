@@ -32,7 +32,7 @@ class IpmiSystem(AbstractSystem):
         self.BMCInfo = BMCInfo(ipmi)
         self.Sensor = Sensor(ipmi)
 
-    def aggregate(self):
+    def fetch_all(self):
         "Function which aggregates necessary info from IPMI sys, for scraping purposes"
         return {
             'bmc': self.BMCInfo.aggregate(),
@@ -41,16 +41,18 @@ class IpmiSystem(AbstractSystem):
             'sensors': self._aggregate_sensor_and_sdrs()  # this also fetches sensor's readings
         }
 
+    def fetch_sensors(self):
+        "Function which returns in ipmi-system specific format all of the info only about sensors"
+        return {
+            'sensors': self._aggregate_sensor_and_sdrs()
+        }
+
     def _aggregate_sensor_and_sdrs(self):
         sdrs = self.SDRRepository.fetch_sdr_object_list()
         aggr = self.Sensor.mass_read_sensor(sdrs)
         for sdr in sdrs:
             aggr[sdr.name]['sensor_info'] = sdr.aggregate()
         return aggr
-
-    def fetch_sensors(self):
-        "Fetches and aggregates all of sensor's data"
-        return self._aggregate_sensor_and_sdrs()
 
     def fetch_events(self):
         "Fetches and aggregates all events"
