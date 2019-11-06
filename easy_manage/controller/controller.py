@@ -1,5 +1,4 @@
 "It contains only Controller instance"
-from easy_manage.controller.abstract import ControllerTools
 
 
 class Controller:
@@ -9,7 +8,7 @@ class Controller:
         self.description = description
         self.standards = {}
         self.connectors = []
-        # todo: universal class contanier for system, chasis, etc could be done
-        self.system = ControllerTools()
+        self.system = type('', (), {})()
         self.systems_interfaces = {}
+        self.chassis = type('', (), {})()
         self.chassis_interfaces = []
