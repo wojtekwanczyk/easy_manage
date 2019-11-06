@@ -17,26 +17,19 @@ LOGGER.setLevel(logging.INFO)
 class ControllerFactory(Controller):
     "Class responsible for creating controllers, it detects available interfaces"
 
-    def __init__(self, name, address, credentials, custom_connection={}):
+    def __init__(self, address, credentials, custom_connection=None):
         """
         Create controller detecting with interfaces it can support
-        custom_connection is map of protocols custom settings (port,credentials, address)
+        custom_connection is dic of protocols custom settings (port,credentials, address)
         """
-        super().__init__(name)
+        super().__init__()
         if custom_connection is None:
             custom_connection = {}
         for protocol in Protocols:
-            custom = custom_connection.get(protocol, False)()
-            connection_address = address
-            connection_credential = credentials
-            connection_port = None
-            if custom:
-                if custom.address:
-                    connection_address = custom.address
-                if custom.credentials:
-                    connection_credential = custom.credentials
-                if custom.port:
-                    connection_port = custom.port
+            custom = custom_connection.get(protocol, {})
+            connection_address = custom.get('address', address)
+            connection_credential = custom.get('credentials', credentials)
+            connection_port = custom.get('port', None)
             connector = connectors_switch(
                 protocol,
                 connection_address,
