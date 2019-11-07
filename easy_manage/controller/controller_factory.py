@@ -14,49 +14,48 @@ LOGGER = logging.getLogger('ControllerFactory')
 LOGGER.setLevel(logging.INFO)
 
 
-class ControllerFactory(Controller):
+class ControllerFactory:
     "Class responsible for creating controllers, it detects available interfaces"
-
-    def __init__(self, address, credentials, custom_connection=None):
+    @staticmethod
+    def get_controller(address, credentials, custom_connection=None):
         """
         Create controller detecting with interfaces it can support
         custom_connection is dic of protocols custom settings (port,credentials, address)
         """
-        super().__init__()
+        controller = Controller()
         if custom_connection is None:
             custom_connection = {}
         for protocol in Protocols:
             custom = custom_connection.get(protocol, {})
             connection_address = custom.get('address', address)
             connection_credential = custom.get('credentials', credentials)
-            connection_port = custom.get('port', None)
+            connection_port = custom.get('port')
             connector = connectors_switch(
                 protocol,
                 connection_address,
                 connection_credential,
                 connection_port)
             if connector and connector.connect():
-                self.standards[protocol] = connector
+                controller.standards[protocol] = connector
                 system = systems_switch(protocol, connector)
                 if system:
-                    self.systems_interfaces[protocol] = system
-                    ControllerFactory.assign_missing_methods(self.system, system)
+                    controller.systems_interfaces[protocol] = system
+                    ControllerFactory.assign_missing_methods(controller.system, system)
 
                 chassis = chassis_switch(protocol, connector)
                 if chassis:
-                    self.chassis_interfaces[protocol] = chassis
-                    ControllerFactory.assign_missing_methods(self.chassis, chassis)
+                    controller.chassis_interfaces[protocol] = chassis
+                    ControllerFactory.assign_missing_methods(controller.chassis, chassis)
 
-        LOGGER.info(f"SYSTEMS: {self.systems_interfaces}")
-        LOGGER.info(f"STANDARDS: {self.standards.keys()}")
+        LOGGER.info(f"SYSTEMS: {controller.systems_interfaces}")
+        LOGGER.info(f"STANDARDS: {controller.standards.keys()}")
+        return controller
 
     @staticmethod
     def get_methods(component):
-        "Returns list of possible methods"
+        "Return all public(not beginning with _) methods from given object"
         return [method_name for method_name in dir(component)
-                if callable(getattr(component, method_name))
-                and not method_name.startswith('_')
-                and method_name != 'assign_missing_methods']
+                if callable(getattr(component, method_name)) and not method_name.startswith('_')]
 
     @staticmethod
     def assign_missing_methods(recipient, donor):

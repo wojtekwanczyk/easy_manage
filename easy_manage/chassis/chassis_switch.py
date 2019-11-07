@@ -5,8 +5,7 @@ from easy_manage.chassis.redfish_chassis import RedfishChassis
 
 def chassis_switch(protocol, connector):
     switcher = {
-        Protocols.REDFISH: lambda: RedfishChassis('test_system_redfish', connector,
-                                                  '/redfish/v1/Systems/1'),
+        Protocols.REDFISH: lambda: RedfishChassis(connector, '/redfish/v1/Chassis/1'),
         Protocols.IPMI: lambda: IpmiChassis(connector)
     }
-    return switcher.get(protocol, False)()
+    return switcher.get(protocol)()

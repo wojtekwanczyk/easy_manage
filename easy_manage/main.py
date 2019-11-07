@@ -33,14 +33,13 @@ def redfish_demo(config, credentials):
     LOGGER.info('Redfish demo')
 
     global rf_conn
-    rf_conn = RedfishConnector('test_connector_redfish', config['CONTROLLER']['ADDRESS'], credentials)
+    rf_conn = RedfishConnector(config['CONTROLLER']['ADDRESS'], credentials)
     LOGGER.debug("Connecting to Redfish...")
     rf_conn.connect()
     LOGGER.debug("Connected")
 
-    rf_sys = RedfishSystem('test_system_redfish',
-                           rf_conn, '/redfish/v1/Systems/1')
-    rf_cha = RedfishChassis('test_chassis_redfish', rf_conn, '/redfish/v1/Chassis/1')
+    rf_sys = RedfishSystem(rf_conn, '/redfish/v1/Systems/1')
+    rf_cha = RedfishChassis(rf_conn, '/redfish/v1/Chassis/1')
 
     # power = rf_sys.get_power_state()
     # print(f"Power state: {power}")
@@ -59,10 +58,9 @@ def redfish_demo(config, credentials):
 
 def ipmi_demo(config, credentials):
     LOGGER.info('IPMI demo')
-    ipmi_conn = IpmiConnector('test_connector_ipmi',
-                              config['CONTROLLER']['ADDRESS'], credentials)
+    ipmi_conn = IpmiConnector(config['CONTROLLER']['ADDRESS'], credentials)
     ipmi_conn.connect()
-    ipmi_sys = IpmiSystem('test_system_ipmi', ipmi_conn)
+    ipmi_sys = IpmiSystem(ipmi_conn)
     sys = ipmi_sys.aggregate()
     ipmi_chass = IpmiChassis(ipmi_conn)
     chasis = ipmi_chass.aggregate()
@@ -117,7 +115,7 @@ def ipmi_demo(config, credentials):
 
 
 def shell_demo(config, credentials):
-    conn = SshConnector('randomname', config['DEVICE']['ADDRESS'], credentials)
+    conn = SshConnector(config['DEVICE']['ADDRESS'], credentials)
     print("Connecting through ssh")
     conn.connect()
     print("Connected")

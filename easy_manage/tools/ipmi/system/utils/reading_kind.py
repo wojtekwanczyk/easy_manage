@@ -19,7 +19,7 @@ def get_reading_kind(reading_code):
     mapped_kind = {
         THRESHOLD_READING_CODE: ReadingKind.THRESHOLD,
         SENSOR_SPECIFIC_READING_CODE: ReadingKind.SENSOR_SPECIFIC,
-    }.get(reading_code, None)
+    }.get(reading_code)
     if isinstance(mapped_kind, ReadingKind):
         return mapped_kind
     if reading_code in DISCRETE_READING_RANGE:

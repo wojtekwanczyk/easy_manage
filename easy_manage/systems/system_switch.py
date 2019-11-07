@@ -5,8 +5,7 @@ from easy_manage.systems.redfish_system import RedfishSystem
 
 def systems_switch(protocol, connector):
     switcher = {
-        Protocols.REDFISH: lambda: RedfishSystem('test_system_redfish', connector,
-                                                 '/redfish/v1/Systems/1'),
-        Protocols.IPMI: lambda: IpmiSystem('test_system_ipmi', connector)
+        Protocols.REDFISH: lambda: RedfishSystem(connector, '/redfish/v1/Systems/1'),
+        Protocols.IPMI: lambda: IpmiSystem(connector)
     }
-    return switcher.get(protocol, False)()
+    return switcher.get(protocol)()

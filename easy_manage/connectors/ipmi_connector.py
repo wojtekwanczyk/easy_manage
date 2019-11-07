@@ -11,8 +11,8 @@ LOGGER.setLevel(logging.DEBUG)
 
 class IpmiConnector(Connector):
 
-    def __init__(self, name, address, credentials, port=623):
-        super().__init__(name, address, credentials, port)
+    def __init__(self, address, credentials, port=623):
+        super().__init__(address, credentials, port)
         # set initial parameters of object to none
         self.device_id = None
         self.interface = None

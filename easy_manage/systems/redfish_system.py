@@ -14,8 +14,8 @@ LOGGER.setLevel(logging.DEBUG)
 class RedfishSystem(AbstractSystem, RedfishTools):
     "Class responsible for management with separate system through Redfish interface"
 
-    def __init__(self, name, connector, endpoint):
-        super().__init__(name, connector)
+    def __init__(self, connector, endpoint):
+        super().__init__(connector)
 
         self.endpoint = endpoint
         self.force_fetch = False
