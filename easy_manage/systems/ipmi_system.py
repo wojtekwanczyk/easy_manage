@@ -23,8 +23,8 @@ class IpmiSystem(AbstractSystem):
     """
     # pylint: disable=invalid-name
 
-    def __init__(self, name, connector):
-        super().__init__(name, connector)
+    def __init__(self, connector):
+        super().__init__(connector)
         ipmi = connector.ipmi
         self.FRU = FRU(ipmi, connector.credentials, connector.address)  # This dude is special
         self.SEL = SEL(ipmi)
