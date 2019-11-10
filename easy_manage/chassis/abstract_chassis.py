@@ -4,8 +4,7 @@
 class AbstractChassis():
     "Abstract chasiss class, for aggregating and unifying chassis functionalities"
 
-    def __init__(self, name, connector):
-        self.name = name
+    def __init__(self, connector):
         self.connector = connector
         self.data = {}
         self.last_update = None

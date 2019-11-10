@@ -11,8 +11,8 @@ LOGGER.setLevel(logging.DEBUG)
 class RedfishChassis(AbstractChassis, RedfishTools):
     "Class responsible for chassis management through Redfish interface"
 
-    def __init__(self, name, connector, endpoint):
-        super().__init__(name, connector)
+    def __init__(self, connector, endpoint):
+        super().__init__(connector)
         self.endpoint = endpoint
         self.thermal = None
         self.force_fetch = False

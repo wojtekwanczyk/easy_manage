@@ -15,7 +15,6 @@ class RedfishTools:
 
     def __init__(self):
         self.endpoint = None
-        self.name = None
         self.data = None
         self.last_update = None
         self.connector = None

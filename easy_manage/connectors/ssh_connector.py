@@ -12,8 +12,8 @@ LOGGER.setLevel(logging.DEBUG)
 class SshConnector(Connector, SSHClient):
     "Class responisbile for connection through ssh protocol"
 
-    def __init__(self, name, address, credentials, port=None):
-        Connector.__init__(self, name, address, credentials, port)
+    def __init__(self, address, credentials, port=None):
+        Connector.__init__(self, address, credentials, port)
         SSHClient.__init__(self)
 
     def connect(self):

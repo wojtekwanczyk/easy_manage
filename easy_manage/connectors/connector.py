@@ -1,11 +1,10 @@
 "Module containing class responsible for connection with remote device(s)"
 
 
-class Connector():
+class Connector:
     "Class responsible for connection with remote device(s)"
 
-    def __init__(self, name, address, credentials, port):
-        self.name = name
+    def __init__(self, address, credentials, port):
         self.address = address
         self.port = port
         self.credentials = credentials
