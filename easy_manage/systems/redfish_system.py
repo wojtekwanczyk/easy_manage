@@ -120,7 +120,8 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     # Other devices
 
     def get_coolers(self):
-        return self._get_device_info('CooledBy')
+        thermal = self._get_device_info('CooledBy')
+        return next(iter(thermal.values()))['Fans']
 
     def get_chassis(self):
         return self._get_device_info('Chassis')

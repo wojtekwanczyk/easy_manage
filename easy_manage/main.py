@@ -126,7 +126,7 @@ def shell_demo(config, credentials):
 
 
 def controller_factory_demo(config, credentials):
-    controller = ControllerFactory(config['CONTROLLER']['ADDRESS'], credentials)
+    controller = ControllerFactory.get_controller(config['CONTROLLER']['ADDRESS'], credentials)
     print(ControllerFactory.get_methods(controller.system))
     print(ControllerFactory.get_methods(controller.chassis))
     return controller
@@ -142,17 +142,10 @@ def main():
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
     global rf, c, sh, cont, r_conn, s_conn
-<<<<<<< HEAD
     #ipmi_demo(args, creds_controller)
     rf, c, r_conn = redfish_demo(config, creds_controller)
-    #cont = controller_factory_demo(config, creds_controller)
+    cont = controller_factory_demo(config, creds_controller)
     #sh, s_conn = shell_demo(config, creds_device)
-=======
-    ipmi_demo(config, creds_controller)
-    # rf, c, r_conn = redfish_demo(config, creds_controller)
-    # cont = controller_factory_demo(config, creds_controller)
-    # sh, s_conn = shell_demo(config, creds_device)
->>>>>>> master
 
     return 0
 

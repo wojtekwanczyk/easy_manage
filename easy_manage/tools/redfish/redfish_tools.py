@@ -164,7 +164,7 @@ class RedfishTools:
         # LOGGER.info(f"Updating data from {endpoint} with depth {max_depth}")
         if max_depth == 0 or endpoint in data.keys():
             return data
-        print(endpoint)
+        #print(endpoint)
         resp = self.get_data(endpoint)
         data[endpoint] = resp
         if isinstance(resp, dict):
