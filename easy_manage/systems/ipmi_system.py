@@ -66,17 +66,17 @@ class IpmiSystem(AbstractSystem):
         return self.SEL.aggregate()
 
 
-     def ipmi_system_data(self):
+     def ipmi_whole_data(self):
         if not self.connector.connected:
             raise NotConnectedError("IPMI not connected, data fetch exception")
         return self.fetch_all()
         
-    def ipmi_system_static_data(self):
+    def ipmi_static_data(self):
         if not self.connector.connected:
             raise NotConnectedError("IPMI not connected, data fetch exception")
         return self.fetch_static()
 
-    def ipmi_system_reading(self):
+    def ipmi_reading(self):
         if not self.connector.connected:
             raise NotConnectedError("IPMI not connected, data fetch exception")
         return self.fetch_sensors()
