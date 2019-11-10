@@ -67,9 +67,9 @@ class IpmiSystem(AbstractSystem):
 
 
     def ipmi_whole_data(self):
-       if not self.connector.connected:
-           raise NotConnectedError("IPMI not connected, data fetch exception")
-       return self.fetch_all()
+        if not self.connector.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.fetch_all()
         
     def ipmi_static_data(self):
         if not self.connector.connected:
