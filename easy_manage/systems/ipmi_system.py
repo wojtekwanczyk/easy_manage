@@ -6,7 +6,7 @@ from easy_manage.tools.ipmi.system.SEL.event_log import SEL
 from easy_manage.tools.ipmi.system.SDR.repository import SDRRepository
 from easy_manage.tools.ipmi.system.bmc_info import BMCInfo
 from easy_manage.tools.ipmi.system.sensor import Sensor
-from easy_manage.connectors.ipmi_connector import NotConnectedError
+from easy_manage.connectors.exceptions import NotConnectedError
 LOGGER = logging.getLogger('ipmi_system')
 LOGGER.setLevel(logging.DEBUG)
 

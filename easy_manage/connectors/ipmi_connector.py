@@ -6,12 +6,9 @@ import pyipmi.interfaces
 from easy_manage.connectors.connector import Connector
 from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.chassis.ipmi_chassis import IpmiChassis
-
+from easy_manage.connectors.exceptions import NotConnectedError
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
-
-class NotConnectedError(Exception):
-    pass
 
 class IpmiConnector(Connector):
 
