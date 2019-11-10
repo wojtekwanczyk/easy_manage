@@ -178,14 +178,16 @@ class RedfishSystem(AbstractSystem, RedfishTools):
         return self.get_data(self.endpoint + '/NetworkInterfaces/' + str(index))
 
     def get_ethernet_interfaces(self):
-        interfaces = self.get_data(self.endpoint + '/EthernetInterfaces')
-        endpoints = self._endpoint_inception(self.find(['Members'], False, interfaces))
+        interfaces_data = self.get_data(self.endpoint + '/EthernetInterfaces')
+        ethernet_members = self.find(['Members'], True, interfaces_data)
+        endpoints = self._endpoint_inception(ethernet_members)
         return self.evaluate_endpoints(endpoints)
 
     # Other
 
     def get_storage(self):
-        return self._get_device_info('Storage')
+        storage = next(iter(self._get_device_info('Storage').values()))
+        return storage['Members']
 
     def get_memory(self):
         return self._get_device_info('Memory')

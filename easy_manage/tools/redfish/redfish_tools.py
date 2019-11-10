@@ -319,5 +319,5 @@ class RedfishTools:
 
     def _get_device_info(self, name, level=2):
         "Get device info from Redfish Links"
-        endpoints = self._endpoint_inception(self.find([name]), level)
+        endpoints = self._endpoint_inception(self.find([name], strict=True), level)
         return self.evaluate_endpoints(endpoints)
