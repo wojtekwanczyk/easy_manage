@@ -57,27 +57,6 @@ class IpmiConnector(Connector):
         return True
 
         
-
     def test_connection(self):
         if self.connect(test=True):
             return True
-
-    def get_system_data(self):
-        if not self.connected:
-            raise NotConnectedError("IPMI not connected, data fetch exception")
-        return self.ipmi_sys.fetch_all()
-        
-    def get_system_static_data(self):
-        if not self.connected:
-            raise NotConnectedError("IPMI not connected, data fetch exception")
-        return self.ipmi_sys.fetch_static()
-
-    def get_system_reading(self):
-        if not self.connected:
-            raise NotConnectedError("IPMI not connected, data fetch exception")
-        return self.ipmi_sys.fetch_sensors()
-
-    def get_chassis_data(self):
-        if not self.connected:
-            raise NotConnectedError("IPMI not connected, data fetch exception")
-        return self.ipmi_chass.aggregate()

@@ -6,7 +6,7 @@ from easy_manage.tools.ipmi.system.SEL.event_log import SEL
 from easy_manage.tools.ipmi.system.SDR.repository import SDRRepository
 from easy_manage.tools.ipmi.system.bmc_info import BMCInfo
 from easy_manage.tools.ipmi.system.sensor import Sensor
-
+from easy_manage.connectors.ipmi_connector import NotConnectedError
 LOGGER = logging.getLogger('ipmi_system')
 LOGGER.setLevel(logging.DEBUG)
 
@@ -64,3 +64,19 @@ class IpmiSystem(AbstractSystem):
     def fetch_events(self):
         "Fetches and aggregates all events"
         return self.SEL.aggregate()
+
+
+     def ipmi_system_data(self):
+        if not self.connector.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.fetch_all()
+        
+    def ipmi_system_static_data(self):
+        if not self.connector.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.fetch_static()
+
+    def ipmi_system_reading(self):
+        if not self.connector.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.fetch_sensors()

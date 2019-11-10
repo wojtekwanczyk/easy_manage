@@ -79,3 +79,8 @@ class IpmiChassis(FRUChassis):
             'chassis_status': self.status(),
             'chassis_functions': self.functions()
         }
+
+    def ipmi_chassis_data(self):
+        if not self.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.ipmi_chass.aggregate()
