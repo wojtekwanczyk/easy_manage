@@ -37,7 +37,7 @@ class IpmiSystem(AbstractSystem):
         return {
             'bmc': self.BMCInfo.aggregate(),
             'hardware': self.FRU.aggregate(),
-            'events': self.SEL.aggregate(),
+            # 'events': self.SEL.aggregate(),
             'sensors': self._aggregate_sensor_and_sdrs()  # this also fetches sensor's readings
         }
 
@@ -45,6 +45,13 @@ class IpmiSystem(AbstractSystem):
         "Function which returns in ipmi-system specific format all of the info only about sensors"
         return {
             'sensors': self._aggregate_sensor_and_sdrs()
+        }
+
+    def fetch_static(self):
+        "Function which returns static data only"
+        return {
+            'bmc': self.BMCInfo.aggregate(),
+            'hardware': self.FRU.aggregate()
         }
 
     def _aggregate_sensor_and_sdrs(self):

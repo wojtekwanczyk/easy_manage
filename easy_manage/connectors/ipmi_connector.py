@@ -4,10 +4,14 @@ import pyipmi
 import pyipmi.interfaces
 
 from easy_manage.connectors.connector import Connector
+from easy_manage.systems.ipmi_system import IpmiSystem
+from easy_manage.chassis.ipmi_chassis import IpmiChassis
 
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
+class NotConnectedError(Exception):
+    pass
 
 class IpmiConnector(Connector):
 
@@ -17,11 +21,12 @@ class IpmiConnector(Connector):
         self.device_id = None
         self.interface = None
         self.ipmi = None
+        
 
-    def connect(self):
+    def connect(self, test = False):
         "Function creates connection to given device"
         try:
-            self.interface = pyipmi.interfaces.create_interface(
+            interface = pyipmi.interfaces.create_interface(
                 interface='ipmitool',
                 interface_type='lanplus')
         except Exception as ex:
@@ -29,14 +34,50 @@ class IpmiConnector(Connector):
             return False
 
         # create connection on that interface
-        self.ipmi = pyipmi.create_connection(self.interface)
-        self.ipmi.session.set_session_type_rmcp(
+        ipmi = pyipmi.create_connection(interface)
+        ipmi.session.set_session_type_rmcp(
             host=self.address, port=int(self.port))
-        self.ipmi.session.set_auth_type_user(
+        ipmi.session.set_auth_type_user(
             username=self.credentials.username,
             password=self.credentials.password)
 
-        self.ipmi.target = pyipmi.Target(ipmb_address=0x20)
-        self.ipmi.session.establish()
+        ipmi.target = pyipmi.Target(ipmb_address=0x20)
+        ipmi.session.establish()
+        try:
+            ipmi.session.rmcp_ping()    
+        except IpmiTimeoutError:
+            return False
+        if test:
+            return True
         self.connected = True
+        self.interface = interface
+        self.ipmi = ipmi
+        self.ipmi_sys = IpmiSystem(self)
+        self.ipmi_chass = IpmiChassis(self)
         return True
+
+        
+
+    def test_connection(self):
+        if self.connect(test=True):
+            return True
+
+    def get_system_data(self):
+        if not self.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.ipmi_sys.fetch_all()
+        
+    def get_system_static_data(self):
+        if not self.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.ipmi_sys.fetch_static()
+
+    def get_system_reading(self):
+        if not self.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.ipmi_sys.fetch_sensors()
+
+    def get_chassis_data(self):
+        if not self.connected:
+            raise NotConnectedError("IPMI not connected, data fetch exception")
+        return self.ipmi_chass.aggregate()
