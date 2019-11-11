@@ -2,11 +2,9 @@
 import logging
 import pyipmi
 import pyipmi.interfaces
+from pyipmi import IpmiTimeoutError
 
 from easy_manage.connectors.connector import Connector
-from easy_manage.systems.ipmi_system import IpmiSystem
-from easy_manage.chassis.ipmi_chassis import IpmiChassis
-from easy_manage.utils.exceptions import NotConnectedError
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 
@@ -49,8 +47,6 @@ class IpmiConnector(Connector):
         self.connected = True
         self.interface = interface
         self.ipmi = ipmi
-        self.ipmi_sys = IpmiSystem(self)
-        self.ipmi_chass = IpmiChassis(self)
         return True
 
         
