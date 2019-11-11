@@ -1,14 +1,14 @@
 "IPMI chassis module"
 
 from easy_manage.tools.ipmi.chassis.chassis_messages import ChassisControl
-from easy_manage.tools.ipmi.chassis.ipmi_chassis_backend import IpmiChassisBackend
+from easy_manage.tools.ipmi.ipmi_backend import IpmiBackend
 
 
 class IpmiChassis():
     "IPMI chassis class, for fetching basic info"
 
-    def __init__(self, ipmi_connector):
-        self.backend = IpmiChassisBackend(ipmi_connector)
+    def __init__(self, connector):
+        self.backend = IpmiBackend(connector)
 
     def power_up(self):
         "Sets chassis's power up"
@@ -35,10 +35,10 @@ class IpmiChassis():
         self.backend.set_chassis_power(ChassisControl.SOFT_SHUTDOWN)
 
     def raw_data(self):
-        return self.backend.aggregate()
+        return self.backend.chassis_aggregate()
 
     def static_data(self):
-        return self.backend.static_data()
+        return self.backend.chassis_static_data()
 
     def readings(self):
-        return self.backend.readings()
+        return self.backend.chassis_readings()

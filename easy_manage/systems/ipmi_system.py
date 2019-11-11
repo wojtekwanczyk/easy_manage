@@ -2,7 +2,7 @@
 import logging
 
 from easy_manage.systems.abstract_system import AbstractSystem
-from easy_manage.tools.ipmi.system.ipmi_system_backend import IpmiSystemBackend
+from easy_manage.tools.ipmi.ipmi_backend import IpmiBackend
 
 LOGGER = logging.getLogger('ipmi_system')
 LOGGER.setLevel(logging.DEBUG)
@@ -15,7 +15,7 @@ class IpmiSystem(AbstractSystem):
 
     def __init__(self, connector):
         super().__init__(connector)
-        self.backend = IpmiSystemBackend(connector)
+        self.backend = IpmiBackend(connector)
 
     # Defines public API
     def events(self):
@@ -23,10 +23,10 @@ class IpmiSystem(AbstractSystem):
         return self.backend.events()
 
     def raw_data(self):
-        return self.backend.fetch_all()
+        return self.backend.system_aggregate()
 
     def static_data(self):
-        return self.backend.static_data()
+        return self.backend.system_static_data()
 
     def readings(self):
-        return self.backend.readings()
+        return self.backend.system_readings()
