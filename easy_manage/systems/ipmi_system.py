@@ -6,15 +6,14 @@ from easy_manage.tools.ipmi.system.SEL.event_log import SEL
 from easy_manage.tools.ipmi.system.SDR.repository import SDRRepository
 from easy_manage.tools.ipmi.system.bmc_info import BMCInfo
 from easy_manage.tools.ipmi.system.sensor import Sensor
-from easy_manage.connectors.exceptions import NotConnectedError
+from easy_manage.utils.exceptions import NotConnectedError
 LOGGER = logging.getLogger('ipmi_system')
 LOGGER.setLevel(logging.DEBUG)
 
 
 class IpmiSystem(AbstractSystem):
     """
-        Class meant for aggregating all of the sub-functionalities listed:
-
+        Class meant for aggregating all of the sub-functionalities listed
         FRU - Field Replaceable Unit
         SEL - System Event Log
         SDR - Sensor Data Record Repository
