@@ -30,7 +30,7 @@ class IpmiSystem(AbstractSystem):
         self.BMCInfo = BMCInfo(ipmi)
         self.Sensor = Sensor(ipmi)
 
-    def fetch_all(self):
+    def _fetch_all(self):
         "Function which aggregates necessary info from IPMI sys, for scraping purposes"
         return {
             'bmc': self.BMCInfo.aggregate(),
@@ -39,13 +39,13 @@ class IpmiSystem(AbstractSystem):
             'sensors': self._aggregate_sensor_and_sdrs()  # this also fetches sensor's readings
         }
 
-    def fetch_sensors(self):
+    def _fetch_sensors(self):
         "Function which returns in ipmi-system specific format all of the info only about sensors"
         return {
             'sensors': self._aggregate_sensor_and_sdrs()
         }
 
-    def fetch_static(self):
+    def _fetch_static(self):
         "Function which returns static data only"
         return {
             'bmc': self.BMCInfo.aggregate(),
@@ -59,16 +59,16 @@ class IpmiSystem(AbstractSystem):
             aggr[sdr.name]['sensor_info'] = sdr.aggregate()
         return aggr
 
+    # Defines public API
     def fetch_events(self):
         "Fetches and aggregates all events"
         return self.SEL.aggregate()
 
-
     def ipmi_whole_data(self):
-        return self.fetch_all()
+        return self._fetch_all()
         
     def ipmi_static_data(self):
-        return self.fetch_static()
+        return self._fetch_static()
 
     def ipmi_reading(self):
-        return self.fetch_sensors()
+        return self._fetch_sensors()

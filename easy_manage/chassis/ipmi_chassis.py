@@ -12,13 +12,13 @@ class IpmiChassis(FRUChassis):
         super().__init__(ipmi)
         self.ipmi = ipmi
 
-    def functions(self):
+    def _functions(self):
         "Returns chassis capabilities"
         rsp = self.ipmi.send_message_with_name('GetChassisCapabilities')
         caps = map_chassis_capabilities(rsp.capabilities_flags)
         return caps
 
-    def status(self):
+    def _status(self):
         "Returns Chasiss status object"
         status = self.ipmi.get_chassis_status()
         return {
@@ -59,7 +59,7 @@ class IpmiChassis(FRUChassis):
         "Performs soft shutdown on chassis"
         self.__set_chassis_power(ChassisControl.SOFT_SHUTDOWN)
 
-    def power_on_hours(self):
+    def _power_on_hours(self):
         "Returns power on hours on chassis"
         poh_rsp = self.ipmi.send_message_with_name('GetPohCounter')
         return {
@@ -67,18 +67,18 @@ class IpmiChassis(FRUChassis):
             'counter_reading': poh_rsp.counter_reading
         }
 
-    def chassis_info(self):
+    def _chassis_info(self):
         "Returns FRU chassis info - "
         return self.fru_chassis_info()
 
-    def aggregate(self):
+    def _aggregate(self):
         "Returns aggregate of ipmichassis's info"
         return {
-            'power_on_counter': self.power_on_hours(),
-            'chassis_info': self.chassis_info(),
-            'chassis_status': self.status(),
-            'chassis_functions': self.functions()
+            'power_on_counter': self._power_on_hours(),
+            'chassis_info': self._chassis_info(),
+            'chassis_status': self._status(),
+            'chassis_functions': self._functions()
         }
 
     def ipmi_data(self):
-        return self.aggregate()
+        return self._aggregate()
