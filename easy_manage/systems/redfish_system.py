@@ -28,16 +28,19 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def get_oem_info(self):
         "Manufacturer and administrative information"
-        return self._find(['Oem'])
+        return self.find(['Oem'])
 
     def get_power_state(self):
-        return self._find(['PowerState'], force_fetch=True)
+        return self.find(['PowerState'], force_fetch=True)
 
     def get_system_health(self):
-        return self._find(['Status', 'HealthRollup'], strict=True, force_fetch=True)
+        return self.find(['Status', 'HealthRollup'], strict=True, force_fetch=True)
 
     def get_memory_size(self):
-        return self._find(['MemorySummary', 'Total'])
+        return self.find(['MemorySummary', 'Total'])
+        
+    def get_power_on_hours(self):
+        return self.find(['PowerOnHours'])
 
     # Power actions
 
@@ -86,10 +89,10 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             raise BadHttpResponse(str(res.status) + '\n' + str(res.request))
 
     def get_allowable_boot_sources(self):
-        return self._find(['Boot', 'AllowableValues'])
+        return self.find(['Boot', 'AllowableValues'])
 
     def get_boot_source(self):
-        return self._find(['Boot', 'BootSourceOverrideTarget'], True)
+        return self.find(['Boot', 'BootSourceOverrideTarget'], True)
 
     # Secure boot keys management
 
@@ -117,7 +120,8 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     # Other devices
 
     def get_coolers(self):
-        return self._get_device_info('CooledBy')
+        thermal = self._get_device_info('CooledBy')
+        return next(iter(thermal.values()))['Fans']
 
     def get_chassis(self):
         return self._get_device_info('Chassis')
@@ -130,9 +134,12 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     # Processor management
 
+    def get_processor_count(self):
+        return self.find(['ProcessorSummary', 'Count'])
+
     def get_processor_summary(self):
         "Very short summary for all processors"
-        return self._find(['ProcessorSummary'])
+        return self.find(['ProcessorSummary'])
 
     def get_processor_info(self, index):
         "Basic info for specific processor"
@@ -147,7 +154,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
     def _get_cpu_history(self, metric):
         processors_endpoint = self.endpoint + '/Processors'
         processors_data = self.get_data(processors_endpoint)
-        history_endpoint = self._find(['History', 'odata'], False, processors_data)
+        history_endpoint = self.find(['History', 'odata'], False, processors_data)
         history_data = self.get_data(history_endpoint)
         final_endpoint = self._get_dict_containing(metric, history_data)
         return self.get_data(final_endpoint['@odata.id'])
@@ -157,6 +164,12 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def get_cpu_history_power(self):
         return self._get_cpu_history('Power')
+    
+    def get_avg_cpu_usage(self):
+        return self.get_cpu_history_performance()['Container'][0]['MetricValue']
+
+    def get_min_cpu_power(self):
+        return self.get_cpu_history_power()['Container'][0]['MetricValue']
 
     # Network Interfaces
 
@@ -166,14 +179,16 @@ class RedfishSystem(AbstractSystem, RedfishTools):
         return self.get_data(self.endpoint + '/NetworkInterfaces/' + str(index))
 
     def get_ethernet_interfaces(self):
-        interfaces = self.get_data(self.endpoint + '/EthernetInterfaces')
-        endpoints = self._endpoint_inception(self._find(['Members'], False, interfaces))
+        interfaces_data = self.get_data(self.endpoint + '/EthernetInterfaces')
+        ethernet_members = self.find(['Members'], True, interfaces_data)
+        endpoints = self._endpoint_inception(ethernet_members)
         return self.evaluate_endpoints(endpoints)
 
     # Other
 
     def get_storage(self):
-        return self._get_device_info('Storage')
+        storage = next(iter(self._get_device_info('Storage').values()))
+        return storage['Members']
 
     def get_memory(self):
         return self._get_device_info('Memory')

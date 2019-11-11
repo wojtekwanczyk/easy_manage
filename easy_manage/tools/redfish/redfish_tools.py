@@ -49,10 +49,12 @@ class RedfishTools:
             LOGGER.info("Fetching data from memory")
         return self.data
 
-    def get_data(self, endpoint):
+    def get_data(self, endpoint=None):
         """Get data from endpoint. Wrapper for redfish client"""
-        resp = self.connector.client.get(endpoint)
-        return resp.dict
+        if not endpoint:
+            endpoint = self.endpoint
+        response = self.connector.client.get(endpoint)
+        return response.dict
 
     def _search_recurse(self, name, structure=None, i=0):
         """
@@ -98,7 +100,7 @@ class RedfishTools:
                 found += prefixed_tuples
         return found
 
-    def _find(self, name_list, strict=False, data=None, misses=5, force_fetch=False):
+    def find(self, name_list, strict=False, data=None, misses=5, force_fetch=False):
         """
         Finds a field with a "dictionary path" which includes
         all entries in `name_list` in provided data dictionary or
@@ -122,7 +124,7 @@ class RedfishTools:
         # data is a list - CAUTION!!! - not sure if works
         if data is list:
             for entry in data:
-                found = self._find(name_list, strict, entry, misses)
+                found = self.find(name_list, strict, entry, misses)
                 if found:
                     return found
 
@@ -134,9 +136,9 @@ class RedfishTools:
         found = None
         for key, value in data.items():
             if in_or_eq(key, to_find):
-                found = self._find(name_list[1:], strict, value, misses)
+                found = self.find(name_list[1:], strict, value, misses)
             else:
-                found = self._find(name_list, strict, value, misses-1)
+                found = self.find(name_list, strict, value, misses-1)
             if found:
                 return found
 
@@ -162,7 +164,7 @@ class RedfishTools:
         # LOGGER.info(f"Updating data from {endpoint} with depth {max_depth}")
         if max_depth == 0 or endpoint in data.keys():
             return data
-        print(endpoint)
+        #print(endpoint)
         resp = self.get_data(endpoint)
         data[endpoint] = resp
         if isinstance(resp, dict):
@@ -233,12 +235,26 @@ class RedfishTools:
         return parsed_dict
 
     @staticmethod
-    def remove_odata(data):
-        "Removes all odata entries"
-        new_data = {}
-        for key, value in data.items():
-            if 'odata' not in key:
-                new_data[key] = value
+    def filter_data(data, dot_replacement='-'):
+        "Removes all odata entries and dots from data"
+        if not utils.is_iterable(data):
+            return data
+
+        new_data = None
+        if isinstance(data, list):
+            new_data = []
+            for elem in data:
+                new_elem = RedfishTools.filter_data(elem)
+                if new_elem:
+                    new_data.append(new_elem)
+        else:
+            new_data = {}
+            for key, value in data.items():
+                if 'odata' not in key:
+                    new_value = RedfishTools.filter_data(value)
+                    if new_value:
+                        key = key.replace('.', dot_replacement)
+                        new_data[key] = new_value
         return new_data
 
     def _get_dict_containing(self, name, data=None, misses=5):
@@ -291,7 +307,7 @@ class RedfishTools:
         for key, value in data.items():
             if not utils.is_iterable(value):
                 return_data[key] = value
-        return self.remove_odata(return_data)
+        return self.filter_data(return_data)
 
     def evaluate_endpoints(self, endpoints):
         "Returns dictionary with endpoints' data as values"
@@ -302,5 +318,5 @@ class RedfishTools:
 
     def _get_device_info(self, name, level=2):
         "Get device info from Redfish Links"
-        endpoints = self._endpoint_inception(self._find([name]), level)
+        endpoints = self._endpoint_inception(self.find([name], strict=True), level)
         return self.evaluate_endpoints(endpoints)
