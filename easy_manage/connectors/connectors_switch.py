@@ -4,6 +4,7 @@ from easy_manage.protocols import Protocols
 from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.connectors.ssh_connector import SshConnector
+from easy_manage.utils.utils import raise_protocol_error
 
 
 def connectors_switch(protocol, address, credentials, port=None):
@@ -20,6 +21,6 @@ def connectors_switch(protocol, address, credentials, port=None):
         Protocols.SSH: lambda: SshConnector(address, credentials, port)
     }
     if port:
-        return switcher_port.get(protocol, lambda *args, **kwargs: None)()
+        return switcher_port.get(protocol, raise_protocol_error)()
 
-    return switcher.get(protocol, lambda *args, **kwargs: None)()
+    return switcher.get(protocol, raise_protocol_error)()

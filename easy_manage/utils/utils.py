@@ -6,7 +6,7 @@ import hashlib
 import base64
 from collections import namedtuple
 from cryptography.fernet import Fernet
-from easy_manage.utils.exceptions import InvalidCredentials
+from easy_manage.utils.exceptions import InvalidCredentials, ProtocolNotHandled
 
 
 def prefix_tuples(string, tuples):
@@ -29,6 +29,7 @@ Credentials = namedtuple(
         'username',
         'password'])
 
+
 def get_credentials(config, name, user_password):
     """Get decrypted credentials relying on user password.
     `name` is parsed from config file"""
@@ -37,7 +38,7 @@ def get_credentials(config, name, user_password):
         raise InvalidCredentials
 
     password_encrypted = config[name]['PASSWORD']
-    user_password_with_padding = user_password + '='*(32-len(user_password))
+    user_password_with_padding = user_password + '=' * (32 - len(user_password))
     key = base64.urlsafe_b64encode(user_password_with_padding.encode())
     fernet = Fernet(key)
     password = fernet.decrypt(password_encrypted.encode()).decode()
@@ -48,8 +49,13 @@ def get_credentials(config, name, user_password):
 
     return credentials
 
+
 def encrypt(user_password, password):
-    user_password_with_padding = user_password + '='*(32-len(user_password))
+    user_password_with_padding = user_password + '=' * (32 - len(user_password))
     key = base64.urlsafe_b64encode(user_password_with_padding.encode())
     fernet = Fernet(key)
     return fernet.encrypt(password.encode()).decode()
+
+
+def raise_protocol_error():
+    raise ProtocolNotHandled
