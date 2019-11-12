@@ -1,0 +1,36 @@
+{
+    "chassis_reading": {
+        "pwr_state": "On",
+        "temperature": {
+            "exhaust_temp": 27.0,
+            "ambient_temp": 18.0
+        },
+        "fans": {
+            "fan_1_tach": 6468.0,
+            "fan_2_tach": 6272.0,
+            "fan_3_tach": 6468.0,
+            "fan_4_tach": 6468.0,
+            "fan_5_tach": 6468.0,
+            "fan_6_tach": 6468.0
+        },
+        "power_consumed_watts": 95.0
+    },
+    "chassis_static": {
+        "power_supplies": {
+            "psu_1": {
+                "Mfg Date": "Mon Jul 23 14:00:00 2018",
+                "Mfg": "ACBE",
+                "Product": "LENOVO Product",
+                "Serial": "A4DB87R12JV",
+                "Part Number": "SP57A02019"
+            },
+            "psu_2": {
+                "Mfg Date": "Mon Jul 23 14:00:00 2018",
+                "Mfg": "ACBE",
+                "Product": "LENOVO Product",
+                "Serial": "A4DB87R119L",
+                "Part Number": "SP57A02019"
+            }
+        }
+    }
+}
