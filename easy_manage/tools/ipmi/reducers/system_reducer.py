@@ -1,13 +1,15 @@
 from functools import reduce
 
 from easy_manage.tools.ipmi.reducers.constants.exceptions import InvalidPathError
-from easy_manage.tools.ipmi.reducers.constants.paths import POH_PATHS, CPU_UTILIZATION_PATH, CPU_PWR_PATH, \
-    BOARD_INFO_PATH, \
-    PRODUCT_INFO_PATH, \
-    HARDWARE_COMPONENTS_PATH
+from easy_manage.tools.ipmi.reducers.constants.paths import (
+    POH_PATHS, CPU_UTILIZATION_PATH, CPU_PWR_PATH,
+    BOARD_INFO_PATH, PRODUCT_INFO_PATH, HARDWARE_COMPONENTS_PATH,
+)
 from easy_manage.tools.ipmi.reducers.filtering_functions import is_memory, is_cpu, is_pci
-from easy_manage.tools.ipmi.reducers.parsing_functions import parse_memsize, parse_cpu, parse_pci, parse_memory, \
-    extract_components
+from easy_manage.tools.ipmi.reducers.parsing_functions import (
+    parse_memsize, parse_cpu, parse_pci, parse_memory,
+    extract_components,
+)
 from easy_manage.tools.ipmi.reducers.utils.misc import extract_flat_props
 from easy_manage.tools.ipmi.reducers.utils.path_handlers import validate_paths, extract_by_path, bare_validate_paths
 import easy_manage.tools.ipmi.reducers.constants as constants

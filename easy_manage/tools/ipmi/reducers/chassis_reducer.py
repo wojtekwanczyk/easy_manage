@@ -1,8 +1,9 @@
 from easy_manage.chassis.constants import PowerState
 from easy_manage.tools.ipmi.reducers.constants.exceptions import CorruptedBufferError
-from easy_manage.tools.ipmi.reducers.constants.paths import PWR_STATE_PATH, EXHAUST_TEMP_PATH, AMBIENT_TEMP_PATH, \
-    SYSTEM_POWER_PATH, \
-    COMPONENTS_PATH
+from easy_manage.tools.ipmi.reducers.constants.paths import (
+    PWR_STATE_PATH, EXHAUST_TEMP_PATH, AMBIENT_TEMP_PATH,
+    SYSTEM_POWER_PATH, COMPONENTS_PATH,
+)
 from easy_manage.tools.ipmi.reducers.filtering_functions import is_pwr, is_fan
 from easy_manage.tools.ipmi.reducers.parsing_functions import parse_pwr, parse_fan_spd, extract_components
 from easy_manage.tools.ipmi.reducers.utils.misc import filter_dict_values
