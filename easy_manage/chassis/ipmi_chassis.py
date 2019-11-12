@@ -1,13 +1,14 @@
 "IPMI chassis module"
-
+from easy_manage.chassis.abstract_chassis import AbstractChassis
 from easy_manage.tools.ipmi.chassis.chassis_messages import ChassisControl
 from easy_manage.tools.ipmi.ipmi_backend import IpmiBackend
 
 
-class IpmiChassis():
+class IpmiChassis(AbstractChassis):
     "IPMI chassis class, for fetching basic info"
 
     def __init__(self, connector):
+        super().__init__(connector)
         self.backend = IpmiBackend(connector)
 
     def power_up(self):
