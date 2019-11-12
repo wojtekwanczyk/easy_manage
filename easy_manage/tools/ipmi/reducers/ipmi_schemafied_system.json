@@ -1,0 +1,231 @@
+{
+    "system_reading": {
+        "power_on_hours": 243900,
+        "cpu_summary": {
+            "usage": 0.0,
+            "power": 22.0
+        },
+        "cpus": {
+            "cpu_1": {
+                "temp": 25.0
+            },
+            "cpu_2": {
+                "temp": 23.0
+            }
+        }
+    },
+    "system_static": {
+        "basic_info": {
+            "manufacturer": "Lenovo",
+            "product_name": "System Board",
+            "serial_number": "S4ATJ171",
+            "part_number": "7X08CTO1WW",
+            "name": "ThinkSystem SR530",
+            "version": "00 08"
+        },
+        "total_memory_size_gb": 256,
+        "cpus": {
+            "cpu_1": {
+                "Manufacturer": "Intel(R) Corporation",
+                "Name": "Intel Genuine Processor",
+                "Part Number": "00953530",
+                "Version": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz",
+                "Asset Tag": "Max Core:14/Max Threads:28"
+            },
+            "cpu_2": {
+                "Manufacturer": "Intel(R) Corporation",
+                "Name": "Intel Genuine Processor",
+                "Part Number": "00953530",
+                "Version": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz",
+                "Asset Tag": "Max Core:14/Max Threads:28"
+            }
+        },
+        "storage": {
+            "dimm_2": {
+                "Memory Type": "DDR4 SDRAM",
+                "SDRAM Package Type": "Monolithic DRAM Device",
+                "Technology": "RDIMM",
+                "SDRAM Die Count": "1",
+                "SDRAM Capacity": "8192 Mb",
+                "Memory Bank Group": "2 (4 Bank Groups)",
+                "Memory Banks": "2 (4 Banks)",
+                "Primary Bus Width": "64 bits",
+                "SDRAM Device Width": "4 bits",
+                "Logical Rank per DIMM": "2",
+                "Memory size": "32768 MB",
+                "Memory Density": "8 Gb",
+                "1.2 V Nominal Op": "Yes",
+                "TBD1 V Nominal Op": "No",
+                "TBD2 V Nominal Op": "No",
+                "Error Detect/Cor": "8 bits",
+                "Manufacturer": "Samsung",
+                "Manufacture Date": "year 2018 week 37",
+                "Serial Number": "23bb99f0",
+                "Part Number": "M393A4K40CB2-CTD"
+            },
+            "dimm_3": {
+                "Memory Type": "DDR4 SDRAM",
+                "SDRAM Package Type": "Monolithic DRAM Device",
+                "Technology": "RDIMM",
+                "SDRAM Die Count": "1",
+                "SDRAM Capacity": "8192 Mb",
+                "Memory Bank Group": "2 (4 Bank Groups)",
+                "Memory Banks": "2 (4 Banks)",
+                "Primary Bus Width": "64 bits",
+                "SDRAM Device Width": "4 bits",
+                "Logical Rank per DIMM": "2",
+                "Memory size": "32768 MB",
+                "Memory Density": "8 Gb",
+                "1.2 V Nominal Op": "Yes",
+                "TBD1 V Nominal Op": "No",
+                "TBD2 V Nominal Op": "No",
+                "Error Detect/Cor": "8 bits",
+                "Manufacturer": "Samsung",
+                "Manufacture Date": "year 2018 week 37",
+                "Serial Number": "23bb9abf",
+                "Part Number": "M393A4K40CB2-CTD"
+            },
+            "dimm_4": {
+                "Memory Type": "DDR4 SDRAM",
+                "SDRAM Package Type": "Monolithic DRAM Device",
+                "Technology": "RDIMM",
+                "SDRAM Die Count": "1",
+                "SDRAM Capacity": "8192 Mb",
+                "Memory Bank Group": "2 (4 Bank Groups)",
+                "Memory Banks": "2 (4 Banks)",
+                "Primary Bus Width": "64 bits",
+                "SDRAM Device Width": "4 bits",
+                "Logical Rank per DIMM": "2",
+                "Memory size": "32768 MB",
+                "Memory Density": "8 Gb",
+                "1.2 V Nominal Op": "Yes",
+                "TBD1 V Nominal Op": "No",
+                "TBD2 V Nominal Op": "No",
+                "Error Detect/Cor": "8 bits",
+                "Manufacturer": "Samsung",
+                "Manufacture Date": "year 2018 week 37",
+                "Serial Number": "23bb99f7",
+                "Part Number": "M393A4K40CB2-CTD"
+            },
+            "dimm_5": {
+                "Memory Type": "DDR4 SDRAM",
+                "SDRAM Package Type": "Monolithic DRAM Device",
+                "Technology": "RDIMM",
+                "SDRAM Die Count": "1",
+                "SDRAM Capacity": "8192 Mb",
+                "Memory Bank Group": "2 (4 Bank Groups)",
+                "Memory Banks": "2 (4 Banks)",
+                "Primary Bus Width": "64 bits",
+                "SDRAM Device Width": "4 bits",
+                "Logical Rank per DIMM": "2",
+                "Memory size": "32768 MB",
+                "Memory Density": "8 Gb",
+                "1.2 V Nominal Op": "Yes",
+                "TBD1 V Nominal Op": "No",
+                "TBD2 V Nominal Op": "No",
+                "Error Detect/Cor": "8 bits",
+                "Manufacturer": "Samsung",
+                "Manufacture Date": "year 2018 week 37",
+                "Serial Number": "23bb99db",
+                "Part Number": "M393A4K40CB2-CTD"
+            },
+            "dimm_8": {
+                "Memory Type": "DDR4 SDRAM",
+                "SDRAM Package Type": "Monolithic DRAM Device",
+                "Technology": "RDIMM",
+                "SDRAM Die Count": "1",
+                "SDRAM Capacity": "8192 Mb",
+                "Memory Bank Group": "2 (4 Bank Groups)",
+                "Memory Banks": "2 (4 Banks)",
+                "Primary Bus Width": "64 bits",
+                "SDRAM Device Width": "4 bits",
+                "Logical Rank per DIMM": "2",
+                "Memory size": "32768 MB",
+                "Memory Density": "8 Gb",
+                "1.2 V Nominal Op": "Yes",
+                "TBD1 V Nominal Op": "No",
+                "TBD2 V Nominal Op": "No",
+                "Error Detect/Cor": "8 bits",
+                "Manufacturer": "Samsung",
+                "Manufacture Date": "year 2018 week 37",
+                "Serial Number": "23bb9a8c",
+                "Part Number": "M393A4K40CB2-CTD"
+            },
+            "dimm_9": {
+                "Memory Type": "DDR4 SDRAM",
+                "SDRAM Package Type": "Monolithic DRAM Device",
+                "Technology": "RDIMM",
+                "SDRAM Die Count": "1",
+                "SDRAM Capacity": "8192 Mb",
+                "Memory Bank Group": "2 (4 Bank Groups)",
+                "Memory Banks": "2 (4 Banks)",
+                "Primary Bus Width": "64 bits",
+                "SDRAM Device Width": "4 bits",
+                "Logical Rank per DIMM": "2",
+                "Memory size": "32768 MB",
+                "Memory Density": "8 Gb",
+                "1.2 V Nominal Op": "Yes",
+                "TBD1 V Nominal Op": "No",
+                "TBD2 V Nominal Op": "No",
+                "Error Detect/Cor": "8 bits",
+                "Manufacturer": "Samsung",
+                "Manufacture Date": "year 2018 week 37",
+                "Serial Number": "23bb99cc",
+                "Part Number": "M393A4K40CB2-CTD"
+            },
+            "dimm_10": {
+                "Memory Type": "DDR4 SDRAM",
+                "SDRAM Package Type": "Monolithic DRAM Device",
+                "Technology": "RDIMM",
+                "SDRAM Die Count": "1",
+                "SDRAM Capacity": "8192 Mb",
+                "Memory Bank Group": "2 (4 Bank Groups)",
+                "Memory Banks": "2 (4 Banks)",
+                "Primary Bus Width": "64 bits",
+                "SDRAM Device Width": "4 bits",
+                "Logical Rank per DIMM": "2",
+                "Memory size": "32768 MB",
+                "Memory Density": "8 Gb",
+                "1.2 V Nominal Op": "Yes",
+                "TBD1 V Nominal Op": "No",
+                "TBD2 V Nominal Op": "No",
+                "Error Detect/Cor": "8 bits",
+                "Manufacturer": "Samsung",
+                "Manufacture Date": "year 2018 week 37",
+                "Serial Number": "23bb9a71",
+                "Part Number": "M393A4K40CB2-CTD"
+            },
+            "dimm_11": {
+                "Memory Type": "DDR4 SDRAM",
+                "SDRAM Package Type": "Monolithic DRAM Device",
+                "Technology": "RDIMM",
+                "SDRAM Die Count": "1",
+                "SDRAM Capacity": "8192 Mb",
+                "Memory Bank Group": "2 (4 Bank Groups)",
+                "Memory Banks": "2 (4 Banks)",
+                "Primary Bus Width": "64 bits",
+                "SDRAM Device Width": "4 bits",
+                "Logical Rank per DIMM": "2",
+                "Memory size": "32768 MB",
+                "Memory Density": "8 Gb",
+                "1.2 V Nominal Op": "Yes",
+                "TBD1 V Nominal Op": "No",
+                "TBD2 V Nominal Op": "No",
+                "Error Detect/Cor": "8 bits",
+                "Manufacturer": "Samsung",
+                "Manufacture Date": "year 2018 week 37",
+                "Serial Number": "23bb99b8",
+                "Part Number": "M393A4K40CB2-CTD"
+            }
+        },
+        "pci_e": {
+            "pci_riser_2": {
+                "Board Mfg Date": "Mon Feb 18 13:00:00 2019",
+                "Board Mfg": "LNVO",
+                "Board Product": "LENOVO Product",
+                "Board Serial": "W2ZS92P0070",
+                "Board Part Number": "SC57A02006"
+            }
+        }
+    }
+}
