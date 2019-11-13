@@ -204,3 +204,24 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def get_active_logs(self):
         return self.get_data(self.endpoint + '/LogServices/ActiveLog/Entries')
+
+
+    # LED manipulation
+
+    def change_led_state(self, state):
+        body = {'IndicatorLED': state}
+        res = self.connector.client.patch(
+            self.endpoint,
+            body=body)
+        if res.status >= 300:
+            print(res.status)
+            raise BadHttpResponse(str(res.status) + '\n' + str(res.request))
+
+    def led_on(self):
+        self.change_led_state('Lit')
+
+    def led_off(self):
+        self.change_led_state('Off')
+
+    def led_blinking(self):
+        self.change_led_state('Blinking')
