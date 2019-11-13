@@ -11,3 +11,7 @@ class InvalidCredentials(Exception):
 
 class NotInitializedError(Exception):
     pass
+
+
+class ProtocolNotHandled(Exception):
+    pass

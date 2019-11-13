@@ -6,3 +6,4 @@ from easy_manage.utils import utils
 from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.connectors.ssh_connector import SshConnector
+from easy_manage.connectors.connectors_switch import connectors_switch
