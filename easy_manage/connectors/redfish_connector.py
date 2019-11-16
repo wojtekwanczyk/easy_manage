@@ -22,14 +22,16 @@ class RedfishConnector(Connector, RedfishTools):
         self.connector = self
         self.systems = None
 
-    def connect(self):
+    def connect(self, timeout=7):
         "Connect to Redfish device(s)"
 
         try:
             self.client = redfish.redfish_client(
                 base_url=self.url,
                 username=self.credentials.username,
-                password=self.credentials.password)
+                password=self.credentials.password,
+                timeout=timeout,
+                max_retry=3)
             self.client.login(auth='session')
             self.connected = True
         except redfish.rest.v1.RetriesExhaustedError as ex:
