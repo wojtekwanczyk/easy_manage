@@ -3,7 +3,8 @@ import logging
 
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.ipmi.ipmi_backend import IpmiBackend
-
+from easy_manage.tools.wrap_with_protocol import proto_wrap
+from easy_manage.protocols import Protocols
 LOGGER = logging.getLogger('ipmi_system')
 LOGGER.setLevel(logging.DEBUG)
 
@@ -23,10 +24,10 @@ class IpmiSystem(AbstractSystem):
         return self.backend.events()
 
     def raw_data(self):
-        return self.backend.system_aggregate()
+        return proto_wrap(self.backend.system_aggregate(),Protocols.IPMI)
 
     def static_data(self):
-        return self.backend.system_static_data()
+        return proto_wrap(self.backend.system_static_data(),Protocols.IPMI)
 
     def readings(self):
-        return self.backend.system_readings()
+        return proto_wrap(self.backend.system_readings(),Protocols.IPMI)
