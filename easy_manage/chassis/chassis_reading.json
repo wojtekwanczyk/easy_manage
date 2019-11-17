@@ -1,52 +1,52 @@
 {
    "payload":{
       "temperatures":{
-         "Ambient Temp":17,
-         "CPU1 Temp":25,
-         "CPU2 Temp":23,
-         "Exhaust Temp":27,
-         "CPU1 DTS":-510,
-         "CPU2 DTS":-510,
-         "DIMM 2 Temp":23,
-         "DIMM 3 Temp":23,
-         "DIMM 4 Temp":22,
-         "DIMM 5 Temp":22,
-         "DIMM 8 Temp":22,
-         "DIMM 9 Temp":23,
-         "DIMM 10 Temp":23,
-         "DIMM 11 Temp":23,
-         "PCH Temp":38
+         "ambient_temp":17,
+         "cpu1_temp":25,
+         "cpu2_temp":23,
+         "exhaust_temp":27,
+         "cpu1_dts":-510,
+         "cpu2_dts":-510,
+         "dimm_2_temp":23,
+         "dimm_3_temp":23,
+         "dimm_4_temp":23,
+         "dimm_5_temp":22,
+         "dimm_8_temp":23,
+         "dimm_9_temp":23,
+         "dimm_10_temp":23,
+         "dimm_11_temp":23,
+         "pch_temp":38
       },
       "fans":{
-         "Fan 1 Tach":25,
-         "Fan 2 Tach":25,
-         "Fan 3 Tach":25,
-         "Fan 4 Tach":25,
-         "Fan 5 Tach":25,
-         "Fan 6 Tach":25
+         "fan_1_tach":25,
+         "fan_2_tach":25,
+         "fan_3_tach":25,
+         "fan_4_tach":25,
+         "fan_5_tach":25,
+         "fan_6_tach":25
       },
       "power":{
          "state":"ON",
          "allocated_watts":900,
          "metrics":{
-            "IntervalInMin":60,
-            "AverageConsumedWatts":65.824997,
-            "MinConsumedWatts":1,
-            "MaxConsumedWatts":169
+            "interval_in_min":60,
+            "average_consumed_watts":66.133331,
+            "min_consumed_watts":2,
+            "max_consumed_watts":165
          },
          "capacity_watts":900,
          "utilization":{
-            "MaxLimitInWatts":900,
-            "LimitMode":"AC",
-            "CapacityMinAC":255,
-            "GuaranteedInWatts":255,
-            "CapacityMinDC":236,
-            "CapacityMaxDC":328,
-            "CapacityMaxAC":352
+            "max_limit_in_watts":900,
+            "limit_mode":"AC",
+            "capacity_min_ac":255,
+            "guaranteed_in_watts":255,
+            "capacity_min_dc":236,
+            "capacity_max_dc":328,
+            "capacity_max_ac":352
          },
          "requested_watts":352,
-         "consumed_watts":94
+         "consumed_watts":89
       }
    },
-   "protocol":<Protocols.REDFISH:"redfish"   >
+   "protocol":<Protocol.REDFISH:"redfish"   >
 }

@@ -4,8 +4,9 @@ import logging
 import operator
 from datetime import datetime
 from easy_manage.utils import utils
-from easy_manage.protocols import Protocols
+from easy_manage.protocol import Protocol
 from easy_manage.tools.wrap_with_protocol import proto_wrap
+from inflection import underscore
 
 
 LOGGER = logging.getLogger('RedfishConnector')
@@ -328,4 +329,23 @@ class RedfishTools:
         data = self._fetch(level=2)
         if filter_data:
             data = self.connector.filter_data(data)
-        return proto_wrap(data, Protocols.REDFISH)
+        return proto_wrap(data, Protocol.REDFISH)
+
+    def snake_case_dict(self, data):
+        "Converts dictionary keys from CamelCase to snake_case"
+        if not utils.is_iterable(data):
+            return data
+
+        # iterate over list and check them
+        if isinstance(data, list):
+            new_data = [
+                self.snake_case_dict(elem)
+                for elem in data]
+            return new_data
+
+        # such element is in this dictionary
+        new_data = {}
+        for key, value in data.items():
+            new_key = underscore(key).replace(' ', '_')
+            new_data[new_key] = self.snake_case_dict(value)
+        return new_data
