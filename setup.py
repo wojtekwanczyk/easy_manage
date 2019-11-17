@@ -9,7 +9,8 @@ REQUIREMENTS_LIST = [
     'redfish >= 2.1.0',
     'cryptography >= 2.7',
     'python-ipmi',
-    'paramiko >= 2.6.0'
+    'paramiko >= 2.6.0',
+    'inflection >= 0.3.1',
 ]
 
 setuptools.setup(

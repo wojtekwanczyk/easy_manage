@@ -1,77 +1,76 @@
 {
-   "payload": {
-     "power_supplies": [
-       {
-         "SerialNumber": "A4DB87R12JV",
-         "InputRanges": [
-           {
-             "InputType": "AC",
-             "OutputWattage": 750,
-             "MinimumVoltage": 200,
-             "MaximumVoltage": 240
-           }
-         ],
-         "PowerCapacityWatts": 750,
-         "PartNumber": "SP57A02019",
-         "LineInputVoltage": 220,
-         "Name": "PSU1",
-         "FirmwareVersion": "2.52",
-         "LastPowerOutputWatts": 37,
-         "Oem": {
-           "Lenovo": {
-             "Location": {
-               "InfoFormat": "Slot X",
-               "Info": "Slot 1"
-             }
-           }
-         },
-         "MemberId": "0",
-         "Manufacturer": "ACBE",
-         "LineInputVoltageType": "ACMidLine",
-         "Model": "LENOVO-SP57A02019",
-         "PowerSupplyType": "AC"
-       },
-       {
-         "SerialNumber": "A4DB87R119L",
-         "InputRanges": [
-           {
-             "InputType": "AC",
-             "OutputWattage": 750,
-             "MinimumVoltage": 200,
-             "MaximumVoltage": 240
-           }
-         ],
-         "PowerCapacityWatts": 750,
-         "LastPowerOutputWatts": 37,
-         "LineInputVoltage": 220,
-         "Name": "PSU2",
-         "FirmwareVersion": "2.52",
-         "Oem": {
-           "Lenovo": {
-             "Location": {
-               "InfoFormat": "Slot X",
-               "Info": "Slot 2"
-             }
-           }
-         },
-         "PartNumber": "SP57A02019",
-         "PowerSupplyType": "AC",
-         "Manufacturer": "ACBE",
-         "LineInputVoltageType": "ACMidLine",
-         "Model": "LENOVO-SP57A02019",
-         "MemberId": "1"
-       }
+  "payload":{
+     "power_supplies":[
+        {
+           "serial_number":"A4DB87R12JV",
+           "input_ranges":[
+              {
+                 "input_type":"AC",
+                 "output_wattage":750,
+                 "minimum_voltage":200,
+                 "maximum_voltage":240
+              }
+           ],
+           "power_capacity_watts":750,
+           "part_number":"SP57A02019",
+           "line_input_voltage":220,
+           "name":"PSU1",
+           "firmware_version":"2.52",
+           "last_power_output_watts":78,
+           "oem":{
+              "lenovo":{
+                 "location":{
+                    "info_format":"Slot X",
+                    "info":"Slot 1"
+                 }
+              }
+           },
+           "member_id":"0",
+           "manufacturer":"ACBE",
+           "line_input_voltage_type":"ACMidLine",
+           "model":"LENOVO-SP57A02019",
+           "power_supply_type":"AC"
+        },
+        {
+           "serial_number":"A4DB87R119L",
+           "input_ranges":[
+              {
+                 "input_type":"AC",
+                 "output_wattage":750,
+                 "minimum_voltage":200,
+                 "maximum_voltage":240
+              }
+           ],
+           "power_capacity_watts":750,
+           "last_power_output_watts":78,
+           "line_input_voltage":220,
+           "name":"PSU2",
+           "firmware_version":"2.52",
+           "oem":{
+              "lenovo":{
+                 "location":{
+                    "info_format":"Slot X",
+                    "info":"Slot 2"
+                 }
+              }
+           },
+           "part_number":"SP57A02019",
+           "power_supply_type":"AC",
+           "manufacturer":"ACBE",
+           "line_input_voltage_type":"ACMidLine",
+           "model":"LENOVO-SP57A02019",
+           "member_id":"1"
+        }
      ],
-     "oem": {
-       "Lenovo": {
-         "LocatedIn": {
-           "DescriptiveName": "server-4",
-           "Height": 1
-         },
-         "ProductName": "ThinkSystem SR530"
-       }
+     "oem":{
+        "lenovo":{
+           "located_in":{
+              "descriptive_name":"server-4",
+              "height":1
+           },
+           "product_name":"ThinkSystem SR530"
+        }
      }
-   },
-   "protocol": <Protocols.REDFISH: "redfish">
- }
- 
+  },
+  "protocol":<Protocol.REDFISH:"redfish"   >
+}

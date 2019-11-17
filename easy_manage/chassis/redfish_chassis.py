@@ -3,7 +3,7 @@
 import logging
 from easy_manage.chassis.abstract_chassis import AbstractChassis
 from easy_manage.tools.redfish.redfish_tools import RedfishTools
-from easy_manage.protocols import Protocols
+from easy_manage.protocol import Protocol
 from easy_manage.tools.wrap_with_protocol import proto_wrap
 
 LOGGER = logging.getLogger('redfish_chassis')
@@ -69,8 +69,7 @@ class RedfishChassis(AbstractChassis, RedfishTools):
     def get_temperatures(self):
         temp_dict = {
             name: self.get_temperature(name)
-            for name in self.get_temperature_names()
-        }
+            for name in self.get_temperature_names()}
         return temp_dict
 
     def get_fans(self):
@@ -160,7 +159,7 @@ class RedfishChassis(AbstractChassis, RedfishTools):
         }
         if filter_data:
             data = self.connector.filter_data(data)
-        return proto_wrap(data, Protocols.REDFISH)
+        return proto_wrap(data, Protocol.REDFISH)
 
     def readings(self):
         power_dict = self.get_power_readings()
@@ -169,4 +168,4 @@ class RedfishChassis(AbstractChassis, RedfishTools):
             'fans': self.get_fans(),
             'power': power_dict,
         }
-        return proto_wrap(data, Protocols.REDFISH)
+        return proto_wrap(data, Protocol.REDFISH)
