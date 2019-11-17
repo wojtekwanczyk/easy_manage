@@ -1,0 +1,77 @@
+{
+   "payload": {
+     "power_supplies": [
+       {
+         "SerialNumber": "A4DB87R12JV",
+         "InputRanges": [
+           {
+             "InputType": "AC",
+             "OutputWattage": 750,
+             "MinimumVoltage": 200,
+             "MaximumVoltage": 240
+           }
+         ],
+         "PowerCapacityWatts": 750,
+         "PartNumber": "SP57A02019",
+         "LineInputVoltage": 220,
+         "Name": "PSU1",
+         "FirmwareVersion": "2.52",
+         "LastPowerOutputWatts": 37,
+         "Oem": {
+           "Lenovo": {
+             "Location": {
+               "InfoFormat": "Slot X",
+               "Info": "Slot 1"
+             }
+           }
+         },
+         "MemberId": "0",
+         "Manufacturer": "ACBE",
+         "LineInputVoltageType": "ACMidLine",
+         "Model": "LENOVO-SP57A02019",
+         "PowerSupplyType": "AC"
+       },
+       {
+         "SerialNumber": "A4DB87R119L",
+         "InputRanges": [
+           {
+             "InputType": "AC",
+             "OutputWattage": 750,
+             "MinimumVoltage": 200,
+             "MaximumVoltage": 240
+           }
+         ],
+         "PowerCapacityWatts": 750,
+         "LastPowerOutputWatts": 37,
+         "LineInputVoltage": 220,
+         "Name": "PSU2",
+         "FirmwareVersion": "2.52",
+         "Oem": {
+           "Lenovo": {
+             "Location": {
+               "InfoFormat": "Slot X",
+               "Info": "Slot 2"
+             }
+           }
+         },
+         "PartNumber": "SP57A02019",
+         "PowerSupplyType": "AC",
+         "Manufacturer": "ACBE",
+         "LineInputVoltageType": "ACMidLine",
+         "Model": "LENOVO-SP57A02019",
+         "MemberId": "1"
+       }
+     ],
+     "oem": {
+       "Lenovo": {
+         "LocatedIn": {
+           "DescriptiveName": "server-4",
+           "Height": 1
+         },
+         "ProductName": "ThinkSystem SR530"
+       }
+     }
+   },
+   "protocol": <Protocols.REDFISH: "redfish">
+ }
+ 

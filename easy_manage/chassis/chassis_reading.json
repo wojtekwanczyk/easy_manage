@@ -1,0 +1,52 @@
+{
+   "payload":{
+      "temperatures":{
+         "Ambient Temp":17,
+         "CPU1 Temp":25,
+         "CPU2 Temp":23,
+         "Exhaust Temp":27,
+         "CPU1 DTS":-510,
+         "CPU2 DTS":-510,
+         "DIMM 2 Temp":23,
+         "DIMM 3 Temp":23,
+         "DIMM 4 Temp":22,
+         "DIMM 5 Temp":22,
+         "DIMM 8 Temp":22,
+         "DIMM 9 Temp":23,
+         "DIMM 10 Temp":23,
+         "DIMM 11 Temp":23,
+         "PCH Temp":38
+      },
+      "fans":{
+         "Fan 1 Tach":25,
+         "Fan 2 Tach":25,
+         "Fan 3 Tach":25,
+         "Fan 4 Tach":25,
+         "Fan 5 Tach":25,
+         "Fan 6 Tach":25
+      },
+      "power":{
+         "state":"ON",
+         "allocated_watts":900,
+         "metrics":{
+            "IntervalInMin":60,
+            "AverageConsumedWatts":65.824997,
+            "MinConsumedWatts":1,
+            "MaxConsumedWatts":169
+         },
+         "capacity_watts":900,
+         "utilization":{
+            "MaxLimitInWatts":900,
+            "LimitMode":"AC",
+            "CapacityMinAC":255,
+            "GuaranteedInWatts":255,
+            "CapacityMinDC":236,
+            "CapacityMaxDC":328,
+            "CapacityMaxAC":352
+         },
+         "requested_watts":352,
+         "consumed_watts":94
+      }
+   },
+   "protocol":<Protocols.REDFISH:"redfish"   >
+}

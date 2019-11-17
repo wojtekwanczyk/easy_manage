@@ -6,6 +6,8 @@ import logging
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.redfish.redfish_tools import RedfishTools
 from easy_manage.utils.exceptions import BadHttpResponse
+from easy_manage.protocols import Protocols
+from easy_manage.tools.wrap_with_protocol import proto_wrap
 
 LOGGER = logging.getLogger('redfish_system')
 LOGGER.setLevel(logging.DEBUG)
@@ -225,3 +227,26 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def led_blinking(self):
         self.change_led_state('Blinking')
+
+    def static_data(self):
+        interfaces = self.get_ethernet_interfaces()
+        data = {
+            'properties': self.get_info(),
+            'memory_size_gb': self.get_memory_size(),
+            'allowable_boot_sources': self.get_allowable_boot_sources(),
+            'fans': self.connector.filter_data(self.get_coolers()),
+            'ethernet_interfaces': list(interfaces.values()),
+            'storage': self.get_storage(),
+            'pci_e': self.connector.filter_data(self.get_pcie_devices()),
+        }
+        return proto_wrap(data, Protocols.REDFISH)
+
+    def readings(self):
+        data = {
+            'power_on_hours': self.get_power_on_hours(),
+            'power_state': self.get_power_state(),
+            'cpu_usage': self.get_avg_cpu_usage(),
+            'cpu_power': self.get_min_cpu_power(),
+            'power_health': None,
+        }
+        return proto_wrap(data, Protocols.REDFISH)
