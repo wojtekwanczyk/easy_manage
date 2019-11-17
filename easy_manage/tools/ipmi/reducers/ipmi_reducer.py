@@ -17,14 +17,15 @@ class IpmiReducer:
 
     def reduce_chassis_reading(self):
         return {
-            'pwr_state': ChassisReducer.ReadingsReducer.power_state(self.sys_buffer, self.chass_buffer),
-
-            'temperature': {
+            'temperatures': {
                 'exhaust_temp': ChassisReducer.ReadingsReducer.exhaust_temp(self.sys_buffer, self.chass_buffer),
-                'ambient_temp': ChassisReducer.ReadingsReducer.ambient_temp(self.sys_buffer, self.chass_buffer)
+                'ambient_temp': ChassisReducer.ReadingsReducer.ambient_temp(self.sys_buffer, self.chass_buffer),
             },
             'fans': ChassisReducer.ReadingsReducer.fan_speeds(self.sys_buffer, self.chass_buffer),
-            'power_consumed_watts': ChassisReducer.ReadingsReducer.pwr_consumed(self.sys_buffer, self.chass_buffer),
+            'power':{ 
+                "consumed_watts": ChassisReducer.ReadingsReducer.pwr_consumed(self.sys_buffer, self.chass_buffer),
+                "state": ChassisReducer.ReadingsReducer.power_state(self.sys_buffer, self.chass_buffer),
+            }
 
         }
 
