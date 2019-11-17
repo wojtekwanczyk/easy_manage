@@ -2,6 +2,8 @@
 from easy_manage.chassis.abstract_chassis import AbstractChassis
 from easy_manage.tools.ipmi.chassis.chassis_messages import ChassisControl
 from easy_manage.tools.ipmi.ipmi_backend import IpmiBackend
+from easy_manage.protocols import Protocols
+from easy_manage.tools.wrap_with_protocol import proto_wrap
 
 
 class IpmiChassis(AbstractChassis):
@@ -36,10 +38,10 @@ class IpmiChassis(AbstractChassis):
         self.backend.set_chassis_power(ChassisControl.SOFT_SHUTDOWN)
 
     def raw_data(self):
-        return self.backend.chassis_aggregate()
+        return proto_wrap(self.backend.chassis_aggregate(), Protocols.IPMI)
 
     def static_data(self):
-        return self.backend.chassis_static_data()
+        return proto_wrap(self.backend.chassis_static_data(), Protocols.IPMI)
 
     def readings(self):
-        return self.backend.chassis_readings()
+        return proto_wrap(self.backend.chassis_readings(), Protocols.IPMI)
