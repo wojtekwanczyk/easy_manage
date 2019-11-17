@@ -327,8 +327,7 @@ class RedfishTools:
 
     def raw_data(self):
         data = self._fetch(level=2)
-        if filter_data:
-            data = self.connector.filter_data(data)
+        data = self.connector.filter_data(data)
         return proto_wrap(data, Protocol.REDFISH)
 
     def snake_case_dict(self, data):
