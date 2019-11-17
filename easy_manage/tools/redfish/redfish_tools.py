@@ -4,6 +4,8 @@ import logging
 import operator
 from datetime import datetime
 from easy_manage.utils import utils
+from easy_manage.protocols import Protocols
+from easy_manage.tools.wrap_with_protocol import proto_wrap
 
 
 LOGGER = logging.getLogger('RedfishConnector')
@@ -40,10 +42,11 @@ class RedfishTools:
             # fetch through redfish
             LOGGER.info("Fetching data from BMC")
             self.data = self._update_recurse(self.endpoint, level)
-            for key, value in self.data.items():
-                if key.startswith('/redfish'):
-                    self.data = value
-                    break
+            # FIXME investigate if lines below are needed
+            # for key, value in self.data.items():
+            #     if key.startswith('/redfish'):
+            #         self.data = value
+            #         break
             self.last_update = datetime.now()
         else:
             LOGGER.info("Fetching data from memory")
@@ -320,3 +323,9 @@ class RedfishTools:
         "Get device info from Redfish Links"
         endpoints = self._endpoint_inception(self.find([name], strict=True), level)
         return self.evaluate_endpoints(endpoints)
+
+    def raw_data(self):
+        data = self._fetch(level=2)
+        if filter_data:
+            data = self.connector.filter_data(data)
+        return proto_wrap(data, Protocols.REDFISH)
