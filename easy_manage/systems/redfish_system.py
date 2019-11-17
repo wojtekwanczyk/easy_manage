@@ -6,7 +6,7 @@ import logging
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.redfish.redfish_tools import RedfishTools
 from easy_manage.utils.exceptions import BadHttpResponse
-from easy_manage.protocols import Protocols
+from easy_manage.protocol import Protocol
 from easy_manage.tools.wrap_with_protocol import proto_wrap
 
 LOGGER = logging.getLogger('redfish_system')
@@ -239,7 +239,8 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             'storage': self.get_storage(),
             'pci_e': self.connector.filter_data(self.get_pcie_devices()),
         }
-        return proto_wrap(data, Protocols.REDFISH)
+        data = self.connector.filter_data(data)
+        return proto_wrap(data, Protocol.REDFISH)
 
     def readings(self):
         data = {
@@ -249,4 +250,4 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             'cpu_power': self.get_min_cpu_power(),
             'power_health': None,
         }
-        return proto_wrap(data, Protocols.REDFISH)
+        return proto_wrap(data, Protocol.REDFISH)
