@@ -3,7 +3,7 @@
 from enum import Enum
 
 
-class Protocols(Enum):
+class Protocol(Enum):
     "Enum for every protocol implemented in app to keep them as constants"
     REDFISH = 'redfish'
     IPMI = 'ipmi'
