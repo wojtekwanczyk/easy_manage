@@ -5,7 +5,7 @@ without knowledge of which interfaces they use
 import logging
 
 from easy_manage.controller.controller import Controller
-from easy_manage.protocols import Protocols
+from easy_manage.protocol import Protocol
 from easy_manage.connectors.connectors_switch import connectors_switch
 from easy_manage.chassis.chassis_switch import chassis_switch
 from easy_manage.systems.system_switch import systems_switch
@@ -27,7 +27,7 @@ class ControllerFactory:
         controller = Controller()
         if custom_connection is None:
             custom_connection = {}
-        for protocol in Protocols:
+        for protocol in Protocol:
             custom = custom_connection.get(protocol, {})
             connection_address = custom.get('address', address)
             connection_credential = custom.get('credentials', credentials)
