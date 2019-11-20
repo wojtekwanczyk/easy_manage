@@ -37,10 +37,8 @@ class IpmiReducer:
     def reduce_system_reading(self):
         return {
             'power_on_hours': SystemReducer.ReadingsReducer.poh_counter(self.sys_buffer, self.chass_buffer),
-            'cpu_summary': {
-                'usage': SystemReducer.ReadingsReducer.cpu_summary_usage(self.sys_buffer, self.chass_buffer),
-                'power': SystemReducer.ReadingsReducer.cpu_summary_power(self.sys_buffer, self.chass_buffer),
-            },
+            'cpu_usage': SystemReducer.ReadingsReducer.cpu_summary_usage(self.sys_buffer, self.chass_buffer),
+            'cpu_power': SystemReducer.ReadingsReducer.cpu_summary_power(self.sys_buffer, self.chass_buffer),
             # This is just temperatures now, could merge dicts if necessary
             'cpus': SystemReducer.ReadingsReducer.cpus_temperatures(self.sys_buffer, self.chass_buffer),
             # 'events': #TODO: Implement
