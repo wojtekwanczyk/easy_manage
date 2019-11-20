@@ -1,5 +1,6 @@
 from functools import reduce
 
+import easy_manage.tools.ipmi.reducers.constants as constants
 from easy_manage.tools.ipmi.reducers.constants.exceptions import InvalidPathError
 from easy_manage.tools.ipmi.reducers.constants.paths import (
     POH_PATHS, CPU_UTILIZATION_PATH, CPU_PWR_PATH,
@@ -12,7 +13,6 @@ from easy_manage.tools.ipmi.reducers.parsing_functions import (
 )
 from easy_manage.tools.ipmi.reducers.utils.misc import extract_flat_props
 from easy_manage.tools.ipmi.reducers.utils.path_handlers import validate_paths, extract_by_path, bare_validate_paths
-import easy_manage.tools.ipmi.reducers.constants as constants
 
 
 class SystemReducer:
@@ -72,7 +72,8 @@ class SystemReducer:
         @staticmethod
         def storage_info(sys, _chass):
             components = extract_by_path(sys, HARDWARE_COMPONENTS_PATH)
-            return extract_components(components, is_memory, parse_memory)
+            storages = extract_components(components, is_memory, parse_memory)
+            return [{'name': k, **v} for k, v in storages.items()]  # Fix for schema
 
         @staticmethod
         def pci_info(sys, _chass):
