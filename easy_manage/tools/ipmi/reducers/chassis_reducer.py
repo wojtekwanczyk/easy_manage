@@ -22,7 +22,7 @@ class ChassisReducer:
                 return {
                     True: PowerState.ON,
                     False: PowerState.OFF
-                }[pwr_state]
+                }[pwr_state].value
             except KeyError:
                 raise CorruptedBufferError(f'Buffer specified unsupported pwr_state: {pwr_state}')
 
