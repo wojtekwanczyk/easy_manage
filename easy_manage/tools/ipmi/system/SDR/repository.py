@@ -1,10 +1,12 @@
 "SDR Repository IPMI commands and utilities Module"
 import logging
 
+from pyipmi.errors import DecodingError
 from pyipmi.helper import get_sdr_data_helper
 from pyipmi.sdr import SdrCommon
-from pyipmi.errors import DecodingError
+
 from easy_manage.tools.ipmi.system.SDR.records import AbstractSDR
+
 log = logging.getLogger(__name__)
 
 
@@ -60,8 +62,7 @@ class SDRRepository:
             record_id, reservation_id)
         try:
             return (SdrCommon.from_data(record_data, next_id), next_id)
-        except DecodingError as ex:
-            print(ex)
+        except DecodingError:
             # By policy, we skip unsupported records
             return (None, next_id)
 
