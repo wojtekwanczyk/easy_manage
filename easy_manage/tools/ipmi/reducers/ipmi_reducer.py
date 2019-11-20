@@ -49,7 +49,7 @@ class IpmiReducer:
     def reduce_system_static(self):
         return {
             'properties': SystemReducer.StaticsReducer.basic_info(self.sys_buffer, self.chass_buffer),
-            'total_memory_size_gb': SystemReducer.StaticsReducer.mem_size_gb(self.sys_buffer, self.chass_buffer),
+            'memory_size_gb': SystemReducer.StaticsReducer.mem_size_gb(self.sys_buffer, self.chass_buffer),
             'cpus': SystemReducer.StaticsReducer.cpus_info(self.sys_buffer, self.chass_buffer),
             'storage': SystemReducer.StaticsReducer.storage_info(self.sys_buffer, self.chass_buffer),
             'pci_e': SystemReducer.StaticsReducer.pci_info(self.sys_buffer, self.chass_buffer),
