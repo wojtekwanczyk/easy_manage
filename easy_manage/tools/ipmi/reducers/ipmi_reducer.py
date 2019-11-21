@@ -22,7 +22,7 @@ class IpmiReducer:
                 'ambient_temp': ChassisReducer.ReadingsReducer.ambient_temp(self.sys_buffer, self.chass_buffer),
             },
             'fans': ChassisReducer.ReadingsReducer.fan_speeds(self.sys_buffer, self.chass_buffer),
-            'power':{ 
+            'power': {
                 "consumed_watts": ChassisReducer.ReadingsReducer.pwr_consumed(self.sys_buffer, self.chass_buffer),
                 "state": ChassisReducer.ReadingsReducer.power_state(self.sys_buffer, self.chass_buffer),
             }
@@ -41,7 +41,7 @@ class IpmiReducer:
             'cpu_power': SystemReducer.ReadingsReducer.cpu_summary_power(self.sys_buffer, self.chass_buffer),
             # This is just temperatures now, could merge dicts if necessary
             'cpus': SystemReducer.ReadingsReducer.cpus_temperatures(self.sys_buffer, self.chass_buffer),
-            # 'events': #TODO: Implement
+            # 'events': #TODO: Impleme  nt
         }
 
     def reduce_system_static(self):
