@@ -2,7 +2,9 @@
 
 
 class BadHttpResponse(Exception):
-    pass
+    def __init__(self, status):
+        super().__init__()
+        self.status = status
 
 
 class InvalidCredentials(Exception):

@@ -52,7 +52,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.endpoint + '/Actions/ComputerSystem.Reset',
             body=body)
         if res.status >= 300:
-            raise BadHttpResponse(res.request)
+            raise BadHttpResponse(res.status)
 
     def restart(self):
         self.reset_action('GracefulRestart')
@@ -88,7 +88,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             body=body)
         if res.status >= 300:
             print(res.status)
-            raise BadHttpResponse(str(res.status) + '\n' + str(res.request))
+            raise BadHttpResponse(res.status)
 
     def get_allowable_boot_sources(self):
         return self.find(['Boot', 'AllowableValues'])
@@ -105,7 +105,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.endpoint + '/SecureBoot/Actions/SecureBoot.ResetKeys',
             body=body)
         if res.status >= 300:
-            raise BadHttpResponse(res.request)
+            raise BadHttpResponse(res.status)
 
     def secure_boot_default_keys(self):
         self._secure_boot_key_reset('ResetAllKeysToDefault')
@@ -217,7 +217,7 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             body=body)
         if res.status >= 300:
             print(res.status)
-            raise BadHttpResponse(str(res.status) + '\n' + str(res.request))
+            raise BadHttpResponse(res.status)
 
     def led_on(self):
         self.change_led_state('Lit')
