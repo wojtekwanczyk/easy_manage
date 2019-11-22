@@ -5,7 +5,6 @@ without knowledge of which interfaces they use
 import logging
 
 from easy_manage.controller.controller import Controller
-from easy_manage.protocol import Protocol
 from easy_manage.connectors.connectors_switch import connectors_switch
 from easy_manage.chassis.chassis_switch import chassis_switch
 from easy_manage.systems.system_switch import systems_switch
@@ -19,19 +18,19 @@ class ControllerFactory:
     "Class responsible for creating controllers, it detects available interfaces"
 
     @staticmethod
-    def get_controller(address, credentials, custom_connection=None):
+    def get_controller(config, address=None, credentials=None):
         """
         Create controller detecting with interfaces it can support
-        custom_connection is dic of protocols custom settings (port,credentials, address)
+        :param config: dic of protocol,{address, credentials, port}- values for which controller will be created,
+        :param address: default address if not passed in config
+        :param credentials: default credentials if not passed in config
+        :return: Created controller
         """
         controller = Controller()
-        if custom_connection is None:
-            custom_connection = {}
-        for protocol in Protocol:
-            custom = custom_connection.get(protocol, {})
-            connection_address = custom.get('address', address)
-            connection_credential = custom.get('credentials', credentials)
-            connection_port = custom.get('port')
+        for protocol, configuration in config.items():
+            connection_address = configuration.get('address', address)
+            connection_credential = configuration.get('credentials', credentials)
+            connection_port = configuration.get('port')
             try:
                 connector = connectors_switch(
                     protocol,
