@@ -45,3 +45,6 @@ class IpmiChassis(AbstractChassis):
 
     def readings(self):
         return proto_wrap(self.backend.chassis_readings(), Protocol.IPMI)
+
+    def get_power_state(self):
+        return self.backend.get_power_state()

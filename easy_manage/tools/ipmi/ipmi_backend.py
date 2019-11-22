@@ -121,3 +121,8 @@ class IpmiBackend(FRUChassis):
         chass_buf = self.power_on_hours()
         reducer = IpmiReducer(sys_buf, chass_buf)
         return reducer.reduce_system_reading()
+
+    def get_power_state(self):
+        chass_buf = self.chassis_status()
+        reducer = IpmiReducer(None, chass_buf)
+        return reducer.get_power_state()
