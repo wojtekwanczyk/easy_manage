@@ -43,7 +43,7 @@ class IpmiBackend(FRUChassis):
         }
 
     def set_chassis_power(self, power_status):
-        self.ipmi.chassis_control(power_status)
+        self.ipmi.chassis_control(power_status.value)
 
     def power_on_hours(self):
         "Returns power on hours on chassis"
