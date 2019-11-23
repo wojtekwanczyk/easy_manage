@@ -216,7 +216,6 @@ class RedfishSystem(AbstractSystem, RedfishTools):
             self.endpoint,
             body=body)
         if res.status >= 300:
-            print(res.status)
             raise BadHttpResponse(res.status)
 
     def led_on(self):
@@ -227,6 +226,11 @@ class RedfishSystem(AbstractSystem, RedfishTools):
 
     def led_blinking(self):
         self.change_led_state('Blinking')
+
+    def get_led_state(self):
+        return self.find(['IndicatorLED'])
+
+    # Prepared functional chunks of data
 
     def static_data(self):
         interfaces = self.get_ethernet_interfaces()
