@@ -54,3 +54,6 @@ class IpmiReducer:
             # 'sensors': SystemReducer.StaticsReducer.sensors_info(self.sys_buffer, self.chass_buffer) #TODO: Implement
 
         }
+
+    def get_power_state(self):
+        return ChassisReducer.ReadingsReducer.power_state(self.sys_buffer, self.chass_buffer)

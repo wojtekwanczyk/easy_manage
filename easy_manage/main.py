@@ -61,16 +61,19 @@ def ipmi_demo(config, credentials):
     ipmi_conn = IpmiConnector(config['CONTROLLER']['ADDRESS'], credentials)
     ipmi_conn.connect()
     ipmi_sys = IpmiSystem(ipmi_conn)
-    sys = ipmi_sys.aggregate()
+    #sys = ipmi_sys.aggregate()
     ipmi_chass = IpmiChassis(ipmi_conn)
-    chasis = ipmi_chass.aggregate()
-    sys['events']['discrete_events'] = sys['events']['discrete_events'][0:10]
+    #chasis = ipmi_chass.aggregate()
+    #sys['events']['discrete_events'] = sys['events']['discrete_events'][0:10]
+    print("setting ipmi state: ")
+    ipmi_chass.power_down()
+    print("IPMI POWER STATE: " + str(ipmi_chass.get_power_state()))
     # return sys,chasis
-    with open('ipmi_out_sys.json', 'w') as f:
-        json.dump(sys, f, indent=4)
-    #
-    with open('ipmi_out_chassis.json', 'w') as f:
-        json.dump(chasis, f, indent=4)
+    # with open('ipmi_out_sys.json', 'w') as f:
+    #     json.dump(sys, f, indent=4)
+    # #
+    # with open('ipmi_out_chassis.json', 'w') as f:
+    #     json.dump(chasis, f, indent=4)
 
 
 #    FRU FETCHING
@@ -142,9 +145,9 @@ def main():
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
     global rf, c, sh, cont, r_conn, s_conn
-    #ipmi_demo(args, creds_controller)
+    #ipmi_demo(config, creds_controller)
     rf, c, r_conn = redfish_demo(config, creds_controller)
-    cont = controller_factory_demo(config, creds_controller)
+    #cont = controller_factory_demo(config, creds_controller)
     #sh, s_conn = shell_demo(config, creds_device)
 
     return 0

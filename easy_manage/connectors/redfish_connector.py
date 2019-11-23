@@ -70,7 +70,7 @@ class RedfishConnector(Connector, RedfishTools):
             body=body)
         if res.status >= 300:
             LOGGER.debug(res.text)
-            raise BadHttpResponse(res.request)
+            raise BadHttpResponse(res.status)
 
     # TODO test evenets when webapp api is ready
     def _test_event(self):
