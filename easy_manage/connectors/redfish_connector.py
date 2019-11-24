@@ -1,6 +1,7 @@
 """
 RedfishConnector class
 """
+import json
 import logging
 import redfish
 from easy_manage.connectors.connector import Connector
@@ -35,7 +36,13 @@ class RedfishConnector(Connector, RedfishTools):
             self.client.login(auth='session')
             self.connected = True
         except redfish.rest.v1.RetriesExhaustedError as ex:
-            LOGGER.error(f"Error while logging in\n{ex}")
+            LOGGER.error(f"Error while logging in: Too many retires\n{ex}")
+            return False
+        except json.decoder.JSONDecodeError as ex:
+            LOGGER.error(f"Error while logging in: Wrong server response\n{ex}")
+            return False
+        except redfish.rest.v1.InvalidCredentialsError as ex:
+            LOGGER.error(f"Error while logging in: Invalid credentials\n{ex}")
             return False
         return True
 
