@@ -4,8 +4,7 @@ import logging
 import operator
 from datetime import datetime
 from easy_manage.utils import utils
-from easy_manage.protocol import Protocol
-from easy_manage.tools.wrap_with_protocol import proto_wrap
+from easy_manage.tools.protocol import Protocol, proto_wrap
 from inflection import underscore
 
 

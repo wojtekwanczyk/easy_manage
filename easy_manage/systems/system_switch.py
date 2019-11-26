@@ -1,6 +1,6 @@
 "It creates system according to given protocol"
 
-from easy_manage.protocol import Protocol
+from easy_manage.tools.protocol import Protocol
 from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.utils.utils import raise_protocol_error

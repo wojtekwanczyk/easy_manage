@@ -1,6 +1,6 @@
 "It creates connector according to given protocol"
 
-from easy_manage.protocol import Protocol
+from easy_manage.tools.protocol import Protocol
 from easy_manage.connectors.ipmi_connector import IpmiConnector
 from easy_manage.connectors.redfish_connector import RedfishConnector
 from easy_manage.connectors.ssh_connector import SshConnector

@@ -3,8 +3,7 @@ import logging
 
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.ipmi.ipmi_backend import IpmiBackend
-from easy_manage.tools.wrap_with_protocol import proto_wrap
-from easy_manage.protocol import Protocol
+from easy_manage.tools.protocol import Protocol, proto_wrap
 LOGGER = logging.getLogger('ipmi_system')
 LOGGER.setLevel(logging.DEBUG)
 

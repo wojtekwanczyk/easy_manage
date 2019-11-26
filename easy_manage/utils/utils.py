@@ -6,7 +6,8 @@ import hashlib
 import base64
 from collections import namedtuple
 from cryptography.fernet import Fernet
-from easy_manage.utils.exceptions import InvalidCredentials, ProtocolNotHandled
+from easy_manage.utils.exceptions import InvalidCredentials
+from easy_manage.tools.protocol import ProtocolNotHandled
 
 
 def prefix_tuples(string, tuples):

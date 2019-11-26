@@ -3,8 +3,7 @@
 import logging
 from easy_manage.chassis.abstract_chassis import AbstractChassis
 from easy_manage.tools.redfish.redfish_tools import RedfishTools
-from easy_manage.protocol import Protocol
-from easy_manage.tools.wrap_with_protocol import proto_wrap
+from easy_manage.tools.protocol import Protocol, proto_wrap
 
 LOGGER = logging.getLogger('redfish_chassis')
 LOGGER.setLevel(logging.DEBUG)

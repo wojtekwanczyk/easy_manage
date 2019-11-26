@@ -8,7 +8,7 @@ from easy_manage.controller.controller import Controller
 from easy_manage.connectors.connectors_switch import connectors_switch
 from easy_manage.chassis.chassis_switch import chassis_switch
 from easy_manage.systems.system_switch import systems_switch
-from easy_manage.utils.exceptions import ProtocolNotHandled
+from easy_manage.tools.protocol import ProtocolNotHandled
 
 LOGGER = logging.getLogger('ControllerFactory')
 LOGGER.setLevel(logging.INFO)
