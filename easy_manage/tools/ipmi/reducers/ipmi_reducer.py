@@ -41,7 +41,6 @@ class IpmiReducer:
             'cpu_power': SystemReducer.ReadingsReducer.cpu_summary_power(self.sys_buffer, self.chass_buffer),
             # This is just temperatures now, could merge dicts if necessary
             'cpus': SystemReducer.ReadingsReducer.cpus_temperatures(self.sys_buffer, self.chass_buffer),
-            # 'events': #TODO: Impleme  nt
         }
 
     def reduce_system_static(self):
@@ -51,6 +50,4 @@ class IpmiReducer:
             'cpu_info': SystemReducer.StaticsReducer.cpus_info(self.sys_buffer, self.chass_buffer),
             'storage': SystemReducer.StaticsReducer.storage_info(self.sys_buffer, self.chass_buffer),
             'pci_e': SystemReducer.StaticsReducer.pci_info(self.sys_buffer, self.chass_buffer),
-            # 'sensors': SystemReducer.StaticsReducer.sensors_info(self.sys_buffer, self.chass_buffer) #TODO: Implement
-
         }

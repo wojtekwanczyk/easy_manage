@@ -1,10 +1,9 @@
-from easy_manage.tools.ipmi.system.fru import FRUChassis
-from easy_manage.tools.ipmi.system.maps.chassis_maps import map_chassis_capabilities
 from easy_manage.tools.ipmi.reducers.ipmi_reducer import IpmiReducer
-from easy_manage.tools.ipmi.system.fru import FRU
-from easy_manage.tools.ipmi.system.SEL.event_log import SEL
 from easy_manage.tools.ipmi.system.SDR.repository import SDRRepository
+from easy_manage.tools.ipmi.system.SEL.event_log import SEL
 from easy_manage.tools.ipmi.system.bmc_info import BMCInfo
+from easy_manage.tools.ipmi.system.fru import FRUChassis, FRU
+from easy_manage.tools.ipmi.system.maps.chassis_maps import map_chassis_capabilities
 from easy_manage.tools.ipmi.system.sensor import Sensor
 
 
@@ -84,7 +83,7 @@ class IpmiBackend(FRUChassis):
         return {
             'bmc': self.BMCInfo.aggregate(),
             'hardware': self.FRU.aggregate(),
-            # 'events': self.SEL.aggregate(),
+            'events': self.SEL.aggregate(),
             'sensors': self.aggregate_sensor_and_sdrs()  # this also fetches sensor's readings
         }
 
