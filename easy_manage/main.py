@@ -1,7 +1,5 @@
 "Project base module"
 
-import argparse
-import pprint as pp
 import logging
 import json
 
@@ -31,8 +29,6 @@ def redfish_demo(config, credentials):
     "Just some Redfish testing cases"
 
     LOGGER.info('Redfish demo')
-
-    global rf_conn
     rf_conn = RedfishConnector(config['CONTROLLER']['ADDRESS'], credentials)
     LOGGER.debug("Connecting to Redfish...")
     rf_conn.connect()
@@ -40,18 +36,6 @@ def redfish_demo(config, credentials):
 
     rf_sys = RedfishSystem(rf_conn, '/redfish/v1/Systems/1')
     rf_cha = RedfishChassis(rf_conn, '/redfish/v1/Chassis/1')
-
-    # power = rf_sys.get_power_state()
-    # print(f"Power state: {power}")
-    # rf_sys.power_on()
-    # status = rf_sys.get_system_health()
-    # print(f"Status: {status}")
-
-    # cmd = None
-    # while cmd != 'end':
-    #     cmd = input()
-    #     d = rf_sys.get_data("/redfish/v1/" + cmd)
-    #     pp.pprint(d)
 
     return rf_sys, rf_cha, rf_conn
 
@@ -125,6 +109,7 @@ def shell_demo(config, credentials):
     sh = BashShell(conn)
     print('Shell obtained')
     # sh.interactive_shell()
+    print(sh.readings())
     return sh, conn
 
 
@@ -146,9 +131,9 @@ def main():
 
     global rf, c, sh, cont, r_conn, s_conn
     #ipmi_demo(config, creds_controller)
-    rf, c, r_conn = redfish_demo(config, creds_controller)
+    #rf, c, r_conn = redfish_demo(config, creds_controller)
     #cont = controller_factory_demo(config, creds_controller)
-    #sh, s_conn = shell_demo(config, creds_device)
+    sh, s_conn = shell_demo(config, creds_device)
 
     return 0
 
