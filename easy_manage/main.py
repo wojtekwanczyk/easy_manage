@@ -13,6 +13,7 @@ from easy_manage.chassis.ipmi_chassis import IpmiChassis
 from easy_manage.controller.controller_factory import ControllerFactory
 from easy_manage.utils import utils
 from easy_manage.shells.bash_shell import BashShell
+from easy_manage.tools.protocol import Protocol
 
 logging.basicConfig(format='%(message)s')
 LOGGER = logging.getLogger('easy_manage')
@@ -113,10 +114,24 @@ def shell_demo(config, credentials):
     return sh, conn
 
 
-def controller_factory_demo(config, credentials):
-    controller = ControllerFactory.get_controller(config['CONTROLLER']['ADDRESS'], credentials)
-    print(ControllerFactory.get_methods(controller.system))
-    print(ControllerFactory.get_methods(controller.chassis))
+def controller_factory_demo(config, credentials, creds_device):
+    configurations = {
+        Protocol.REDFISH: {
+            'address': config['CONTROLLER']['ADDRESS'],
+            'credentials': credentials
+        },
+        Protocol.IPMI: {
+            'address': config['CONTROLLER']['ADDRESS'],
+            'credentials': credentials
+        },
+        Protocol.BASH: {
+            'address': config['DEVICE']['ADDRESS'],
+            'credentials': creds_device
+        },
+    }
+    controller = ControllerFactory.get_controller(configurations, credentials)
+    print(ControllerFactory.get_methods(controller['system']))
+    print(ControllerFactory.get_methods(controller['chassis']))
     return controller
 
 
@@ -132,8 +147,8 @@ def main():
     global rf, c, sh, cont, r_conn, s_conn
     #ipmi_demo(config, creds_controller)
     #rf, c, r_conn = redfish_demo(config, creds_controller)
-    #cont = controller_factory_demo(config, creds_controller)
-    sh, s_conn = shell_demo(config, creds_device)
+    cont = controller_factory_demo(config, creds_controller, creds_device)
+    #sh, s_conn = shell_demo(config, creds_device)
 
     return 0
 

@@ -12,13 +12,13 @@ def connectors_switch(protocol, address, credentials, port=None):
     switcher = {
         Protocol.REDFISH: lambda: RedfishConnector(address, credentials),
         Protocol.IPMI: lambda: IpmiConnector(address, credentials),
-        Protocol.SSH: lambda: SshConnector(address, credentials)
+        Protocol.BASH: lambda: SshConnector(address, credentials)
     }
 
     switcher_port = {
         Protocol.REDFISH: lambda: RedfishConnector(address, credentials, port),
         Protocol.IPMI: lambda: IpmiConnector(address, credentials, port),
-        Protocol.SSH: lambda: SshConnector(address, credentials, port)
+        Protocol.BASH: lambda: SshConnector(address, credentials, port)
     }
     if port:
         return switcher_port.get(protocol, raise_protocol_error)()

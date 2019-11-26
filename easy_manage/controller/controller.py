@@ -1,11 +1,13 @@
 "It contains only Controller instance"
 
 
-class Controller:
+class Controller(dict):
     "It's responsible for controlling whole server functionality"
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super(Controller, self).__init__(*args, *kwargs)
+
         self.standards = {}
-        self.system = type('', (), {})()
-        self.systems_interfaces = {}
-        self.chassis = type('', (), {})()
-        self.chassis_interfaces = {}
+        self.components = {}
+        self['system'] = type('', (), {})()
+        self['chassis'] = type('', (), {})()
+        self['shell'] = type('', (), {})()

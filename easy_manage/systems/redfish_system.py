@@ -5,7 +5,7 @@ Module with class responsible for management with separate system through Redfis
 import logging
 from easy_manage.systems.abstract_system import AbstractSystem
 from easy_manage.tools.redfish.redfish_tools import RedfishTools
-from easy_manage.utils.exceptions import BadHttpResponse
+from easy_manage.exceptions import BadHttpResponse
 from easy_manage.tools.protocol import Protocol, proto_wrap
 
 LOGGER = logging.getLogger('redfish_system')
@@ -15,10 +15,10 @@ LOGGER.setLevel(logging.DEBUG)
 class RedfishSystem(AbstractSystem, RedfishTools):
     "Class responsible for management with separate system through Redfish interface"
 
-    def __init__(self, connector, endpoint):
+    def __init__(self, connector, sys_id=1):
         super().__init__(connector)
 
-        self.endpoint = endpoint
+        self.endpoint = '/redfish/v1/Systems/' + str(sys_id)
         self.force_fetch = False
 
     # Basic info

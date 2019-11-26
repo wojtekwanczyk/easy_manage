@@ -6,10 +6,10 @@ class ProtocolNotHandled(Exception):
 
 
 class Protocol(Enum):
-    "Enum for every protocol implemented in app to keep them as constants"
+    "Enum for every protocol implemented in app to keep them as constants (More abstract - interface)"
     REDFISH = 'redfish'
     IPMI = 'ipmi'
-    SSH = 'ssh'
+    BASH = 'bash'
 
     @classmethod
     def all(cls):
