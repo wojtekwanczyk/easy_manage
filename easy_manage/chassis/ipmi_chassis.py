@@ -1,8 +1,9 @@
 "IPMI chassis module"
-from easy_manage.chassis.abstract_chassis import AbstractChassis
 from easy_manage.tools.ipmi.chassis.chassis_messages import ChassisControl
 from easy_manage.tools.ipmi.ipmi_backend import IpmiBackend
-from easy_manage.tools.protocol import Protocol, proto_wrap
+from easy_manage.tools import Protocol, proto_wrap
+
+from .abstract_chassis import AbstractChassis
 
 
 class IpmiChassis(AbstractChassis):

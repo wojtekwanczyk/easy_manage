@@ -4,11 +4,11 @@ without knowledge of which interfaces they use
 """
 import logging
 
-from easy_manage.controller.controller import Controller
-from easy_manage.connectors.connectors_switch import connectors_switch
-from easy_manage.tools.protocol import ProtocolNotHandled
+from easy_manage.components import COMPONENTS
+from easy_manage.connectors import connectors_switch
+from easy_manage.tools import ProtocolNotHandled
 
-from . import COMPONENTS
+from .controller import Controller
 
 LOGGER = logging.getLogger('ControllerFactory')
 LOGGER.setLevel(logging.INFO)

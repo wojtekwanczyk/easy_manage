@@ -2,9 +2,9 @@
 
 import logging
 import operator
+import easy_manage.utils as utils
 from datetime import datetime
-from easy_manage.utils import utils
-from easy_manage.tools.protocol import Protocol, proto_wrap
+from easy_manage.tools import Protocol, proto_wrap
 from inflection import underscore
 
 

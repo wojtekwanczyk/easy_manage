@@ -1,10 +1,10 @@
 "It creates connector according to given protocol"
 
-from easy_manage.tools.protocol import Protocol
-from easy_manage.connectors.ipmi_connector import IpmiConnector
-from easy_manage.connectors.redfish_connector import RedfishConnector
-from easy_manage.connectors.ssh_connector import SshConnector
-from easy_manage.utils.utils import raise_protocol_error
+from easy_manage.tools import Protocol
+from easy_manage.connectors import IpmiConnector
+from easy_manage.connectors import RedfishConnector
+from easy_manage.connectors import SshConnector
+from easy_manage.utils import raise_protocol_error
 
 
 def connectors_switch(protocol, address, credentials, port=None):

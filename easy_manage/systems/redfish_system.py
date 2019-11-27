@@ -3,10 +3,11 @@ Module with class responsible for management with separate system through Redfis
 """
 
 import logging
-from easy_manage.systems.abstract_system import AbstractSystem
-from easy_manage.tools.redfish.redfish_tools import RedfishTools
+from easy_manage.tools import RedfishTools
 from easy_manage.exceptions import BadHttpResponse
-from easy_manage.tools.protocol import Protocol, proto_wrap
+from easy_manage.tools import Protocol, proto_wrap
+
+from .abstract_system import AbstractSystem
 
 LOGGER = logging.getLogger('redfish_system')
 LOGGER.setLevel(logging.DEBUG)
