@@ -3,7 +3,8 @@ SshConnector class
 """
 import logging
 from paramiko import SSHClient, AutoAddPolicy
-from easy_manage.connectors.connector import Connector
+
+from .connector import Connector
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.DEBUG)

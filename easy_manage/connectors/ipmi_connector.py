@@ -4,7 +4,8 @@ import pyipmi
 import pyipmi.interfaces
 from pyipmi import IpmiTimeoutError
 
-from easy_manage.connectors.connector import Connector
+from .connector import Connector
+
 LOGGER = logging.getLogger('easy_manage')
 LOGGER.setLevel(logging.DEBUG)
 

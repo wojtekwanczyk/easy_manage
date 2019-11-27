@@ -4,9 +4,10 @@ RedfishConnector class
 import json
 import logging
 import redfish
-from easy_manage.connectors.connector import Connector
-from easy_manage.tools.redfish.redfish_tools import RedfishTools
-from easy_manage.utils.exceptions import BadHttpResponse
+from easy_manage.tools import RedfishTools
+from easy_manage.exceptions import BadHttpResponse
+
+from .connector import Connector
 
 LOGGER = logging.getLogger('RedfishConnector')
 LOGGER.setLevel(logging.DEBUG)

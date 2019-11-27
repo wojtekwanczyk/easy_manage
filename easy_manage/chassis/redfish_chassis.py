@@ -1,21 +1,21 @@
 "Module with class responsible for chassis management through Redfish interface"
 
 import logging
-from easy_manage.chassis.abstract_chassis import AbstractChassis
 from easy_manage.tools.redfish.redfish_tools import RedfishTools
-from easy_manage.protocol import Protocol
-from easy_manage.tools.wrap_with_protocol import proto_wrap
+from easy_manage.tools.protocol import Protocol, proto_wrap
+
+from .abstract_chassis import AbstractChassis
+
 
 LOGGER = logging.getLogger('redfish_chassis')
 LOGGER.setLevel(logging.DEBUG)
 
-
 class RedfishChassis(AbstractChassis, RedfishTools):
     "Class responsible for chassis management through Redfish interface"
 
-    def __init__(self, connector, endpoint):
+    def __init__(self, connector, chassis_id=1):
         super().__init__(connector)
-        self.endpoint = endpoint
+        self.endpoint = '/redfish/v1/Chassis/' + str(chassis_id)
         self.thermal = None
         self.force_fetch = False
 

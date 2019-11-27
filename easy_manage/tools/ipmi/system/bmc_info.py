@@ -1,5 +1,5 @@
 "Module for fetching basic system info"
-from easy_manage.utils.exceptions import NotInitializedError
+from easy_manage.exceptions import NotInitializedError
 
 
 class BMCInfo:

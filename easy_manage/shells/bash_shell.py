@@ -71,11 +71,14 @@ class BashShell:
         output = self.execute(cmd)
         return int(output[0])
 
-    def get_memory_percentage(self, swap=False):
-        "Return device memory usage in percentage"
+    def get_memory_percentage(self, swap=False, ndigits=2):
+        """Return device memory usage in percentage
+        or None in case of lack of memory"""
         total = self.get_memory_total(swap)
+        if not total:
+            return None  # In case no swap is used
         used = self.get_memory_used(swap)
-        return float(used/total)
+        return round(float(used/total), ndigits)
 
     # CPU commands
 
@@ -90,3 +93,15 @@ class BashShell:
         cmd = "df -h | awk '$NF==\"/\"{print $5}' | cut -d% -f1"
         output = self.execute(cmd)
         return int(output[0])
+
+
+    # Complete batch of bash readings
+
+    def readings(self):
+        data = {
+            'disk_quota': self.get_disk_percentage(),
+            'cpu_quota': self.get_cpu_usage_current(),
+            'memory_quota': self.get_memory_percentage(),
+            'swap_quota': self.get_memory_percentage(swap=True),
+        }
+        return data
