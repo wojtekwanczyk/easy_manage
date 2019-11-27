@@ -41,8 +41,15 @@ class ControllerFactory:
     @staticmethod
     def _inject_interfaces(controller, connectors):
         "Injects interfaces from connectors to controller components"
+        available_interfaces = set(connectors.keys())
         for component, interfaces in COMPONENTS.items():
+            if not available_interfaces.intersection(interfaces.keys()):
+                # Skipping components without configured connector
+                continue
             for interface, interface_class in interfaces.items():
+                if interface not in available_interfaces:
+                    # Skipping interfaces without configured connector
+                    continue
                 interface_instance = interface_class(connectors[interface])
 
                 component_dict = controller.components.get(component, {})
