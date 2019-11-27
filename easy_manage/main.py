@@ -130,8 +130,8 @@ def controller_factory_demo(config, credentials, creds_device):
         },
     }
     controller = ControllerFactory.get_controller(configurations, credentials)
-    print(ControllerFactory.get_methods(controller['system']))
-    print(ControllerFactory.get_methods(controller['chassis']))
+    print(ControllerFactory.get_methods(controller.system))
+    print(ControllerFactory.get_methods(controller.chassis))
     return controller
 
 

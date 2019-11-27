@@ -57,7 +57,7 @@ class ControllerFactory:
                 controller.components[component] = component_dict
 
                 ControllerFactory.assign_missing_methods(
-                    controller[component],
+                    getattr(controller, component),
                     interface_instance)
 
     @staticmethod
