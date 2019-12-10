@@ -3,15 +3,17 @@
 import logging
 import json
 
-from easy_manage.connectors.ipmi_connector import IpmiConnector
-from easy_manage.connectors.redfish_connector import RedfishConnector
-from easy_manage.connectors.ssh_connector import SshConnector
+from easy_manage import (
+    IpmiConnector,
+    RedfishConnector,
+    SshConnector,
+    ControllerFactory,
+    utils
+)
 from easy_manage.systems.redfish_system import RedfishSystem
 from easy_manage.chassis.redfish_chassis import RedfishChassis
 from easy_manage.systems.ipmi_system import IpmiSystem
 from easy_manage.chassis.ipmi_chassis import IpmiChassis
-from easy_manage.controller.controller_factory import ControllerFactory
-from easy_manage.utils import utils
 from easy_manage.shells.bash_shell import BashShell
 from easy_manage.tools.protocol import Protocol
 
@@ -35,8 +37,8 @@ def redfish_demo(config, credentials):
     rf_conn.connect()
     LOGGER.debug("Connected")
 
-    rf_sys = RedfishSystem(rf_conn, '/redfish/v1/Systems/1')
-    rf_cha = RedfishChassis(rf_conn, '/redfish/v1/Chassis/1')
+    rf_sys = RedfishSystem(rf_conn)
+    rf_cha = RedfishChassis(rf_conn)
 
     return rf_sys, rf_cha, rf_conn
 
@@ -105,8 +107,11 @@ def ipmi_demo(config, credentials):
 def shell_demo(config, credentials):
     conn = SshConnector(config['DEVICE']['ADDRESS'], credentials)
     print("Connecting through ssh")
-    conn.connect()
-    print("Connected")
+    res = conn.connect()
+    print("Connected:" + str(res))
+    if not res:
+        return None, None
+
     sh = BashShell(conn)
     print('Shell obtained')
     # sh.interactive_shell()
@@ -140,15 +145,15 @@ def main():
     LOGGER.info("Welcome to easy_manage!")
     config = parse_conf('config.json', 'LENOVO')
 
-    user_password = 'pass'
+    user_password = input("Provide password: ")
     creds_controller = utils.get_credentials(config, 'CONTROLLER', user_password)
     creds_device = utils.get_credentials(config, 'DEVICE', user_password)
 
     global rf, c, sh, cont, r_conn, s_conn
-    #ipmi_demo(config, creds_controller)
-    #rf, c, r_conn = redfish_demo(config, creds_controller)
+    ipmi_demo(config, creds_controller)
+    rf, c, r_conn = redfish_demo(config, creds_controller)
     cont = controller_factory_demo(config, creds_controller, creds_device)
-    #sh, s_conn = shell_demo(config, creds_device)
+    sh, s_conn = shell_demo(config, creds_device)
 
     return 0
 
