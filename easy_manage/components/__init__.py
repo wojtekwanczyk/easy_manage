@@ -5,12 +5,12 @@ from easy_manage.shells import BashShell
 
 COMPONENTS = {
     'chassis': {
-        'ipmi': IpmiChassis,
         'redfish': RedfishChassis,
+        'ipmi': IpmiChassis,
     },
     'system': {
-        'ipmi': IpmiSystem,
         'redfish': RedfishSystem,
+        'ipmi': IpmiSystem,
     },
     'shell': {
         'bash': BashShell,

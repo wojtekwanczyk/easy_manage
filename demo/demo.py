@@ -28,24 +28,26 @@ def parse_conf(filename, name='LENOVO'):
     return data[name]
 
 
-def redfish_demo(config, credentials):
+def redfish_demo(bmc_ip_address, credentials):
     "Just some Redfish testing cases"
 
     LOGGER.info('Redfish demo')
-    rf_conn = RedfishConnector(config['CONTROLLER']['ADDRESS'], credentials)
+    rf_conn = RedfishConnector(bmc_ip_address, credentials)
     LOGGER.debug("Connecting to Redfish...")
-    rf_conn.connect()
-    LOGGER.debug("Connected")
+    if not rf_conn.connect():
+        LOGGER.info("Unable to connect to redfish")
+        return None, None, None
 
+    LOGGER.debug("Connected")
     rf_sys = RedfishSystem(rf_conn)
     rf_cha = RedfishChassis(rf_conn)
 
     return rf_sys, rf_cha, rf_conn
 
 
-def ipmi_demo(config, credentials):
+def ipmi_demo(bmc_ip_address, credentials):
     LOGGER.info('IPMI demo')
-    ipmi_conn = IpmiConnector(config['CONTROLLER']['ADDRESS'], credentials)
+    ipmi_conn = IpmiConnector(bmc_ip_address, credentials)
     ipmi_conn.connect()
     ipmi_sys = IpmiSystem(ipmi_conn)
     #sys = ipmi_sys.aggregate()
@@ -53,7 +55,7 @@ def ipmi_demo(config, credentials):
     #chasis = ipmi_chass.aggregate()
     #sys['events']['discrete_events'] = sys['events']['discrete_events'][0:10]
     print("setting ipmi state: ")
-    ipmi_chass.power_down()
+    ipmi_chass.power_up()
     print("IPMI POWER STATE: " + str(ipmi_chass.get_power_state()))
     # return sys,chasis
     # with open('ipmi_out_sys.json', 'w') as f:
@@ -104,56 +106,62 @@ def ipmi_demo(config, credentials):
 # print(f'Fetched {len(discre_evts)} threshold events from the system event log')
 
 
-def shell_demo(config, credentials):
-    conn = SshConnector(config['DEVICE']['ADDRESS'], credentials)
-    print("Connecting through ssh")
+def shell_demo(system_ip_address, credentials):
+    conn = SshConnector(system_ip_address, credentials)
+    LOGGER.info("Connecting through ssh")
     res = conn.connect()
-    print("Connected:" + str(res))
+    LOGGER.info("Connected:" + str(res))
     if not res:
         return None, None
 
     sh = BashShell(conn)
-    print('Shell obtained')
+    LOGGER.info('Shell obtained')
     # sh.interactive_shell()
-    print(sh.readings())
+    LOGGER.info(sh.readings())
     return sh, conn
 
 
-def controller_factory_demo(config, credentials, creds_device):
+def controller_factory_demo(bmc_ip_address, system_ip_address, bmc_credentials, system_credentials):
     configurations = {
         Protocol.REDFISH: {
-            'address': config['CONTROLLER']['ADDRESS'],
-            'credentials': credentials
+            'address': bmc_ip_address,
+            'credentials': bmc_credentials
         },
         Protocol.IPMI: {
-            'address': config['CONTROLLER']['ADDRESS'],
-            'credentials': credentials
+            'address': bmc_ip_address,
+            'credentials': bmc_credentials
         },
         Protocol.BASH: {
-            'address': config['DEVICE']['ADDRESS'],
-            'credentials': creds_device
+            'address': system_ip_address,
+            'credentials': system_credentials
         },
     }
-    controller = ControllerFactory.get_controller(configurations, credentials)
-    print(ControllerFactory.get_methods(controller.system))
-    print(ControllerFactory.get_methods(controller.chassis))
+    controller = ControllerFactory.get_controller(configurations)
+    LOGGER.info(ControllerFactory.get_methods(controller.system))
+    LOGGER.info(ControllerFactory.get_methods(controller.chassis))
     return controller
 
 
 def main():
-    "Main program function"
-    LOGGER.info("Welcome to easy_manage!")
+    "Demo program"
+    LOGGER.info("Welcome to easy_manage demo!")
     config = parse_conf('config.json', 'LENOVO')
 
     user_password = input("Provide password: ")
-    creds_controller = utils.get_credentials(config, 'CONTROLLER', user_password)
-    creds_device = utils.get_credentials(config, 'DEVICE', user_password)
+
+    # example_credentials = Credentials('username', 'password')
+    bmc_credentials = utils.get_credentials(config, 'CONTROLLER', user_password)
+    system_credentials = utils.get_credentials(config, 'DEVICE', user_password)
+
+    # example_ip_address = '172.16.67.120'
+    bmc_ip_address = config['CONTROLLER']['ADDRESS']
+    system_ip_address = config['DEVICE']['ADDRESS']
 
     global rf, c, sh, cont, r_conn, s_conn
-    ipmi_demo(config, creds_controller)
-    rf, c, r_conn = redfish_demo(config, creds_controller)
-    cont = controller_factory_demo(config, creds_controller, creds_device)
-    sh, s_conn = shell_demo(config, creds_device)
+    ipmi_demo(bmc_ip_address, bmc_credentials)
+    rf, c, r_conn = redfish_demo(bmc_ip_address, bmc_credentials)
+    cont = controller_factory_demo(bmc_ip_address, system_ip_address, bmc_credentials, system_credentials)
+    sh, s_conn = shell_demo(system_ip_address, system_credentials)
 
     return 0
 

@@ -13,8 +13,8 @@ You can give multiple IP addresses to ControllerFactory and it will try to conne
 Example config:
 
 ```
-from tools import Protocol
-from utils import Credentials
+from easy_manage.tools import Protocol
+from easy_manage import Credentials
 
 bmc_credentials = Credentials('username', 'password')
 system_credentials = Credentials('username2', 'password2')
@@ -52,9 +52,9 @@ print(ControllerFactory.get_methods(controller.system))
 print(ControllerFactory.get_methods(controller.chassis))
 
 # Test simple abstract methods
-print(controller.get_power_state())
-print(controller.get_led_state())
-controller.power_on()
+print(controller.chassis.get_power_state())
+print(controller.system.get_led_state())
+controller.system.power_on()
 ```
 
 Connector depending on its configuration is able to aggregate up to three components:
@@ -65,12 +65,28 @@ Connector depending on its configuration is able to aggregate up to three compon
 You can get bulk data from every component using pre-defined methods `redings()`, `static_data()` and `raw_data()` on controller components.
 
 ```
-from pprint import pprint as pp
+from pprint import pprint
 
-pp.print(controller.shell.readings())
-pp.print(controller.system.statuc_data())
-pp.print(controller.chassis.raw_data())
+pprint(controller.shell.readings())
+pprint(controller.system.static_data())
+pprint(controller.chassis.raw_data())
 ```
+
+What is important, you can invoke methods through any connected component interface by referencing it explicitly. Above calls could be transformed to:
+
+```
+from pprint import pprint
+
+pprint(controller.components['shell']['bash'].readings())
+pprint(controller.components['system']['redfish'].static_data())
+pprint(controller.components['chassis']['redfish'].raw_data())
+
+# PowerShell is not supported yet
+#pprint(controller.components['shell']['power_shell'].readings())
+pprint(controller.components['system']['ipmi'].static_data())
+pprint(controller.components['system']['ipmi'].static_data())
+```
+
 
 See more examples in demo/demo.py
 
