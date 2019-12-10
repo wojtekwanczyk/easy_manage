@@ -32,8 +32,8 @@ setuptools.setup(
         'console_scripts': [
             'easy_manage = easy_manage.__init__:main']
     },
-    install_requires=REQUIREMENTS_LIST,
     dependency_links=[
         'http://github.com/Arcticae/python-ipmi/tarball/master#egg=python-ipmi-0'
-    ]
+    ],
+    install_requires=REQUIREMENTS_LIST
 )
