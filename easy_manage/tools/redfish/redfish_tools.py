@@ -16,11 +16,10 @@ class RedfishTools:
     "Class with useful methods to simplify communication with Devices using Redfish Standard"
 
     def __init__(self):
+        self.connector = None
         self.endpoint = None
         self.data = None
         self.last_update = None
-        self.connector = None
-        self.client = None
         self.force_fetch = None
 
     def set_force_fetch(self, value):
@@ -39,8 +38,7 @@ class RedfishTools:
         force = self.force_fetch if self.force_fetch else force
         interval_bool = self.last_update and (datetime.now() - self.last_update).seconds > interval
         if self.connector.connected and (force or (not self.last_update or interval_bool)):
-            # fetch through redfish
-            LOGGER.info("Fetching data from BMC")
+            LOGGER.debug("Fetching data from BMC")
             self.data = self._update_recurse(self.endpoint, level)
             # FIXME investigate if lines below are needed
             # for key, value in self.data.items():
@@ -49,7 +47,7 @@ class RedfishTools:
             #         break
             self.last_update = datetime.now()
         else:
-            LOGGER.info("Fetching data from memory")
+            LOGGER.debug("Fetching data from memory")
         return self.data
 
     def get_data(self, endpoint=None):
@@ -135,6 +133,7 @@ class RedfishTools:
         if (not misses and name_list) or not isinstance(data, dict):
             return None
 
+        # here we actually search for a key in a dict
         to_find = name_list[0]
         found = None
         for key, value in data.items():
