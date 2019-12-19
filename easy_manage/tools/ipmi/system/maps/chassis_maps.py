@@ -38,7 +38,7 @@ def map_chassis_capabilities(cap_object):
     if cap_object.frontpanel_lockout == 1:
         caps.append(CHASSIS_CAPABILITIES_MAP['frontpanel_lockout '])
     if cap_object.diagnostic_interrupt == 1:
-        caps.append(CHASSIS_CAPABILITIES_MAP['diagnostic_interrupt '])
+        caps.append(CHASSIS_CAPABILITIES_MAP['diagnostic_interrupt'])
     if cap_object.power_interlock == 1:
         caps.append(CHASSIS_CAPABILITIES_MAP['power_interlock'])
     return caps
